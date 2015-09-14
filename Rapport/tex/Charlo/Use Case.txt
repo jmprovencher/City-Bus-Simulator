@@ -1,0 +1,17 @@
+Primary Actor: Employé du réseau de transport de la capitale (RTC)
+
+Stakeholders and Interests:
+- Client: Veut une simulation dont la vitesse peut être personnalisée (y compris l'arrêt ou le redémarrage), et qui respecte les conditions suivantes: 
+
+Les passages et véhicules apparaissent au bon moment. Il est possible d'observer le nombre de passagers dans un véhicule en tout temps et d'observer les véhicules en temps réel, ceux-ci disparaissant arrivé à destination sauf en cas de boucle. La vitesse d'exécution doit pouvori 
+
+Success Guarantee:
+
+- Temps minimal, temps maximal et temps moyen pour franchir une distance sont correctement mesurés et sauvés.
+
+Basic Flow:
+1. L'employé débute une nouvelle simulation.
+2. L'employé sélectionne une heure de début et de fin.
+
+Extensions:
+a. N'importe quand, l'employé peut interrompre 
