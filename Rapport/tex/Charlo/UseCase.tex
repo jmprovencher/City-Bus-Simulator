@@ -5,11 +5,13 @@
 
 \textbf{Parties prenantes}:
 
-Le client veut une simulation dont bénis la vitesse peut être personnalisée (y compris l'arrêt ou le redémarrage), et qui respecte les conditions suivantes: 
+Le client veut une simulation dont la vitesse peut être personnalisée (y compris l'arrêt ou le redémarrage), et qui respecte les conditions suivantes: 
 
-- Les passagers et véhicules apparaissent au bon moment. 
-- Il est possible d'observer le nombre de passagers dans un véhicule en tout temps
-- Les véhicules doivent se déplacer visuellement durant la simulation, disparaissant arrivé à destination (sauf en cas de boucle).
+\begin{enumerate}
+	\item Les passagers et véhicules apparaissent au bon moment. 
+	\item Il est possible d'observer le nombre de passagers dans un véhicule en tout temps.
+	\item Les véhicules doivent se déplacer visuellement durant la simulation, disparaissant arrivé à destination (sauf en cas de boucle).
+\end{enumerate}
 
 \textbf{Garantie de succès}:
 
@@ -17,25 +19,33 @@ Temps minimal, temps maximal et temps moyen pour franchir une distance sont corr
 
 \textbf{Utilisation classique}:
 
-1. L'employé débute une nouvelle simulation.
-2. L'employé place à la souris une série de points correspondant à des intersections et/ou arrêts d'autobus.
-3. L'employé définit des circuits en sélection un point d'origine puis une série de points à franchir de manière consécutive.
-4. L'employé identifie des profils de passagers avec un point d'origine, un point de destination, ainsi que les segments empruntés pour 
-4. L'employé sélectionne une heure de début et de fin.
-5. L'employé démarre la simulation.
-6. Les temps associés à chaque segment du réseau sont sélectionné avec distribution triangulaire.
-7. La position des véhicules et leur nombre de passagers se mettent à jour en suivant les trajets.
-8. Pour chaque profil de passager, le temps minimal, maximal et moyen durant la simulation est calculé.
+\begin{enumerate}
+	\item L'employé débute une nouvelle simulation.
+	\item L'employé place à la souris une série de points correspondant à des intersections et/ou arrêts d'autobus.
+	\item L'employé définit des circuits en sélection un point d'origine puis une série de points à franchir de manière consécutive.
+	\item L'employé identifie des profils de passagers avec un point d'origine, un point de destination, ainsi que les segments empruntés lors du trajet.
+	\item L'employé sélectionne une heure de début et de fin.
+	\item L'employé démarre la simulation.
+	\item Les temps associés à chaque segment du réseau sont sélectionné avec distribution triangulaire.
+	\item La position des véhicules et leur nombre de passagers se mettent à jour en suivant les trajets.
+	\item Pour chaque profil de passager, le temps minimal, maximal et moyen durant la simulation est calculé.
+\end{enumerate}
 
 \textbf{Extensions}:
 
-a. N'importe quand, l'employé peut interrompre la simulation, la résumer ou la recommencer.
-b. N'importe quand durant la simulation, l'employé:
-1. Clique sur un véhicule afin d'obtenir le nombre de passagers à l'intérieur.
-2. Déplace sa souris sur la carte, affichant les coordonnées géographiques associées dans la barre d'état.
-3. Zoom/Dézoom la carte.
-c. N'importe quand lorsque la simulation n'est pas en court, l'employé:
-1. Retire un arrêt d'un circuit avec le menu contextuel, les intersections sont alors retirées.
-2. L'employé retire une intersection ou ajoute un arrêt ou une intersection avec le menu contextuel.
+\begin{enumerate}
+	\item N'importe quand, l'employé peut interrompre la simulation, la résumer ou la recommencer.
+	\item N'importe quand durant la simulation, l'employé:
+	\begin{enumerate}
+		\item Clique sur un véhicule afin d'obtenir le nombre de passagers à l'intérieur.
+		\item Déplace sa souris sur la carte, affichant les coordonnées géographiques associées dans la barre d'état.
+		\item Zoom/Dézoom la carte.
+	\end{enumerate}
+	\item N'importe quand lorsque la simulation n'est pas en court, l'employé:
+	\begin{enumerate}
+		\item Retire un arrêt d'un circuit avec le menu contextuel, les intersections sont alors retirées.
+		\item L'employé retire une intersection ou ajoute un arrêt ou une intersection avec le menu contextuel.
+	\end{enumerate}
+\end{enumerate}
 
 \textbf{Exigences spéciales}: Toutes les manipulations des éléments visuels doivent pouvoir être faites avec la souris.
