@@ -1,41 +1,41 @@
-\section{ModÃ¨le d'utilisation}
+\section{Modèle d'utilisation}
 \label{Use Case}
 
-\textbf{Acteur principal}: EmployÃ© de la ville de QuÃ©bec ou du rÃ©seau de transport de la capitale (RTC)
+\textbf{Acteur principal}: Employé de la ville de Québec ou du réseau de transport de la capitale (RTC)
 
 \textbf{Parties prenantes}:
 
-Le client veut une simulation dont bÃ©nis la vitesse peut Ãªtre personnalisÃ©e (y compris l'arrÃªt ou le redÃ©marrage), et qui respecte les conditions suivantes: 
+Le client veut une simulation dont bénis la vitesse peut être personnalisée (y compris l'arrêt ou le redémarrage), et qui respecte les conditions suivantes: 
 
-- Les passagers et vÃ©hicules apparaissent au bon moment. 
-- Il est possible d'observer le nombre de passagers dans un vÃ©hicule en tout temps
-- Les vÃ©hicules doivent se dÃ©placer visuellement durant la simulation, disparaissant arrivÃ© Ã  destination (sauf en cas de boucle).
+- Les passagers et véhicules apparaissent au bon moment. 
+- Il est possible d'observer le nombre de passagers dans un véhicule en tout temps
+- Les véhicules doivent se déplacer visuellement durant la simulation, disparaissant arrivé à destination (sauf en cas de boucle).
 
-\textbf{Garantie de succÃ¨s}:
+\textbf{Garantie de succès}:
 
-Temps minimal, temps maximal et temps moyen pour franchir une distance sont correctement mesurÃ©s et sauvÃ©s. En aucun cas il est possible d'avoir un circuit sans point de dÃ©part, de fin ou d'intersection.
+Temps minimal, temps maximal et temps moyen pour franchir une distance sont correctement mesurés et sauvés. En aucun cas il est possible d'avoir un circuit sans point de départ, de fin ou d'intersection.
 
 \textbf{Utilisation classique}:
 
-1. L'employÃ© dÃ©bute une nouvelle simulation.
-2. L'employÃ© place Ã  la souris une sÃ©rie de points correspondant Ã  des intersections et/ou arrÃªts d'autobus.
-3. L'employÃ© dÃ©finit des circuits en sÃ©lection un point d'origine puis une sÃ©rie de points Ã  franchir de maniÃ¨re consÃ©cutive.
-4. L'employÃ© identifie des profils de passagers avec un point d'origine, un point de destination, ainsi que les segments empruntÃ©s pour 
-4. L'employÃ© sÃ©lectionne une heure de dÃ©but et de fin.
-5. L'employÃ© dÃ©marre la simulation.
-6. Les temps associÃ©s Ã  chaque segment du rÃ©seau sont sÃ©lectionnÃ© avec distribution triangulaire.
-7. La position des vÃ©hicules et leur nombre de passagers se mettent Ã  jour en suivant les trajets.
-8. Pour chaque profil de passager, le temps minimal, maximal et moyen durant la simulation est calculÃ©.
+1. L'employé débute une nouvelle simulation.
+2. L'employé place à la souris une série de points correspondant à des intersections et/ou arrêts d'autobus.
+3. L'employé définit des circuits en sélection un point d'origine puis une série de points à franchir de manière consécutive.
+4. L'employé identifie des profils de passagers avec un point d'origine, un point de destination, ainsi que les segments empruntés pour 
+4. L'employé sélectionne une heure de début et de fin.
+5. L'employé démarre la simulation.
+6. Les temps associés à chaque segment du réseau sont sélectionné avec distribution triangulaire.
+7. La position des véhicules et leur nombre de passagers se mettent à jour en suivant les trajets.
+8. Pour chaque profil de passager, le temps minimal, maximal et moyen durant la simulation est calculé.
 
 \textbf{Extensions}:
 
-a. N'importe quand, l'employÃ© peut interrompre la simulation, la rÃ©sumer ou la recommencer.
-b. N'importe quand durant la simulation, l'employÃ©:
-1. Clique sur un vÃ©hicule afin d'obtenir le nombre de passagers Ã  l'intÃ©rieur.
-2. DÃ©place sa souris sur la carte, affichant les coordonnÃ©es gÃ©ographiques associÃ©es dans la barre d'Ã©tat.
-3. Zoom/DÃ©zoom la carte.
-c. N'importe quand lorsque la simulation n'est pas en court, l'employÃ©:
-1. Retire un arrÃªt d'un circuit avec le menu contextuel, les intersections sont alors retirÃ©es.
-2. L'employÃ© retire une intersection ou ajoute un arrÃªt ou une intersection avec le menu contextuel.
+a. N'importe quand, l'employé peut interrompre la simulation, la résumer ou la recommencer.
+b. N'importe quand durant la simulation, l'employé:
+1. Clique sur un véhicule afin d'obtenir le nombre de passagers à l'intérieur.
+2. Déplace sa souris sur la carte, affichant les coordonnées géographiques associées dans la barre d'état.
+3. Zoom/Dézoom la carte.
+c. N'importe quand lorsque la simulation n'est pas en court, l'employé:
+1. Retire un arrêt d'un circuit avec le menu contextuel, les intersections sont alors retirées.
+2. L'employé retire une intersection ou ajoute un arrêt ou une intersection avec le menu contextuel.
 
-\textbf{Exigences spÃ©ciales}: Toutes les manipulations des Ã©lÃ©ments visuels doivent pouvoir Ãªtre faites avec la souris.
+\textbf{Exigences spéciales}: Toutes les manipulations des éléments visuels doivent pouvoir être faites avec la souris.
