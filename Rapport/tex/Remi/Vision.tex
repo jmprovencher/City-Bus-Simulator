@@ -12,23 +12,6 @@ En plus de permettre l’optimisation et l’amélioration du RTC pour ses clients, l
 
 Les réseaux de transport en commun se complexifient de plus en plus, ce qui rend difficile leur gestion ainsi que l’analyse de leur efficacité. Il peut être difficile de déterminer les améliorations et les correctifs à apporter, entrainant des coûts sans preuves convaincantes du succès de ces modifications. C'est là qu'entre en jeu le simulateur.
 
-\subsection{Fonctionnalités}
-
-\paragraph{Création et modifications}
-\begin{itemize}
-  \item Création d’un réseau de transport en commun composé de passagers, stations, segments, véhicules et circuits.
-  \item Chaque éléments du réseau est paramétrable
-  \item Interface graphique avec interface clavier/souris, permettant la création d’un réseau avec coordonnées géographique sur un canvas vide.
-\item Sauvegarde et chargement d'un réseau simulé 
-\end{itemize}
-
-\paragraph{Simulation}
-\begin{itemize}
-  \item Affichage graphique du réseau et de ses composantes lors d’une simulation
-  \item Contrôle temporel de la simulation (Démarer, pause, ralentir, accélérer)
-  \item  Création de statistiques sur le temps minimum, moyen et maximum d’un trajet donné. 
-\end{itemize}
-
 \begin{table}[H]
 	\centering
 	\caption{Objectifs de haut niveau}
@@ -43,3 +26,22 @@ Offrir une interface utilisateur simple et rapide & Moyenne & Rendre accessible 
 
 \end{tabular}
 \end{table}
+
+\subsection{Fonctionnalités}
+
+\paragraph{Création et modifications}
+\begin{itemize}
+  \item Création d’un réseau de transport en commun composé de passagers, stations, segments, véhicules et circuits.
+  \item Chaque éléments du réseau est paramétrable
+  \item Interface graphique avec interface clavier/souris, permettant la création d’un réseau avec coordonnées géographique sur un canvas vide.
+\item Sauvegarde et chargement d'un réseau simulé 
+\end{itemize}
+
+\paragraph{Simulation}
+\begin{itemize}
+  \item Affichage graphique du réseau et de ses composantes lors d’une simulation
+  \item Contrôle temporel de la simulation (Démarer, pause, ralentir, accélérer)
+  \item Génération de temps aléatoires pour le temps d'arrivé des passagers, le temps entre les autobus et le temps pour franchir un segment.
+  \item  Création de statistiques sur le temps minimum, moyen et maximum d’un trajet donné. 
+\end{itemize}
+
