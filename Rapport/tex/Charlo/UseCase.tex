@@ -1,7 +1,18 @@
 \section{Modèle d'utilisation}
 \label{Use Case}
 
-\subsection{Acteur principal}: Employé de la ville de Québec ou du réseau de transport de la capitale (RTC)
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.35]{fig/useCaseDiagram.png}
+	\caption{Diagramme du modèle d'utilisation}
+	\label{f:useCase}
+\end{figure}
+
+SimulatHEURE doit contenir une interface utilisateur permettant au client de modifier, utiliser, sauvegarder et charger les simulations. Dans cette section, le modèle d'utilisation est décrit, incluant l'acteur principal, les garanties de succès, l'utilisation classique ainsi que les extensions et exigences spéciales devant être supportées.
+
+\subsection{Acteur principal}
+
+Employé de la ville de Québec ou du réseau de transport de la capitale (RTC)
 
 \subsection{Parties prenantes}
 
@@ -17,7 +28,7 @@ Le client veut une simulation dont la vitesse peut être personnalisée (y compris
 
 Temps minimal, temps maximal et temps moyen pour franchir une distance sont correctement mesurés et sauvés. En aucun cas il est possible d'avoir un circuit sans point de départ, de fin ou d'intersection.
 
-\subsection{Utilisation classique}
+\subsection{Utilisation courante}
 
 \begin{enumerate}
 	\item L'employé débute une nouvelle simulation.
@@ -31,7 +42,7 @@ Temps minimal, temps maximal et temps moyen pour franchir une distance sont corr
 	\item Pour chaque profil de passager, le temps minimal, maximal et moyen durant la simulation est calculé.
 \end{enumerate}
 
-\subsection{Extensions}:
+\subsection{Extensions}
 
 \begin{enumerate}
 	\item N'importe quand, l'employé peut interrompre la simulation, la résumer ou la recommencer.
