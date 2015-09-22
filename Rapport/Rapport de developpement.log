@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.9)  22 SEP 2015 13:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.9)  22 SEP 2015 14:13
 entering extended mode
 **"Rapport de developpement.tex"
 ("Rapport de developpement.tex"
@@ -509,7 +509,14 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 80.
 \c@AM@survey=\count119
 \AM@templatesizebox=\box34
 )
-("Rapport de developpement.aux")
+("Rapport de developpement.aux"
+
+LaTeX Warning: Label `Use Case' multiply defined.
+
+
+LaTeX Warning: Label `f:useCase' multiply defined.
+
+)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
@@ -524,8 +531,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 35.
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 35.
@@ -620,7 +626,7 @@ LaTeX Info: Redefining \nameref on input line 35.
 ("Rapport de developpement.out") ("Rapport de developpement.out")
 \@outlinefile=\write3
 
-<./pdf/UL_P.pdf, id=83, 546.54187pt x 229.49742pt>
+<./pdf/UL_P.pdf, id=135, 546.54187pt x 229.49742pt>
 File: ./pdf/UL_P.pdf Graphic file (type pdf)
  <use ./pdf/UL_P.pdf>
 Package pdftex.def Info: ./pdf/UL_P.pdf used on input line 35.
@@ -660,13 +666,18 @@ pdf>]
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmss.fd") [0
 
 ]
-("Rapport de developpement.toc")
+("Rapport de developpement.toc" [1
+
+
+])
 \tf@toc=\write4
- [1
-
-
-] (tex/Remi/Vision.tex
+ [2] (tex/Remi/Vision.tex
 Chapitre 1.
+
+Underfull \hbox (badness 1701) in paragraph at lines 22--22
+[]|\T1/lmr/bx/n/12 Objectifs de haut
+ []
+
 
 Underfull \hbox (badness 1320) in paragraph at lines 23--23
 []|\T1/lmr/m/n/12 Difficulté, com-plexité
@@ -717,12 +728,26 @@ Underfull \hbox (badness 4859) in paragraph at lines 26--26
 
 ]) (tex/besoins.tex [2]
 Chapitre 2.
-(tex/Charlo/UseCase.tex [3
+(tex/Charlo/UseCase.tex
+<fig/useCaseDiagram.png, id=206, 392.667pt x 413.74574pt>
+File: fig/useCaseDiagram.png Graphic file (type png)
 
-]) (tex/Sam/besoins.tex [4]))
-(tex/Jim/domainModel.tex [5]
+<use fig/useCaseDiagram.png>
+Package pdftex.def Info: fig/useCaseDiagram.png used on input line 6.
+(pdftex.def)             Requested size: 274.86502pt x 289.62004pt.
+ [3
+
+ <./fig/useCaseDiagram.png>] [4])
+(tex/Sam/besoins.tex [5]) (tex/Jim/glossaire.tex) (tex/Charlo/UseCase.tex
+File: fig/useCaseDiagram.png Graphic file (type png)
+
+<use fig/useCaseDiagram.png>
+Package pdftex.def Info: fig/useCaseDiagram.png used on input line 6.
+(pdftex.def)             Requested size: 274.86502pt x 289.62004pt.
+ [6] [7]) (tex/Sam/besoins.tex [8]))
+(tex/Jim/domainModel.tex [9]
 Chapitre 3.
-<fig/domainModel.png, id=172, 592.614pt x 336.0555pt>
+<fig/domainModel.png, id=284, 592.614pt x 336.0555pt>
 File: fig/domainModel.png Graphic file (type png)
 
 <use fig/domainModel.png>
@@ -735,7 +760,7 @@ Overfull \hbox (2.06061pt too wide) in paragraph at lines 10--11
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 41.
- [6
+ [10
 
  <./fig/domainModel.png (PNG copy)>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 41.
@@ -744,17 +769,21 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 41.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 41.
 Package rerunfilecheck Info: File `"Rapport de developpement".out' has not chan
 ged.
-(rerunfilecheck)             Checksum: 5C08F448713F6323E6C53EC502B1D774;1387.
+(rerunfilecheck)             Checksum: 751E789870E7A8F130139994969644C1;2380.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 41.
  ) 
 Here is how much of TeX's memory you used:
- 9573 strings out of 493673
- 146431 string characters out of 3141531
- 241992 words of memory out of 3000000
- 12678 multiletter control sequences out of 15000+200000
+ 9644 strings out of 493673
+ 147365 string characters out of 3141531
+ 243005 words of memory out of 3000000
+ 12701 multiletter control sequences out of 15000+200000
  52618 words of font info for 38 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 43i,11n,40p,688b,487s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 43i,11n,40p,688b,614s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files (x86)/
 MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9
@@ -762,9 +791,9 @@ MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9
 /public/lm/lmri12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/
 lmro12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb>
 
-Output written on "Rapport de developpement.pdf" (9 pages, 239754 bytes).
+Output written on "Rapport de developpement.pdf" (14 pages, 293354 bytes).
 PDF statistics:
- 214 PDF objects out of 1000 (max. 8388607)
- 55 named destinations out of 1000 (max. 500000)
- 171 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 333 PDF objects out of 1000 (max. 8388607)
+ 95 named destinations out of 1000 (max. 500000)
+ 280 words of extra memory for PDF output out of 10000 (max. 10000000)
 
