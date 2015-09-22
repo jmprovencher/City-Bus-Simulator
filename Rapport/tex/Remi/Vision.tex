@@ -2,22 +2,22 @@
 \label{Vision}
 
 \section{Introduction}
-Ce projet a pour objectif de développer l’application SimulatHEURE, commanditée par le réseau de transport de la capitale de la ville de Québec (RTC). Celle-ci permet à un utilisateur de créer, modifier et simuler un modèle de réseau de transport en commun de façon conviviale et efficace, de façon à analyser ses performances.
+Ce projet a pour objectif de développer l’application SimulatHEURE, commanditée par le réseau de transport de la capitale de la ville de Québec (RTC). Celle-ci permet à un utilisateur de créer, modifier et simuler un modèle de réseau de transport en commun de façon conviviale et efficace, afin d'analyser ses performances.
 
 \section{Opportunité commerciale}
 
-En plus de permettre l’optimisation et l’amélioration du RTC pour ses clients, l’application permet potentiellement à n’importe quel réseau de transport de simuler le développement de son réseau. En milieu urbain où la densité de population ne cesse de croitre, les réseaux de transport en commun sont vitaux au bon fonctionnement du système de transport dans son ensemble. Cette croissance démographique entraîne de façon naturelle le développement des réseaux de transport partout à travers le monde, ce qui offre un marché vaste et en pleine croissance à l’application SimulatHEURE.
+En plus de permettre l’optimisation et l’amélioration du RTC pour ses clients, l’application permet potentiellement à n’importe quel réseau de transport de simuler le développement de son réseau. En milieu urbain où la densité de population ne cesse de croitre, les réseaux de transport en commun sont vitaux au bon fonctionnement du système de transport dans son ensemble. Cette croissance démographique entraîne de façon naturelle le développement de réseaux de transport partout à travers le monde, ce qui offre un marché vaste et en pleine croissance à l’application SimulatHEURE.
 
 \section{Énoncé du problème}
 
-Les réseaux de transport en commun se complexifient de plus en plus, ce qui rend difficile leur gestion ainsi que l’analyse de leur efficacité. Il peut être difficile de déterminer les améliorations et les correctifs à apporter, entrainant des coûts sans preuves convaincantes du succès de ces modifications. C'est là qu'entre en jeu le simulateur.
+Les réseaux de transport en commun se complexifient de plus en plus, ce qui rend difficile leur gestion ainsi que l’analyse de leur efficacité. Il peut être difficile de déterminer les améliorations et les correctifs à apporter, entrainant des coûts sans preuve convaincante du succès de ces modifications. Le simulateur vise la résolution de ce problème.
 
 
 \begin{table}[H]
 	\centering
 	\caption{Objectifs de haut niveau}
 	\label{HautNiveau}
-\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|}
+\begin{tabular}{|p{5cm}|p{2cm}|p{5cm}|}
 \hline
 \textbf{Objectifs de haut niveau} & \textbf{Priorité} & \textbf{Problème}\\\hline
 Création d’un modèle de réseau de transport réaliste et simulable & Haute & Difficulté, complexité et temps nécessaire à l’analyse d’un réseau de transport sur le terrain \\\hline
@@ -34,16 +34,16 @@ Offrir une interface utilisateur simple et rapide & Moyenne & Rendre accessible 
 \paragraph{Création et modifications}
 \begin{itemize}
   \item Création d’un réseau de transport en commun composé de passagers, stations, segments, véhicules et circuits.
-  \item Chaque éléments du réseau est paramétrable
-  \item Interface graphique avec une interface clavier/souris, permettant la création d’un réseau avec coordonnées géographique sur un canvas vide.
+  \item Chaque éléments du réseau est paramétrable.
+  \item Interface graphique avec entrées clavier/souris, permettant la création d’un réseau avec coordonnées géographique sur un canvas vide.
 \item Sauvegarde et chargement d'un réseau et des résultats de simulation.
 \end{itemize}
 
 \paragraph{Simulation}
 \begin{itemize}
-  \item Affichage graphique du réseau et de ses composantes lors d’une simulation
-  \item Contrôle temporel de la simulation (Démarrer, pause, ralentir, accélérer)
-  \item Génération de temps aléatoires pour le temps d'arrivé des passagers, le temps entre les autobus et le temps pour franchir un segment.
+  \item Affichage graphique du réseau et de ses composantes lors d’une simulation.
+  \item Contrôle temporel de la simulation (Démarrer, pause, ralentir, accélérer).
+  \item Génération de temps aléatoires pour le temps d'arrivée des passagers, le temps entre les autobus et le temps pour franchir un segment.
   \item  Création de statistiques sur le temps minimum, moyen et maximum d’un trajet donné. 
 \end{itemize}
 
