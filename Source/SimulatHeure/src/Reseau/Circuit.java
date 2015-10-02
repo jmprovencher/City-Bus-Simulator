@@ -10,5 +10,19 @@ package Reseau;
  * @author Sam
  */
 public class Circuit {
+    public Circuit(int arg_numero, int arg_frequence){
+        numero = arg_numero;
+        frequence = arg_frequence;
+    }
     
+    public int req_numero(){
+        return numero;
+    }
+    
+    public int req_frequence(){
+        return frequence;
+    }
+
+    private int numero;
+    private int frequence;
 }
