@@ -10,5 +10,15 @@ package Reseau;
  * @author Sam
  */
 public class Arete {
+    public Arete(){
+        t = 0;
+    }
     
+    public int req_t(){
+        return t;
+    }
+    public void mod_t(int arg_t){
+        t= arg_t;
+    }
+    private int t;
 }
