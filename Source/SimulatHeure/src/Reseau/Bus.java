@@ -10,12 +10,19 @@ package Reseau;
  * @author Sam
  */
 public class Bus {
-    public Bus(int numeroArg, Circuit circuitActuelArg){
+    public Bus(int numeroArg, Circuit circuitActuelArg, int arg_capacite){
      
         numero = numeroArg;
         circuitActuel = circuitActuelArg;
         positionX = 0;
         positionY = 0;
+        capacite = arg_capacite;
+        nombre_passager = 0;
+    }
+   
+    public int req_capacite()
+    {
+        return capacite;
     }
     
     public void mod_positionX(int x)
@@ -28,9 +35,27 @@ public class Bus {
         positionY = y;
     }
     
-    void mod_nombre_passager(int arg_nombre_passager){
+    // retourne le nb de passager qui ne sont pas entrer
+    int ajout_nombre_passager(int arg_nombre_passager){
         
-        nombre_passager = arg_nombre_passager;
+        if (nombre_passager == capacite){
+            return arg_nombre_passager;
+        }
+        
+        if ((nombre_passager + arg_nombre_passager) < capacite){
+            nombre_passager += arg_nombre_passager;
+            return 0;
+        }
+        else{
+            int restant = arg_nombre_passager - (capacite - nombre_passager);
+            nombre_passager = capacite;
+            return restant;
+        }
+    }
+    
+    void ret_nombre_passager(int arg_nombre_passager){
+        
+        nombre_passager -= arg_nombre_passager;
     }
     
     void mod_t_service(int arg_t_service){
@@ -69,6 +94,7 @@ public class Bus {
     private int numero;
     private int positionX;
     private int positionY;
+    private int capacite;
     private Circuit circuitActuel;
     private int nombre_passager;
     private int t_service;

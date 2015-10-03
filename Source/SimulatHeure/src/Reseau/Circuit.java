@@ -36,7 +36,6 @@ public class Circuit {
         return t_parcours;
     }
     
-    
     public int req_numero(){
         return numero;
     }
