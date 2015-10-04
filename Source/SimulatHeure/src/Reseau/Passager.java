@@ -11,18 +11,27 @@ package Reseau;
  */
 public class Passager {
     public Passager(Station arg_origine, Station arg_destination){
-        origine = arg_origine;
-        destination = arg_destination;
+        station_origine = arg_origine;
+        station_destination = arg_destination;
+        station_actuelle = station_origine;
+    }
+    public Station req_actuelle(){
+        return station_actuelle;
+    }
+    
+    void mod_station_actuelle(Station arg_actuelle){
+        station_actuelle = arg_actuelle;
     }
     
     public Station req_origine(){
-        return origine;
+        return station_origine;
     }
     
     public Station req_destination(){
-        return destination;
+        return station_destination;
     }
     
-    private Station origine;
-    private Station destination;
+    private Station station_origine;
+    private Station station_actuelle;
+    private Station station_destination;
 }
