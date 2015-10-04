@@ -5,6 +5,7 @@
  */
 package simulatheure;
 
+import Reseau.*;
 import java.util.List;
 import java.io.*;
 import java.awt.*;
@@ -67,11 +68,11 @@ public class NewJFrame extends javax.swing.JFrame {
         myJPanel1.setLayout(myJPanel1Layout);
         myJPanel1Layout.setHorizontalGroup(
             myJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 516, Short.MAX_VALUE)
+            .addGap(0, 711, Short.MAX_VALUE)
         );
         myJPanel1Layout.setVerticalGroup(
             myJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 223, Short.MAX_VALUE)
+            .addGap(0, 397, Short.MAX_VALUE)
         );
 
         buttonGroup1.add(jRadioButton2);
@@ -89,22 +90,22 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 406, Short.MAX_VALUE)
                 .addComponent(jRadioButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButton1)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(22, 22, 22)
                 .addComponent(myJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(myJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(myJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jRadioButton1)
@@ -122,12 +123,19 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void myJPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myJPanel1MouseReleased
         // TODO add your handling code here:
+        int x = evt.getX();
+        int y = evt.getY();
+        myJPanel1.x = x;
+        myJPanel1.y = y;
+        if (jRadioButton2.hasFocus()){
+            jTextPane1.setText("X: "+ myJPanel1.x + "    Y:" + myJPanel1.y);
+        }
         
-        myJPanel1.x = evt.getX();
-        myJPanel1.y = evt.getY();
-        jTextPane1.setText("X: "+ myJPanel1.x + "    Y:" + myJPanel1.y);
         if (jRadioButton1.hasFocus())
         {
+            myJPanel1.s_count++;
+            myJPanel1.liste_stations.add(new Station("Station "+myJPanel1.s_count, x,y));
+            jTextPane1.setText("Last station name: " + myJPanel1.liste_stations.get(myJPanel1.liste_stations.size()-1).req_nom());
             myJPanel1.repaint();
         }
     }//GEN-LAST:event_myJPanel1MouseReleased
