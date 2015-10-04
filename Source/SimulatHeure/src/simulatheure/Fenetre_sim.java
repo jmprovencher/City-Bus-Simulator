@@ -24,7 +24,7 @@ public class Fenetre_sim extends JPanel {
         
         try
         {
-        img_station = ImageIO.read(new File("images/icon.png"));
+        img_station = ImageIO.read(getClass().getResource("/images/icon.png"));
         }
         catch (IOException e)
         {
@@ -34,7 +34,7 @@ public class Fenetre_sim extends JPanel {
         Sim = new Simulation();
     }
     
-
+    @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         for (Station s: Sim.liste_stations){
