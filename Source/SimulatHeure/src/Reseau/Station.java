@@ -24,6 +24,14 @@ public class Station {
         nb_passager = arg_nb_passager;
     }
     
+    public void mod_positionX(int x_arg){
+        positionX = x_arg;
+    }
+    
+    public void mod_positionY(int y_arg){
+        positionY = y_arg;
+    }
+    
     public int req_nb_passager(){
         return nb_passager;
     }
