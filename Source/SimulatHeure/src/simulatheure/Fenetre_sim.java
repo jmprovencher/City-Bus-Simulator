@@ -18,9 +18,9 @@ import java.util.*;
  *
  * @author rem54
  */
-public class myJPanel extends JPanel {
+public class Fenetre_sim extends JPanel {
     
-    public myJPanel(){
+    public Fenetre_sim(){
         
         try
         {
@@ -30,20 +30,21 @@ public class myJPanel extends JPanel {
         {
             
         }
-        liste_stations = new ArrayList<Station>();
-        s_count = 0;
+        img_station_size = img_station.getWidth();
+        Sim = new Simulation();
     }
     
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        for (Station s : liste_stations){
-            g.drawImage(img_station, s.req_positionX(), s.req_positionY(), null);
+        for (Station s: Sim.liste_stations){
+            g.drawImage(img_station, s.req_positionX() - img_station_size/2, s.req_positionY()- img_station_size/2, null);
         }
     }
     
-     private static BufferedImage img_station;
+     public BufferedImage img_station;
+     int img_station_size;
      public int x;
      public int y;
-     public int s_count;
-     public List<Station> liste_stations;
+     public Simulation Sim;
 }

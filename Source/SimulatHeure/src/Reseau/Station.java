@@ -16,6 +16,10 @@ public class Station {
         positionY = arg_positionY;
     }
     
+    public void mod_nom(String arg_nom){
+        nom = arg_nom;
+    }
+    
     public void mod_nb_passager(int arg_nb_passager){
         nb_passager = arg_nb_passager;
     }
