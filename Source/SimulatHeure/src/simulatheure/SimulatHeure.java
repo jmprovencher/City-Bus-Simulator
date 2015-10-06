@@ -11,6 +11,8 @@ import java.io.*;
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  *
@@ -23,11 +25,25 @@ public class SimulatHeure extends javax.swing.JFrame {
      */
     public Simulation Sim;
     public Station Station_selectionnee;
+    public Circuit Circuit_selectionnee;
+    public String Element_selectionne;
+    
+    public String Creation_circuit_etat;
+    public List<Station> parcours;
+    
+    public DefaultListModel model_selection_circuits;
     
     public SimulatHeure() {
         
         initComponents();
         Sim = fenetre_sim1.Sim;
+        Creation_circuit_etat = "Demande param";
+        parcours = new ArrayList<Station>();
+        
+        model_selection_circuits = new DefaultListModel();
+        liste_circuits.setModel(model_selection_circuits);
+        
+        Dialog_circuit.pack();
     }
 
     /**
@@ -40,47 +56,133 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        Dialog_circuit = new javax.swing.JDialog();
+        ok_dialog_circuit = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        spin_num = new javax.swing.JSpinner();
+        spin_freq = new javax.swing.JSpinner();
+        spin_t = new javax.swing.JSpinner();
+        Radio_ajouter = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        test = new javax.swing.JTextField();
+        Print = new javax.swing.JTextPane();
+        Radio_select = new javax.swing.JRadioButton();
+        text_nom = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         fenetre_sim1 = new simulatheure.Fenetre_sim();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        Radio_deplacer = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
+        Bouton_circuit = new javax.swing.JButton();
+        Bouton_supprimer = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        liste_circuits = new javax.swing.JList();
+        jLabel6 = new javax.swing.JLabel();
+
+        Dialog_circuit.setAlwaysOnTop(true);
+        Dialog_circuit.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+        Dialog_circuit.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        Dialog_circuit.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                Dialog_circuitWindowClosing(evt);
+            }
+        });
+
+        ok_dialog_circuit.setText("Ok");
+        ok_dialog_circuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ok_dialog_circuitActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Numéro");
+
+        jLabel4.setText("Fréquence");
+
+        jLabel5.setText("Temps avant premier départ");
+
+        spin_num.setModel(new javax.swing.SpinnerNumberModel(0, 0, 999, 1));
+
+        spin_freq.setModel(new javax.swing.SpinnerNumberModel(5, 0, 999, 1));
+
+        spin_t.setModel(new javax.swing.SpinnerNumberModel(0, 0, 999, 1));
+
+        javax.swing.GroupLayout Dialog_circuitLayout = new javax.swing.GroupLayout(Dialog_circuit.getContentPane());
+        Dialog_circuit.getContentPane().setLayout(Dialog_circuitLayout);
+        Dialog_circuitLayout.setHorizontalGroup(
+            Dialog_circuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                .addGroup(Dialog_circuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(Dialog_circuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)))
+                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(ok_dialog_circuit))
+                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(spin_num, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(spin_freq, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(spin_t, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        Dialog_circuitLayout.setVerticalGroup(
+            Dialog_circuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spin_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spin_freq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spin_t, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ok_dialog_circuit)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Ajouter Station");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(Radio_ajouter);
+        Radio_ajouter.setText("Ajouter Station");
+        Radio_ajouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                Radio_ajouterActionPerformed(evt);
             }
         });
 
-        jTextPane1.setToolTipText("");
-        jScrollPane1.setViewportView(jTextPane1);
+        Print.setToolTipText("");
+        jScrollPane1.setViewportView(Print);
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setLabel("Select");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(Radio_select);
+        Radio_select.setText("Selectionner");
+        Radio_select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                Radio_selectActionPerformed(evt);
             }
         });
 
-        test.setText("Nom Station");
-        test.addActionListener(new java.awt.event.ActionListener() {
+        text_nom.setText("Nom");
+        text_nom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testActionPerformed(evt);
+                text_nomActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Nom Station");
+        jLabel1.setText("Nom");
 
         fenetre_sim1.setBackground(new java.awt.Color(255, 255, 255));
         fenetre_sim1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -99,151 +201,331 @@ public class SimulatHeure extends javax.swing.JFrame {
         fenetre_sim1.setLayout(fenetre_sim1Layout);
         fenetre_sim1Layout.setHorizontalGroup(
             fenetre_sim1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
+            .addGap(0, 545, Short.MAX_VALUE)
         );
         fenetre_sim1Layout.setVerticalGroup(
             fenetre_sim1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Déplacer");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(Radio_deplacer);
+        Radio_deplacer.setText("Déplacer");
+        Radio_deplacer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                Radio_deplacerActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Supprimer");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+        jLabel2.setText("Coordonnées");
+
+        Bouton_circuit.setText("Ajouter Circuit");
+        Bouton_circuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bouton_circuitActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("jLabel2");
+        Bouton_supprimer.setText("Supprimer");
+        Bouton_supprimer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Bouton_supprimerMouseReleased(evt);
+            }
+        });
+
+        liste_circuits.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        liste_circuits.setMaximumSize(new java.awt.Dimension(100, 100));
+        liste_circuits.setMinimumSize(new java.awt.Dimension(100, 100));
+        liste_circuits.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                liste_circuitsValueChanged(evt);
+            }
+        });
+        jScrollPane3.setViewportView(liste_circuits);
+
+        jLabel6.setText("Circuits");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(fenetre_sim1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(test, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Radio_ajouter)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Radio_deplacer)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Radio_select, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1)
-                        .addGap(21, 21, 21)
-                        .addComponent(jRadioButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(28, 28, 28)
+                        .addComponent(fenetre_sim1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(Bouton_supprimer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Bouton_circuit, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(text_nom))
+                    .addComponent(jLabel6))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(test, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 354, Short.MAX_VALUE))
+                        .addComponent(text_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addGap(9, 9, 9)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(4, 4, 4)
-                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(Bouton_circuit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton2)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton3)
-                        .addComponent(jButton1)))
+                        .addComponent(Radio_ajouter)
+                        .addComponent(Radio_deplacer)
+                        .addComponent(Radio_select)
+                        .addComponent(Bouton_supprimer)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    public void creation_circuit(){
+       switch (Creation_circuit_etat){
+           
+       //deuxieme clic, crée le circuit
+       case "reset": // reset
+          Creation_circuit_etat = "Demande param";
+          Radio_ajouter.setEnabled(true);
+          Radio_deplacer.setEnabled(true);
+          Print.setText("Création de circuit annulée");
+          break;
+           
+       case "Creation":
+          if (parcours.size()>1){
+            
+            Circuit_selectionnee = Sim.ajouter_circuit(parcours, (Integer)spin_num.getValue(), (Integer)spin_freq.getValue(), (Integer)spin_t.getValue());
+            Element_selectionne = "Circuit";
+            
+            parcours.clear();
+            
+            System.out.println(Circuit_selectionnee.req_numero());
+            model_selection_circuits.addElement(Circuit_selectionnee.req_numero());
+            liste_circuits.setSelectedIndex(liste_circuits.getLastVisibleIndex());
+            Print.setText("Circuit "+ Circuit_selectionnee.req_numero()+ " créé avec succès!");
+            fenetre_sim1.repaint();
+          }
+          else{
+              Print.setText("Vous n'avez pas selectionné assez de stations!");
+          }
+          Creation_circuit_etat = "Demande param";
+          Radio_ajouter.setEnabled(true);
+          Radio_deplacer.setEnabled(true);
+          break;
+       
+        //premier clic (mode selection de stations)
+       case  "Demande param":
+           
+           //dialog
+           Dialog_circuit.setVisible(true);
+           //
+           if (Creation_circuit_etat == "reset"){
+               creation_circuit();
+               break;
+           }
+           
+           Radio_ajouter.setEnabled(false);
+           Radio_deplacer.setEnabled(false);
+           Radio_select.setSelected(true);
+           List<Station> circuit = new ArrayList<Station>();
+           Print.setText("Veuillez sélectionner la station 1 du circuit.");
+           Creation_circuit_etat = "Creation";
+           parcours.clear();
+           break;
+       default:
+           break;
+           
+       }
+    }
+    
+    
+    private void Radio_ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio_ajouterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_Radio_ajouterActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void Radio_selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio_selectActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_Radio_selectActionPerformed
 
-    private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
+    private void text_nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_nomActionPerformed
         // TODO add your handling code here:
-         Station_selectionnee.mod_nom(test.getText());
-        jTextPane1.setText("Station selectionnée: " + test.getText());
+         Station_selectionnee.mod_nom(text_nom.getText());
+        Print.setText("Station selectionnée: " + text_nom.getText());
          
-    }//GEN-LAST:event_testActionPerformed
+    }//GEN-LAST:event_text_nomActionPerformed
 
     private void fenetre_sim1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MousePressed
-        // TODO add your handling code here:
+        
+        
+        //coordonnées du clic
         int x = evt.getX();
         int y = evt.getY();
         fenetre_sim1.x = x;
         fenetre_sim1.y = y;
-        int size = fenetre_sim1.img_station_size;
-        if (jRadioButton2.isSelected()){
-            for (Station s: Sim.liste_stations){
-                if (x < s.req_positionX() +size/2 && x > s.req_positionX() -size/2){
-                    if (y < s.req_positionY() +size/2 && y > s.req_positionY() -size/2){
-                        Station_selectionnee = s;
-                        jTextPane1.setText("Station selectionnee: "+Station_selectionnee.req_nom());
-                        test.setText(Station_selectionnee.req_nom());
-                        break;
-                    }
+        
+        
+        /* -------------- Selection d'une station ------------- */
+        
+        int size = fenetre_sim1.img_station_size; //taille d'une station
+        
+        if (Radio_select.isSelected()){
+
+            Station_selectionnee = Sim.req_station_pos(x,y, size);
+            Element_selectionne = "Station";
+            if (Station_selectionnee == null){
+                
+                Print.setText("Station selectionnee: Aucune");
+                text_nom.setText("-");
+            }
+            else{
+                Print.setText("Station selectionnee: "+Station_selectionnee.req_nom());
+                text_nom.setText(Station_selectionnee.req_nom());
+            }         
+            
+            /* -------------- Ajout de station à un circuit ------------- */
+            if (Creation_circuit_etat == "Creation"){
+                if (Station_selectionnee != null ){
+                    parcours.add(Station_selectionnee);
+                    Print.setText("Station ajoutée " +Station_selectionnee.req_nom()+  " au parcours!");
+                }
+                else
+                {
+                    Print.setText("Veuillez sélectionner une station valide!");
                 }
             }
-        }
-        if (jRadioButton1.isSelected())
+         }
+                
+            
+        /* -------------- Ajout d'une station ------------- */
+        
+        if (Radio_ajouter.isSelected())
         {
-            Sim.liste_stations.add(new Station("Station "+Sim.liste_stations.size(), x,y));
-            jTextPane1.setText("Derniere station:: " + Sim.liste_stations.get(Sim.liste_stations.size()-1).req_nom());
-            test.setText(Sim.liste_stations.get(Sim.liste_stations.size()-1).req_nom());
-            Station_selectionnee = Sim.liste_stations.get(Sim.liste_stations.size()-1);
+            Station_selectionnee = Sim.ajouter_station(x, y);
+            Element_selectionne = "Station";
+            Print.setText("Derniere station:: " + Station_selectionnee.req_nom());
+            text_nom.setText(Station_selectionnee.req_nom());
+            
         }
         
-        if (jRadioButton3.isSelected()){
-            Station_selectionnee.mod_positionX(x);
-            Station_selectionnee.mod_positionY(y);
+        /* -------------- Deplacer station ------------- */
+        
+        if (Radio_deplacer.isSelected()){
+            if (Station_selectionnee != null)
+            {
+                Station_selectionnee.mod_positionX(x);
+                Station_selectionnee.mod_positionY(y);
+            }
         }
         
         
         fenetre_sim1.repaint();
     }//GEN-LAST:event_fenetre_sim1MousePressed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void Radio_deplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio_deplacerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_Radio_deplacerActionPerformed
 
     
-    //boutton supprimer
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-                    // TODO add your handling code here:
-        Sim.liste_stations.remove(Station_selectionnee);
-        Station_selectionnee = null;
-        fenetre_sim1.repaint();
-    }//GEN-LAST:event_jButton1MouseClicked
-
     private void fenetre_sim1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseMoved
-            // TODO add your handling code here:
+       
         jLabel2.setText("X:  "+evt.getX()+"  Y:  "+ evt.getY() );
     }//GEN-LAST:event_fenetre_sim1MouseMoved
+
+    private void Bouton_supprimerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bouton_supprimerMouseReleased
+        
+        if (Element_selectionne == "Station"){
+            
+            if(Sim.supprimer_station(Station_selectionnee)){
+                
+                Print.setText("Station supprimée avec succès.");
+            }
+            else{
+                if (Station_selectionnee == null){
+                    Print.setText("Il n'y a rien de selectionné à supprimer.");
+                }
+                else{
+                    Print.setText("Station ne peut être supprimée, fait partie d'un circuit.");
+                }
+            }
+            Station_selectionnee = null;
+        }
+        if (Element_selectionne == "Circuit"){
+            
+            int i = liste_circuits.getSelectedIndex();
+            if (i >= 0){
+                System.out.println("Deleting circuit at index: " +i);
+                int numero_circuit = Circuit_selectionnee.req_numero();
+                Sim.supprimer_circuit(Circuit_selectionnee);
+                model_selection_circuits.remove(i);
+                Circuit_selectionnee = null;
+                Print.setText("Circuit "+numero_circuit+ " supprimé avec succès.");
+            }
+        }
+        fenetre_sim1.repaint();
+    }//GEN-LAST:event_Bouton_supprimerMouseReleased
+
+    private void Bouton_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_circuitActionPerformed
+        // TODO add your handling code here:
+        creation_circuit();
+    }//GEN-LAST:event_Bouton_circuitActionPerformed
+
+    private void ok_dialog_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_dialog_circuitActionPerformed
+        // TODO add your handling code here:
+        Dialog_circuit.dispose();
+    }//GEN-LAST:event_ok_dialog_circuitActionPerformed
+
+    private void Dialog_circuitWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_Dialog_circuitWindowClosing
+        // TODO add your handling code here:
+        
+        Creation_circuit_etat ="reset";
+        
+    }//GEN-LAST:event_Dialog_circuitWindowClosing
+
+    private void liste_circuitsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_liste_circuitsValueChanged
+        // TODO add your handling code here:
+        //System.out.println("I GOT CALLED YO");
+       
+            int i = liste_circuits.getSelectedIndex();
+            if (i>=0){
+                
+                Circuit_selectionnee = Sim.req_circuit_index(i);
+                Element_selectionne = "Circuit";
+                Print.setText("Circuit sélectionné: "+Circuit_selectionnee.req_numero());
+            }
+            else{
+                Circuit_selectionnee = null;
+                Element_selectionne = "Circuit";
+            }
+        
+    }//GEN-LAST:event_liste_circuitsValueChanged
 
     /**
      * @param args the command line arguments
@@ -281,20 +563,33 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
     }
+   
     
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bouton_circuit;
+    private javax.swing.JButton Bouton_supprimer;
+    private javax.swing.JDialog Dialog_circuit;
+    private javax.swing.JTextPane Print;
+    private javax.swing.JRadioButton Radio_ajouter;
+    private javax.swing.JRadioButton Radio_deplacer;
+    private javax.swing.JRadioButton Radio_select;
     private javax.swing.ButtonGroup buttonGroup1;
     private simulatheure.Fenetre_sim fenetre_sim1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextField test;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList liste_circuits;
+    private javax.swing.JButton ok_dialog_circuit;
+    private javax.swing.JSpinner spin_freq;
+    private javax.swing.JSpinner spin_num;
+    private javax.swing.JSpinner spin_t;
+    private javax.swing.JTextField text_nom;
     // End of variables declaration//GEN-END:variables
 }

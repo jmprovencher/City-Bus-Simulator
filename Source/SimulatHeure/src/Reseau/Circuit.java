@@ -13,24 +13,20 @@ import java.util.*;
  * @author Sam
  */
 public class Circuit {
-    public Circuit(int arg_numero, int arg_frequence, int arg_t_depart){
+    public Circuit(int arg_numero, int arg_frequence, int arg_t_depart, List<Station> p){
         numero = arg_numero;
         frequence = arg_frequence;
         t_depart = arg_t_depart;
-        parcours = new ArrayList<Arete>();
+        parcours = new ArrayList<Station>(p);
     }
     
-    public void ajout_arete(Arete arg_arete){
-        parcours.add(arg_arete);
-        MAJ_t_parcours();
+    public void mod_numero(int arg_num){
+        numero = arg_num;
     }
     
-    public int MAJ_t_parcours(){
+    public int mod_t_parcours(){
         t_parcours = 0;
-        for (int x = 0; x < parcours.size(); x = x+1){
-            t_parcours += parcours.get(x).req_t();
-        }
-        return t_parcours;
+       return t_parcours;
     }
     public int req_t_parcours(){
         return t_parcours;
@@ -47,7 +43,16 @@ public class Circuit {
     public int req_t_depart(){
         return t_depart;
     }
-    private List<Arete> parcours;
+    
+    public Station req_station_index(int index){
+        return parcours.get(index);
+    }
+    
+    public int req_nombre_stations(){
+        return parcours.size();
+    }
+    
+    private List<Station> parcours;
     private int numero;
     private int frequence;
     private int t_depart;

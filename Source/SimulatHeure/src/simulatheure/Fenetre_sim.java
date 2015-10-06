@@ -37,13 +37,29 @@ public class Fenetre_sim extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        for (Station s: Sim.liste_stations){
-            g.drawImage(img_station, s.req_positionX() - img_station_size/2, s.req_positionY()- img_station_size/2, null);
+        for (int i = 0; i < Sim.req_nombre_stations(); i++){
+            Station station_i = Sim.req_station_index(i);
+            g.drawImage(img_station, station_i.req_positionX() - img_station_size/2, station_i.req_positionY()- img_station_size/2, null);
         }
+       for (int i = 0; i < Sim.req_nombre_circuits(); i++){
+           Circuit circuit_i = Sim.req_circuit_index(i);
+           int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+           
+           x1 = circuit_i.req_station_index(0).req_positionX();
+           y1 = circuit_i.req_station_index(0).req_positionY();
+           
+           for (int y = 1; y < circuit_i.req_nombre_stations(); y++){
+                x2 = circuit_i.req_station_index(y).req_positionX();
+                y2 = circuit_i.req_station_index(y).req_positionY();
+                g.drawLine(x1, y1, x2, y2);
+                x1 = x2;
+                y1 = y2;
+           }
+       }
     }
     
      public BufferedImage img_station;
-     int img_station_size;
+     public int img_station_size;
      public int x;
      public int y;
      public Simulation Sim;
