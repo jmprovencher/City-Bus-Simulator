@@ -16,9 +16,26 @@ public class Circuit {
     public Circuit(int arg_numero, int arg_frequence, int arg_t_depart, List<Station> p){
         numero = arg_numero;
         frequence = arg_frequence;
-        t_depart = arg_t_depart;
+        t_premier_depart = arg_t_depart;
+        t_prochain_depart = arg_t_depart;
         parcours = new ArrayList<Station>(p);
+        liste_bus = new ArrayList<Bus>();
     }
+    
+    public void reset(){
+        liste_bus.clear();
+        t_prochain_depart = t_premier_depart;
+    }
+    
+    public void ajouter_bus(){
+        liste_bus.add(new Bus(0, this, 0));
+        
+    }
+    
+    public void supprimer_bus(Bus b){
+        liste_bus.remove(b);
+    }
+    
     
     public void mod_numero(int arg_num){
         numero = arg_num;
@@ -40,8 +57,12 @@ public class Circuit {
         return frequence;
     }
     
-    public int req_t_depart(){
-        return t_depart;
+    public int req_t_prochain_depart(){
+        return t_prochain_depart;
+    }
+    
+    public void mod_t_prochain_depart(int t){
+        t_prochain_depart = t + frequence;
     }
     
     public Station req_station_index(int index){
@@ -53,8 +74,10 @@ public class Circuit {
     }
     
     private List<Station> parcours;
+    public List<Bus> liste_bus;
     private int numero;
     private int frequence;
-    private int t_depart;
+    private int t_premier_depart;
+    private int t_prochain_depart;
     private int t_parcours;
 }

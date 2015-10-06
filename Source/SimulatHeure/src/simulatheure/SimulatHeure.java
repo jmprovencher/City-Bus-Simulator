@@ -78,6 +78,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         liste_circuits = new javax.swing.JList();
         jLabel6 = new javax.swing.JLabel();
+        Bouton_simuler = new javax.swing.JButton();
+        Bouton_arreter = new javax.swing.JButton();
 
         Dialog_circuit.setAlwaysOnTop(true);
         Dialog_circuit.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
@@ -235,6 +237,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         liste_circuits.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         liste_circuits.setMaximumSize(new java.awt.Dimension(100, 100));
         liste_circuits.setMinimumSize(new java.awt.Dimension(100, 100));
+        liste_circuits.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                liste_circuitsFocusGained(evt);
+            }
+        });
         liste_circuits.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 liste_circuitsValueChanged(evt);
@@ -243,6 +250,20 @@ public class SimulatHeure extends javax.swing.JFrame {
         jScrollPane3.setViewportView(liste_circuits);
 
         jLabel6.setText("Circuits");
+
+        Bouton_simuler.setText("Simuler");
+        Bouton_simuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bouton_simulerActionPerformed(evt);
+            }
+        });
+
+        Bouton_arreter.setText("Arrêter");
+        Bouton_arreter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bouton_arreterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -266,14 +287,15 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(fenetre_sim1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1)
-                        .addComponent(Bouton_supprimer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Bouton_circuit, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(text_nom))
-                    .addComponent(jLabel6))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(Bouton_supprimer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Bouton_circuit, javax.swing.GroupLayout.PREFERRED_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(text_nom)
+                    .addComponent(jLabel6)
+                    .addComponent(Bouton_simuler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Bouton_arreter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -288,7 +310,11 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addGap(9, 9, 9)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(Bouton_simuler)
+                        .addGap(18, 18, 18)
+                        .addComponent(Bouton_arreter))
                     .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -326,9 +352,12 @@ public class SimulatHeure extends javax.swing.JFrame {
             Element_selectionne = "Circuit";
             
             parcours.clear();
-            Print.setText("Circuit "+ Circuit_selectionnee.req_numero()+ " créé avec succès!");
+            
             System.out.println(Circuit_selectionnee.req_numero());
             model_selection_circuits.addElement(Circuit_selectionnee.req_numero());
+            liste_circuits.setSelectedIndex(liste_circuits.getLastVisibleIndex());
+            Print.setText("Circuit "+ Circuit_selectionnee.req_numero()+ " créé avec succès!");
+
             fenetre_sim1.repaint();
           }
           else{
@@ -397,12 +426,16 @@ public class SimulatHeure extends javax.swing.JFrame {
         if (Radio_select.isSelected()){
 
             Station_selectionnee = Sim.req_station_pos(x,y, size);
+
+            
             if (Station_selectionnee == null){
-                Element_selectionne = "Station";
+                
+
                 Print.setText("Station selectionnee: Aucune");
                 text_nom.setText("-");
             }
             else{
+                Element_selectionne = "Station";
                 Print.setText("Station selectionnee: "+Station_selectionnee.req_nom());
                 text_nom.setText(Station_selectionnee.req_nom());
             }         
@@ -411,7 +444,9 @@ public class SimulatHeure extends javax.swing.JFrame {
             if (Creation_circuit_etat == "Creation"){
                 if (Station_selectionnee != null ){
                     parcours.add(Station_selectionnee);
-                    Print.setText("Station ajoutée au parcours!");
+
+                    Print.setText("Station ajoutée " +Station_selectionnee.req_nom()+  " au parcours!");
+
                 }
                 else
                 {
@@ -427,7 +462,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         {
             Station_selectionnee = Sim.ajouter_station(x, y);
             Element_selectionne = "Station";
-            Print.setText("Derniere station:: " + Station_selectionnee.req_nom());
+            Print.setText("Derniere station: " + Station_selectionnee.req_nom());
             text_nom.setText(Station_selectionnee.req_nom());
             
         }
@@ -457,21 +492,42 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_fenetre_sim1MouseMoved
 
     private void Bouton_supprimerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bouton_supprimerMouseReleased
+
+        
         if (Element_selectionne == "Station"){
-            Sim.supprimer_station(Station_selectionnee);
+            
+            if(Sim.supprimer_station(Station_selectionnee)){
+                
+                Print.setText("Station supprimée avec succès.");
+            }
+            else{
+                if (Station_selectionnee == null){
+                    Print.setText("Il n'y a rien de selectionné à supprimer.");
+                }
+                else{
+                    Print.setText("Station ne peut être supprimée, fait partie d'un circuit.");
+                }
+            }
             Station_selectionnee = null;
-            Print.setText("Station supprimée avec succès.");
+
         }
         if (Element_selectionne == "Circuit"){
             
             int i = liste_circuits.getSelectedIndex();
             if (i >= 0){
                 System.out.println("Deleting circuit at index: " +i);
-                
+
+                int numero_circuit = Circuit_selectionnee.req_numero();
                 Sim.supprimer_circuit(Circuit_selectionnee);
-                   model_selection_circuits.remove(i);
+                model_selection_circuits.remove(i);
                 Circuit_selectionnee = null;
-                Print.setText("Circuit supprimée avec succès.");
+                Print.setText("Circuit "+numero_circuit+ " supprimé avec succès.");
+
+            }
+            else{
+            
+                    Print.setText("Il n'y a rien de selectionné à supprimer.");
+                
             }
         }
         fenetre_sim1.repaint();
@@ -511,6 +567,25 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         
     }//GEN-LAST:event_liste_circuitsValueChanged
+    
+    
+    //nécéssaire quand il y a un seul circuit
+    private void liste_circuitsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_liste_circuitsFocusGained
+        // TODO add your handling code here:
+        liste_circuitsValueChanged(null);
+    }//GEN-LAST:event_liste_circuitsFocusGained
+
+    private void Bouton_simulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_simulerActionPerformed
+        // TODO add your handling code here:
+        Sim.Simuler();
+        fenetre_sim1.repaint();
+    }//GEN-LAST:event_Bouton_simulerActionPerformed
+
+    private void Bouton_arreterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_arreterActionPerformed
+        // TODO add your handling code here:
+        Sim.Arreter_simulation();
+         fenetre_sim1.repaint();
+    }//GEN-LAST:event_Bouton_arreterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -553,7 +628,9 @@ public class SimulatHeure extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bouton_arreter;
     private javax.swing.JButton Bouton_circuit;
+    private javax.swing.JButton Bouton_simuler;
     private javax.swing.JButton Bouton_supprimer;
     private javax.swing.JDialog Dialog_circuit;
     private javax.swing.JTextPane Print;

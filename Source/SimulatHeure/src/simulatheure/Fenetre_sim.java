@@ -25,12 +25,14 @@ public class Fenetre_sim extends JPanel {
         try
         {
         img_station = ImageIO.read(getClass().getResource("/images/icon.png"));
+        img_bus = ImageIO.read(getClass().getResource("/images/bus.png"));
         }
         catch (IOException e)
         {
             
         }
         img_station_size = img_station.getWidth();
+        img_bus_size = img_bus.getWidth();
         Sim = new Simulation();
     }
     
@@ -55,11 +57,19 @@ public class Fenetre_sim extends JPanel {
                 x1 = x2;
                 y1 = y2;
            }
+           
+           
+           for (Bus b : circuit_i.liste_bus){
+               
+                g.drawImage(img_bus, b.req_positionX() - img_bus_size/2, b.req_positionY()- img_bus_size/2, null);
+           }
        }
     }
     
      public BufferedImage img_station;
+     public BufferedImage img_bus;
      public int img_station_size;
+     public int img_bus_size;
      public int x;
      public int y;
      public Simulation Sim;

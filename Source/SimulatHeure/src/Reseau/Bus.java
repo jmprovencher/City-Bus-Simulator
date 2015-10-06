@@ -14,10 +14,24 @@ public class Bus {
      
         numero = numeroArg;
         circuitActuel = circuitActuelArg;
-        positionX = 0;
-        positionY = 0;
+        nombre_station_parcourue = 1;
+        positionX = circuitActuel.req_station_index(0).req_positionX();
+        positionY = circuitActuel.req_station_index(0).req_positionY();
         capacite = arg_capacite;
         nombre_passager = 0;
+        index_derniere_station = 0;
+    }
+    
+    public void incrementer_nombre_station_parcourue(){
+        nombre_station_parcourue++;
+    }
+    
+    public int req_nombre_station_parcourue(){
+        return nombre_station_parcourue;
+    }
+    
+    public Circuit req_circuitActuel(){
+        return circuitActuel;
     }
    
     public int req_capacite()
@@ -62,11 +76,7 @@ public class Bus {
         
         t_service = arg_t_service;
     }
-    
-    public Circuit req_circuitActuel(){
-    
-        return circuitActuel;
-    }
+
    
      public int req_numero(){
     
@@ -83,6 +93,10 @@ public class Bus {
         return positionY;
     }
     
+     public int req_index_derniere_station(){
+         return index_derniere_station;
+     }
+     
      public int req_nombre_passager(){
          return nombre_passager;
      }
@@ -90,12 +104,18 @@ public class Bus {
      public int req_t_service(){
          return t_service;
      }
+     
+     public void mod_index_derniere_station(){
+         index_derniere_station++;
+     }
     
     private int numero;
     private int positionX;
     private int positionY;
     private int capacite;
     private Circuit circuitActuel;
+    private int index_derniere_station;
+    private int nombre_station_parcourue;
     private int nombre_passager;
     private int t_service;
 }

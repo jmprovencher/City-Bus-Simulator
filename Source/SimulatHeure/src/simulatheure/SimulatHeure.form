@@ -173,15 +173,15 @@
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="Bouton_supprimer" alignment="0" max="32767" attributes="0"/>
-                      <Component id="Bouton_circuit" alignment="0" pref="114" max="32767" attributes="0"/>
-                      <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
-                      <Component id="text_nom" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="Bouton_supprimer" alignment="0" max="32767" attributes="0"/>
+                  <Component id="Bouton_circuit" alignment="0" pref="114" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
+                  <Component id="text_nom" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                  <Component id="Bouton_simuler" alignment="0" max="32767" attributes="0"/>
+                  <Component id="Bouton_arreter" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
@@ -199,7 +199,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="302" max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" min="-2" pref="209" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="Bouton_simuler" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Bouton_arreter" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="fenetre_sim1" max="32767" attributes="0"/>
               </Group>
@@ -355,6 +359,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="liste_circuitsFocusGained"/>
             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="liste_circuitsValueChanged"/>
           </Events>
         </Component>
@@ -364,6 +369,22 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Circuits"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Bouton_simuler">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Simuler"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_simulerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Bouton_arreter">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Arr&#xea;ter"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_arreterActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

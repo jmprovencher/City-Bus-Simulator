@@ -14,6 +14,7 @@ public class Station {
         nom = arg_nom;
         positionX = arg_positionX;
         positionY = arg_positionY;
+        nombre_circuits = 0;
     }
     
     public void mod_nom(String arg_nom){
@@ -32,6 +33,15 @@ public class Station {
         positionY = y_arg;
     }
     
+    public void mod_nombre_circuits(int n){
+        if (n == 1){
+            nombre_circuits++;
+        }
+        if (n == -1){
+            nombre_circuits--;
+        }
+    }
+    
     public int req_nb_passager(){
         return nb_passager;
     }
@@ -48,9 +58,14 @@ public class Station {
         return nom;
     }
     
+
+    public int req_nombre_circuits(){
+        return nombre_circuits;
+    }
+    
     private int nb_passager;
     private int positionX;
     private int positionY;
-    private int nombre_circuit;
+    private int nombre_circuits;
     private String nom;
 }
