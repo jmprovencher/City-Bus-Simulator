@@ -48,9 +48,9 @@ public class Station {
         return nom;
     }
     
-    
     private int nb_passager;
     private int positionX;
     private int positionY;
+    private int nombre_circuit;
     private String nom;
 }
