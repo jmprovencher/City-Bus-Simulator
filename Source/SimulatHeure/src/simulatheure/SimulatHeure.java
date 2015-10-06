@@ -240,7 +240,6 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
-        jInternalFrame1.setClosable(true);
         jInternalFrame1.setTitle("Circuit");
         jInternalFrame1.setAutoscrolls(true);
         jInternalFrame1.setVisible(true);
@@ -427,7 +426,6 @@ public class SimulatHeure extends javax.swing.JFrame {
             model_selection_circuits.addElement(Circuit_selectionnee.req_numero());
             liste_circuits.setSelectedIndex(liste_circuits.getLastVisibleIndex());
             Print.setText("Circuit "+ Circuit_selectionnee.req_numero()+ " créé avec succès!");
-
             fenetre_sim1.repaint();
           }
           else{
@@ -440,7 +438,7 @@ public class SimulatHeure extends javax.swing.JFrame {
        
         //premier clic (mode selection de stations)
        case  "Demande param":
-           
+           fenetre_sim1.clearSelection();
            //dialog
            Dialog_circuit.setVisible(true);
            //
@@ -492,14 +490,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         /* -------------- Selection d'une station ------------- */
         
         int size = fenetre_sim1.img_station_size; //taille d'une station
-        
+        fenetre_sim1.clearSelection();
         if (Radio_select.isSelected()){
 
             Station_selectionnee = Sim.req_station_pos(x,y, size);
 
-            
             if (Station_selectionnee == null){
-                
 
                 Print.setText("Station selectionnee: Aucune");
                 text_nom.setText("-");
@@ -514,14 +510,15 @@ public class SimulatHeure extends javax.swing.JFrame {
             if (Creation_circuit_etat == "Creation"){
                 if (Station_selectionnee != null ){
                     parcours.add(Station_selectionnee);
-
                     Print.setText("Station ajoutée " +Station_selectionnee.req_nom()+  " au parcours!");
-
+                    fenetre_sim1.selectStation(Station_selectionnee);
                 }
                 else
                 {
                     Print.setText("Veuillez sélectionner une station valide!");
                 }
+            } else {
+                fenetre_sim1.selectStation(Station_selectionnee);
             }
          }
                 
@@ -534,7 +531,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             Element_selectionne = "Station";
             Print.setText("Derniere station: " + Station_selectionnee.req_nom());
             text_nom.setText(Station_selectionnee.req_nom());
-            
+            fenetre_sim1.selectStation(Station_selectionnee);
         }
         
         /* -------------- Deplacer station ------------- */
@@ -544,6 +541,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             {
                 Station_selectionnee.mod_positionX(x);
                 Station_selectionnee.mod_positionY(y);
+                fenetre_sim1.selectStation(Station_selectionnee);
             }
         }
         

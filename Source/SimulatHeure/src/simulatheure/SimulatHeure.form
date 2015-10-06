@@ -364,7 +364,6 @@
     </Component>
     <Container class="javax.swing.JInternalFrame" name="jInternalFrame1">
       <Properties>
-        <Property name="closable" type="boolean" value="true"/>
         <Property name="title" type="java.lang.String" value="Circuit"/>
         <Property name="autoscrolls" type="boolean" value="true"/>
         <Property name="visible" type="boolean" value="true"/>
