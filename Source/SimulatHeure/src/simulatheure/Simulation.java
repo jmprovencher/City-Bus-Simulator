@@ -22,6 +22,7 @@ public class Simulation {
         return liste_stations.get(liste_stations.size()-1);
     }
     
+
     public Boolean supprimer_station(Station s){
         if (s != null && s.req_nombre_circuits() ==0)
         {
@@ -29,6 +30,7 @@ public class Simulation {
             return true; // supprimée avec succès
         }
         return false ;// n'a pas pu être supprimée
+
     }
 
     public Station req_station_pos(int arg_x, int arg_y, int taille){
@@ -53,16 +55,20 @@ public class Simulation {
     public Circuit ajouter_circuit(List<Station> p, int arg_num, int arg_freq, int arg_t_depart)
     {
         liste_circuits.add(new Circuit(arg_num,arg_freq,arg_t_depart,p));
+
         for (Station s: p){
             s.mod_nombre_circuits(1);
         }
+
         return liste_circuits.get(liste_circuits.size()-1);
     }
     
     public void supprimer_circuit(Circuit c){
+
         for (int i = 0; i<c.req_nombre_stations(); i++){
             c.req_station_index(i).mod_nombre_circuits(-1);
         }
+
         if (c != null)
         {
             liste_circuits.remove(c);

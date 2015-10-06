@@ -235,6 +235,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         liste_circuits.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         liste_circuits.setMaximumSize(new java.awt.Dimension(100, 100));
         liste_circuits.setMinimumSize(new java.awt.Dimension(100, 100));
+        liste_circuits.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                liste_circuitsFocusGained(evt);
+            }
+        });
         liste_circuits.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 liste_circuitsValueChanged(evt);
@@ -331,6 +336,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             model_selection_circuits.addElement(Circuit_selectionnee.req_numero());
             liste_circuits.setSelectedIndex(liste_circuits.getLastVisibleIndex());
             Print.setText("Circuit "+ Circuit_selectionnee.req_numero()+ " créé avec succès!");
+
             fenetre_sim1.repaint();
           }
           else{
@@ -399,13 +405,16 @@ public class SimulatHeure extends javax.swing.JFrame {
         if (Radio_select.isSelected()){
 
             Station_selectionnee = Sim.req_station_pos(x,y, size);
-            Element_selectionne = "Station";
+
+            
             if (Station_selectionnee == null){
                 
+
                 Print.setText("Station selectionnee: Aucune");
                 text_nom.setText("-");
             }
             else{
+                Element_selectionne = "Station";
                 Print.setText("Station selectionnee: "+Station_selectionnee.req_nom());
                 text_nom.setText(Station_selectionnee.req_nom());
             }         
@@ -414,7 +423,9 @@ public class SimulatHeure extends javax.swing.JFrame {
             if (Creation_circuit_etat == "Creation"){
                 if (Station_selectionnee != null ){
                     parcours.add(Station_selectionnee);
+
                     Print.setText("Station ajoutée " +Station_selectionnee.req_nom()+  " au parcours!");
+
                 }
                 else
                 {
@@ -460,6 +471,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_fenetre_sim1MouseMoved
 
     private void Bouton_supprimerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bouton_supprimerMouseReleased
+
         
         if (Element_selectionne == "Station"){
             
@@ -476,17 +488,20 @@ public class SimulatHeure extends javax.swing.JFrame {
                 }
             }
             Station_selectionnee = null;
+
         }
         if (Element_selectionne == "Circuit"){
             
             int i = liste_circuits.getSelectedIndex();
             if (i >= 0){
                 System.out.println("Deleting circuit at index: " +i);
+
                 int numero_circuit = Circuit_selectionnee.req_numero();
                 Sim.supprimer_circuit(Circuit_selectionnee);
                 model_selection_circuits.remove(i);
                 Circuit_selectionnee = null;
                 Print.setText("Circuit "+numero_circuit+ " supprimé avec succès.");
+
             }
         }
         fenetre_sim1.repaint();
@@ -526,6 +541,13 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         
     }//GEN-LAST:event_liste_circuitsValueChanged
+    
+    
+    //nécéssaire quand il y a un seul circuit
+    private void liste_circuitsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_liste_circuitsFocusGained
+        // TODO add your handling code here:
+        liste_circuitsValueChanged(null);
+    }//GEN-LAST:event_liste_circuitsFocusGained
 
     /**
      * @param args the command line arguments

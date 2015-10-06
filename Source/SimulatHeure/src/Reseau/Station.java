@@ -58,6 +58,7 @@ public class Station {
         return nom;
     }
     
+
     public int req_nombre_circuits(){
         return nombre_circuits;
     }
@@ -66,5 +67,6 @@ public class Station {
     private int positionX;
     private int positionY;
     private int nombre_circuits;
+    private int nombre_circuit;
     private String nom;
 }

@@ -10,13 +10,14 @@
 
 SimulatHEURE doit contenir une interface utilisateur permettant au client de modifier, utiliser, sauvegarder et charger les simulations. Un modèle d'utilisation décrivant l'interaction entre le client et le simulateur est fourni dans cette section. Celui-ci inclut l'acteur principal, les garanties de succès, l'utilisation classique ainsi que les extensions et exigences spéciales devant être supportées.
 
+
 \subsection{Acteur principal}
 
 Employé de la ville de Québec ou du réseau de transport de la capitale (RTC).
 
 \subsection{Parties prenantes}
 
-Le client veut une simulation dont la vitesse peut être personnalisée (y compris l'arrêt ou le redémarrage), et qui respecte les conditions suivantes: 
+Le client veut un simulateur  dont la vitesse peut être personnalisée (y compris l'arrêt ou le redémarrage), et qui respecte les conditions suivantes: 
 
 \begin{enumerate}
 	\item Les passagers et véhicules apparaissent au bon moment. 
@@ -24,39 +25,90 @@ Le client veut une simulation dont la vitesse peut être personnalisée (y compris
 	\item Les véhicules doivent se déplacer visuellement durant la simulation, disparaissant arrivé à destination (sauf en cas de boucle).
 \end{enumerate}
 
-\subsection{Garantie de succès}
+\subsection{Cas \#1: Création et sauvegarde d'une simulation}
 
-Temps minimal, temps maximal et temps moyen pour franchir une distance sont correctement mesurés et sauvés. En aucun cas il est possible d'avoir un circuit sans point de départ, de fin ou d'intersection.
+\subsubsection{Garantie de succès}
 
-\subsection{Utilisation courante}
+En aucun cas il est possible d'avoir un circuit ou un profil de passager sans point de départ, de fin ou d'intersection.
+
+\subsubsection{Scénario usuel}
 
 \begin{enumerate}
-	\item L'employé débute une nouvelle simulation.
-	\item L'employé place à la souris une série de points correspondant à des intersections et/ou arrêts d'autobus.
-	\item L'employé définit des circuits en sélection un point d'origine puis une série de points à franchir de manière consécutive.
-	\item L'employé identifie des profils de passagers avec un point d'origine, un point de destination, ainsi que les segments empruntés lors du trajet.
+	\item Le client débute le logiciel.
+	\item Le client place à la souris une série de points correspondant à des intersections et/ou arrêts d'autobus.
+	\item Le client définit des circuits en sélection un point d'origine puis une série de points à franchir de manière consécutive.
+	\item Le client identifie des profils de passagers avec un point d'origine, un point de destination, ainsi que les segments empruntés lors du trajet.
+	\item Le client enregistre la simulation en appuyant sur le bouton de sauvegarde.
+\end{enumerate}
+
+\subsubsection{Extensions}
+
+\begin{enumerate}
+	\item N'importe quand, le client:
+	\begin{enumerate}
+		\item Retire un arrêt d'un circuit avec le menu contextuel, les intersections sont alors retirées.
+		\item Retire une intersection ou ajoute un arrêt ou une intersection avec le menu contextuel.
+		\item Tente de fermer le logiciel. Le logiciel demande alors si le client veut enregistrer la simulation avant l'arrêt du programme.
+		\begin{enumerate}
+			\item Le client choisit oui: Les paramètres de simulation actuels sont enregistrés.
+			\item Le client choisit non: Le logiciel ferme immédiatement.
+			\item Le client choisit d'annuler: Le scénario usuel reprend court.
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
+
+\subsubsection{Exigences spéciales} Toutes les manipulations des éléments visuels doivent pouvoir être faites avec la souris.
+
+\subsection{Cas \#2: Charge d'une simulation}
+
+\subsubsection{Garantie de succès}
+
+Les circuits et les profils de passager chargés doivent n'avoir aucun circuit sans point de départ, de fin ou d'intersection.
+
+\subsubsection{Scénario usuel}
+
+\begin{enumerate}
+	\item Le client débute le logiciel.
+	\item Le client clique sur le bouton pour charger une simulation.
+	\item Les paramètres de simulations enregistrés sont extraites et appliquées au simulateur.
+\end{enumerate}
+
+\subsubsection{Extensions}
+
+\begin{enumerate}
+	\item Lors de la sélection de la simulation enregistrée, le client choisit d'annuler: Le scénario de création d'une simulation suit alors.
+\end{enumerate}
+
+\subsection{Cas \#3: Rouler une simulation}
+
+\subsubsection{Précondition}
+
+La simulation contient au minimum un circuit et un profil de passager valides.
+
+\subsubsection{Garantie de succès}
+
+Temps minimal, temps maximal et temps moyen pour franchir une distance sont correctement mesurés et sauvés.
+
+\subsubsection{Scénario usuel}
+
+\begin{enumerate}
 	\item L'employé sélectionne une heure de début et de fin.
-	\item L'employé démarre la simulation.
+	\item L'employé appuie sur le bouton pour démarrer la simulation.
 	\item Les temps associés à chaque segment du réseau sont sélectionné avec distribution triangulaire.
 	\item La position des véhicules et leur nombre de passagers se mettent à jour en suivant les trajets.
 	\item Pour chaque profil de passager, le temps minimal, maximal et moyen durant la simulation est calculé.
+	\item La simulation prend fin par elle-même lorsque l'heure de fin est atteinte.
 \end{enumerate}
 
-\subsection{Extensions}
+\subsubsection{Extensions}
 
 \begin{enumerate}
-	\item N'importe quand, l'employé peut interrompre la simulation, la résumer ou la recommencer.
 	\item N'importe quand durant la simulation, l'employé:
 	\begin{enumerate}
 		\item Clique sur un véhicule afin d'obtenir le nombre de passagers à l'intérieur.
 		\item Déplace sa souris sur la carte, affichant les coordonnées géographiques associées dans la barre d'état.
 		\item Zoom/Dézoom la carte.
 	\end{enumerate}
-	\item N'importe quand lorsque la simulation n'est pas en court, l'employé:
-	\begin{enumerate}
-		\item Retire un arrêt d'un circuit avec le menu contextuel, les intersections sont alors retirées.
-		\item L'employé retire une intersection ou ajoute un arrêt ou une intersection avec le menu contextuel.
-	\end{enumerate}
 \end{enumerate}
 
-\subsection{Exigences spéciales} Toutes les manipulations des éléments visuels doivent pouvoir être faites avec la souris.
+\subsubsection{Exigences spéciales} Toutes les manipulations des éléments visuels doivent pouvoir être faites avec la souris.
