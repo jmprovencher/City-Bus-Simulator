@@ -67,5 +67,6 @@ public class Station {
     private int positionX;
     private int positionY;
     private int nombre_circuits;
+
     private String nom;
 }

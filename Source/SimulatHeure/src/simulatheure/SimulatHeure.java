@@ -523,11 +523,13 @@ public class SimulatHeure extends javax.swing.JFrame {
                 Circuit_selectionnee = null;
                 Print.setText("Circuit "+numero_circuit+ " supprimé avec succès.");
 
+
             }
             else{
             
                     Print.setText("Il n'y a rien de selectionné à supprimer.");
                 
+
             }
         }
         fenetre_sim1.repaint();
@@ -575,6 +577,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         liste_circuitsValueChanged(null);
     }//GEN-LAST:event_liste_circuitsFocusGained
 
+
     private void Bouton_simulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_simulerActionPerformed
         // TODO add your handling code here:
         Sim.Simuler();
@@ -586,6 +589,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         Sim.Arreter_simulation();
          fenetre_sim1.repaint();
     }//GEN-LAST:event_Bouton_arreterActionPerformed
+
 
     /**
      * @param args the command line arguments
