@@ -35,14 +35,13 @@ public class Fenetre_sim extends JPanel {
         img_station_size = img_station.getWidth();
         img_bus_size = img_bus.getWidth();
         Sim = new Simulation();
+        
         liste_stations_selected = new ArrayList<Station>();
         liste_Aretes_selected = new ArrayList<Arete>();
         liste_Buses_selected = new ArrayList<Bus>();
     }
     
-    @Override
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
+    public void display_sim(Graphics g){
         for (int i = 0; i < Sim.req_nombre_stations(); i++){
             Station station_i = Sim.req_station_index(i);
             if (liste_stations_selected.contains(station_i)){
@@ -71,6 +70,24 @@ public class Fenetre_sim extends JPanel {
                 g.drawImage(img_bus, b.req_positionX() - img_bus_size/2, b.req_positionY()- img_bus_size/2, null);
            }
        }
+       
+       int x1 = 0, x2 = 0, y1 = 0, y2 = 0, count = 0;
+       for (Station s: Sim.parcours){
+           if (count == 0){x1 = s.req_positionX(); y1 = s.req_positionY();count++;continue;}
+           x2 = s.req_positionX();
+           y2 = s.req_positionY();
+           g.drawLine(x1,y1,x2,y2);
+           x1 = x2;
+           y1 = y2;
+           count++;
+       }
+    }
+    
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        display_sim(g);
+        
     }
     
     /*
@@ -99,7 +116,6 @@ public class Fenetre_sim extends JPanel {
      END Item selection management
     */
 
-    
      private List<Station> liste_stations_selected;
      private List<Arete> liste_Aretes_selected;
      private List<Bus> liste_Buses_selected;

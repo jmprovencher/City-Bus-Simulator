@@ -15,8 +15,10 @@ public class Simulation {
     public Simulation(){
         liste_stations = new ArrayList<Station>();
         liste_circuits= new ArrayList<Circuit>();
+        parcours = new ArrayList<Station>();
         temps = 0;
     }
+
     
     public void Simuler(){
         
@@ -62,13 +64,16 @@ public class Simulation {
         int target_x = b.req_circuitActuel().req_station_index(b.req_index_derniere_station()+1).req_positionX();
         int target_y= b.req_circuitActuel().req_station_index(b.req_index_derniere_station()+1).req_positionY();
 
-        b.mod_positionX(b.req_positionX()+(target_x - origin_x));
-        b.mod_positionY(b.req_positionY()+(target_y - origin_y));
+        b.mod_positionX(b.req_positionX()+((target_x - origin_x))/5);
+        b.mod_positionY(b.req_positionY()+((target_y - origin_y))/5);
+        b.mod_t_next_station(b.req_t_next_station() - 1);
         
-        if (b.req_positionX() == target_x && b.req_positionY() == target_y){
-            
+        if (b.req_t_next_station() == 0){
+             b.mod_positionX(target_x);
+             b.mod_positionY(target_y);
             b.mod_index_derniere_station();
             b.incrementer_nombre_station_parcourue();
+            b.mod_t_next_station(5);
         }
         return true;
     }
@@ -142,7 +147,7 @@ public class Simulation {
     }
     
 
-    
+    public List<Station> parcours;
     private List<Station> liste_stations;
     private List<Circuit> liste_circuits;
     private int temps;
