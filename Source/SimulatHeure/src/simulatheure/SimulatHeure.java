@@ -422,7 +422,6 @@ public class SimulatHeure extends javax.swing.JFrame {
             
             parcours.clear();
             
-            System.out.println(Circuit_selectionnee.req_numero());
             model_selection_circuits.addElement(Circuit_selectionnee.req_numero());
             liste_circuits.setSelectedIndex(liste_circuits.getLastVisibleIndex());
             Print.setText("Circuit "+ Circuit_selectionnee.req_numero()+ " créé avec succès!");
@@ -442,6 +441,7 @@ public class SimulatHeure extends javax.swing.JFrame {
            //dialog
            Dialog_circuit.setVisible(true);
            //
+           // cas ou on pese sur le X du dialog
            if (Creation_circuit_etat == "reset"){
                creation_circuit();
                break;
@@ -486,13 +486,14 @@ public class SimulatHeure extends javax.swing.JFrame {
         fenetre_sim1.x = x;
         fenetre_sim1.y = y;
         
-        
+        fenetre_sim1.clearSelection();
         /* -------------- Selection d'une station ------------- */
         
         int size = fenetre_sim1.img_station_size; //taille d'une station
-        fenetre_sim1.clearSelection();
+        
         if (Radio_select.isSelected()){
-
+            
+            //va cherc la station correspondant au clic
             Station_selectionnee = Sim.req_station_pos(x,y, size);
 
             if (Station_selectionnee == null){
@@ -517,7 +518,8 @@ public class SimulatHeure extends javax.swing.JFrame {
                 {
                     Print.setText("Veuillez sélectionner une station valide!");
                 }
-            } else {
+            }
+            else {
                 fenetre_sim1.selectStation(Station_selectionnee);
             }
          }
