@@ -7,6 +7,7 @@ package simulatheure;
 
 import java.util.*;
 import Reseau.*;
+
 /**
  *
  * @author rem54
@@ -16,8 +17,11 @@ public class Simulation {
         liste_stations = new ArrayList<Station>();
         liste_circuits= new ArrayList<Circuit>();
         parcours = new ArrayList<Station>();
-        temps = 0;
+        count = 0;
+
     }
+
+    
 
     
     public void Simuler(){
@@ -36,47 +40,72 @@ public class Simulation {
                 c.supprimer_bus(bus_terminee);
             }
             
-            if (c.req_t_prochain_depart() == temps){
-                c.ajouter_bus();
-                c.mod_t_prochain_depart(temps);
+            if ((int)(c.req_t_prochain_depart()*(1000/(freq))) == count){
+                Bus newBus = c.ajouter_bus();
+                newBus.setSpeed(60);
+                c.mod_t_prochain_depart();
             }
+            
         }
-        temps++;
+        
+        count++;
     }
     
     public void Arreter_simulation(){
-        temps = 0;
+        count = 0;
         for (Circuit c: liste_circuits){
             c.reset();
         }
     }
     
     public Boolean deplacer_bus(Bus b){
-        int origin_x = b.req_circuitActuel().req_station_index(b.req_index_derniere_station()).req_positionX();
-        int origin_y = b.req_circuitActuel().req_station_index(b.req_index_derniere_station()).req_positionY();
-        
+              
         if (b.req_circuitActuel().req_nombre_stations() == b.req_nombre_station_parcourue()){
-           //DELETE LA BUS YO
-
-            return false;
+          return false;
         }
+        double origin_x = b.req_positionX();
+        double origin_y = b.req_positionY();
         
+        double relativeSpeed = (b.reqSpeed())*freq/1000;
         int target_x = b.req_circuitActuel().req_station_index(b.req_index_derniere_station()+1).req_positionX();
         int target_y= b.req_circuitActuel().req_station_index(b.req_index_derniere_station()+1).req_positionY();
-
-        b.mod_positionX(b.req_positionX()+((target_x - origin_x))/5);
-        b.mod_positionY(b.req_positionY()+((target_y - origin_y))/5);
-        b.mod_t_next_station(b.req_t_next_station() - 1);
         
-        if (b.req_t_next_station() == 0){
-             b.mod_positionX(target_x);
-             b.mod_positionY(target_y);
+        double angle;
+        
+        angle = Math.atan((double)(target_y-origin_y)/(double)(target_x-origin_x));
+        
+        if (target_x == origin_x){
+            if (target_y > origin_y){
+                angle = Math.PI/2;
+            }
+            else{
+                angle = -(Math.PI/2);
+            }
+        }
+
+        if (target_x - origin_x <= 0){
+            b.mod_positionX(b.req_positionX()- (Math.cos(angle)*relativeSpeed));
+            b.mod_positionY(b.req_positionY()- (Math.sin(angle)*relativeSpeed));
+        }
+        else{
+            b.mod_positionX((b.req_positionX()+ (Math.cos(angle)*relativeSpeed)));
+            b.mod_positionY((b.req_positionY()+ (Math.sin(angle)*relativeSpeed)));
+        }
+
+        b.update_t_next_station();
+        
+        if (b.req_t_next_station() <= freq/1000){
+
+            b.mod_positionX(target_x);
+            b.mod_positionY(target_y);
+            // fonction qui fait tout ça....
             b.mod_index_derniere_station();
             b.incrementer_nombre_station_parcourue();
-            b.mod_t_next_station(5);
+            b.update_t_next_station();
         }
         return true;
     }
+    
     
     public Station ajouter_station(int arg_x, int arg_y)
     {
@@ -150,5 +179,7 @@ public class Simulation {
     public List<Station> parcours;
     private List<Station> liste_stations;
     private List<Circuit> liste_circuits;
-    private int temps;
+    public int count;
+    public double freq;
+
 }

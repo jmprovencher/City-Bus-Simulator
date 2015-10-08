@@ -27,8 +27,10 @@ public class Circuit {
         t_prochain_depart = t_premier_depart;
     }
     
-    public void ajouter_bus(){
-        liste_bus.add(new Bus(0, this, 0));
+    public Bus ajouter_bus(){
+        Bus newBus = new Bus(0, this, 0);
+        liste_bus.add(newBus);
+        return newBus;
         
     }
     
@@ -61,8 +63,8 @@ public class Circuit {
         return t_prochain_depart;
     }
     
-    public void mod_t_prochain_depart(int t){
-        t_prochain_depart = t + frequence;
+    public void mod_t_prochain_depart(){
+        t_prochain_depart += frequence;
     }
     
     public Station req_station_index(int index){

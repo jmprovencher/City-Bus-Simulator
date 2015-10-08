@@ -5,6 +5,7 @@
  */
 package Reseau;
 
+
 /**
  *
  * @author Sam
@@ -20,9 +21,18 @@ public class Bus {
         capacite = arg_capacite;
         nombre_passager = 0;
         index_derniere_station = 0;
-        t_next_station = 5; //test
+        speed = 60;
+        t_next_station = (getDistanceNextStation()/speed);
     }
     
+    public void setSpeed(double s){
+        speed = s;
+    }
+    
+    
+    public double reqSpeed(){
+        return speed;
+    }
     public void incrementer_nombre_station_parcourue(){
         nombre_station_parcourue++;
     }
@@ -40,12 +50,12 @@ public class Bus {
         return capacite;
     }
     
-    public void mod_positionX(int x)
+    public void mod_positionX(double x)
     {
         positionX = x;
     }
     
-    public void mod_positionY(int y)
+    public void mod_positionY(double y)
     {
         positionY = y;
     }
@@ -73,9 +83,13 @@ public class Bus {
         nombre_passager -= arg_nombre_passager;
     }
     
-    public void mod_t_next_station(int arg_t){
+    public void update_t_next_station(){
         
-        t_next_station = arg_t;
+        t_next_station = (getDistanceNextStation()/speed);
+    }
+    
+    public void decrement_t_next_station(){
+        t_next_station--;
     }
 
    
@@ -84,12 +98,12 @@ public class Bus {
         return numero;
     }
      
-     public int req_positionX(){
+     public double req_positionX(){
     
         return positionX;
     }
           
-     public int req_positionY(){
+     public double req_positionY(){
     
         return positionY;
     }
@@ -102,21 +116,36 @@ public class Bus {
          return nombre_passager;
      }
      
-     public int req_t_next_station(){
+     public double req_t_next_station(){
          return t_next_station;
      }
      
      public void mod_index_derniere_station(){
          index_derniere_station++;
      }
+     
+     public double getDistanceNextStation(){
+         double x1, x2, y1, y2;
+         if (index_derniere_station+1 == circuitActuel.req_nombre_stations()){
+             return 0;
+         }
+         x1 = positionX;
+         x2 = circuitActuel.req_station_index(index_derniere_station+1).req_positionX();
+         y1 = positionY;
+         y2 = circuitActuel.req_station_index(index_derniere_station+1).req_positionY();
+         
+         double distance = Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+         return distance;
+     }
     
+    private double speed;
     private int numero;
-    private int positionX;
-    private int positionY;
+    private double positionX;
+    private double positionY;
     private int capacite;
     private Circuit circuitActuel;
     private int index_derniere_station;
     private int nombre_station_parcourue;
     private int nombre_passager;
-    private int t_next_station;
+    private double t_next_station;
 }

@@ -215,14 +215,15 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Radio_select" min="-2" pref="107" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="Bouton_arreter" min="-2" pref="114" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="Bouton_simuler" min="-2" pref="114" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="Bouton_arreter" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="Bouton_simuler" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="sim_duration" min="-2" pref="54" max="-2" attributes="0"/>
-                              <EmptySpace pref="58" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="simulation_speed" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -243,16 +244,19 @@
                   <Component id="fenetre_sim1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Bouton_simuler" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Bouton_arreter" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Radio_ajouter" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Radio_deplacer" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Radio_select" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="sim_duration" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Bouton_simuler" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Bouton_arreter" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Radio_ajouter" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Radio_deplacer" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Radio_select" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sim_duration" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="simulation_speed" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -306,7 +310,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Radio_selectActionPerformed"/>
       </Events>
     </Component>
-    <Container class="simulatheure.Fenetre_sim" name="fenetre_sim1">
+    <Container class="simulatheure.FenetreSim" name="fenetre_sim1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -495,6 +499,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Dur&#xe9;e"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JSlider" name="simulation_speed">
+      <Properties>
+        <Property name="minimum" type="int" value="1"/>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="simulation_speedStateChanged"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

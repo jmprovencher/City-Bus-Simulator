@@ -29,8 +29,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     public String Element_selectionne;
     public Thread thread;
     public String Creation_circuit_etat;
-    
-    int thread_run;
+    public SimTimer simTimer;
     
     
     public DefaultListModel model_selection_circuits;
@@ -40,12 +39,10 @@ public class SimulatHeure extends javax.swing.JFrame {
         initComponents();
         Sim = fenetre_sim1.Sim;
         Creation_circuit_etat = "Demande param";
-        
-        
         model_selection_circuits = new DefaultListModel();
         liste_circuits.setModel(model_selection_circuits);
-        thread_run = 0;
         Dialog_circuit.pack();
+        simTimer = new SimTimer(Sim);
     }
 
     /**
@@ -71,7 +68,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Print = new javax.swing.JTextPane();
         Radio_select = new javax.swing.JRadioButton();
-        fenetre_sim1 = new simulatheure.Fenetre_sim();
+        fenetre_sim1 = new simulatheure.FenetreSim();
         Radio_deplacer = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         Bouton_simuler = new javax.swing.JButton();
@@ -87,6 +84,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         sim_duration = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        simulation_speed = new javax.swing.JSlider();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -333,6 +331,13 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jLabel7.setText("Durée");
 
+        simulation_speed.setMinimum(1);
+        simulation_speed.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                simulation_speedStateChanged(evt);
+            }
+        });
+
         jMenu1.setText("Fichier");
         jMenuBar1.add(jMenu1);
 
@@ -382,14 +387,15 @@ public class SimulatHeure extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Radio_select, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Bouton_arreter, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Bouton_simuler, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
+                                .addComponent(Bouton_arreter)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Bouton_simuler)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(sim_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(simulation_speed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -402,15 +408,17 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Bouton_simuler)
-                    .addComponent(Bouton_arreter)
-                    .addComponent(Radio_ajouter)
-                    .addComponent(Radio_deplacer)
-                    .addComponent(Radio_select)
-                    .addComponent(sim_duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Bouton_simuler)
+                        .addComponent(Bouton_arreter)
+                        .addComponent(Radio_ajouter)
+                        .addComponent(Radio_deplacer)
+                        .addComponent(Radio_select)
+                        .addComponent(sim_duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,6 +488,8 @@ public class SimulatHeure extends javax.swing.JFrame {
            
        }
     }
+    
+    
     
     
     private void Radio_ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio_ajouterActionPerformed
@@ -667,48 +677,21 @@ public class SimulatHeure extends javax.swing.JFrame {
 
 
     private void Bouton_simulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_simulerActionPerformed
-        // TODO add your handling code here:
-        int time  = Integer.parseInt(sim_duration.getText());
-        System.out.println(time);
-        Runnable myRunnable = new Runnable(){
-        int i = 0;
-        
-        public void run(){
-            while (i<=time && thread_run == 1){
-               Sim.Simuler();
-               fenetre_sim1.repaint();
-               try {
-                   Thread.sleep(1000);                 //1000 milliseconds is one second.
-               } 
-               catch(InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-               }
-               i++;
-            }
+        if (!simTimer.running){
             
-            Sim.Arreter_simulation();
-            fenetre_sim1.repaint();
-            thread_run = 0;
-            
-            }
-        };
-        
-        if (thread_run == 0 ) {
-            thread_run  = 1;
-            thread = new Thread(myRunnable);
-            thread.start();
-        }
-        
-        
+        simTimer.setSimSpeed(simulation_speed.getValue()/4);
+        simTimer.start(Integer.parseInt(sim_duration.getText()), 16);
+        fenetre_sim1.displayTimer.start();
+                }
+
     }//GEN-LAST:event_Bouton_simulerActionPerformed
 
     private void Bouton_arreterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_arreterActionPerformed
         // TODO add your handling code here:
         
-        
-        Sim.Arreter_simulation();
-        thread_run  =0;
-         fenetre_sim1.repaint();
+            simTimer.stop();
+            fenetre_sim1.displayTimer.stop();
+            fenetre_sim1.repaint();
          
     }//GEN-LAST:event_Bouton_arreterActionPerformed
 
@@ -719,6 +702,11 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void sim_durationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sim_durationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sim_durationActionPerformed
+
+    private void simulation_speedStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_simulation_speedStateChanged
+        // TODO add your handling code here:
+        simTimer.setSimSpeed(simulation_speed.getValue()/4);
+    }//GEN-LAST:event_simulation_speedStateChanged
 
 
     /**
@@ -772,7 +760,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JRadioButton Radio_deplacer;
     private javax.swing.JRadioButton Radio_select;
     private javax.swing.ButtonGroup buttonGroup1;
-    private simulatheure.Fenetre_sim fenetre_sim1;
+    private simulatheure.FenetreSim fenetre_sim1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -794,6 +782,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JList liste_circuits;
     private javax.swing.JButton ok_dialog_circuit;
     private javax.swing.JTextField sim_duration;
+    private javax.swing.JSlider simulation_speed;
     private javax.swing.JSpinner spin_freq;
     private javax.swing.JSpinner spin_num;
     private javax.swing.JSpinner spin_t;

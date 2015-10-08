@@ -10,6 +10,8 @@ import Reseau.*;
 import javax.swing.*;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -18,9 +20,9 @@ import java.util.*;
  *
  * @author rem54
  */
-public class Fenetre_sim extends JPanel {
+public class FenetreSim extends JPanel {
         
-    public Fenetre_sim(){
+    public FenetreSim(){
         
         try
         {
@@ -39,9 +41,21 @@ public class Fenetre_sim extends JPanel {
         liste_stations_selected = new ArrayList<Station>();
         liste_Aretes_selected = new ArrayList<Arete>();
         liste_Buses_selected = new ArrayList<Bus>();
+        
+        ActionListener action = new ActionListener()
+        {   
+            @Override
+            public void actionPerformed(ActionEvent event)
+            {
+                repaint();
+            }
+        };
+        displayTimer = new javax.swing.Timer(16, action);
     }
     
     public void display_sim(Graphics g){
+        
+        g.drawString("Temps: "+Sim.freq*Sim.count/1000, 10, 20);
         for (int i = 0; i < Sim.req_nombre_stations(); i++){
             Station station_i = Sim.req_station_index(i);
             if (liste_stations_selected.contains(station_i)){
@@ -67,7 +81,7 @@ public class Fenetre_sim extends JPanel {
            
            
            for (Bus b : circuit_i.liste_bus){
-                g.drawImage(img_bus, b.req_positionX() - img_bus_size/2, b.req_positionY()- img_bus_size/2, null);
+                g.drawImage(img_bus, (int)b.req_positionX() - img_bus_size/2, (int)b.req_positionY()- img_bus_size/2, null);
            }
        }
        
@@ -115,7 +129,7 @@ public class Fenetre_sim extends JPanel {
     /*
      END Item selection management
     */
-
+     public javax.swing.Timer displayTimer;
      private List<Station> liste_stations_selected;
      private List<Arete> liste_Aretes_selected;
      private List<Bus> liste_Buses_selected;
