@@ -38,10 +38,12 @@ public class FenetreSim extends JPanel {
         img_bus_size = img_bus.getWidth();
         Sim = new Simulation();
         
-        liste_stations_selected = new ArrayList<Station>();
+        liste_Noeuds_selected = new ArrayList<Noeud>();
         liste_Aretes_selected = new ArrayList<Arete>();
         liste_Buses_selected = new ArrayList<Bus>();
         
+        
+        /* ----------------- GRAPHIC CONTROL TIMER ------------------ */
         ActionListener action = new ActionListener()
         {   
             @Override
@@ -50,43 +52,28 @@ public class FenetreSim extends JPanel {
                 repaint();
             }
         };
+        
         displayTimer = new javax.swing.Timer(16, action);
     }
     
     public void display_sim(Graphics g){
         
         g.drawString("Temps: "+Sim.freq*Sim.count/1000, 10, 20);
-        for (int i = 0; i < Sim.req_nombre_stations(); i++){
-            Station station_i = Sim.req_station_index(i);
-            if (liste_stations_selected.contains(station_i)){
-                g.drawImage(img_station_selected, station_i.req_positionX() - img_station_size/2, station_i.req_positionY()- img_station_size/2, null);
-            } else {
-                g.drawImage(img_station, station_i.req_positionX() - img_station_size/2, station_i.req_positionY()- img_station_size/2, null);    
-            }
-        }
+        
+
+        
+        
        for (int i = 0; i < Sim.req_nombre_circuits(); i++){
            Circuit circuit_i = Sim.req_circuit_index(i);
-           int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
            
-           x1 = circuit_i.req_station_index(0).req_positionX();
-           y1 = circuit_i.req_station_index(0).req_positionY();
-           
-           for (int y = 1; y < circuit_i.req_nombre_stations(); y++){
-                x2 = circuit_i.req_station_index(y).req_positionX();
-                y2 = circuit_i.req_station_index(y).req_positionY();
-                g.drawLine(x1, y1, x2, y2);
-                x1 = x2;
-                y1 = y2;
-           }
-           
-           
+ 
            for (Bus b : circuit_i.liste_bus){
                 g.drawImage(img_bus, (int)b.req_positionX() - img_bus_size/2, (int)b.req_positionY()- img_bus_size/2, null);
            }
        }
        
        int x1 = 0, x2 = 0, y1 = 0, y2 = 0, count = 0;
-       for (Station s: Sim.parcours){
+       for (Noeud s: Sim.parcours){
            if (count == 0){x1 = s.req_positionX(); y1 = s.req_positionY();count++;continue;}
            x2 = s.req_positionX();
            y2 = s.req_positionY();
@@ -95,6 +82,24 @@ public class FenetreSim extends JPanel {
            y1 = y2;
            count++;
        }
+       for (Arete a: Sim.liste_aretes){
+           g.drawLine((int)a.line.getX1(), (int)a.line.getY1(), (int)a.line.getX2(),(int)a.line.getY2());
+       }
+       for (Noeud n: Sim.liste_noeuds){
+           if (liste_Noeuds_selected.contains(n)){
+                   g.drawOval(n.req_positionX()-25, n.req_positionY()-25, 50, 50);
+           }
+           if(!n.isStation){
+                g.drawRect(n.req_positionX()-5, n.req_positionY()-5, 10, 10);
+           }
+           else{
+
+               
+                    g.drawImage(img_station, n.req_positionX() - img_station_size/2, n.req_positionY()- img_station_size/2, null);    
+               
+               }
+       }
+       
     }
     
     @Override
@@ -108,8 +113,8 @@ public class FenetreSim extends JPanel {
     Item selection management
     */
     
-    public void selectStation(Station st){
-        liste_stations_selected.add(st);
+    public void selectNoeud(Noeud n){
+        liste_Noeuds_selected.add(n);
     }
     
     public void selectArete(Arete arr){
@@ -121,7 +126,7 @@ public class FenetreSim extends JPanel {
     }
     
     public void clearSelection(){
-        liste_stations_selected.clear();
+        liste_Noeuds_selected.clear();
         liste_Aretes_selected.clear();
         liste_Buses_selected.clear();
     }
@@ -130,7 +135,7 @@ public class FenetreSim extends JPanel {
      END Item selection management
     */
      public javax.swing.Timer displayTimer;
-     private List<Station> liste_stations_selected;
+     private List<Noeud> liste_Noeuds_selected;
      private List<Arete> liste_Aretes_selected;
      private List<Bus> liste_Buses_selected;
      public BufferedImage img_station;

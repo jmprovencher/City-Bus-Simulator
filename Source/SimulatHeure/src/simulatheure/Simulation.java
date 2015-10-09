@@ -14,9 +14,11 @@ import Reseau.*;
  */
 public class Simulation {
     public Simulation(){
-        liste_stations = new ArrayList<Station>();
+
         liste_circuits= new ArrayList<Circuit>();
-        parcours = new ArrayList<Station>();
+        parcours = new ArrayList<Noeud>();
+        liste_aretes = new ArrayList<Arete>();
+        liste_noeuds = new ArrayList<Noeud>();
         count = 0;
 
     }
@@ -60,15 +62,15 @@ public class Simulation {
     
     public Boolean deplacer_bus(Bus b){
               
-        if (b.req_circuitActuel().req_nombre_stations() == b.req_nombre_station_parcourue()){
+        if (b.req_circuitActuel().req_nombre_noeuds() == b.req_nombre_noeud_parcourue()){
           return false;
         }
         double origin_x = b.req_positionX();
         double origin_y = b.req_positionY();
         
         double relativeSpeed = (b.reqSpeed())*freq/1000;
-        int target_x = b.req_circuitActuel().req_station_index(b.req_index_derniere_station()+1).req_positionX();
-        int target_y= b.req_circuitActuel().req_station_index(b.req_index_derniere_station()+1).req_positionY();
+        int target_x = b.req_circuitActuel().req_noeud_index(b.req_index_derniere_noeud()+1).req_positionX();
+        int target_y= b.req_circuitActuel().req_noeud_index(b.req_index_derniere_noeud()+1).req_positionY();
         
         double angle;
         
@@ -92,63 +94,90 @@ public class Simulation {
             b.mod_positionY((b.req_positionY()+ (Math.sin(angle)*relativeSpeed)));
         }
 
-        b.update_t_next_station();
+        b.update_t_next_noeud();
         
-        if (b.req_t_next_station() <= freq/1000){
+        if (b.req_t_next_noeud() <= freq/1000){
 
             b.mod_positionX(target_x);
             b.mod_positionY(target_y);
             // fonction qui fait tout ça....
-            b.mod_index_derniere_station();
-            b.incrementer_nombre_station_parcourue();
-            b.update_t_next_station();
+            b.mod_index_dernier_noeud();
+            b.incrementer_nombre_noeud_parcourue();
+            b.update_t_next_noeud();
         }
         return true;
     }
     
     
-    public Station ajouter_station(int arg_x, int arg_y)
+    public Noeud ajouter_station(Noeud n)
     {
-        liste_stations.add(new Station("Station "+liste_stations.size(), arg_x,arg_y));
-        return liste_stations.get(liste_stations.size()-1);
+        n.setStation("Station");
+        return n;
     }
     
 
-    public Boolean supprimer_station(Station s){
-        if (s != null && s.req_nombre_circuits() ==0)
+    public Boolean supprimer_noeud(Noeud n){
+        if (n != null)
         {
-            liste_stations.remove(s);
+            if (n.isStation){
+                n.deleteStation();
+            }
+            else{
+                int size = n.listAretes.size();
+                for (int i = 0; i < size; i++){
+                    Arete a = n.listAretes.get(0);
+                    a.delete();
+                    
+                    if(n != a.origine && a.origine.listAretes.isEmpty()){
+                        liste_noeuds.remove(a.origine);
+                    }
+                    if(n != a.destination && a.destination.listAretes.isEmpty()){
+                        liste_noeuds.remove(a.destination);
+                    }
+                    liste_aretes.remove(a);
+                }
+                liste_noeuds.remove(n);
+                
+            }
             return true; // supprimée avec succès
         }
         return false ;// n'a pas pu être supprimée
 
     }
 
-    public Station req_station_pos(int arg_x, int arg_y, int taille){
-          for (Station s: liste_stations){
-               if (arg_x < s.req_positionX() +taille/2 && arg_x > s.req_positionX() -taille/2){
-                   if (arg_y < s.req_positionY() +taille/2 && arg_y > s.req_positionY() -taille/2){
-                       return s;
+
+    public Noeud req_noeud_pos(int arg_x, int arg_y, int arg_taille, int argTailleStation){
+        int taille;
+          for (Noeud n: liste_noeuds){
+              if (n.isStation){
+                  taille = argTailleStation;
+              }
+              else{
+                  taille = arg_taille;
+              }
+               if (arg_x < n.req_positionX() +taille/2 && arg_x > n.req_positionX() -taille/2){
+                   if (arg_y < n.req_positionY() +taille/2 && arg_y > n.req_positionY() -taille/2){
+                       return n;
                    }
                }
           }
           return null;
     }
     
-    public Station req_station_index(int index){
-        return liste_stations.get(index);
+    public Noeud req_noeud_index(int index){
+        return liste_noeuds.get(index);
     }
     
-    public int req_nombre_stations(){
-        return liste_stations.size();
+    public int req_nombre_noeud(){
+        return liste_noeuds.size();
     }
     
-    public Circuit ajouter_circuit(List<Station> p, int arg_num, int arg_freq, int arg_t_depart)
+    public Circuit ajouter_circuit(List<Noeud> p, int arg_num, int arg_freq, int arg_t_depart)
     {
         liste_circuits.add(new Circuit(arg_num,arg_freq,arg_t_depart,p));
 
-        for (Station s: p){
-            s.mod_nombre_circuits(1);
+        for (Noeud n: p){
+            n.mod_nombre_circuits(1);
         }
 
         return liste_circuits.get(liste_circuits.size()-1);
@@ -156,8 +185,8 @@ public class Simulation {
     
     public void supprimer_circuit(Circuit c){
 
-        for (int i = 0; i<c.req_nombre_stations(); i++){
-            c.req_station_index(i).mod_nombre_circuits(-1);
+        for (int i = 0; i<c.req_nombre_noeuds(); i++){
+            c.req_noeud_index(i).mod_nombre_circuits(-1);
         }
 
         if (c != null)
@@ -166,6 +195,21 @@ public class Simulation {
         }
     }
     
+    public Arete addLine(Noeud noeud1, Noeud noeud2){
+        
+        if (!liste_noeuds.contains(noeud1)){
+            liste_noeuds.add(noeud1);
+        }
+        if (!liste_noeuds.contains(noeud2)){
+            liste_noeuds.add(noeud2);
+        }
+
+        Arete newArete = new Arete(noeud1, noeud2);
+        liste_aretes.add(newArete);
+        return newArete;   
+    }
+    
+
     public int req_nombre_circuits()
     {
         return liste_circuits.size();
@@ -175,10 +219,17 @@ public class Simulation {
         return liste_circuits.get(index);
     }
     
+    public void updateArete(){
+        for (Arete a: liste_aretes){
+            a.update();
+        }
+    }
+    
 
-    public List<Station> parcours;
-    private List<Station> liste_stations;
+    public List<Noeud> parcours;
     private List<Circuit> liste_circuits;
+    public List<Arete> liste_aretes;
+    public List<Noeud> liste_noeuds;
     public int count;
     public double freq;
 

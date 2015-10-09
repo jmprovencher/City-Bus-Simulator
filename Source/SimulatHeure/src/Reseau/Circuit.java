@@ -13,12 +13,12 @@ import java.util.*;
  * @author Sam
  */
 public class Circuit {
-    public Circuit(int arg_numero, int arg_frequence, int arg_t_depart, List<Station> p){
+    public Circuit(int arg_numero, int arg_frequence, int arg_t_depart, List<Noeud> p){
         numero = arg_numero;
         frequence = arg_frequence;
         t_premier_depart = arg_t_depart;
         t_prochain_depart = arg_t_depart;
-        parcours = new ArrayList<Station>(p);
+        parcours = new ArrayList<Noeud>(p);
         liste_bus = new ArrayList<Bus>();
     }
     
@@ -43,14 +43,6 @@ public class Circuit {
         numero = arg_num;
     }
     
-    public int mod_t_parcours(){
-        t_parcours = 0;
-       return t_parcours;
-    }
-    public int req_t_parcours(){
-        return t_parcours;
-    }
-    
     public int req_numero(){
         return numero;
     }
@@ -67,19 +59,18 @@ public class Circuit {
         t_prochain_depart += frequence;
     }
     
-    public Station req_station_index(int index){
+    public Noeud req_noeud_index(int index){
         return parcours.get(index);
     }
     
-    public int req_nombre_stations(){
+    public int req_nombre_noeuds(){
         return parcours.size();
     }
     
-    private List<Station> parcours;
+    private List<Noeud> parcours;
     public List<Bus> liste_bus;
     private int numero;
     private int frequence;
     private int t_premier_depart;
     private int t_prochain_depart;
-    private int t_parcours;
 }

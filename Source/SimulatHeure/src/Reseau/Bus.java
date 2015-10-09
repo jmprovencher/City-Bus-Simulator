@@ -15,30 +15,29 @@ public class Bus {
      
         numero = numeroArg;
         circuitActuel = circuitActuelArg;
-        nombre_station_parcourue = 1;
-        positionX = circuitActuel.req_station_index(0).req_positionX();
-        positionY = circuitActuel.req_station_index(0).req_positionY();
+        nombre_noeud_parcourue = 1;
+        positionX = circuitActuel.req_noeud_index(0).req_positionX();
+        positionY = circuitActuel.req_noeud_index(0).req_positionY();
         capacite = arg_capacite;
         nombre_passager = 0;
-        index_derniere_station = 0;
+        index_derniere_noeud = 0;
         speed = 60;
-        t_next_station = (getDistanceNextStation()/speed);
+        t_next_noeud = (getDistanceNextNoeud()/speed);
     }
     
     public void setSpeed(double s){
         speed = s;
     }
     
-    
     public double reqSpeed(){
         return speed;
     }
-    public void incrementer_nombre_station_parcourue(){
-        nombre_station_parcourue++;
+    public void incrementer_nombre_noeud_parcourue(){
+        nombre_noeud_parcourue++;
     }
     
-    public int req_nombre_station_parcourue(){
-        return nombre_station_parcourue;
+    public int req_nombre_noeud_parcourue(){
+        return nombre_noeud_parcourue;
     }
     
     public Circuit req_circuitActuel(){
@@ -83,15 +82,16 @@ public class Bus {
         nombre_passager -= arg_nombre_passager;
     }
     
-    public void update_t_next_station(){
+    public void update_t_next_noeud(){
         
-        t_next_station = (getDistanceNextStation()/speed);
+        t_next_noeud = (getDistanceNextNoeud()/speed);
     }
     
+    /* NOT USED
     public void decrement_t_next_station(){
         t_next_station--;
     }
-
+    */
    
      public int req_numero(){
     
@@ -108,44 +108,48 @@ public class Bus {
         return positionY;
     }
     
-     public int req_index_derniere_station(){
-         return index_derniere_station;
+     public int req_index_derniere_noeud(){
+         return index_derniere_noeud;
      }
      
+     //not used yet
      public int req_nombre_passager(){
          return nombre_passager;
      }
      
-     public double req_t_next_station(){
-         return t_next_station;
+     public double req_t_next_noeud(){
+         return t_next_noeud;
      }
      
-     public void mod_index_derniere_station(){
-         index_derniere_station++;
+     public void mod_index_dernier_noeud(){
+         index_derniere_noeud++;
      }
      
-     public double getDistanceNextStation(){
+     public double getDistanceNextNoeud(){
          double x1, x2, y1, y2;
-         if (index_derniere_station+1 == circuitActuel.req_nombre_stations()){
+         if (index_derniere_noeud+1 == circuitActuel.req_nombre_noeuds()){
              return 0;
          }
          x1 = positionX;
-         x2 = circuitActuel.req_station_index(index_derniere_station+1).req_positionX();
+         x2 = circuitActuel.req_noeud_index(index_derniere_noeud+1).req_positionX();
          y1 = positionY;
-         y2 = circuitActuel.req_station_index(index_derniere_station+1).req_positionY();
+         y2 = circuitActuel.req_noeud_index(index_derniere_noeud+1).req_positionY();
          
          double distance = Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
          return distance;
      }
     
+     //using right now....
     private double speed;
     private int numero;
     private double positionX;
     private double positionY;
     private int capacite;
     private Circuit circuitActuel;
-    private int index_derniere_station;
-    private int nombre_station_parcourue;
+    private int index_derniere_noeud;
+    private int nombre_noeud_parcourue;
+    private double t_next_noeud;
+    
+    //not used yet
     private int nombre_passager;
-    private double t_next_station;
 }

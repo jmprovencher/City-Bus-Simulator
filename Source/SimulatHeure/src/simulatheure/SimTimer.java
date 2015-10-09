@@ -20,15 +20,9 @@ public class SimTimer {
         freq = 0;
         running = false;
         simSpeed = 0;
-        
     }
     
-    public int simSpeed;
-    private javax.swing.Timer simTimer;
-    private Simulation sim;
-    private int time;
-    private int freq;
-    public Boolean running;
+
     
     ActionListener action = new ActionListener()
         {   
@@ -72,4 +66,12 @@ public class SimTimer {
         sim.Arreter_simulation();
         running = false;
     }
+    
+    public int simSpeed;
+    private javax.swing.Timer simTimer;
+    private Simulation sim;
+    private int time;
+    private int freq;
+    public Boolean running;
+    
 }

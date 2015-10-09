@@ -24,10 +24,12 @@ public class SimulatHeure extends javax.swing.JFrame {
      * Creates new form SimulatHeure
      */
     public Simulation Sim;
-    public Station Station_selectionnee;
+    public Noeud Noeud_selectionne;
+    public Noeud noeudBuffer;
     public Circuit Circuit_selectionnee;
+    public Point pointBuffer;
+    public int lineCreationState;
     public String Element_selectionne;
-    public Thread thread;
     public String Creation_circuit_etat;
     public SimTimer simTimer;
     
@@ -42,6 +44,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         model_selection_circuits = new DefaultListModel();
         liste_circuits.setModel(model_selection_circuits);
         Dialog_circuit.pack();
+        lineCreationState =0;
         simTimer = new SimTimer(Sim);
     }
 
@@ -85,6 +88,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         sim_duration = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         simulation_speed = new javax.swing.JSlider();
+        Radio_arete = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -338,6 +342,14 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(Radio_arete);
+        Radio_arete.setText("Arete");
+        Radio_arete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Radio_areteActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Fichier");
         jMenuBar1.add(jMenu1);
 
@@ -386,16 +398,18 @@ public class SimulatHeure extends javax.swing.JFrame {
                                 .addComponent(Radio_deplacer)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Radio_select, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Radio_arete, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(Bouton_arreter)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Bouton_simuler)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(sim_duration, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(simulation_speed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addGap(18, 18, 18)
+                                .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -416,7 +430,8 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(Radio_deplacer)
                         .addComponent(Radio_select)
                         .addComponent(sim_duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7))
+                        .addComponent(jLabel7)
+                        .addComponent(Radio_arete))
                     .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -477,7 +492,7 @@ public class SimulatHeure extends javax.swing.JFrame {
            Radio_ajouter.setEnabled(false);
            Radio_deplacer.setEnabled(false);
            Radio_select.setSelected(true);
-           List<Station> circuit = new ArrayList<Station>();
+           List<Noeud> circuit = new ArrayList<Noeud>();
            Print.setText("Veuillez sélectionner la station 1 du circuit.");
            Creation_circuit_etat = "Creation";
            Sim.parcours.clear();
@@ -489,7 +504,53 @@ public class SimulatHeure extends javax.swing.JFrame {
        }
     }
     
-    
+    public void createLine(int x, int y){
+        switch (lineCreationState){
+            case 0:
+                if (Noeud_selectionne == null){
+                    pointBuffer = new Point(x, y);
+                    noeudBuffer = null;
+                    
+                }
+                else{
+                    noeudBuffer = Noeud_selectionne;
+                    Noeud_selectionne = null;
+                }
+                    
+                lineCreationState = 1;
+                break;
+                
+            case 1:
+                Noeud noeud1;
+                Noeud noeud2;
+                if (Noeud_selectionne == null && noeudBuffer == null){
+                    noeud1 = new Noeud(pointBuffer.x,pointBuffer.y);
+                    noeud2 = new Noeud(x,y);
+                    
+                }
+                else if (Noeud_selectionne != null && noeudBuffer == null){
+                    noeud1 = new Noeud(pointBuffer.x,pointBuffer.y);
+                    noeud2 = Noeud_selectionne;
+                }
+                else if (Noeud_selectionne == null && noeudBuffer != null){
+      
+                    
+                    noeud2 = new Noeud(x,y);
+                    noeud1 = noeudBuffer;
+
+                }
+                else{ //(Noeud_selectionne != null && noeudBuffer != null){
+                    noeud2 = Noeud_selectionne;
+                    noeud1 = noeudBuffer;
+                }
+                Sim.addLine(noeud1, noeud2);
+                lineCreationState = 0;
+                fenetre_sim1.selectNoeud(noeud2);
+                break;
+            default:
+                break;
+        }
+    }
     
     
     private void Radio_ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio_ajouterActionPerformed
@@ -502,8 +563,11 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void text_nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_nomActionPerformed
         // TODO add your handling code here:
-         Station_selectionnee.mod_nom(text_nom.getText());
-        Print.setText("Station selectionnée: " + text_nom.getText());
+         Noeud_selectionne.mod_nom(text_nom.getText());
+         if (Noeud_selectionne.isStation){
+            Print.setText("Station selectionnée: " + text_nom.getText());
+         }
+
          
     }//GEN-LAST:event_text_nomActionPerformed
 
@@ -517,40 +581,65 @@ public class SimulatHeure extends javax.swing.JFrame {
         fenetre_sim1.y = y;
         
         fenetre_sim1.clearSelection();
-        /* -------------- Selection d'une station ------------- */
+        /* -------------- Selection d'un Noeud ------------- */
         
-        int size = fenetre_sim1.img_station_size; //taille d'une station
+        int size = 10;//   
+        int size_s = fenetre_sim1.img_station_size; //taille d'une station
         
-        if (Radio_select.isSelected()){
+        if (Radio_select.isSelected() || Radio_arete.isSelected() || Radio_ajouter.isSelected()){
             
             //va cherc la station correspondant au clic
-            Station_selectionnee = Sim.req_station_pos(x,y, size);
+            Noeud_selectionne = Sim.req_noeud_pos(x,y, size, size_s);
+            
 
-            if (Station_selectionnee == null){
+            if (Noeud_selectionne == null){
 
-                Print.setText("Station selectionnee: Aucune");
+                Print.setText("Vous n'avez rien sélectionné");
                 text_nom.setText("-");
             }
-            else{
+            if (Noeud_selectionne != null){
+                Element_selectionne = "Noeud";
+                Print.setText("Noeud selectionne!");
+                            if (Noeud_selectionne.isStation){
                 Element_selectionne = "Station";
-                Print.setText("Station selectionnee: "+Station_selectionnee.req_nom());
-                text_nom.setText(Station_selectionnee.req_nom());
-            }         
+                Print.setText("Station selectionnée: "+Noeud_selectionne.req_nom());
+                text_nom.setText(Noeud_selectionne.req_nom());
+            }
+
+            }
+
+                    
             
             /* -------------- Ajout de station à un circuit ------------- */
             if (Creation_circuit_etat == "Creation"){
-                if (Station_selectionnee != null ){
-                    Sim.parcours.add(Station_selectionnee);
-                    Print.setText("Station ajoutée " +Station_selectionnee.req_nom()+  " au parcours!");
-                    fenetre_sim1.selectStation(Station_selectionnee);
-                }
-                else
-                {
-                    Print.setText("Veuillez sélectionner une station valide!");
+                if (Noeud_selectionne != null){
+                    Boolean isPossible = false;
+                    if (Sim.parcours.size()>0){
+                        for (Arete a: Sim.parcours.get(Sim.parcours.size()-1).listAretes){
+                           
+                               if (Noeud_selectionne != Sim.parcours.get(Sim.parcours.size()-1)){
+                                   if (Noeud_selectionne == a.origine || Noeud_selectionne == a.destination){
+                                    System.out.println(a.origine.req_nom()+" <--origine   "+a.destination.req_nom()+" <--- destination");
+
+                                    isPossible = true;
+
+                                    break;
+                                   }
+                               }
+                        }
+                    }
+                    if (isPossible || Sim.parcours.isEmpty()){
+                        Sim.parcours.add(Noeud_selectionne);
+                        Print.setText("Noeud ajoutée (" +Noeud_selectionne.req_nom()+  ") au parcours!");
+                        fenetre_sim1.selectNoeud(Noeud_selectionne);
+                    }
+                    else{
+                        Print.setText("Veuillez sélectionner un noeud valide!");
+                    }
                 }
             }
             else {
-                fenetre_sim1.selectStation(Station_selectionnee);
+                fenetre_sim1.selectNoeud(Noeud_selectionne);
             }
          }
                 
@@ -559,22 +648,32 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         if (Radio_ajouter.isSelected())
         {
-            Station_selectionnee = Sim.ajouter_station(x, y);
-            Element_selectionne = "Station";
-            Print.setText("Derniere station: " + Station_selectionnee.req_nom());
-            text_nom.setText(Station_selectionnee.req_nom());
-            fenetre_sim1.selectStation(Station_selectionnee);
+            if (Noeud_selectionne != null){
+                Sim.ajouter_station(Noeud_selectionne);
+                Element_selectionne = "Station";
+                Print.setText("Derniere station: " + Noeud_selectionne.req_nom());
+                text_nom.setText(Noeud_selectionne.req_nom());
+                //fenetre_sim1.selectNoeud(Noeud_selectionne);
+            }
         }
         
         /* -------------- Deplacer station ------------- */
         
         if (Radio_deplacer.isSelected()){
-            if (Station_selectionnee != null)
+            if (Noeud_selectionne != null)
             {
-                Station_selectionnee.mod_positionX(x);
-                Station_selectionnee.mod_positionY(y);
-                fenetre_sim1.selectStation(Station_selectionnee);
+                Noeud_selectionne.mod_positionX(x);
+                Noeud_selectionne.mod_positionY(y);
+                //fenetre_sim1.selectStation(Station_selectionnee);
+                Sim.updateArete();
             }
+            
+        }
+        
+        /* -------------- Creation arete ------------- */
+        
+        if (Radio_arete.isSelected()){
+            createLine(x, y);
         }
         fenetre_sim1.repaint();
     }//GEN-LAST:event_fenetre_sim1MousePressed
@@ -592,28 +691,22 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void Bouton_supprimerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bouton_supprimerMouseReleased
 
         
-        if (Element_selectionne == "Station"){
+        if (Noeud_selectionne != null && (Element_selectionne == "Station" || Element_selectionne == "Noeud")){
             
-            if(Sim.supprimer_station(Station_selectionnee)){
-                
-                Print.setText("Station supprimée avec succès.");
-            }
-            else{
-                if (Station_selectionnee == null){
-                    Print.setText("Il n'y a rien de selectionné à supprimer.");
+            if(Sim.supprimer_noeud(Noeud_selectionne)){
+                if(Noeud_selectionne.isStation){
+                    Print.setText("Station supprimée avec succès.");
                 }
                 else{
-                    Print.setText("Station ne peut être supprimée, fait partie d'un circuit.");
+                    Print.setText("Noeud supprimé avec succès.");
                 }
             }
-            Station_selectionnee = null;
-
         }
         if (Element_selectionne == "Circuit"){
             
             int i = liste_circuits.getSelectedIndex();
             if (i >= 0){
-                System.out.println("Deleting circuit at index: " +i);
+
 
                 int numero_circuit = Circuit_selectionnee.req_numero();
                 Sim.supprimer_circuit(Circuit_selectionnee);
@@ -708,6 +801,10 @@ public class SimulatHeure extends javax.swing.JFrame {
         simTimer.setSimSpeed(simulation_speed.getValue()/4);
     }//GEN-LAST:event_simulation_speedStateChanged
 
+    private void Radio_areteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio_areteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Radio_areteActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -757,6 +854,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JDialog Dialog_circuit;
     private javax.swing.JTextPane Print;
     private javax.swing.JRadioButton Radio_ajouter;
+    private javax.swing.JRadioButton Radio_arete;
     private javax.swing.JRadioButton Radio_deplacer;
     private javax.swing.JRadioButton Radio_select;
     private javax.swing.ButtonGroup buttonGroup1;

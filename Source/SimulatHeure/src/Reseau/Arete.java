@@ -4,23 +4,31 @@
  * and open the template in the editor.
  */
 package Reseau;
-
+import java.awt.geom.Line2D;
 /**
  *
  * @author Sam
  */
 public class Arete {
-    public Arete(Station arg_origine, Station arg_destination){
+    public Arete(Noeud arg_origine, Noeud arg_destination){
         t = 0;
         origine = arg_origine;
         destination = arg_destination;
+        origine.addArete(this);
+        destination.addArete(this);
+        int x1, x2, y1, y2;
+        x1 = origine.req_positionX();
+        y1 = origine.req_positionY();
+        x2 = destination.req_positionX();
+        y2 = destination.req_positionY();        
+        line = new Line2D.Double(x1,y1,x2,y2);
     }
     
-    public Station req_origine(){
+    public Noeud req_origine(){
         return origine;
     }
     
-    public Station req_destination(){
+    public Noeud req_destination(){
         return destination;
     }
     
@@ -30,7 +38,24 @@ public class Arete {
     public void mod_t(int arg_t){
         t= arg_t;
     }
+    
+    public void update(){
+        line.setLine(origine.req_positionX(), origine.req_positionY(), destination.req_positionX(), destination.req_positionY());
+        System.out.println("GOT CALLED YO");
+    }
+    
+    public void delete(){
+        if (origine.listAretes.contains(this)){
+            origine.listAretes.remove(this);
+        }
+         if (destination.listAretes.contains(this)){
+            destination.listAretes.remove(this);
+         }
+ 
+    }
+    
     private int t;
-    private Station origine;
-    private Station destination;
+    public Line2D line;
+    public Noeud origine;
+    public Noeud destination;
 }

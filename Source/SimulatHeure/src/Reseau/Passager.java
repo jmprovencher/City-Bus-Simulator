@@ -10,28 +10,28 @@ package Reseau;
  * @author Sam
  */
 public class Passager {
-    public Passager(Station arg_origine, Station arg_destination){
-        station_origine = arg_origine;
-        station_destination = arg_destination;
-        station_actuelle = station_origine;
+    public Passager(Noeud arg_origine, Noeud arg_destination){
+        Noeud_origine = arg_origine;
+        Noeud_destination = arg_destination;
+        Noeud_actuelle = Noeud_origine;
     }
-    public Station req_actuelle(){
-        return station_actuelle;
-    }
-    
-    void mod_station_actuelle(Station arg_actuelle){
-        station_actuelle = arg_actuelle;
+    public Noeud req_actuelle(){
+        return Noeud_actuelle;
     }
     
-    public Station req_origine(){
-        return station_origine;
+    void mod_station_actuelle(Noeud arg_actuelle){
+        Noeud_actuelle = arg_actuelle;
     }
     
-    public Station req_destination(){
-        return station_destination;
+    public Noeud req_origine(){
+        return Noeud_origine;
     }
     
-    private Station station_origine;
-    private Station station_actuelle;
-    private Station station_destination;
+    public Noeud req_destination(){
+        return Noeud_destination;
+    }
+    
+    private Noeud Noeud_origine;
+    private Noeud Noeud_actuelle;
+    private Noeud Noeud_destination;
 }
