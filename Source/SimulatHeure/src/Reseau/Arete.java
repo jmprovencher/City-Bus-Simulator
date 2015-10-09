@@ -41,7 +41,6 @@ public class Arete {
     
     public void update(){
         line.setLine(origine.req_positionX(), origine.req_positionY(), destination.req_positionX(), destination.req_positionY());
-        System.out.println("GOT CALLED YO");
     }
     
     public void delete(){

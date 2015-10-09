@@ -505,13 +505,24 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void createLine(int x, int y){
+        Arete aSelect;
         switch (lineCreationState){
             case 0:
-                if (Noeud_selectionne == null){
+                aSelect = null;
+                if(Noeud_selectionne == null){
+                    aSelect = Sim.isLine(x,y); 
+                }
+                
+                if(aSelect != null){
+                    noeudBuffer = Sim.splitLine(aSelect, x, y);
+                }
+                //Nouveau point
+                else if (Noeud_selectionne == null){
                     pointBuffer = new Point(x, y);
                     noeudBuffer = null;
                     
                 }
+                //point existant
                 else{
                     noeudBuffer = Noeud_selectionne;
                     Noeud_selectionne = null;
@@ -523,27 +534,46 @@ public class SimulatHeure extends javax.swing.JFrame {
             case 1:
                 Noeud noeud1;
                 Noeud noeud2;
+                aSelect = null;
                 if (Noeud_selectionne == null && noeudBuffer == null){
                     noeud1 = new Noeud(pointBuffer.x,pointBuffer.y);
-                    noeud2 = new Noeud(x,y);
-                    
+                     aSelect = null;
+                     if(Noeud_selectionne == null){
+                        aSelect = Sim.isLine(x,y); 
+                     }
+                    if (aSelect != null){
+                        noeud2 = Sim.splitLine(aSelect, x, y);
+                    }
+                    else{
+                        noeud2 = new Noeud(x,y);
+                    }
                 }
+                
                 else if (Noeud_selectionne != null && noeudBuffer == null){
                     noeud1 = new Noeud(pointBuffer.x,pointBuffer.y);
                     noeud2 = Noeud_selectionne;
                 }
                 else if (Noeud_selectionne == null && noeudBuffer != null){
-      
-                    
-                    noeud2 = new Noeud(x,y);
                     noeud1 = noeudBuffer;
-
+                    aSelect = null;
+                     if(Noeud_selectionne == null){
+                        aSelect = Sim.isLine(x,y); 
+                     }
+                
+                    if (aSelect != null){
+                        noeud2 = Sim.splitLine(aSelect, x, y);
+                    }
+                    else{
+                        noeud2 = new Noeud(x,y);
+                    }
                 }
                 else{ //(Noeud_selectionne != null && noeudBuffer != null){
-                    noeud2 = Noeud_selectionne;
                     noeud1 = noeudBuffer;
+                    noeud2 = Noeud_selectionne;
                 }
                 Sim.addLine(noeud1, noeud2);
+                Element_selectionne = "Noeud";
+                Noeud_selectionne = noeud2;
                 lineCreationState = 0;
                 fenetre_sim1.selectNoeud(noeud2);
                 break;

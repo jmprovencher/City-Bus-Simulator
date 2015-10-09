@@ -123,6 +123,8 @@ public class Simulation {
                 n.deleteStation();
             }
             else{
+                System.out.println(n.req_nombre_circuits() );
+                if (n.req_nombre_circuits() == 0){
                 int size = n.listAretes.size();
                 for (int i = 0; i < size; i++){
                     Arete a = n.listAretes.get(0);
@@ -140,6 +142,7 @@ public class Simulation {
                 
             }
             return true; // supprimée avec succès
+            }
         }
         return false ;// n'a pas pu être supprimée
 
@@ -207,6 +210,29 @@ public class Simulation {
         Arete newArete = new Arete(noeud1, noeud2);
         liste_aretes.add(newArete);
         return newArete;   
+    }
+    
+    public Noeud splitLine(Arete a, int x, int y){
+        
+        a.origine.listAretes.remove(a);
+        a.destination.listAretes.remove(a);
+        liste_aretes.remove(a);
+        
+        Noeud n = new Noeud(x,y);
+        liste_noeuds.add(n);
+        liste_aretes.add(new Arete(a.origine, n));
+        liste_aretes.add(new Arete(a.destination, n));
+        a = null;     
+        return n;
+    }
+    
+    public Arete isLine(int x, int y){
+        for (Arete a: liste_aretes){
+            if (a.line.intersects(x, y, 20, 20)){   
+                return a;
+            }
+        }
+        return null;
     }
     
 

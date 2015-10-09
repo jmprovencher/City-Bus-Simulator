@@ -46,6 +46,7 @@ public class Noeud {
     
     
     //Station
+    
      public void mod_nom(String arg_nom){
          if(isStation){
         nom = arg_nom;
@@ -73,14 +74,14 @@ public class Noeud {
     }
 
     public void mod_nombre_circuits(int n){
-         if(isStation){
+  
         if (n == 1){
             nombre_circuits++;
         }
         if (n == -1){
             nombre_circuits--;
         }
-         }
+         
     }
     
     public int req_nombreb_passager(){
@@ -99,10 +100,9 @@ public class Noeud {
     
 
     public int req_nombre_circuits(){
-         if(isStation){
+
         return nombre_circuits;
-         }
-         return 0;
+
     }
     
     public List<Arete> listAretes;
