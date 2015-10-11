@@ -57,6 +57,8 @@ public class SimTimer {
         freq = argFreq;
         simTimer = new javax.swing.Timer(freq, action);
         sim.freq = freq;
+        sim.setSpeed();
+        
         simTimer.start();
         running = true;
     }

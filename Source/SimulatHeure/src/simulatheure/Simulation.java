@@ -6,6 +6,7 @@
 package simulatheure;
 
 import java.util.*;
+import java.math.*;
 import Reseau.*;
 
 /**
@@ -44,7 +45,7 @@ public class Simulation {
             
             if ((int)(c.req_t_prochain_depart()*(1000/(freq))) == count){
                 Bus newBus = c.ajouter_bus();
-                newBus.setSpeed(60);
+ 
                 c.mod_t_prochain_depart();
             }
             
@@ -63,7 +64,13 @@ public class Simulation {
     public Boolean deplacer_bus(Bus b){
               
         if (b.req_circuitActuel().req_nombre_noeuds() == b.req_nombre_noeud_parcourue()){
-          return false;
+            if (b.req_circuitActuel().isLoop){
+                b.req_circuitActuel().loopDone = true;
+                b.reset();
+            }
+            else{
+                return false;
+            } 
         }
         double origin_x = b.req_positionX();
         double origin_y = b.req_positionY();
@@ -100,10 +107,12 @@ public class Simulation {
 
             b.mod_positionX(target_x);
             b.mod_positionY(target_y);
-            // fonction qui fait tout ça....
+            
             b.mod_index_dernier_noeud();
+           
             b.incrementer_nombre_noeud_parcourue();
             b.update_t_next_noeud();
+            b.updateSpeed();
         }
         return true;
     }
@@ -123,7 +132,7 @@ public class Simulation {
                 n.deleteStation();
             }
             else{
-                System.out.println(n.req_nombre_circuits() );
+                
                 if (n.req_nombre_circuits() == 0){
                 int size = n.listAretes.size();
                 for (int i = 0; i < size; i++){
@@ -251,6 +260,20 @@ public class Simulation {
         }
     }
     
+    public void setSpeed(){
+        for (Arete a: liste_aretes){
+            a.speed = triangular(a.minSpeed, a.maxSpeed, a.typeSpeed);
+        }
+    }
+    
+   double triangular(double a,double b,double c) {
+        double U = Math.random();
+        double F = (c - a) / (b - a);
+        if (U <= F)
+           return a + Math.sqrt(U * (b - a) * (c - a));
+        else
+           return b - Math.sqrt((1 - U) * (b - a) * (b - c));
+    }
 
     public List<Noeud> parcours;
     private List<Circuit> liste_circuits;

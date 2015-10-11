@@ -20,13 +20,19 @@ public class Bus {
         positionY = circuitActuel.req_noeud_index(0).req_positionY();
         capacite = arg_capacite;
         nombre_passager = 0;
-        index_derniere_noeud = 0;
-        speed = 60;
+        index_dernier_noeud = 0;
+        speed = circuitActuel.getArete(0).speed;
         t_next_noeud = (getDistanceNextNoeud()/speed);
     }
     
-    public void setSpeed(double s){
-        speed = s;
+    public void updateSpeed(){
+        Arete a = circuitActuel.getArete(index_dernier_noeud);
+        if (a != null){
+            speed = a.speed;
+        }
+        else{
+            speed = 0;
+        }
     }
     
     public double reqSpeed(){
@@ -109,7 +115,7 @@ public class Bus {
     }
     
      public int req_index_derniere_noeud(){
-         return index_derniere_noeud;
+         return index_dernier_noeud;
      }
      
      //not used yet
@@ -122,18 +128,25 @@ public class Bus {
      }
      
      public void mod_index_dernier_noeud(){
-         index_derniere_noeud++;
+         index_dernier_noeud++;
+     }
+     
+     public void reset(){
+         index_dernier_noeud = 0;
+         nombre_noeud_parcourue = 1;
+         speed = circuitActuel.getArete(0).speed;
+         t_next_noeud = (getDistanceNextNoeud()/speed);
      }
      
      public double getDistanceNextNoeud(){
          double x1, x2, y1, y2;
-         if (index_derniere_noeud+1 == circuitActuel.req_nombre_noeuds()){
+         if (index_dernier_noeud+1 == circuitActuel.req_nombre_noeuds()){
              return 0;
          }
          x1 = positionX;
-         x2 = circuitActuel.req_noeud_index(index_derniere_noeud+1).req_positionX();
+         x2 = circuitActuel.req_noeud_index(index_dernier_noeud+1).req_positionX();
          y1 = positionY;
-         y2 = circuitActuel.req_noeud_index(index_derniere_noeud+1).req_positionY();
+         y2 = circuitActuel.req_noeud_index(index_dernier_noeud+1).req_positionY();
          
          double distance = Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
          return distance;
@@ -146,7 +159,7 @@ public class Bus {
     private double positionY;
     private int capacite;
     private Circuit circuitActuel;
-    private int index_derniere_noeud;
+    private int index_dernier_noeud;
     private int nombre_noeud_parcourue;
     private double t_next_noeud;
     

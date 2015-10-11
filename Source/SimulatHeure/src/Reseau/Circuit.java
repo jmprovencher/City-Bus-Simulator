@@ -20,18 +20,29 @@ public class Circuit {
         t_prochain_depart = arg_t_depart;
         parcours = new ArrayList<Noeud>(p);
         liste_bus = new ArrayList<Bus>();
+        if (p.get(0) == p.get(p.size()-1)){
+            isLoop = true;
+        }
+        else{
+            isLoop = false;
+        }
+        loopDone = false;
+        System.out.println(isLoop);
     }
     
     public void reset(){
         liste_bus.clear();
+        loopDone = false;
         t_prochain_depart = t_premier_depart;
     }
     
     public Bus ajouter_bus(){
-        Bus newBus = new Bus(0, this, 0);
-        liste_bus.add(newBus);
-        return newBus;
-        
+        if (!loopDone){
+            Bus newBus = new Bus(0, this, 0);
+            liste_bus.add(newBus);
+            return newBus;
+        }
+        return null;
     }
     
     public void supprimer_bus(Bus b){
@@ -67,10 +78,27 @@ public class Circuit {
         return parcours.size();
     }
     
+    public Arete getArete(int i){
+        if (i+1 < parcours.size())
+        {
+            for (Arete a: parcours.get(i).listAretes){
+                if (a.origine == parcours.get(i+1) || a.destination == parcours.get(i+1) ){
+                    if (a.origine == parcours.get(i) || a.destination == parcours.get(i) ){
+                        return a;
+                    }
+
+                }
+            }
+        }
+        return null;
+    }
+    
     private List<Noeud> parcours;
     public List<Bus> liste_bus;
     private int numero;
     private int frequence;
     private int t_premier_depart;
     private int t_prochain_depart;
+    public Boolean isLoop;
+    public Boolean loopDone;
 }

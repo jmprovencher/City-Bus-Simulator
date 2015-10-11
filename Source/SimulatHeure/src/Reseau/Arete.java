@@ -11,7 +11,9 @@ import java.awt.geom.Line2D;
  */
 public class Arete {
     public Arete(Noeud arg_origine, Noeud arg_destination){
-        t = 0;
+        maxSpeed = 60;
+        minSpeed = 5;
+        typeSpeed = 35;
         origine = arg_origine;
         destination = arg_destination;
         origine.addArete(this);
@@ -32,13 +34,7 @@ public class Arete {
         return destination;
     }
     
-    public int req_t(){
-        return t;
-    }
-    public void mod_t(int arg_t){
-        t= arg_t;
-    }
-    
+
     public void update(){
         line.setLine(origine.req_positionX(), origine.req_positionY(), destination.req_positionX(), destination.req_positionY());
     }
@@ -53,7 +49,11 @@ public class Arete {
  
     }
     
-    private int t;
+    public double maxSpeed;
+    public double minSpeed;
+    public double typeSpeed;
+    public double speed;
+    
     public Line2D line;
     public Noeud origine;
     public Noeud destination;

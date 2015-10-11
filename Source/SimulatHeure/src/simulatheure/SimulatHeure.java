@@ -649,7 +649,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                            
                                if (Noeud_selectionne != Sim.parcours.get(Sim.parcours.size()-1)){
                                    if (Noeud_selectionne == a.origine || Noeud_selectionne == a.destination){
-                                    System.out.println(a.origine.req_nom()+" <--origine   "+a.destination.req_nom()+" <--- destination");
+                                    
 
                                     isPossible = true;
 
@@ -775,7 +775,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void liste_circuitsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_liste_circuitsValueChanged
         // TODO add your handling code here:
-        //System.out.println("I GOT CALLED YO");
+        
        
             int i = liste_circuits.getSelectedIndex();
             if (i>=0){
