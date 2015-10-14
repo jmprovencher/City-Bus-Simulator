@@ -90,7 +90,7 @@ public class FenetreSim extends JPanel {
                    g.drawOval(n.req_positionX()-25, n.req_positionY()-25, 50, 50);
            }
            if(!n.isStation){
-                g.drawRect(n.req_positionX()-5, n.req_positionY()-5, 10, 10);
+                g.drawRect(n.req_positionX()-10, n.req_positionY()-10, 20, 20);
            }
            else{
 

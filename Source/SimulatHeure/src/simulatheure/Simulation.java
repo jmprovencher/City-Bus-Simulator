@@ -85,10 +85,10 @@ public class Simulation {
         
         if (target_x == origin_x){
             if (target_y > origin_y){
-                angle = Math.PI/2;
+                angle = -Math.PI/2;
             }
             else{
-                angle = -(Math.PI/2);
+                angle = (Math.PI/2);
             }
         }
 
@@ -207,6 +207,12 @@ public class Simulation {
         }
     }
     
+    public Noeud addNoeud(int x, int y){
+        Noeud n = new Noeud(x, y);
+        liste_noeuds.add(n);
+        return n;
+    }
+    
     public Arete addLine(Noeud noeud1, Noeud noeud2){
         
         if (!liste_noeuds.contains(noeud1)){
@@ -237,7 +243,7 @@ public class Simulation {
     
     public Arete isLine(int x, int y){
         for (Arete a: liste_aretes){
-            if (a.line.intersects(x, y, 20, 20)){   
+            if (a.line.intersects(x-10, y-10, 20, 20)){   
                 return a;
             }
         }

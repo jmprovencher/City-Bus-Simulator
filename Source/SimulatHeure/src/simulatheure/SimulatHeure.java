@@ -89,6 +89,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         simulation_speed = new javax.swing.JSlider();
         Radio_arete = new javax.swing.JRadioButton();
+        Radio_noeud = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -350,6 +351,14 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(Radio_noeud);
+        Radio_noeud.setText("Noeud");
+        Radio_noeud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Radio_noeudActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Fichier");
         jMenuBar1.add(jMenu1);
 
@@ -397,10 +406,12 @@ public class SimulatHeure extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Radio_deplacer)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Radio_select, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Radio_arete, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Radio_select, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Radio_arete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Radio_noeud, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                                 .addComponent(Bouton_arreter)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Bouton_simuler)
@@ -419,7 +430,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jInternalFrame1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 35, Short.MAX_VALUE))
                     .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,7 +442,8 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(Radio_select)
                         .addComponent(sim_duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)
-                        .addComponent(Radio_arete))
+                        .addComponent(Radio_arete)
+                        .addComponent(Radio_noeud))
                     .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -439,7 +451,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2))
+                .addGap(8, 8, 8))
         );
 
         pack();
@@ -503,9 +515,33 @@ public class SimulatHeure extends javax.swing.JFrame {
            
        }
     }
+    public void createNoeud(int x, int y){
+        Arete aSelect;
+           
+        aSelect = null;
+        if(Noeud_selectionne == null){
+            aSelect = Sim.isLine(x,y); 
+        }
+        if(aSelect != null){
+            Noeud_selectionne = Sim.splitLine(aSelect, x, y);
+            Element_selectionne = "Noeud";
+            Print.setText("Noeud selectionne!");
+            fenetre_sim1.selectNoeud(Noeud_selectionne);
+        }
+        //Nouveau point
+        else if (Noeud_selectionne == null){
+            Noeud_selectionne = Sim.addNoeud(x, y);
+            Element_selectionne = "Noeud";
+            Print.setText("Noeud selectionne!");
+            fenetre_sim1.selectNoeud(Noeud_selectionne);
+        }
+
+    }
+    
     
     public void createLine(int x, int y){
         Arete aSelect;
+
         switch (lineCreationState){
             case 0:
                 aSelect = null;
@@ -613,49 +649,39 @@ public class SimulatHeure extends javax.swing.JFrame {
         fenetre_sim1.clearSelection();
         /* -------------- Selection d'un Noeud ------------- */
         
-        int size = 10;//   
+        int size = 20;//   
         int size_s = fenetre_sim1.img_station_size; //taille d'une station
         
-        if (Radio_select.isSelected() || Radio_arete.isSelected() || Radio_ajouter.isSelected()){
+        if (Radio_select.isSelected() || Radio_arete.isSelected() || Radio_noeud.isSelected()  || Radio_ajouter.isSelected()){
             
-            //va cherc la station correspondant au clic
+            //va chercher la station correspondant au clic
             Noeud_selectionne = Sim.req_noeud_pos(x,y, size, size_s);
-            
-
             if (Noeud_selectionne == null){
-
                 Print.setText("Vous n'avez rien sélectionné");
                 text_nom.setText("-");
             }
             if (Noeud_selectionne != null){
                 Element_selectionne = "Noeud";
                 Print.setText("Noeud selectionne!");
-                            if (Noeud_selectionne.isStation){
-                Element_selectionne = "Station";
-                Print.setText("Station selectionnée: "+Noeud_selectionne.req_nom());
-                text_nom.setText(Noeud_selectionne.req_nom());
+                if (Noeud_selectionne.isStation){
+                    Element_selectionne = "Station";
+                    Print.setText("Station selectionnée: "+Noeud_selectionne.req_nom());
+                    text_nom.setText(Noeud_selectionne.req_nom());
+                }
             }
 
-            }
-
-                    
-            
             /* -------------- Ajout de station à un circuit ------------- */
             if (Creation_circuit_etat == "Creation"){
                 if (Noeud_selectionne != null){
                     Boolean isPossible = false;
                     if (Sim.parcours.size()>0){
                         for (Arete a: Sim.parcours.get(Sim.parcours.size()-1).listAretes){
-                           
-                               if (Noeud_selectionne != Sim.parcours.get(Sim.parcours.size()-1)){
-                                   if (Noeud_selectionne == a.origine || Noeud_selectionne == a.destination){
-                                    
-
-                                    isPossible = true;
-
-                                    break;
-                                   }
-                               }
+                            if (Noeud_selectionne != Sim.parcours.get(Sim.parcours.size()-1)){
+                                if (Noeud_selectionne == a.origine || Noeud_selectionne == a.destination){
+                                 isPossible = true;
+                                 break;
+                                }
+                            }
                         }
                     }
                     if (isPossible || Sim.parcours.isEmpty()){
@@ -705,6 +731,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         if (Radio_arete.isSelected()){
             createLine(x, y);
         }
+        /* -------------- Creation noeud ------------- */
+        
+        if (Radio_noeud.isSelected()){
+            createNoeud(x, y);
+        }
+        
         fenetre_sim1.repaint();
     }//GEN-LAST:event_fenetre_sim1MousePressed
 
@@ -835,6 +867,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Radio_areteActionPerformed
 
+    private void Radio_noeudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio_noeudActionPerformed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_Radio_noeudActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -886,6 +923,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JRadioButton Radio_ajouter;
     private javax.swing.JRadioButton Radio_arete;
     private javax.swing.JRadioButton Radio_deplacer;
+    private javax.swing.JRadioButton Radio_noeud;
     private javax.swing.JRadioButton Radio_select;
     private javax.swing.ButtonGroup buttonGroup1;
     private simulatheure.FenetreSim fenetre_sim1;
