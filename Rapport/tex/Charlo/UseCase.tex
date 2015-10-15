@@ -59,6 +59,13 @@ En aucun cas il est possible d'avoir un circuit ou un profil de passager sans po
 
 \subsubsection{Exigences spéciales} Toutes les manipulations des éléments visuels doivent pouvoir être faites avec la souris.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{fig/creationSimulation.jpg}
+	\caption{Séquence de création et sauvegarde d'une simulation.}
+	\label{f:seqCre}
+\end{figure}
+
 \subsection{Cas \#2: Charge d'une simulation}
 
 \subsubsection{Garantie de succès}
@@ -79,6 +86,13 @@ Les circuits et les profils de passager chargés doivent n'avoir aucun circuit sa
 	\item Lors de la sélection de la simulation enregistrée, le client choisit d'annuler: Le scénario de création d'une simulation suit alors.
 \end{enumerate}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{fig/chargeSimulation.jpg}
+	\caption{Séquence de chargement d'une simulation.}
+	\label{f:seqCha}
+\end{figure}
+
 \subsection{Cas \#3: Rouler une simulation}
 
 \subsubsection{Précondition}
@@ -92,7 +106,7 @@ Temps minimal, temps maximal et temps moyen pour franchir une distance sont corr
 \subsubsection{Scénario usuel}
 
 \begin{enumerate}
-	\item L'employé sélectionne une heure de début et de fin.
+	\item L'employé sélectionne une heure de début et de fin ainsi qu'un pas temporel.
 	\item L'employé appuie sur le bouton pour démarrer la simulation.
 	\item Les temps associés à chaque segment du réseau sont sélectionné avec distribution triangulaire.
 	\item La position des véhicules et leur nombre de passagers se mettent à jour en suivant les trajets.
@@ -107,8 +121,60 @@ Temps minimal, temps maximal et temps moyen pour franchir une distance sont corr
 	\begin{enumerate}
 		\item Clique sur un véhicule afin d'obtenir le nombre de passagers à l'intérieur.
 		\item Déplace sa souris sur la carte, affichant les coordonnées géographiques associées dans la barre d'état.
+		\item Pause ou arrête la simulation.
 		\item Zoom/Dézoom la carte.
 	\end{enumerate}
 \end{enumerate}
 
 \subsubsection{Exigences spéciales} Toutes les manipulations des éléments visuels doivent pouvoir être faites avec la souris.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{fig/roulSimul.jpg}
+	\caption{Séquence d'exécution d'une simulation.}
+	\label{f:seqExec}
+\end{figure}
+
+\subsection{Cas \#4: Suppression d'un élément}
+
+\subsubsection{Garantie de succès}
+
+Les circuits et les profils de passager chargés doivent n'avoir aucun circuit sans point de départ, de fin ou d'intersection.
+
+\subsubsection{Scénario usuel}
+
+\begin{enumerate}
+	\item Le client charge une simulation existante.
+	\item Le client sélectionne un élément en appuyant sur le bouton sélection puis sur un élément.
+	\item Le client appuie sur le bouton supprimer.
+	\item L'élément est retiré de la simulation.
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{fig/suppElem.jpg}
+	\caption{Séquence de suppression d'un élément.}
+	\label{f:seqSupp}
+\end{figure}
+
+\subsection{Cas \#5: Création d'un élément}
+
+\subsubsection{Garantie de succès}
+
+Les circuits et les profils de passager chargés doivent n'avoir aucun circuit sans point de départ, de fin ou d'intersection.
+
+\subsubsection{Scénario usuel}
+
+\begin{enumerate}
+	\item Le client charge une simulation existente.
+	\item Le client sélectionne un élément dans l'interface.
+	\item Le client clique sur un point dans le plan pour rajouter l'élément.
+	\item L'élément est inséré dans la simulation.
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{fig/creaElem.jpg}
+	\caption{Séquence de création d'un élément.}
+	\label{f:seqCrea}
+\end{figure}
