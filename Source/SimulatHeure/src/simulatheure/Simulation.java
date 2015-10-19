@@ -125,15 +125,15 @@ public class Simulation {
             }
             else{
                 if (node.getNumberOfRoutes() == 0){
-                int size = node.listRoutes.size();
+                int size = node.listLines.size();
                 for (int i = 0; i < size; i++){
-                    Line a = node.listRoutes.get(0);
+                    Line a = node.listLines.get(0);
                     a.delete();
                     
-                    if(node != a.origine && a.origine.listRoutes.isEmpty()){
+                    if(node != a.origine && a.origine.listLines.isEmpty()){
                         listNodes.remove(a.origine);
                     }
-                    if(node != a.destination && a.destination.listRoutes.isEmpty()){
+                    if(node != a.destination && a.destination.listLines.isEmpty()){
                         listNodes.remove(a.destination);
                     }
                     listLines.remove(a);
@@ -191,7 +191,7 @@ public class Simulation {
 
         if (route != null)
         {
-            listRoutes.remove(route);
+            listLines.remove(route);
         }
     }
     
@@ -217,8 +217,8 @@ public class Simulation {
     
     public Node splitLine(Line line, int x, int y){
         
-        line.origine.listRoutes.remove(line);
-        line.destination.listRoutes.remove(line);
+        line.origine.listLines.remove(line);
+        line.destination.listLines.remove(line);
         listLines.remove(line);
         
         Node n = new Node(x,y);
@@ -248,7 +248,7 @@ public class Simulation {
         return listRoutes.get(index);
     }
     
-    public void updateLine(){
+    public void updateLines(){
         for (Line l: listLines){
             l.update();
         }

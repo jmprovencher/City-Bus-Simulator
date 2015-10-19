@@ -17,11 +17,11 @@ public class Node {
         isStation = false;
         numberOfRoutes = 0;
         numberOFPassengers = 0;
-        listRoutes = new ArrayList<Line>();
+        listLines = new ArrayList<Line>();
     }
     
     public void addLine(Line l){
-        listRoutes.add(l);
+        listLines.add(l);
     }
     
     public int getPositionX(){
@@ -32,7 +32,7 @@ public class Node {
         return positionY;
     }
     
-    public void setpositionX(int x_arg){
+    public void setPositionX(int x_arg){
         positionX = x_arg;
     }
     
@@ -105,7 +105,7 @@ public class Node {
 
     }
     
-    public List<Line> listRoutes;
+    public List<Line> listLines;
     private String name;
     private int numberOfRoutes;
     private int numberOFPassengers;

@@ -81,7 +81,7 @@ public class Route {
     public Line getLineFromIndex(int i){
         if (i+1 < route.size())
         {
-            for (Line a: route.get(i).listRoutes){
+            for (Line a: route.get(i).listLines){
                 if (a.origine == route.get(i+1) || a.destination == route.get(i+1) ){
                     if (a.origine == route.get(i) || a.destination == route.get(i) ){
                         return a;
