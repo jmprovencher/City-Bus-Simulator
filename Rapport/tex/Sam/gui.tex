@@ -1,0 +1,50 @@
+%!TEX encoding = IsoLatin
+
+\section{Interface-utilisateur}
+
+Cette section présente un aperçu de l'interface-utilisateur offrant différentes fonctionnalités. Bien que l'aspect visuel de l'interface soit ici construit en Java directement, plusieurs des boutons et fonctions ne sont pas encore implémentées. Il s'agit donc d'une version préliminaire où rien n'est définitif.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.3]{fig/gui/ajoutNoeud.png}
+	\centering
+	\caption{Commande d'ajout d'un Noeud}
+	\label{f:gui_addNoeud}
+\end{figure}
+
+La méthode par défaut pour ajouter un objet, en supprimer ou effectuer toute forme d'édition du schéma affiché et via le menu \textit{Edition}. De cette façon, bien qu'une commande puisse être aussi effectuée à partir d'une des boites d'outils (\textit{Circuit} ou \textit{Simulation}), il est toujours possible de retrouver la commande voulu dans le menu horizontal approprié. Le menu \textit{Edition} permet entre autres de créer des objets \textit{Noeuds}, de transformer ceux-ci en \textit{Station} ainsi que de les relier entre eux via la création d'\textit{Arrêtes}. La figure suivante montre un résultat possible, où les carés vides sont des \textit{Noeuds}, les icônes d'arrêt de bus des \textit{Stations} et les segments les rejoignant des \textit{Arrêtes}.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.3]{fig/gui/ajoutCircuit.png}
+	\centering
+	\caption{Création d'un nouveau circuit}
+	\label{f:gui_addCircuit}
+\end{figure}
+
+Une fois chaque éléments du réseau mis en place, l'utilisateur peut organiser le trafic des autobus en créant des \textit{Circuits} à partir du menu Circuit ou de la boite à outils appropriée. Une boite de dialogue apparaît alors permettant de régler certains paramètres propres à un \textit{Circuit}, tel que son numéro d'identification, la fréquence des départs ainsi qu'un délai avant le tout premier départ. Lorsque l'utilisateur clique sur "Ok", il sélectionne une série de \textit{Stations} et de \textit{Noeuds}, dans l'ordre voulu de déplacement des bus. Le \textit{Circuit} est finalement créé et ajouté à la liste des \textit{Circuits}  à simuler.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.3]{fig/gui/simulation.png}
+	\centering
+	\caption{Simulation du circuit ajouté à dans la figure \ref{f:gui_addCircuit}}
+	\label{f:gui_simulate}
+\end{figure}
+
+La boite d'outils Simulation permet, lorsqu'au moins un \textit{Circuit} existe, de contrôler l'état, la vitesse et la longueur de la simulation des bus. Lors de celle-ci, les bus sont créés au point de départ du circuit auquel ils appartiennent et se déplacent suivant l'itinéraire pré-établi. Tout au long de l'animation, l'utilisateur peut accélérer, ralentir et suspendre le processus avec le bouton glissant.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.3]{fig/gui/zoomed.png}
+	\centering
+	\caption{Zoom-out du graphe de simulation}
+	\label{f:gui_zoomOut}
+\end{figure}
+
+À tout moment, il est possible de "dézoomer" le graphe, afin d'avoir un vue plus d'ensemble du réseau créé en roulant la molette de la souris, tout en tenant la touche "CTRL" (ou "COMMAND" sur Mac). Cette pratique, largement commune aux logiciels, est pratiquement une commande par défaut dans l'esprit d'un utilisateur standard. De plus, l'ensemble du réseau peut être déplacé latéralement par "glissement", une façon intuitive de naviguer des éléments graphiquement denses.
+
+
+
+
+
+
+
+
+

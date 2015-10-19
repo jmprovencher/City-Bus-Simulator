@@ -12,7 +12,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Cursor;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -24,9 +23,7 @@ import java.util.*;
 public class FenetreSim extends JPanel {
         
     public FenetreSim(){
-        defaultCursor = new Cursor(0); // pointing hand
-        handCursor = new Cursor(12); // pointing hand
-        quadraArrowsCursor = new Cursor(13); // crosshair arrows
+
         try
         {
         img_station = ImageIO.read(getClass().getResource("/images/icon.png"));
@@ -61,11 +58,7 @@ public class FenetreSim extends JPanel {
     
     public void display_sim(Graphics g){
         
-        g.drawString("Temps: "+Sim.freq*Sim.count/1000, 10, 20);
-        
-
-        
-        
+       g.drawString("Temps: "+Sim.freq*Sim.count/1000, 10, 20);
        for (int i = 0; i < Sim.req_nombre_circuits(); i++){
            Circuit circuit_i = Sim.req_circuit_index(i);
            
@@ -109,7 +102,6 @@ public class FenetreSim extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         display_sim(g);
-        
     }
     
     /*
@@ -134,22 +126,13 @@ public class FenetreSim extends JPanel {
         liste_Buses_selected.clear();
     }
     
-    public Cursor getHandCursor(){
-        return handCursor;
-    }
-    public Cursor getQuadraArrowsCursor(){
-        return quadraArrowsCursor;
-    }
-    public Cursor getDefaultCursor(){
-        return defaultCursor;
+    public double getSimTime(){
+        return Sim.freq*Sim.count;
     }
     
     /*
      END Item selection management
     */
-     private Cursor defaultCursor;
-     private Cursor handCursor;
-     private Cursor quadraArrowsCursor;
      public javax.swing.Timer displayTimer;
      private List<Noeud> liste_Noeuds_selected;
      private List<Arete> liste_Aretes_selected;
