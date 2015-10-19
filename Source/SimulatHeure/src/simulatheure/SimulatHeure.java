@@ -108,6 +108,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         sim_time = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
         menuCommandNouvDoc = new javax.swing.JMenuItem();
@@ -432,6 +433,13 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton1.setText("Recentrer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         menuFolderFichier.setMnemonic('f');
         menuFolderFichier.setText("Fichier");
 
@@ -568,17 +576,19 @@ public class SimulatHeure extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jInternalFrame1)
-                            .addComponent(jInternalFrame2))))
+                            .addComponent(jInternalFrame2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1)
+                        .addGap(9, 9, 9)
+                        .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -595,9 +605,11 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8))
+                .addGap(6, 6, 6))
         );
 
         pack();
@@ -793,8 +805,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         //coordonnées du clic
         
         drag = true;
-        pressedX = (int) ((double)evt.getX()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getWidth()/2 - fenetre_sim1.centerPositionX);
-        pressedY = (int) ((double)evt.getY()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getHeight()/2- fenetre_sim1.centerPositionY);
+        pressedX = fenetre_sim1.getGridPositionX(evt.getX());
+        pressedY = fenetre_sim1.getGridPositionY(evt.getY());
  
         fenetre_sim1.x = pressedX;
         fenetre_sim1.y = pressedY;
@@ -896,8 +908,9 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     private void fenetre_sim1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseMoved
        
-        int x =  (int) ((double)evt.getX()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getWidth()/2 - fenetre_sim1.centerPositionX);
-        int y =  (int) ((double)evt.getY()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getHeight()/2- fenetre_sim1.centerPositionY);
+        int x =  fenetre_sim1.getGridPositionX(evt.getX());
+        int y =  fenetre_sim1.getGridPositionY(evt.getY());
+        
         displayLabelCoordonnees.setText("X:  "+x +"  Y:  "+ y );
         
         if (createLineState == 1){
@@ -1059,7 +1072,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void fenetre_sim1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseWheelMoved
         // TODO add your handling code here:
-        System.out.println(evt.getWheelRotation());
+        
         fenetre_sim1.updateScale(evt.getWheelRotation());
     }//GEN-LAST:event_fenetre_sim1MouseWheelMoved
 
@@ -1067,8 +1080,27 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
          if (drag){
 
-            fenetre_sim1.centerPositionX -=  pressedX - (int) ((double)evt.getX()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getWidth()/2- fenetre_sim1.centerPositionX);
-            fenetre_sim1.centerPositionY -=   pressedY -  (int) ((double)evt.getY()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getHeight()/2- fenetre_sim1.centerPositionY);
+            fenetre_sim1.centerPositionX -=  pressedX - fenetre_sim1.getGridPositionX(evt.getX());
+            fenetre_sim1.centerPositionY -=   pressedY -  fenetre_sim1.getGridPositionY(evt.getY());
+            if (fenetre_sim1.centerPositionX >5000){
+                
+                fenetre_sim1.centerPositionX = 5000;
+            }
+            if (fenetre_sim1.centerPositionX <-5000){
+                
+                fenetre_sim1.centerPositionX = -5000;
+            }
+            
+            if (fenetre_sim1.centerPositionY <-5000){
+                
+                fenetre_sim1.centerPositionY = -5000;
+            }
+            
+            if (fenetre_sim1.centerPositionY >5000){
+                
+                fenetre_sim1.centerPositionY = 5000;
+            }
+            
             fenetre_sim1.repaint();
         }
     }//GEN-LAST:event_fenetre_sim1MouseDragged
@@ -1082,6 +1114,12 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void sim_timeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sim_timeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sim_timeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        fenetre_sim1.resetDisplay();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     /**
@@ -1130,6 +1168,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel displayLabelCoordonnees;
     private simulatheure.SimDisplay fenetre_sim1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jLabel1;

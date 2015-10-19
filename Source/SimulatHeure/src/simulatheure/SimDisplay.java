@@ -32,7 +32,7 @@ public class SimDisplay extends JPanel {
     public SimDisplay(){
         
         
-        System.out.println(topFrame);
+       
         scale = 1;
         centerPositionX = 0;
         centerPositionY = 0;
@@ -57,6 +57,9 @@ public class SimDisplay extends JPanel {
         Sim = new Simulation();
         
         createLineTemp = null;
+        lightGray = new Color(190,190,190);
+        lightLightGray = new Color(220,220,220);
+        lightLightLightGray = new Color(240,240,240);
 
         liste_Noeuds_selected = new ArrayList<Node>();
         liste_Aretes_selected = new ArrayList<Line>();
@@ -78,8 +81,20 @@ public class SimDisplay extends JPanel {
         displayTimer = new javax.swing.Timer(16, action);
     }
     
+    public void drawGrid(Graphics g, int scale){
+        
+        for (int i = -5000; i <=5000; i = i+scale){
+           g.drawLine(-5000, i, 5000 , i);
+       }
+        
+        for (int i = -5000; i <=5000; i = i+scale){
+           g.drawLine( i, -5000, i,5000 );
+       }
+        g.setColor(Color.black);
+    }
+    
     public void displaySim(Graphics g){
-       
+
         Graphics2D g2 = (Graphics2D) g;
         double w = this.getWidth(); // real width of canvas
         double h = this.getHeight();// real height of canvas
@@ -89,7 +104,31 @@ public class SimDisplay extends JPanel {
                     (this.getHeight()/2) -((this.getHeight()/2-centerPositionY)*(scale)));
         tr.scale(scale,scale);
         g2.setTransform(tr);
-
+        
+        //grid
+        if (scale >= 0.04 && scale <= 0.1){
+            g.setColor(lightGray);
+            drawGrid(g, 250);
+        }
+        if (scale > 0.1 && scale <= 0.5){
+            
+            g.setColor(lightLightGray);
+            drawGrid(g, 50);
+            g.setColor(lightGray);
+            drawGrid(g, 250);
+        }
+        if (scale >0.5 ){
+            g.setColor(lightLightLightGray);
+            drawGrid(g, 10);
+            g.setColor(lightLightGray);
+            drawGrid(g, 50);
+            g.setColor(lightGray);
+            drawGrid(g, 250);
+        }
+        
+       
+        // end grid
+        
        for (int i = 0; i < Sim.getRouteQuantity(); i++){
            Route circuit_i = Sim.getRouteFromIndex(i);
 
@@ -148,7 +187,7 @@ public class SimDisplay extends JPanel {
     }
     
     public void updateScale(int n){
-        
+        System.out.println(scale);
         double scaleFactor = 0;
         if (Math.abs(n) == 1){
             scaleFactor = 1.1;
@@ -158,17 +197,36 @@ public class SimDisplay extends JPanel {
         }
         
         if (n <= -1){
-            scale = scale *(scaleFactor);
+            if (scale < 8){
+                scale = scale *(scaleFactor);
+            }
         }
         else if (n >= 1){
-            
-            scale = scale/(scaleFactor);
+            if (scale > 0.045){
+                scale = scale/(scaleFactor);
+            }
         }
         
         repaint();
 
     }
     
+    public void resetDisplay(){
+     centerPositionX = 0;
+     centerPositionY = 0;
+     scale = 1;
+     repaint();
+    }
+    
+    public int getGridPositionX(int mouseClickPositionX){
+        int gridX = (int) ((double)mouseClickPositionX/scale - (-1+(1/scale))*getWidth()/2 - centerPositionX);
+        return gridX;
+    }
+    
+     public int getGridPositionY(int mouseClickPositionY){
+        int gridY = (int) ((double)mouseClickPositionY/scale - (-1+(1/scale))*getHeight()/2 - centerPositionY);
+        return gridY;
+    }
     /*
     Item selection management
     */
@@ -195,6 +253,8 @@ public class SimDisplay extends JPanel {
         return Sim.freq*Sim.count;
     }
     
+
+    
     /*
      END Item selection management
     */
@@ -219,4 +279,9 @@ public class SimDisplay extends JPanel {
      public Simulation Sim;
      public double scale;
      public SimulatHeure topFrame;
+     private Color lightGray;
+     private Color lightLightGray;
+     private Color lightLightLightGray;
+     
+     
 }

@@ -210,9 +210,9 @@ public class Simulation {
             listNodes.add(node2);
         }
 
-        Line newArete = new Line(node1, node2);
-        listLines.add(newArete);
-        return newArete;   
+        Line newLine = new Line(node1, node2);
+        listLines.add(newLine);
+        return newLine;   
     }
     
     public Node splitLine(Line line, int x, int y){
