@@ -14,6 +14,7 @@ import javax.imageio.*;
 import java.util.*;
 import javax.swing.*;
 import java.awt.Cursor;
+import java.awt.geom.Line2D;
 
 
 /**
@@ -26,15 +27,15 @@ public class SimulatHeure extends javax.swing.JFrame {
      * Creates new form SimulatHeure
      */
     public Simulation Sim;
-    public Node Noeud_selectionne;
-    public Node noeudBuffer;
-    public Route Circuit_selectionnee;
-    public Point pointBuffer;
-    public int lineCreationState;
-    public String Element_selectionne;
-    public String Creation_circuit_etat;
+    public Node selectedNode;
+    public Node nodeBuffer;
+    public Route selectedRoute;
+    public Node lineNewNode;
+    public int createLineState;
+    public String selectedObject;
+    public String createRouteState;
     public SimTimer simTimer;
-    public DefaultListModel model_selection_circuits;
+    public DefaultListModel defaultListModel;
     
     private Cursor defaultCursor;
     private Cursor handCursor;
@@ -47,13 +48,15 @@ public class SimulatHeure extends javax.swing.JFrame {
     public SimulatHeure() {
         
         initComponents();
+        fenetre_sim1.topFrame = this;
+        
         Sim = fenetre_sim1.Sim;
-        Creation_circuit_etat = "Demande param";
+        createRouteState = "Demande param";
         mouseClickState = "selection";
-        model_selection_circuits = new DefaultListModel();
-        liste_circuits.setModel(model_selection_circuits);
+        defaultListModel = new DefaultListModel();
+        listRoutes.setModel(defaultListModel);
         Dialog_circuit.pack();
-        lineCreationState = 0;
+        createLineState = 0;
         simTimer = new SimTimer(Sim);
         pressedX = 0;
         pressedY = 0;
@@ -93,7 +96,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         text_nom = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        liste_circuits = new javax.swing.JList();
+        listRoutes = new javax.swing.JList();
         Bouton_circuit = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jInternalFrame2 = new javax.swing.JInternalFrame();
@@ -103,6 +106,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         sim_duration = new javax.swing.JTextField();
         simulation_speed = new javax.swing.JSlider();
         jLabel8 = new javax.swing.JLabel();
+        sim_time = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
         menuCommandNouvDoc = new javax.swing.JMenuItem();
@@ -279,20 +284,20 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jLabel6.setText("Circuits");
 
-        liste_circuits.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        liste_circuits.setMaximumSize(new java.awt.Dimension(100, 100));
-        liste_circuits.setMinimumSize(new java.awt.Dimension(100, 100));
-        liste_circuits.addFocusListener(new java.awt.event.FocusAdapter() {
+        listRoutes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listRoutes.setMaximumSize(new java.awt.Dimension(100, 100));
+        listRoutes.setMinimumSize(new java.awt.Dimension(100, 100));
+        listRoutes.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                liste_circuitsFocusGained(evt);
+                listRoutesFocusGained(evt);
             }
         });
-        liste_circuits.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listRoutes.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                liste_circuitsValueChanged(evt);
+                listRoutesValueChanged(evt);
             }
         });
-        jScrollPane3.setViewportView(liste_circuits);
+        jScrollPane3.setViewportView(listRoutes);
 
         Bouton_circuit.setText("Ajouter Circuit");
         Bouton_circuit.addActionListener(new java.awt.event.ActionListener() {
@@ -369,6 +374,15 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jLabel8.setText("Vitesse");
 
+        sim_time.setText("0");
+        sim_time.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sim_timeActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Temps (s) ");
+
         javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
         jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
         jInternalFrame2Layout.setHorizontalGroup(
@@ -387,9 +401,13 @@ public class SimulatHeure extends javax.swing.JFrame {
                                 .addGap(14, 14, 14)
                                 .addComponent(Bouton_simuler, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jInternalFrame2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9))
                         .addGap(49, 49, 49)
-                        .addComponent(sim_duration)))
+                        .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sim_time, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sim_duration))))
                 .addContainerGap())
         );
         jInternalFrame2Layout.setVerticalGroup(
@@ -407,7 +425,11 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sim_duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sim_time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         menuFolderFichier.setMnemonic('f');
@@ -567,8 +589,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 32, Short.MAX_VALUE))
+                        .addComponent(jInternalFrame2))
                     .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -583,11 +604,11 @@ public class SimulatHeure extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void creation_circuit(){
-       switch (Creation_circuit_etat){
+       switch (createRouteState){
            
        //deuxieme clic, crée le circuit
        case "reset": // reset
-          Creation_circuit_etat = "Demande param";
+          createRouteState = "Demande param";
           //Radio_ajouter.setEnabled(true);
           //Radio_deplacer.setEnabled(true);
           Print.setText("Création de circuit annulée");
@@ -596,20 +617,20 @@ public class SimulatHeure extends javax.swing.JFrame {
        case "Creation":
           if (Sim.newRoute.size()>1){
             
-            Circuit_selectionnee = Sim.addRoute(Sim.newRoute, (Integer)spin_num.getValue(), (Integer)spin_freq.getValue(), (Integer)spin_t.getValue());
-            Element_selectionne = "Circuit";
+            selectedRoute = Sim.addRoute(Sim.newRoute, (Integer)spin_num.getValue(), (Integer)spin_freq.getValue(), (Integer)spin_t.getValue());
+            selectedObject = "Circuit";
             
             Sim.newRoute.clear();
             
-            model_selection_circuits.addElement(Circuit_selectionnee.getNumber());
-            liste_circuits.setSelectedIndex(liste_circuits.getLastVisibleIndex());
-            Print.setText("Circuit "+ Circuit_selectionnee.getNumber()+ " créé avec succès!");
+            defaultListModel.addElement(selectedRoute.getNumber());
+            listRoutes.setSelectedIndex(listRoutes.getLastVisibleIndex());
+            Print.setText("Circuit "+ selectedRoute.getNumber()+ " créé avec succès!");
             fenetre_sim1.repaint();
           }
           else{
               Print.setText("Vous n'avez pas selectionné assez de stations!");
           }
-          Creation_circuit_etat = "Demande param";
+          createRouteState = "Demande param";
           //Radio_ajouter.setEnabled(true);
           //Radio_deplacer.setEnabled(true);
           break;
@@ -621,7 +642,7 @@ public class SimulatHeure extends javax.swing.JFrame {
            Dialog_circuit.setVisible(true);
            //
            // cas ou on pese sur le X du dialog
-           if (Creation_circuit_etat == "reset"){
+           if (createRouteState == "reset"){
                creation_circuit();
                break;
            }
@@ -631,7 +652,7 @@ public class SimulatHeure extends javax.swing.JFrame {
            //Radio_select.setSelected(true);
            List<Node> circuit = new ArrayList<Node>();
            Print.setText("Veuillez sélectionner la station 1 du circuit.");
-           Creation_circuit_etat = "Creation";
+           createRouteState = "Creation";
            Sim.newRoute.clear();
            
            break;
@@ -640,66 +661,65 @@ public class SimulatHeure extends javax.swing.JFrame {
            
        }
     }
-    public void createNoeud(int x, int y){
+    public void createNode(int x, int y){
         Line aSelect;
            
         aSelect = null;
-        if(Noeud_selectionne == null){
+        if(selectedNode == null){
             aSelect = Sim.isLine(x,y); 
         }
         if(aSelect != null){
-            Noeud_selectionne = Sim.splitLine(aSelect, x, y);
-            Element_selectionne = "Noeud";
+            selectedNode = Sim.splitLine(aSelect, x, y);
+            selectedObject = "Noeud";
             Print.setText("Noeud selectionne!");
-            fenetre_sim1.selectNode(Noeud_selectionne);
+            fenetre_sim1.selectNode(selectedNode);
         }
         //Nouveau point
-        else if (Noeud_selectionne == null){
-            Noeud_selectionne = Sim.addNode(x, y);
-            Element_selectionne = "Noeud";
+        else if (selectedNode == null){
+            selectedNode = Sim.addNode(x, y);
+            selectedObject = "Noeud";
             Print.setText("Noeud selectionne!");
-            fenetre_sim1.selectNode(Noeud_selectionne);
+            fenetre_sim1.selectNode(selectedNode);
         }
 
     }
-    
-    
     public void createLine(int x, int y){
         Line aSelect;
 
-        switch (lineCreationState){
+        switch (createLineState){
             case 0:
                 aSelect = null;
-                if(Noeud_selectionne == null){
+                if(selectedNode == null){
                     aSelect = Sim.isLine(x,y); 
                 }
                 
                 if(aSelect != null){
-                    noeudBuffer = Sim.splitLine(aSelect, x, y);
+                    nodeBuffer = Sim.splitLine(aSelect, x, y);
                 }
                 //Nouveau point
-                else if (Noeud_selectionne == null){
-                    pointBuffer = new Point(x, y);
-                    noeudBuffer = null;
+                else if (selectedNode == null){
+                    lineNewNode = Sim.addNode(x, y);
+                    
+                    nodeBuffer = null;
                     
                 }
                 //point existant
                 else{
-                    noeudBuffer = Noeud_selectionne;
-                    Noeud_selectionne = null;
+                    nodeBuffer = selectedNode;
+                    selectedNode = null;
                 }
                     
-                lineCreationState = 1;
+                createLineState = 1;
                 break;
                 
             case 1:
                 Node noeud1;
                 Node noeud2;
                 aSelect = null;
-                if (Noeud_selectionne == null && noeudBuffer == null){
-                    noeud1 = new Node(pointBuffer.x,pointBuffer.y);
+                if (selectedNode == null && nodeBuffer == null){
+                    noeud1 = lineNewNode;
                      aSelect = null;
-                     if(Noeud_selectionne == null){
+                     if(selectedNode == null){
                         aSelect = Sim.isLine(x,y); 
                      }
                     if (aSelect != null){
@@ -710,14 +730,14 @@ public class SimulatHeure extends javax.swing.JFrame {
                     }
                 }
                 
-                else if (Noeud_selectionne != null && noeudBuffer == null){
-                    noeud1 = new Node(pointBuffer.x,pointBuffer.y);
-                    noeud2 = Noeud_selectionne;
+                else if (selectedNode != null && nodeBuffer == null){
+                    noeud1 = lineNewNode;
+                    noeud2 = selectedNode;
                 }
-                else if (Noeud_selectionne == null && noeudBuffer != null){
-                    noeud1 = noeudBuffer;
+                else if (selectedNode == null && nodeBuffer != null){
+                    noeud1 = nodeBuffer;
                     aSelect = null;
-                     if(Noeud_selectionne == null){
+                     if(selectedNode == null){
                         aSelect = Sim.isLine(x,y); 
                      }
                 
@@ -728,27 +748,39 @@ public class SimulatHeure extends javax.swing.JFrame {
                         noeud2 = new Node(x,y);
                     }
                 }
-                else{ //(Noeud_selectionne != null && noeudBuffer != null){
-                    noeud1 = noeudBuffer;
-                    noeud2 = Noeud_selectionne;
+                else{ //(selectedNode != null && nodeBuffer != null){
+                    noeud1 = nodeBuffer;
+                    noeud2 = selectedNode;
                 }
                 Sim.addLine(noeud1, noeud2);
-                Element_selectionne = "Noeud";
-                Noeud_selectionne = noeud2;
-                lineCreationState = 0;
+                selectedObject = "Noeud";
+                selectedNode = noeud2;
+                createLineState = 0;
+                fenetre_sim1.createLineTemp = null;
                 fenetre_sim1.selectNode(noeud2);
                 mouseClickState = "selection";
+                
                 break;
             default:
                 break;
         }
     }
+    public void displayTime(){
+        sim_time.setText(""+Sim.freq*Sim.count/1000);
+    }
+    private boolean cursorIsOnObject(int x, int y){
+        if (Sim.getNodeFromPosition(x,y, 20, fenetre_sim1.img_station_size) != null){
+            return true;
+        }
+        return false;
+    }
+    
     
     
     private void text_nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_nomActionPerformed
         // TODO add your handling code here:
-         Noeud_selectionne.setName(text_nom.getText());
-         if (Noeud_selectionne.isStation){
+         selectedNode.setName(text_nom.getText());
+         if (selectedNode.isStation){
             Print.setText("Station selectionnée: " + text_nom.getText());
          }
 
@@ -775,29 +807,29 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         if (mouseClickState.matches("selection|ajoutArete|ajoutNoeud|ajoutStation")){
             //va chercher la station correspondant au clic
-            Noeud_selectionne = Sim.getNodeFromPosition(pressedX,pressedY, size, size_s);
-            if (Noeud_selectionne == null){
+            selectedNode = Sim.getNodeFromPosition(pressedX,pressedY, size, size_s);
+            if (selectedNode == null){
                 Print.setText("Vous n'avez rien sélectionné");
                 text_nom.setText("-");
             }
-            if (Noeud_selectionne != null){
-                Element_selectionne = "Noeud";
+            if (selectedNode != null){
+                selectedObject = "Noeud";
                 Print.setText("Noeud selectionne!");
-                if (Noeud_selectionne.isStation){
-                    Element_selectionne = "Station";
-                    Print.setText("Station selectionnée: "+Noeud_selectionne.getName());
-                    text_nom.setText(Noeud_selectionne.getName());
+                if (selectedNode.isStation){
+                    selectedObject = "Station";
+                    Print.setText("Station selectionnée: "+selectedNode.getName());
+                    text_nom.setText(selectedNode.getName());
                 }
             }
 
             /* -------------- Ajout de station à un circuit ------------- */
-            if (Creation_circuit_etat == "Creation"){
-                if (Noeud_selectionne != null){
+            if (createRouteState == "Creation"){
+                if (selectedNode != null){
                     Boolean isPossible = false;
                     if (Sim.newRoute.size()>0){
                         for (Line a: Sim.newRoute.get(Sim.newRoute.size()-1).listLines){
-                            if (Noeud_selectionne != Sim.newRoute.get(Sim.newRoute.size()-1)){
-                                if (Noeud_selectionne == a.origine || Noeud_selectionne == a.destination){
+                            if (selectedNode != Sim.newRoute.get(Sim.newRoute.size()-1)){
+                                if (selectedNode == a.origine || selectedNode == a.destination){
                                  isPossible = true;
                                  break;
                                 }
@@ -805,9 +837,9 @@ public class SimulatHeure extends javax.swing.JFrame {
                         }
                     }
                     if (isPossible || Sim.newRoute.isEmpty()){
-                        Sim.newRoute.add(Noeud_selectionne);
-                        Print.setText("Noeud ajoutée (" +Noeud_selectionne.getName()+  ") au parcours!");
-                        fenetre_sim1.selectNode(Noeud_selectionne);
+                        Sim.newRoute.add(selectedNode);
+                        Print.setText("Noeud ajoutée (" +selectedNode.getName()+  ") au parcours!");
+                        fenetre_sim1.selectNode(selectedNode);
                     }
                     else{
                         Print.setText("Veuillez sélectionner un noeud valide!");
@@ -815,7 +847,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 }
             }
             else {
-                fenetre_sim1.selectNode(Noeud_selectionne);
+                fenetre_sim1.selectNode(selectedNode);
             }
          }
                 
@@ -824,12 +856,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         if (mouseClickState == "ajoutStation")
         {
-            if (Noeud_selectionne != null){
-                Sim.addStation(Noeud_selectionne);
-                Element_selectionne = "Station";
-                Print.setText("Derniere station: " + Noeud_selectionne.getName());
-                text_nom.setText(Noeud_selectionne.getName());
-                //fenetre_sim1.selectNoeud(Noeud_selectionne);
+            if (selectedNode != null){
+                Sim.addStation(selectedNode);
+                selectedObject = "Station";
+                Print.setText("Derniere station: " + selectedNode.getName());
+                text_nom.setText(selectedNode.getName());
+                //fenetre_sim1.selectNoeud(selectedNode);
             }
             mouseClickState = "selection";
         }
@@ -837,11 +869,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         /* -------------- Deplacer station ------------- */
         
         if (mouseClickState == "deplacerNoeud"){
-            if (Noeud_selectionne != null)
+            if (selectedNode != null)
             {
-                Noeud_selectionne.setPositionX(pressedX);
-                Noeud_selectionne.setPositionY(pressedY);
-                //fenetre_sim1.selectStation(Station_selectionnee);
+                selectedNode.setPositionX(pressedX);
+                selectedNode.setPositionY(pressedY);
+                fenetre_sim1.selectNode(selectedNode);
                 Sim.updateLines();
             }
             mouseClickState = "selection";
@@ -855,25 +887,25 @@ public class SimulatHeure extends javax.swing.JFrame {
         /* -------------- Creation noeud ------------- */
         
         if (mouseClickState == "ajoutNoeud"){
-            createNoeud(pressedX, pressedY);
+            createNode(pressedX, pressedY);
             mouseClickState = "selection";
         }
         
         fenetre_sim1.repaint();
     }//GEN-LAST:event_fenetre_sim1MousePressed
     
-    private boolean cursorIsOnObject(int x, int y){
-        if (Sim.getNodeFromPosition(x,y, 20, fenetre_sim1.img_station_size) != null){
-            return true;
-        }
-        return false;
-    }
-    
     private void fenetre_sim1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseMoved
        
         int x =  (int) ((double)evt.getX()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getWidth()/2 - fenetre_sim1.centerPositionX);
         int y =  (int) ((double)evt.getY()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getHeight()/2- fenetre_sim1.centerPositionY);
         displayLabelCoordonnees.setText("X:  "+x +"  Y:  "+ y );
+        
+        if (createLineState == 1){
+            fenetre_sim1.createLineTemp = new Line2D.Double(pressedX, pressedY, x, y);
+            fenetre_sim1.repaint();
+        }
+
+            
         if (cursorIsOnObject(x, y)){
             setCursor(handCursor);
         } else{
@@ -896,34 +928,34 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void Dialog_circuitWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_Dialog_circuitWindowClosing
         // TODO add your handling code here:
         
-        Creation_circuit_etat ="reset";
+        createRouteState ="reset";
         
     }//GEN-LAST:event_Dialog_circuitWindowClosing
 
-    private void liste_circuitsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_liste_circuitsValueChanged
+    private void listRoutesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listRoutesValueChanged
         // TODO add your handling code here:
         
        
-            int i = liste_circuits.getSelectedIndex();
+            int i = listRoutes.getSelectedIndex();
             if (i>=0){
                 
-                Circuit_selectionnee = Sim.getRouteFromIndex(i);
-                Element_selectionne = "Circuit";
-                Print.setText("Circuit sélectionné: "+Circuit_selectionnee.getNumber());
+                selectedRoute = Sim.getRouteFromIndex(i);
+                selectedObject = "Circuit";
+                Print.setText("Circuit sélectionné: "+selectedRoute.getNumber());
             }
             else{
-                Circuit_selectionnee = null;
-                Element_selectionne = "Circuit";
+                selectedRoute = null;
+                selectedObject = "Circuit";
             }
         
-    }//GEN-LAST:event_liste_circuitsValueChanged
+    }//GEN-LAST:event_listRoutesValueChanged
     
-    
+ 
     //nécéssaire quand il pressedY a un seul circuit
-    private void liste_circuitsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_liste_circuitsFocusGained
+    private void listRoutesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listRoutesFocusGained
         // TODO add your handling code here:
-        liste_circuitsValueChanged(null);
-    }//GEN-LAST:event_liste_circuitsFocusGained
+        listRoutesValueChanged(null);
+    }//GEN-LAST:event_listRoutesFocusGained
 
 
     private void Bouton_simulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_simulerActionPerformed
@@ -990,27 +1022,27 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCommandAjouterAreteActionPerformed
 
     private void menuCommandSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandSupprimerActionPerformed
-        if (Noeud_selectionne != null && (Element_selectionne == "Station" || Element_selectionne == "Noeud")){
             
-            if(Sim.deleteNode(Noeud_selectionne)){
-                if(Noeud_selectionne.isStation){
+            
+            if(Sim.deleteNode(selectedNode)){
+                if(selectedNode.isStation){
                     Print.setText("Station supprimée avec succès.");
                 }
                 else{
                     Print.setText("Noeud supprimé avec succès.");
                 }
             }
-        }
-        if (Element_selectionne == "Circuit"){
+        
+        if (selectedObject == "Circuit"){
             
-            int i = liste_circuits.getSelectedIndex();
+            int i = listRoutes.getSelectedIndex();
             if (i >= 0){
 
 
-                int numero_circuit = Circuit_selectionnee.getNumber();
-                Sim.deleteRoute(Circuit_selectionnee);
-                model_selection_circuits.remove(i);
-                Circuit_selectionnee = null;
+                int numero_circuit = selectedRoute.getNumber();
+                Sim.deleteRoute(selectedRoute);
+                defaultListModel.remove(i);
+                selectedRoute = null;
                 Print.setText("Circuit "+numero_circuit+ " supprimé avec succès.");
 
 
@@ -1033,19 +1065,23 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void fenetre_sim1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseDragged
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_fenetre_sim1MouseDragged
-
-    private void fenetre_sim1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseReleased
-        // TODO add your handling code here:
-        if (drag){
+         if (drag){
 
             fenetre_sim1.centerPositionX -=  pressedX - (int) ((double)evt.getX()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getWidth()/2- fenetre_sim1.centerPositionX);
             fenetre_sim1.centerPositionY -=   pressedY -  (int) ((double)evt.getY()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getHeight()/2- fenetre_sim1.centerPositionY);
             fenetre_sim1.repaint();
         }
+    }//GEN-LAST:event_fenetre_sim1MouseDragged
+
+    private void fenetre_sim1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseReleased
+        // TODO add your handling code here:
+       
         drag = false;
     }//GEN-LAST:event_fenetre_sim1MouseReleased
+
+    private void sim_timeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sim_timeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sim_timeActionPerformed
 
 
     /**
@@ -1085,9 +1121,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
     }
    
-    
-   
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bouton_arreter;
     private javax.swing.JButton Bouton_circuit;
@@ -1106,13 +1139,14 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JList liste_circuits;
+    private javax.swing.JList listRoutes;
     private javax.swing.JMenuItem menuCommandAjouterArete;
     private javax.swing.JMenuItem menuCommandAjouterCircuit;
     private javax.swing.JMenuItem menuCommandAjouterNoeud;
@@ -1140,6 +1174,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JMenu menuSubfolderToolboxes;
     private javax.swing.JButton ok_dialog_circuit;
     private javax.swing.JTextField sim_duration;
+    private javax.swing.JTextField sim_time;
     private javax.swing.JSlider simulation_speed;
     private javax.swing.JSpinner spin_freq;
     private javax.swing.JSpinner spin_num;

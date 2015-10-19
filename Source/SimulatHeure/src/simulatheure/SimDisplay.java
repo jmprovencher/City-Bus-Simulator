@@ -6,6 +6,7 @@
 package simulatheure;
 
 import Reseau.*;
+import java.awt.Color;
 
 import javax.swing.*;
 import java.awt.Graphics;
@@ -13,12 +14,13 @@ import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Cursor;
-import java.io.File;
+import java.awt.geom.Line2D;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.*;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.BasicStroke;
 /**
  *
  * @author rem54
@@ -28,9 +30,9 @@ public class SimDisplay extends JPanel {
 
    
     public SimDisplay(){
-        Graphics g = this.getGraphics();
-        Graphics2D g2 = (Graphics2D) g;
-
+        
+        
+        System.out.println(topFrame);
         scale = 1;
         centerPositionX = 0;
         centerPositionY = 0;
@@ -54,6 +56,8 @@ public class SimDisplay extends JPanel {
         img_bus_size = img_bus.getWidth();
         Sim = new Simulation();
         
+        createLineTemp = null;
+
         liste_Noeuds_selected = new ArrayList<Node>();
         liste_Aretes_selected = new ArrayList<Line>();
         liste_Buses_selected = new ArrayList<Bus>();
@@ -66,6 +70,8 @@ public class SimDisplay extends JPanel {
             public void actionPerformed(ActionEvent event)
             {
                 repaint();
+                topFrame.displayTime();
+                
             }
         };
         
@@ -84,8 +90,6 @@ public class SimDisplay extends JPanel {
         tr.scale(scale,scale);
         g2.setTransform(tr);
 
-        g.drawString("Temps: "+Sim.freq*Sim.count/1000, 10, 20);
-
        for (int i = 0; i < Sim.getRouteQuantity(); i++){
            Route circuit_i = Sim.getRouteFromIndex(i);
 
@@ -94,16 +98,6 @@ public class SimDisplay extends JPanel {
            }
        }
        
-       int x1 = 0, x2 = 0, y1 = 0, y2 = 0, count = 0;
-       for (Node s: Sim.newRoute){
-           if (count == 0){x1 = s.getPositionX(); y1 = s.getPositionY();count++;continue;}
-           x2 = s.getPositionX();
-           y2 = s.getPositionY();
-           g.drawLine(x1,y1,x2,y2);
-           x1 = x2;
-           y1 = y2;
-           count++;
-       }
        for (Line a: Sim.listLines){
            g.drawLine((int)a.line.getX1(), (int)a.line.getY1(), (int)a.line.getX2(),(int)a.line.getY2());
        }
@@ -120,6 +114,27 @@ public class SimDisplay extends JPanel {
                     g.drawImage(img_station, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null);    
                
                }
+       }
+       
+       g.setColor(Color.red);
+       int x1 = 0, x2 = 0, y1 = 0, y2 = 0, count = 0;
+       for (Node n: Sim.newRoute){
+           if (count == 0){x1 = n.getPositionX(); y1 = n.getPositionY();count++;continue;}
+           x2 = n.getPositionX();
+           y2 = n.getPositionY();
+           g.drawLine(x1,y1,x2,y2);
+           x1 = x2;
+           y1 = y2;
+           count++;
+       }
+       
+       // ligne pendant la création d'une arrete
+       BasicStroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+       if (createLineTemp != null){
+            g.setColor(Color.gray);
+            g2.setStroke(dashed);
+            g.drawLine((int)createLineTemp.getX1(), (int)createLineTemp.getY1(), (int)createLineTemp.getX2(), (int)createLineTemp.getY2());
+       
        }
        
     }
@@ -143,10 +158,11 @@ public class SimDisplay extends JPanel {
         }
         
         if (n <= -1){
-            scale = scale/(scaleFactor);
+            scale = scale *(scaleFactor);
         }
         else if (n >= 1){
-            scale = scale *(scaleFactor);
+            
+            scale = scale/(scaleFactor);
         }
         
         repaint();
@@ -183,7 +199,7 @@ public class SimDisplay extends JPanel {
      END Item selection management
     */
 
-     double  centerPositionX;
+     double centerPositionX;
      double centerPositionY;
      public javax.swing.Timer displayTimer;
      private List<Node> liste_Noeuds_selected;
@@ -199,6 +215,8 @@ public class SimDisplay extends JPanel {
      public int img_bus_size;
      public int x;
      public int y;
+     public Line2D.Double createLineTemp;
      public Simulation Sim;
-      public double scale;
+     public double scale;
+     public SimulatHeure topFrame;
 }
