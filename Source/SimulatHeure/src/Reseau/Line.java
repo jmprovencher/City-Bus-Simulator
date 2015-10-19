@@ -9,42 +9,42 @@ import java.awt.geom.Line2D;
  *
  * @author Sam
  */
-public class Arete {
-    public Arete(Noeud arg_origine, Noeud arg_destination){
+public class Line {
+    public Line(Node arg_origine, Node arg_destination){
         maxSpeed = 60;
         minSpeed = 5;
         typeSpeed = 35;
         origine = arg_origine;
         destination = arg_destination;
-        origine.addArete(this);
-        destination.addArete(this);
+        origine.addLine(this);
+        destination.addLine(this);
         int x1, x2, y1, y2;
-        x1 = origine.req_positionX();
-        y1 = origine.req_positionY();
-        x2 = destination.req_positionX();
-        y2 = destination.req_positionY();        
+        x1 = origine.getPositionX();
+        y1 = origine.getPositionY();
+        x2 = destination.getPositionX();
+        y2 = destination.getPositionY();        
         line = new Line2D.Double(x1,y1,x2,y2);
     }
     
-    public Noeud req_origine(){
+    public Node getOrigine(){
         return origine;
     }
     
-    public Noeud req_destination(){
+    public Node getDestination(){
         return destination;
     }
     
 
     public void update(){
-        line.setLine(origine.req_positionX(), origine.req_positionY(), destination.req_positionX(), destination.req_positionY());
+        line.setLine(origine.getPositionX(), origine.getPositionY(), destination.getPositionX(), destination.getPositionY());
     }
     
     public void delete(){
-        if (origine.listAretes.contains(this)){
-            origine.listAretes.remove(this);
+        if (origine.listRoutes.contains(this)){
+            origine.listRoutes.remove(this);
         }
-         if (destination.listAretes.contains(this)){
-            destination.listAretes.remove(this);
+         if (destination.listRoutes.contains(this)){
+            destination.listRoutes.remove(this);
          }
  
     }
@@ -55,6 +55,6 @@ public class Arete {
     public double speed;
     
     public Line2D line;
-    public Noeud origine;
-    public Noeud destination;
+    public Node origine;
+    public Node destination;
 }

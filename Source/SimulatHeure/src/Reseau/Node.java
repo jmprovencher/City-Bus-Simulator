@@ -9,34 +9,34 @@ import java.util.*;
  *
  * @author rem54
  */
-public class Noeud {
+public class Node {
     
-    public Noeud(int argX, int argY){
+    public Node(int argX, int argY){
         positionX = argX;
         positionY = argY;
         isStation = false;
-        nombre_circuits = 0;
-        nombre_passagers = 0;
-        listAretes = new ArrayList<Arete>();
+        numberOfRoutes = 0;
+        numberOFPassengers = 0;
+        listRoutes = new ArrayList<Line>();
     }
     
-    public void addArete(Arete a){
-        listAretes.add(a);
+    public void addLine(Line l){
+        listRoutes.add(l);
     }
     
-    public int req_positionX(){
+    public int getPositionX(){
         return positionX;
     }
     
-    public int req_positionY(){
+    public int getPositionY(){
         return positionY;
     }
     
-    public void mod_positionX(int x_arg){
+    public void setpositionX(int x_arg){
         positionX = x_arg;
     }
     
-    public void mod_positionY(int y_arg){
+    public void setPositionY(int y_arg){
         positionY = y_arg;
     }
     
@@ -47,9 +47,9 @@ public class Noeud {
     
     //Station
     
-     public void mod_nom(String arg_nom){
+     public void setName(String newName){
          if(isStation){
-        nom = arg_nom;
+        name = newName;
          }
     }
     
@@ -57,56 +57,56 @@ public class Noeud {
      
      public void setStation(String arg_nom){
          isStation = true;
-         nom = arg_nom;
+         name = arg_nom;
      }
      
      public void deleteStation(){
          isStation = false;
-         nom = null;
-         nombre_passagers = 0;
-         nombre_circuits = 0;
+         name = null;
+         numberOFPassengers = 0;
+         numberOfRoutes = 0;
      }
      
-    public void mod_nb_passager(int arg_nb_passager){
+    public void setNumberOfPassengers(int number){
          if(isStation){
-            nombre_passagers = arg_nb_passager;
+            numberOFPassengers = number;
          }
     }
 
-    public void mod_nombre_circuits(int n){
+    public void setNumberOfCircuit(int n){
   
         if (n == 1){
-            nombre_circuits++;
+            numberOfRoutes++;
         }
         if (n == -1){
-            nombre_circuits--;
+            numberOfRoutes--;
         }
          
     }
     
-    public int req_nombreb_passager(){
+    public int getNumberOfPassengers(){
          if(isStation){
-        return nombre_passagers;
+        return numberOFPassengers;
          }
          return 0;
     }
     
-    public String req_nom(){
+    public String getName(){
          if(isStation){
-        return nom;
+        return name;
          }
          return null;
     }
     
 
-    public int req_nombre_circuits(){
+    public int getNumberOfRoutes(){
 
-        return nombre_circuits;
+        return numberOfRoutes;
 
     }
     
-    public List<Arete> listAretes;
-    private String nom;
-    private int nombre_circuits;
-    private int nombre_passagers;
+    public List<Line> listRoutes;
+    private String name;
+    private int numberOfRoutes;
+    private int numberOFPassengers;
 }

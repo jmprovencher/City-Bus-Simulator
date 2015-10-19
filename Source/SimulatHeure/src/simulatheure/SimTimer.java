@@ -33,7 +33,7 @@ public class SimTimer {
                if (simSpeed >= 1 ){
                    
                     for (int i = 0; i< simSpeed; i++){
-                        sim.Simuler();
+                        sim.simulate();
                         
                     }
                }
@@ -65,7 +65,7 @@ public class SimTimer {
     
     public void stop(){
         simTimer.stop();
-        sim.Arreter_simulation();
+        sim.stopSimulation();
         running = false;
     }
     

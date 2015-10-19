@@ -422,7 +422,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Radio_selectActionPerformed"/>
       </Events>
     </Component>
-    <Container class="simulatheure.FenetreSim" name="fenetre_sim1">
+    <Container class="simulatheure.SimDisplay" name="fenetre_sim1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>

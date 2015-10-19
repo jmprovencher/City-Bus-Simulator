@@ -16,75 +16,67 @@ import Reseau.*;
 public class Simulation {
     public Simulation(){
 
-        liste_circuits= new ArrayList<Circuit>();
-        parcours = new ArrayList<Noeud>();
-        liste_aretes = new ArrayList<Arete>();
-        liste_noeuds = new ArrayList<Noeud>();
+        listRoutes= new ArrayList<Route>();
+        newRoute = new ArrayList<Node>();
+        listLines = new ArrayList<Line>();
+        listNodes = new ArrayList<Node>();
         count = 0;
-
     }
 
-    
-
-    
-    public void Simuler(){
+    public void simulate(){
         
-     
-        
-        for (Circuit c: liste_circuits){
-            Bus bus_terminee = null;
-            for (Bus b: c.liste_bus){
+        for (Route c: listRoutes){
+            Bus busDone = null;
+            for (Bus b: c.listBus){
                
-                if (!deplacer_bus(b)){
-                    bus_terminee = b;
+                if (!moveBus(b)){
+                    busDone = b;
                 }
             }
-            if (bus_terminee != null){
-                c.supprimer_bus(bus_terminee);
+            if (busDone != null){
+                c.deleteBus(busDone);
             }
             
-            if ((int)(c.req_t_prochain_depart()*(1000/(freq))) == count){
-                Bus newBus = c.ajouter_bus();
+            if ((int)(c.getTimeNextStart()*(1000/(freq))) == count){
+                Bus newBus = c.addBus();
  
-                c.mod_t_prochain_depart();
+                c.setTimeNextStart();
             }
-            
         }
-        
         count++;
     }
     
-    public void Arreter_simulation(){
+    public void stopSimulation(){
         count = 0;
-        for (Circuit c: liste_circuits){
+        for (Route c: listRoutes){
             c.reset();
         }
     }
     
-    public Boolean deplacer_bus(Bus b){
+    public Boolean moveBus(Bus b){
               
-        if (b.req_circuitActuel().req_nombre_noeuds() == b.req_nombre_noeud_parcourue()){
-            if (b.req_circuitActuel().isLoop){
-                b.req_circuitActuel().loopDone = true;
+        if (b.getRoute().getNumberOfNodes() == b.getNodesPast()){
+            if (b.getRoute().isLoop){
+                b.getRoute().loopDone = true;
                 b.reset();
             }
             else{
                 return false;
             } 
         }
-        double origin_x = b.req_positionX();
-        double origin_y = b.req_positionY();
+        double originX = b.getPositionX();
+        double originY = b.getPositionY();
         
         double relativeSpeed = (b.reqSpeed())*freq/1000;
-        int target_x = b.req_circuitActuel().req_noeud_index(b.req_index_derniere_noeud()+1).req_positionX();
-        int target_y= b.req_circuitActuel().req_noeud_index(b.req_index_derniere_noeud()+1).req_positionY();
+        int targetX = b.getRoute().getNodeFromIndex(b.getLastNodeIndex()+1).getPositionX();
+        int targetY= b.getRoute().getNodeFromIndex(b.getLastNodeIndex()+1).getPositionY();
         
         double angle;
         
-        angle = Math.atan((double)(target_y-origin_y)/(double)(target_x-origin_x));
+        angle = Math.atan((double)(targetY-originY)/(double)(targetX-originX));
         
-        if (target_x == origin_x){
-            if (target_y > origin_y){
+        if (targetX == originX){
+            if (targetY > originY){
                 angle = -Math.PI/2;
             }
             else{
@@ -92,83 +84,79 @@ public class Simulation {
             }
         }
 
-        if (target_x - origin_x <= 0){
-            b.mod_positionX(b.req_positionX()- (Math.cos(angle)*relativeSpeed));
-            b.mod_positionY(b.req_positionY()- (Math.sin(angle)*relativeSpeed));
+        if (targetX - originX <= 0){
+            b.setPositionX(b.getPositionX()- (Math.cos(angle)*relativeSpeed));
+            b.setPositionY(b.getPositionY()- (Math.sin(angle)*relativeSpeed));
         }
         else{
-            b.mod_positionX((b.req_positionX()+ (Math.cos(angle)*relativeSpeed)));
-            b.mod_positionY((b.req_positionY()+ (Math.sin(angle)*relativeSpeed)));
+            b.setPositionX((b.getPositionX()+ (Math.cos(angle)*relativeSpeed)));
+            b.setPositionY((b.getPositionY()+ (Math.sin(angle)*relativeSpeed)));
         }
 
-        b.update_t_next_noeud();
+        b.updateTimeNextNode();
         
-        if (b.req_t_next_noeud() <= freq/1000){
+        if (b.getTimeNextNode() <= freq/1000){
 
-            b.mod_positionX(target_x);
-            b.mod_positionY(target_y);
+            b.setPositionX(targetX);
+            b.setPositionY(targetY);
             
-            b.mod_index_dernier_noeud();
+            b.setLastNodeIndex();
            
-            b.incrementer_nombre_noeud_parcourue();
-            b.update_t_next_noeud();
+            b.addNodesPast();
+            b.updateTimeNextNode();
             b.updateSpeed();
         }
         return true;
     }
     
     
-    public Noeud ajouter_station(Noeud n)
+    public Node addStation(Node n)
     {
         n.setStation("Station");
         return n;
     }
     
 
-    public Boolean supprimer_noeud(Noeud n){
-        if (n != null)
+    public Boolean deleteNode(Node node){
+        if (node != null)
         {
-            if (n.isStation){
-                n.deleteStation();
+            if (node.isStation){
+                node.deleteStation();
             }
             else{
-                
-                if (n.req_nombre_circuits() == 0){
-                int size = n.listAretes.size();
+                if (node.getNumberOfRoutes() == 0){
+                int size = node.listRoutes.size();
                 for (int i = 0; i < size; i++){
-                    Arete a = n.listAretes.get(0);
+                    Line a = node.listRoutes.get(0);
                     a.delete();
                     
-                    if(n != a.origine && a.origine.listAretes.isEmpty()){
-                        liste_noeuds.remove(a.origine);
+                    if(node != a.origine && a.origine.listRoutes.isEmpty()){
+                        listNodes.remove(a.origine);
                     }
-                    if(n != a.destination && a.destination.listAretes.isEmpty()){
-                        liste_noeuds.remove(a.destination);
+                    if(node != a.destination && a.destination.listRoutes.isEmpty()){
+                        listNodes.remove(a.destination);
                     }
-                    liste_aretes.remove(a);
+                    listLines.remove(a);
                 }
-                liste_noeuds.remove(n);
-                
+                listNodes.remove(node);
             }
             return true; // supprimée avec succès
             }
         }
         return false ;// n'a pas pu être supprimée
-
     }
 
-
-    public Noeud req_noeud_pos(int arg_x, int arg_y, int arg_taille, int argTailleStation){
-        int taille;
-          for (Noeud n: liste_noeuds){
+    public Node getNodeFromPosition(int positionX, int positionY, int nodeSize, int stationSize){
+        int size;
+          for (Node n: listNodes){
               if (n.isStation){
-                  taille = argTailleStation;
+                  size = stationSize;
               }
               else{
-                  taille = arg_taille;
+                  size = nodeSize;
               }
-               if (arg_x < n.req_positionX() +taille/2 && arg_x > n.req_positionX() -taille/2){
-                   if (arg_y < n.req_positionY() +taille/2 && arg_y > n.req_positionY() -taille/2){
+               if (positionX < n.getPositionX() +size/2 && positionX > n.getPositionX() -size/2){
+                   if (positionY < n.getPositionY() +size/2 && positionY > n.getPositionY() -size/2){
                        return n;
                    }
                }
@@ -176,73 +164,73 @@ public class Simulation {
           return null;
     }
     
-    public Noeud req_noeud_index(int index){
-        return liste_noeuds.get(index);
+    public Node getNodeFromIndex(int index){
+        return listNodes.get(index);
     }
     
-    public int req_nombre_noeud(){
-        return liste_noeuds.size();
+    public int getNodeQuantity(){
+        return listNodes.size();
     }
     
-    public Circuit ajouter_circuit(List<Noeud> p, int arg_num, int arg_freq, int arg_t_depart)
+    public Route addRoute(List<Node> routeList, int number, int frequency, int firstStart)
     {
-        liste_circuits.add(new Circuit(arg_num,arg_freq,arg_t_depart,p));
+        listRoutes.add(new Route(number, frequency , firstStart ,routeList));
 
-        for (Noeud n: p){
-            n.mod_nombre_circuits(1);
+        for (Node n: routeList){
+            n.setNumberOfCircuit(1);
         }
 
-        return liste_circuits.get(liste_circuits.size()-1);
+        return listRoutes.get(listRoutes.size()-1);
     }
     
-    public void supprimer_circuit(Circuit c){
+    public void deleteRoute(Route route){
 
-        for (int i = 0; i<c.req_nombre_noeuds(); i++){
-            c.req_noeud_index(i).mod_nombre_circuits(-1);
+        for (int i = 0; i<route.getNumberOfNodes(); i++){
+            route.getNodeFromIndex(i).setNumberOfCircuit(-1);
         }
 
-        if (c != null)
+        if (route != null)
         {
-            liste_circuits.remove(c);
+            listRoutes.remove(route);
         }
     }
     
-    public Noeud addNoeud(int x, int y){
-        Noeud n = new Noeud(x, y);
-        liste_noeuds.add(n);
+    public Node addNode(int x, int y){
+        Node n = new Node(x, y);
+        listNodes.add(n);
         return n;
     }
     
-    public Arete addLine(Noeud noeud1, Noeud noeud2){
+    public Line addLine(Node node1, Node node2){
         
-        if (!liste_noeuds.contains(noeud1)){
-            liste_noeuds.add(noeud1);
+        if (!listNodes.contains(node1)){
+            listNodes.add(node1);
         }
-        if (!liste_noeuds.contains(noeud2)){
-            liste_noeuds.add(noeud2);
+        if (!listNodes.contains(node2)){
+            listNodes.add(node2);
         }
 
-        Arete newArete = new Arete(noeud1, noeud2);
-        liste_aretes.add(newArete);
+        Line newArete = new Line(node1, node2);
+        listLines.add(newArete);
         return newArete;   
     }
     
-    public Noeud splitLine(Arete a, int x, int y){
+    public Node splitLine(Line line, int x, int y){
         
-        a.origine.listAretes.remove(a);
-        a.destination.listAretes.remove(a);
-        liste_aretes.remove(a);
+        line.origine.listRoutes.remove(line);
+        line.destination.listRoutes.remove(line);
+        listLines.remove(line);
         
-        Noeud n = new Noeud(x,y);
-        liste_noeuds.add(n);
-        liste_aretes.add(new Arete(a.origine, n));
-        liste_aretes.add(new Arete(a.destination, n));
-        a = null;     
+        Node n = new Node(x,y);
+        listNodes.add(n);
+        listLines.add(new Line(line.origine, n));
+        listLines.add(new Line(line.destination, n));
+        line = null;     
         return n;
     }
     
-    public Arete isLine(int x, int y){
-        for (Arete a: liste_aretes){
+    public Line isLine(int x, int y){
+        for (Line a: listLines){
             if (a.line.intersects(x-10, y-10, 20, 20)){   
                 return a;
             }
@@ -251,23 +239,23 @@ public class Simulation {
     }
     
 
-    public int req_nombre_circuits()
+    public int getRouteQuantity()
     {
-        return liste_circuits.size();
+        return listRoutes.size();
     }
     
-    public Circuit req_circuit_index(int index){
-        return liste_circuits.get(index);
+    public Route getRouteFromIndex(int index){
+        return listRoutes.get(index);
     }
     
-    public void updateArete(){
-        for (Arete a: liste_aretes){
-            a.update();
+    public void updateLine(){
+        for (Line l: listLines){
+            l.update();
         }
     }
     
     public void setSpeed(){
-        for (Arete a: liste_aretes){
+        for (Line a: listLines){
             a.speed = triangular(a.minSpeed, a.maxSpeed, a.typeSpeed);
         }
     }
@@ -281,10 +269,10 @@ public class Simulation {
            return b - Math.sqrt((1 - U) * (b - a) * (b - c));
     }
 
-    public List<Noeud> parcours;
-    private List<Circuit> liste_circuits;
-    public List<Arete> liste_aretes;
-    public List<Noeud> liste_noeuds;
+    public List<Node> newRoute;
+    private List<Route> listRoutes;
+    public List<Line> listLines;
+    public List<Node> listNodes;
     public int count;
     public double freq;
 

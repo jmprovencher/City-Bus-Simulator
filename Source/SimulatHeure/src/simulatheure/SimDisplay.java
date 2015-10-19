@@ -21,9 +21,9 @@ import java.util.*;
  *
  * @author rem54
  */
-public class FenetreSim extends JPanel {
+public class SimDisplay extends JPanel {
         
-    public FenetreSim(){
+    public SimDisplay(){
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
@@ -41,8 +41,8 @@ public class FenetreSim extends JPanel {
         img_bus_size = img_bus.getWidth();
         Sim = new Simulation();
         
-        liste_Noeuds_selected = new ArrayList<Noeud>();
-        liste_Aretes_selected = new ArrayList<Arete>();
+        liste_Noeuds_selected = new ArrayList<Node>();
+        liste_Aretes_selected = new ArrayList<Line>();
         liste_Buses_selected = new ArrayList<Bus>();
         
         
@@ -59,46 +59,46 @@ public class FenetreSim extends JPanel {
         displayTimer = new javax.swing.Timer(16, action);
     }
     
-    public void display_sim(Graphics g){
+    public void displaySim(Graphics g){
         
         g.drawString("Temps: "+Sim.freq*Sim.count/1000, 10, 20);
         
 
         
         
-       for (int i = 0; i < Sim.req_nombre_circuits(); i++){
-           Circuit circuit_i = Sim.req_circuit_index(i);
+       for (int i = 0; i < Sim.getRouteQuantity(); i++){
+           Route circuit_i = Sim.getRouteFromIndex(i);
            
  
-           for (Bus b : circuit_i.liste_bus){
-                g.drawImage(img_bus, (int)b.req_positionX() - img_bus_size/2, (int)b.req_positionY()- img_bus_size/2, null);
+           for (Bus b : circuit_i.listBus){
+                g.drawImage(img_bus, (int)b.getPositionX() - img_bus_size/2, (int)b.getPositionY()- img_bus_size/2, null);
            }
        }
        
        int x1 = 0, x2 = 0, y1 = 0, y2 = 0, count = 0;
-       for (Noeud s: Sim.parcours){
-           if (count == 0){x1 = s.req_positionX(); y1 = s.req_positionY();count++;continue;}
-           x2 = s.req_positionX();
-           y2 = s.req_positionY();
+       for (Node s: Sim.newRoute){
+           if (count == 0){x1 = s.getPositionX(); y1 = s.getPositionY();count++;continue;}
+           x2 = s.getPositionX();
+           y2 = s.getPositionY();
            g.drawLine(x1,y1,x2,y2);
            x1 = x2;
            y1 = y2;
            count++;
        }
-       for (Arete a: Sim.liste_aretes){
+       for (Line a: Sim.listLines){
            g.drawLine((int)a.line.getX1(), (int)a.line.getY1(), (int)a.line.getX2(),(int)a.line.getY2());
        }
-       for (Noeud n: Sim.liste_noeuds){
+       for (Node n: Sim.listNodes){
            if (liste_Noeuds_selected.contains(n)){
-                   g.drawOval(n.req_positionX()-25, n.req_positionY()-25, 50, 50);
+                   g.drawOval(n.getPositionX()-25, n.getPositionY()-25, 50, 50);
            }
            if(!n.isStation){
-                g.drawRect(n.req_positionX()-10, n.req_positionY()-10, 20, 20);
+                g.drawRect(n.getPositionX()-10, n.getPositionY()-10, 20, 20);
            }
            else{
 
                
-                    g.drawImage(img_station, n.req_positionX() - img_station_size/2, n.req_positionY()- img_station_size/2, null);    
+                    g.drawImage(img_station, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null);    
                
                }
        }
@@ -108,7 +108,7 @@ public class FenetreSim extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        display_sim(g);
+        displaySim(g);
         
     }
     
@@ -116,11 +116,11 @@ public class FenetreSim extends JPanel {
     Item selection management
     */
     
-    public void selectNoeud(Noeud n){
+    public void selectNode(Node n){
         liste_Noeuds_selected.add(n);
     }
     
-    public void selectArete(Arete arr){
+    public void selectLine(Line arr){
         liste_Aretes_selected.add(arr);
     }
     
@@ -151,8 +151,8 @@ public class FenetreSim extends JPanel {
      private Cursor handCursor;
      private Cursor quadraArrowsCursor;
      public javax.swing.Timer displayTimer;
-     private List<Noeud> liste_Noeuds_selected;
-     private List<Arete> liste_Aretes_selected;
+     private List<Node> liste_Noeuds_selected;
+     private List<Line> liste_Aretes_selected;
      private List<Bus> liste_Buses_selected;
      public BufferedImage img_station;
      public BufferedImage img_station_selected;
