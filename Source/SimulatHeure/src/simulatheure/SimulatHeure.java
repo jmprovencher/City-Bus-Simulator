@@ -40,6 +40,9 @@ public class SimulatHeure extends javax.swing.JFrame {
     private Cursor handCursor;
     private Cursor quadraArrowsCursor;
     private String mouseClickState;
+    private Boolean drag;
+    private int pressedX;
+    private int pressedY;
     
     public SimulatHeure() {
         
@@ -52,6 +55,9 @@ public class SimulatHeure extends javax.swing.JFrame {
         Dialog_circuit.pack();
         lineCreationState = 0;
         simTimer = new SimTimer(Sim);
+        pressedX = 0;
+        pressedY = 0;
+        drag = false;
         
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
@@ -217,16 +223,26 @@ public class SimulatHeure extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Print);
 
         fenetre_sim1.setBackground(new java.awt.Color(255, 255, 255));
-        fenetre_sim1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         fenetre_sim1.setAutoscrolls(true);
         fenetre_sim1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                fenetre_sim1MouseDragged(evt);
+            }
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 fenetre_sim1MouseMoved(evt);
+            }
+        });
+        fenetre_sim1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                fenetre_sim1MouseWheelMoved(evt);
             }
         });
         fenetre_sim1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 fenetre_sim1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                fenetre_sim1MouseReleased(evt);
             }
         });
 
@@ -234,7 +250,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         fenetre_sim1.setLayout(fenetre_sim1Layout);
         fenetre_sim1Layout.setHorizontalGroup(
             fenetre_sim1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 680, Short.MAX_VALUE)
         );
         fenetre_sim1Layout.setVerticalGroup(
             fenetre_sim1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -743,10 +759,13 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         
         //coordonnées du clic
-        int x = evt.getX();
-        int y = evt.getY();
-        fenetre_sim1.x = x;
-        fenetre_sim1.y = y;
+        
+        drag = true;
+        pressedX = (int) ((double)evt.getX()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getWidth()/2 - fenetre_sim1.centerPositionX);
+        pressedY = (int) ((double)evt.getY()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getHeight()/2- fenetre_sim1.centerPositionY);
+ 
+        fenetre_sim1.x = pressedX;
+        fenetre_sim1.y = pressedY;
         
         fenetre_sim1.clearSelection();
         /* -------------- Selection d'un Noeud ------------- */
@@ -756,7 +775,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         if (mouseClickState.matches("selection|ajoutArete|ajoutNoeud|ajoutStation")){
             //va chercher la station correspondant au clic
-            Noeud_selectionne = Sim.getNodeFromPosition(x,y, size, size_s);
+            Noeud_selectionne = Sim.getNodeFromPosition(pressedX,pressedY, size, size_s);
             if (Noeud_selectionne == null){
                 Print.setText("Vous n'avez rien sélectionné");
                 text_nom.setText("-");
@@ -820,8 +839,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         if (mouseClickState == "deplacerNoeud"){
             if (Noeud_selectionne != null)
             {
-                Noeud_selectionne.setPositionX(x);
-                Noeud_selectionne.setPositionY(y);
+                Noeud_selectionne.setPositionX(pressedX);
+                Noeud_selectionne.setPositionY(pressedY);
                 //fenetre_sim1.selectStation(Station_selectionnee);
                 Sim.updateLines();
             }
@@ -831,12 +850,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         /* -------------- Creation arete ------------- */
         
         if (mouseClickState == "ajoutArete"){
-            createLine(x, y);
+            createLine(pressedX, pressedY);
         }
         /* -------------- Creation noeud ------------- */
         
         if (mouseClickState == "ajoutNoeud"){
-            createNoeud(x, y);
+            createNoeud(pressedX, pressedY);
             mouseClickState = "selection";
         }
         
@@ -852,12 +871,15 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     private void fenetre_sim1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseMoved
        
-        displayLabelCoordonnees.setText("X:  "+evt.getX()+"  Y:  "+ evt.getY() );
-        if (cursorIsOnObject(evt.getX(), evt.getY())){
+        int x =  (int) ((double)evt.getX()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getWidth()/2 - fenetre_sim1.centerPositionX);
+        int y =  (int) ((double)evt.getY()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getHeight()/2- fenetre_sim1.centerPositionY);
+        displayLabelCoordonnees.setText("X:  "+x +"  Y:  "+ y );
+        if (cursorIsOnObject(x, y)){
             setCursor(handCursor);
         } else{
             setCursor(defaultCursor);
         }
+     
         
     }//GEN-LAST:event_fenetre_sim1MouseMoved
     
@@ -897,7 +919,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_liste_circuitsValueChanged
     
     
-    //nécéssaire quand il y a un seul circuit
+    //nécéssaire quand il pressedY a un seul circuit
     private void liste_circuitsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_liste_circuitsFocusGained
         // TODO add your handling code here:
         liste_circuitsValueChanged(null);
@@ -1002,6 +1024,28 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
         fenetre_sim1.repaint();
     }//GEN-LAST:event_menuCommandSupprimerActionPerformed
+
+    private void fenetre_sim1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseWheelMoved
+        // TODO add your handling code here:
+        System.out.println(evt.getWheelRotation());
+        fenetre_sim1.updateScale(evt.getWheelRotation());
+    }//GEN-LAST:event_fenetre_sim1MouseWheelMoved
+
+    private void fenetre_sim1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseDragged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_fenetre_sim1MouseDragged
+
+    private void fenetre_sim1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseReleased
+        // TODO add your handling code here:
+        if (drag){
+
+            fenetre_sim1.centerPositionX -=  pressedX - (int) ((double)evt.getX()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getWidth()/2- fenetre_sim1.centerPositionX);
+            fenetre_sim1.centerPositionY -=   pressedY -  (int) ((double)evt.getY()/fenetre_sim1.scale - (-1+(1/fenetre_sim1.scale))*fenetre_sim1.getHeight()/2- fenetre_sim1.centerPositionY);
+            fenetre_sim1.repaint();
+        }
+        drag = false;
+    }//GEN-LAST:event_fenetre_sim1MouseReleased
 
 
     /**

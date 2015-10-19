@@ -40,11 +40,11 @@ public class Line {
     }
     
     public void delete(){
-        if (origine.listRoutes.contains(this)){
-            origine.listRoutes.remove(this);
+        if (origine.listLines.contains(this)){
+            origine.listLines.remove(this);
         }
-         if (destination.listRoutes.contains(this)){
-            destination.listRoutes.remove(this);
+         if (destination.listLines.contains(this)){
+            destination.listLines.remove(this);
          }
  
     }

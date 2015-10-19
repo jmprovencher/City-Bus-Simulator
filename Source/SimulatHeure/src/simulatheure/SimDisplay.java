@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.*;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 /**
  *
  * @author rem54
@@ -24,11 +26,19 @@ import java.util.*;
 public class SimDisplay extends JPanel {
         
 
+   
     public SimDisplay(){
+        Graphics g = this.getGraphics();
+        Graphics2D g2 = (Graphics2D) g;
+
+        scale = 1;
+        centerPositionX = 0;
+        centerPositionY = 0;
+        
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
-
+        
 
         try
         {
@@ -63,7 +73,17 @@ public class SimDisplay extends JPanel {
     }
     
     public void displaySim(Graphics g){
-        
+       
+        Graphics2D g2 = (Graphics2D) g;
+        double w = this.getWidth(); // real width of canvas
+        double h = this.getHeight();// real height of canvas
+        AffineTransform old= g2.getTransform();
+        AffineTransform tr= new AffineTransform(old);
+        tr.translate((this.getWidth()/2) - ((this.getWidth()/2-centerPositionX)*(scale))  ,
+                    (this.getHeight()/2) -((this.getHeight()/2-centerPositionY)*(scale)));
+        tr.scale(scale,scale);
+        g2.setTransform(tr);
+
         g.drawString("Temps: "+Sim.freq*Sim.count/1000, 10, 20);
 
        for (int i = 0; i < Sim.getRouteQuantity(); i++){
@@ -112,6 +132,27 @@ public class SimDisplay extends JPanel {
 
     }
     
+    public void updateScale(int n){
+        
+        double scaleFactor = 0;
+        if (Math.abs(n) == 1){
+            scaleFactor = 1.1;
+        }
+        if (Math.abs(n) >= 1){
+            scaleFactor = 1.1;
+        }
+        
+        if (n <= -1){
+            scale = scale/(scaleFactor);
+        }
+        else if (n >= 1){
+            scale = scale *(scaleFactor);
+        }
+        
+        repaint();
+
+    }
+    
     /*
     Item selection management
     */
@@ -141,6 +182,9 @@ public class SimDisplay extends JPanel {
     /*
      END Item selection management
     */
+
+     double  centerPositionX;
+     double centerPositionY;
      public javax.swing.Timer displayTimer;
      private List<Node> liste_Noeuds_selected;
      private List<Line> liste_Aretes_selected;
@@ -156,4 +200,5 @@ public class SimDisplay extends JPanel {
      public int x;
      public int y;
      public Simulation Sim;
+      public double scale;
 }
