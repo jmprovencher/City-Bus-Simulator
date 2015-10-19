@@ -9,8 +9,8 @@ package Reseau;
  *
  * @author Sam
  */
-public class Passager {
-    public Passager(Node arg_origine, Node arg_destination){
+public class Passenger {
+    public Passenger(Node arg_origine, Node arg_destination){
         Noeud_origine = arg_origine;
         Noeud_destination = arg_destination;
         Noeud_actuelle = Noeud_origine;

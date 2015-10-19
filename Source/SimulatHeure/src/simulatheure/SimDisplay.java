@@ -23,10 +23,13 @@ import java.util.*;
  */
 public class SimDisplay extends JPanel {
         
+
     public SimDisplay(){
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
+
+
         try
         {
         img_station = ImageIO.read(getClass().getResource("/images/icon.png"));
@@ -62,14 +65,10 @@ public class SimDisplay extends JPanel {
     public void displaySim(Graphics g){
         
         g.drawString("Temps: "+Sim.freq*Sim.count/1000, 10, 20);
-        
 
-        
-        
        for (int i = 0; i < Sim.getRouteQuantity(); i++){
            Route circuit_i = Sim.getRouteFromIndex(i);
-           
- 
+
            for (Bus b : circuit_i.listBus){
                 g.drawImage(img_bus, (int)b.getPositionX() - img_bus_size/2, (int)b.getPositionY()- img_bus_size/2, null);
            }
@@ -108,8 +107,9 @@ public class SimDisplay extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+
         displaySim(g);
-        
+
     }
     
     /*
@@ -134,26 +134,20 @@ public class SimDisplay extends JPanel {
         liste_Buses_selected.clear();
     }
     
-    public Cursor getHandCursor(){
-        return handCursor;
-    }
-    public Cursor getQuadraArrowsCursor(){
-        return quadraArrowsCursor;
-    }
-    public Cursor getDefaultCursor(){
-        return defaultCursor;
+    public double getSimTime(){
+        return Sim.freq*Sim.count;
     }
     
     /*
      END Item selection management
     */
-     private Cursor defaultCursor;
-     private Cursor handCursor;
-     private Cursor quadraArrowsCursor;
      public javax.swing.Timer displayTimer;
      private List<Node> liste_Noeuds_selected;
      private List<Line> liste_Aretes_selected;
      private List<Bus> liste_Buses_selected;
+     public Cursor defaultCursor;
+     public Cursor quadraArrowsCursor;
+     public Cursor handCursor;
      public BufferedImage img_station;
      public BufferedImage img_station_selected;
      public BufferedImage img_bus;
