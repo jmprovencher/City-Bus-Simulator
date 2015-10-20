@@ -17,13 +17,13 @@ public class Line {
         origine = arg_origine;
         destination = arg_destination;
         origine.addLine(this);
-        destination.addLine(this);
         int x1, x2, y1, y2;
         x1 = origine.getPositionX();
         y1 = origine.getPositionY();
         x2 = destination.getPositionX();
         y2 = destination.getPositionY();        
         line = new Line2D.Double(x1,y1,x2,y2);
+        numberOfRoutes =0;
     }
     
     public Node getOrigine(){
@@ -48,12 +48,28 @@ public class Line {
          }
  
     }
+    public int getNumberOfRoutes(){
+
+        return numberOfRoutes;
+
+    }
+    public void setNumberOfRoutes(int n){
+  
+        if (n == 1){
+            numberOfRoutes++;
+        }
+        if (n == -1){
+            numberOfRoutes--;
+        }
+         
+    }
     
     public double maxSpeed;
     public double minSpeed;
     public double typeSpeed;
     public double speed;
     
+    private int numberOfRoutes;
     public Line2D line;
     public Node origine;
     public Node destination;

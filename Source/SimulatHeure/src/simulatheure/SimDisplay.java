@@ -26,13 +26,9 @@ import java.awt.BasicStroke;
  * @author rem54
  */
 public class SimDisplay extends JPanel {
-        
-
-   
+ 
     public SimDisplay(){
-        
-        
-       
+
         scale = 1;
         centerPositionX = 0;
         centerPositionY = 0;
@@ -40,7 +36,6 @@ public class SimDisplay extends JPanel {
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
-        
 
         try
         {
@@ -81,20 +76,61 @@ public class SimDisplay extends JPanel {
         displayTimer = new javax.swing.Timer(16, action);
     }
     
+   
+    
+    private final int ARR_SIZE = 10;
+    void drawArrow(Graphics g1, int x1, int y1, int x2, int y2) {
+                Graphics2D g = (Graphics2D) g1.create();
+
+                double dx = x2 - x1, dy = y2 - y1;
+                double angle = Math.atan2(dy, dx);
+                int len = (int) Math.sqrt(dx*dx + dy*dy);
+                AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
+                at.concatenate(AffineTransform.getRotateInstance(angle));
+                g.transform(at);
+
+                // Draw horizontal arrow starting in (0, 0)
+                g.drawLine(0, 0, len, 0);
+                g.fillPolygon(new int[] {len-12, len-ARR_SIZE-12, len-ARR_SIZE-12, len-12},
+                              new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+   }
+    
+    private final int GRID_SIZE = 10000;
+    
     public void drawGrid(Graphics g, int scale){
         
-        for (int i = -5000; i <=5000; i = i+scale){
-           g.drawLine(-5000, i, 5000 , i);
+        for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
+           g.drawLine(-GRID_SIZE/2, i, GRID_SIZE/2 , i);
        }
         
-        for (int i = -5000; i <=5000; i = i+scale){
-           g.drawLine( i, -5000, i,5000 );
+        for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
+           g.drawLine( i, -GRID_SIZE/2, i,GRID_SIZE/2 );
        }
         g.setColor(Color.black);
     }
     
+    public void setCenterPosition(int x, int y){
+            centerPositionX -= x;
+            centerPositionY -=  y;
+            int limit = GRID_SIZE/2 +750;
+            if (centerPositionX >limit){
+                centerPositionX = limit;
+            }
+            if (centerPositionX <-limit){
+                centerPositionX = -limit;
+            }
+            if (centerPositionY <-limit){
+                centerPositionY = -limit;
+            }
+            if (centerPositionY >limit){
+                centerPositionY = limit;
+            }
+            repaint();
+    }
+    
     public void displaySim(Graphics g){
-
+        
+        //coordinates seyup
         Graphics2D g2 = (Graphics2D) g;
         double w = this.getWidth(); // real width of canvas
         double h = this.getHeight();// real height of canvas
@@ -105,6 +141,10 @@ public class SimDisplay extends JPanel {
         tr.scale(scale,scale);
         g2.setTransform(tr);
         
+        //white background
+        g.setColor(Color.white);
+        g.fillRect(0-GRID_SIZE/2, 0-GRID_SIZE/2, GRID_SIZE, GRID_SIZE);
+        g.setColor(Color.black);
         //grid
         if (scale >= 0.04 && scale <= 0.1){
             g.setColor(lightGray);
@@ -137,24 +177,36 @@ public class SimDisplay extends JPanel {
            }
        }
        
-       for (Line a: Sim.listLines){
-           g.drawLine((int)a.line.getX1(), (int)a.line.getY1(), (int)a.line.getX2(),(int)a.line.getY2());
+       for (Line l: Sim.listLines){
+           if (liste_Aretes_selected.contains(l)){
+               g.setColor(Color.red);
+           }
+           drawArrow(g, (int)l.line.getX1(), (int)l.line.getY1(), (int)l.line.getX2(),(int)l.line.getY2());
+           g.setColor(Color.black);
+           
        }
        for (Node n: Sim.listNodes){
            if (liste_Noeuds_selected.contains(n)){
-                   g.drawOval(n.getPositionX()-25, n.getPositionY()-25, 50, 50);
+                g.setColor(Color.red);  
+                if (n.isStation){
+                    g.drawImage(img_station_selected, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null);    
+                }
+                else{
+                    g.drawRect(n.getPositionX()-10, n.getPositionY()-10, 20, 20);
+                }
+                g.setColor(Color.black);
            }
-           if(!n.isStation){
-                g.drawRect(n.getPositionX()-10, n.getPositionY()-10, 20, 20);
+           else if(!n.isStation){
+               
+               g.drawRect(n.getPositionX()-10, n.getPositionY()-10, 20, 20);
+                
            }
            else{
-
-               
-                    g.drawImage(img_station, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null);    
-               
-               }
+                g.drawImage(img_station, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null);    
+           }
        }
        
+       //Route creation
        g.setColor(Color.red);
        int x1 = 0, x2 = 0, y1 = 0, y2 = 0, count = 0;
        for (Node n: Sim.newRoute){
@@ -197,12 +249,12 @@ public class SimDisplay extends JPanel {
         }
         
         if (n <= -1){
-            if (scale < 8){
+            if (scale < 6){
                 scale = scale *(scaleFactor);
             }
         }
         else if (n >= 1){
-            if (scale > 0.045){
+            if (scale > 0.05){
                 scale = scale/(scaleFactor);
             }
         }

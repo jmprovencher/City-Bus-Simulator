@@ -39,8 +39,8 @@ public class Simulation {
             
             if ((int)(c.getTimeNextStart()*(1000/(freq))) == count){
                 Bus newBus = c.addBus();
- 
-                c.setTimeNextStart();
+                double typicalTime = c.getFrequency();
+                c.setTimeNextStart(triangular(typicalTime-2, typicalTime+2, typicalTime));
             }
         }
         count++;
@@ -125,27 +125,35 @@ public class Simulation {
             }
             else{
                 if (node.getNumberOfRoutes() == 0){
-                int size = node.listLines.size();
-                for (int i = 0; i < size; i++){
-                    Line a = node.listLines.get(0);
-                    a.delete();
-                    
-                    if(node != a.origine && a.origine.listLines.isEmpty()){
-                        listNodes.remove(a.origine);
+                    List<Line> linesToDelete = new ArrayList<Line>();
+                    for (Line l: listLines){
+                        if (l.origine == node || l.destination == node){
+                            linesToDelete.add(l);
+                        }
                     }
-                    if(node != a.destination && a.destination.listLines.isEmpty()){
-                        listNodes.remove(a.destination);
-                    }
-                    listLines.remove(a);
+                    for (Line l : linesToDelete){
+                        deleteLine(l);
+;                    }
+                    listNodes.remove(node);
+                    return true; // supprimée avec succès
                 }
-                listNodes.remove(node);
-            }
-            return true; // supprimée avec succès
+
+            
+            
             }
         }
         return false ;// n'a pas pu être supprimée
     }
 
+    public Boolean deleteLine(Line l){
+        if (l.getNumberOfRoutes() == 0){
+            l.delete();
+            listLines.remove(l);
+            return true;
+        }
+        return false;
+    }
+    
     public Node getNodeFromPosition(int positionX, int positionY, int nodeSize, int stationSize){
         int size;
           for (Node n: listNodes){
@@ -175,9 +183,12 @@ public class Simulation {
     public Route addRoute(List<Node> routeList, int number, int frequency, int firstStart)
     {
         listRoutes.add(new Route(number, frequency , firstStart ,routeList));
-
-        for (Node n: routeList){
-            n.setNumberOfCircuit(1);
+        
+        for (int i = 0; i< routeList.size(); i++){
+            routeList.get(i).setNumberOfRoutes(1);
+            if (i < routeList.size()-1){
+                getLine(routeList.get(i), routeList.get(i+1)).setNumberOfRoutes(1);
+            }
         }
 
         return listRoutes.get(listRoutes.size()-1);
@@ -186,9 +197,12 @@ public class Simulation {
     public void deleteRoute(Route route){
 
         for (int i = 0; i<route.getNumberOfNodes(); i++){
-            route.getNodeFromIndex(i).setNumberOfCircuit(-1);
+            route.getNodeFromIndex(i).setNumberOfRoutes(-1);
+            if (i < route.getNumberOfNodes()-1){
+                route.getLineFromIndex(i).setNumberOfRoutes(-1);
+            }
         }
-
+           
         if (route != null)
         {
             listLines.remove(route);
@@ -217,14 +231,26 @@ public class Simulation {
     
     public Node splitLine(Line line, int x, int y){
         
-        line.origine.listLines.remove(line);
-        line.destination.listLines.remove(line);
+        line.delete();
         listLines.remove(line);
         
+        Line oppositeLine = getLine(line.destination, line.origine);
+        
         Node n = new Node(x,y);
+        
         listNodes.add(n);
         listLines.add(new Line(line.origine, n));
-        listLines.add(new Line(line.destination, n));
+        listLines.add(new Line(n, line.destination));
+        
+        if (oppositeLine != null){
+            System.out.println("has opposite");
+            oppositeLine.delete();
+            listLines.remove(oppositeLine);
+            listLines.add(new Line(oppositeLine.origine, n));
+            listLines.add(new Line(n, oppositeLine.destination));
+            oppositeLine = null;
+        }
+        
         line = null;     
         return n;
     }
@@ -238,6 +264,14 @@ public class Simulation {
         return null;
     }
     
+    public Line getLine(Node origine, Node destination){
+        for (Line l : listLines){
+            if (l.origine == origine && l.destination == destination){
+                return l;
+            }
+        }
+        return null;
+    }
 
     public int getRouteQuantity()
     {

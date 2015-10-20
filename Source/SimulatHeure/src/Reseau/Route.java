@@ -66,8 +66,8 @@ public class Route {
         return timeNextStart;
     }
     
-    public void setTimeNextStart(){
-        timeNextStart += frequency;
+    public void setTimeNextStart(double time){
+        timeNextStart += time;
     }
     
     public Node getNodeFromIndex(int index){

@@ -73,7 +73,7 @@ public class Node {
          }
     }
 
-    public void setNumberOfCircuit(int n){
+    public void setNumberOfRoutes(int n){
   
         if (n == 1){
             numberOfRoutes++;
