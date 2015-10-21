@@ -64,6 +64,10 @@ public class Line {
          
     }
     
+    public void setSpeed(double s){
+        speed =s;
+    }
+    
     public double maxSpeed;
     public double minSpeed;
     public double typeSpeed;

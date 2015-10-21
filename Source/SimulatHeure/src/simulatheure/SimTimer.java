@@ -30,14 +30,12 @@ public class SimTimer {
             public void actionPerformed(ActionEvent event)
             {
                if (sim.count < time/((double)freq/1000)){
-               if (simSpeed >= 1 ){
-                   
-                    for (int i = 0; i< simSpeed; i++){
-                        sim.simulate();
-                        
-                    }
-               }
+                    if (simSpeed >= 1 ){
 
+                         for (int i = 0; i< simSpeed; i++){
+                             sim.simulateTick();
+                         }
+                    }
                }
                else{
                    stop();
@@ -57,7 +55,7 @@ public class SimTimer {
         freq = argFreq;
         simTimer = new javax.swing.Timer(freq, action);
         sim.freq = freq;
-        sim.setSpeed();
+        sim.setLinesSpeed();
         
         simTimer.start();
         running = true;

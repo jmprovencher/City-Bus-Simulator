@@ -23,7 +23,7 @@ public class Simulation {
         count = 0;
     }
 
-    public void simulate(){
+    public void simulateTick(){
         
         for (Route c: listRoutes){
             Bus busDone = null;
@@ -95,7 +95,11 @@ public class Simulation {
 
         b.updateTimeNextNode();
         
-        if (b.getTimeNextNode() <= freq/1000){
+        
+        
+        double tickTime = freq/1000;
+        // si le temps restant avant le prochain noeud correspond à moins d'un tick de simulation....
+        if (b.getTimeNextNode() <= tickTime){
 
             b.setPositionX(targetX);
             b.setPositionY(targetY);
@@ -142,7 +146,7 @@ public class Simulation {
             
             }
         }
-        return false ;// n'a pas pu être supprimée
+        return false ;// n'l pas pu être supprimée
     }
 
     public Boolean deleteLine(Line l){
@@ -182,7 +186,7 @@ public class Simulation {
     
     public Route addRoute(List<Node> routeList, int number, int frequency, int firstStart)
     {
-        listRoutes.add(new Route(number, frequency , firstStart ,routeList));
+        listRoutes.add(new Route(number, frequency , firstStart , routeList));
         
         for (int i = 0; i< routeList.size(); i++){
             routeList.get(i).setNumberOfRoutes(1);
@@ -195,18 +199,18 @@ public class Simulation {
     }
     
     public void deleteRoute(Route route){
-
-        for (int i = 0; i<route.getNumberOfNodes(); i++){
-            route.getNodeFromIndex(i).setNumberOfRoutes(-1);
-            if (i < route.getNumberOfNodes()-1){
-                route.getLineFromIndex(i).setNumberOfRoutes(-1);
-            }
-        }
-           
         if (route != null)
-        {
-            listLines.remove(route);
-        }
+            {
+            for (int i = 0; i<route.getNumberOfNodes(); i++){
+                route.getNodeFromIndex(i).setNumberOfRoutes(-1);
+                if (i < route.getNumberOfNodes()-1){
+                    route.getLineFromIndex(i).setNumberOfRoutes(-1);
+                }
+            }
+
+
+                listRoutes.remove(route);
+            }
     }
     
     public Node addNode(int x, int y){
@@ -288,9 +292,9 @@ public class Simulation {
         }
     }
     
-    public void setSpeed(){
-        for (Line a: listLines){
-            a.speed = triangular(a.minSpeed, a.maxSpeed, a.typeSpeed);
+    public void setLinesSpeed(){
+        for (Line l: listLines){
+            l.setSpeed(triangular(l.minSpeed, l.maxSpeed, l.typeSpeed));
         }
     }
     

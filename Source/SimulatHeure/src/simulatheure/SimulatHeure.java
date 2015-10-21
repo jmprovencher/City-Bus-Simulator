@@ -368,6 +368,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
 
         simulation_speed.setMinimum(1);
+        simulation_speed.setValue(4);
         simulation_speed.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 simulation_speedStateChanged(evt);
@@ -854,7 +855,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     if (Sim.newRoute.size()>0){
                         for (Line a: Sim.newRoute.get(Sim.newRoute.size()-1).listLines){
                             if (selectedNode != Sim.newRoute.get(Sim.newRoute.size()-1)){
-                                if (selectedNode == a.origine || selectedNode == a.destination){
+                                if (selectedNode == a.destination){
                                  isPossible = true;
                                  break;
                                 }
@@ -983,14 +984,13 @@ public class SimulatHeure extends javax.swing.JFrame {
         listRoutesValueChanged(null);
     }//GEN-LAST:event_listRoutesFocusGained
 
-
+private final int TICK_TIME = 16; // ms
     private void Bouton_simulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_simulerActionPerformed
         if (!simTimer.running){
-            
-        simTimer.setSimSpeed(simulation_speed.getValue()/4);
-        simTimer.start(Integer.parseInt(sim_duration.getText()), 16);
-        fenetre_sim1.displayTimer.start();
-                }
+            simTimer.setSimSpeed(simulation_speed.getValue()/4);
+            simTimer.start(Integer.parseInt(sim_duration.getText()), TICK_TIME);
+            fenetre_sim1.displayTimer.start();
+        }
 
     }//GEN-LAST:event_Bouton_simulerActionPerformed
 

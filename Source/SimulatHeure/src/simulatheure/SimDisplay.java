@@ -239,7 +239,7 @@ public class SimDisplay extends JPanel {
     }
     
     public void updateScale(int n){
-        System.out.println(scale);
+
         double scaleFactor = 0;
         if (Math.abs(n) == 1){
             scaleFactor = 1.1;
