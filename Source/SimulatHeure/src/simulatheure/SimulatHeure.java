@@ -268,6 +268,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jInternalFrame1.setTitle("Circuit");
         jInternalFrame1.setAutoscrolls(true);
+        jInternalFrame1.setFocusable(false);
         jInternalFrame1.setVisible(true);
         jInternalFrame1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -342,6 +343,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         );
 
         jInternalFrame2.setTitle("Simulation");
+        jInternalFrame2.setFocusable(false);
         jInternalFrame2.setVisible(true);
 
         Bouton_arreter.setText("Arrêter");
@@ -432,7 +434,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sim_time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jButton1.setText("Recentrer");
@@ -601,7 +603,8 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jInternalFrame2))
+                        .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
