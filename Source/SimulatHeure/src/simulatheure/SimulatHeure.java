@@ -620,7 +620,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void creation_circuit(){
+    public void createRoute(){
        switch (createRouteState){
            
        //deuxieme clic, crée le circuit
@@ -660,7 +660,7 @@ public class SimulatHeure extends javax.swing.JFrame {
            //
            // cas ou on pese sur le X du dialog
            if (createRouteState == "reset"){
-               creation_circuit();
+               createRoute();
                break;
            }
            
@@ -785,14 +785,13 @@ public class SimulatHeure extends javax.swing.JFrame {
     public void displayTime(){
         sim_time.setText(""+Sim.freq*Sim.count/1000);
     }
+    
     private boolean cursorIsOnObject(int x, int y){
         if (Sim.getNodeFromPosition(x,y, 20, fenetre_sim1.img_station_size) != null){
             return true;
         }
         return false;
     }
-    
-    
     
     private void text_nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_nomActionPerformed
         // TODO add your handling code here:
@@ -947,7 +946,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     private void Bouton_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_circuitActionPerformed
         // TODO add your handling code here:
-        creation_circuit();
+        createRoute();
     }//GEN-LAST:event_Bouton_circuitActionPerformed
 
     private void ok_dialog_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_dialog_circuitActionPerformed
