@@ -88,6 +88,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         spin_num = new javax.swing.JSpinner();
         spin_freq = new javax.swing.JSpinner();
         spin_t = new javax.swing.JSpinner();
+        maxBus = new javax.swing.JSpinner();
+        jLabel10 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jMenuItem12 = new javax.swing.JMenuItem();
         editionButtonGroup = new javax.swing.ButtonGroup();
@@ -96,12 +98,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         fenetre_sim1 = new simulatheure.SimDisplay();
         displayLabelCoordonnees = new javax.swing.JLabel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        jLabel1 = new javax.swing.JLabel();
-        text_nom = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listRoutes = new javax.swing.JList();
         Bouton_circuit = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jInternalFrame2 = new javax.swing.JInternalFrame();
         Bouton_arreter = new javax.swing.JButton();
@@ -118,6 +119,10 @@ public class SimulatHeure extends javax.swing.JFrame {
         addAreteToggleButton = new javax.swing.JToggleButton();
         addStationToggleButton = new javax.swing.JToggleButton();
         selectorToggleButton = new javax.swing.JToggleButton();
+        jInternalFrame3 = new javax.swing.JInternalFrame();
+        text_nom = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
         menuCommandNouvDoc = new javax.swing.JMenuItem();
@@ -174,6 +179,10 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         spin_t.setModel(new javax.swing.SpinnerNumberModel(0, 0, 999, 1));
 
+        maxBus.setModel(new javax.swing.SpinnerNumberModel(10, 1, 999, 1));
+
+        jLabel10.setText("Nombre max de bus");
+
         javax.swing.GroupLayout Dialog_circuitLayout = new javax.swing.GroupLayout(Dialog_circuit.getContentPane());
         Dialog_circuit.getContentPane().setLayout(Dialog_circuitLayout);
         Dialog_circuitLayout.setHorizontalGroup(
@@ -187,9 +196,6 @@ public class SimulatHeure extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)))
                     .addGroup(Dialog_circuitLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(ok_dialog_circuit))
-                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(spin_num, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Dialog_circuitLayout.createSequentialGroup()
@@ -197,7 +203,16 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(spin_freq, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Dialog_circuitLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(spin_t, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spin_t, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(ok_dialog_circuit))
+                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(maxBus, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Dialog_circuitLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel10)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Dialog_circuitLayout.setVerticalGroup(
@@ -215,9 +230,13 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spin_t, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(maxBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ok_dialog_circuit)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jMenuItem12.setText("jMenuItem12");
@@ -225,7 +244,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SimulatHeure");
         setBackground(new java.awt.Color(0, 0, 0));
-        setMinimumSize(new java.awt.Dimension(900, 640));
+        setMinimumSize(new java.awt.Dimension(900, 750));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -285,15 +304,6 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nom");
-
-        text_nom.setToolTipText("");
-        text_nom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                text_nomActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Circuits");
 
         listRoutes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -318,6 +328,13 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Editer Circuit");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
@@ -325,30 +342,28 @@ public class SimulatHeure extends javax.swing.JFrame {
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(text_nom)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6)
-                            .addComponent(Bouton_circuit, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 111, Short.MAX_VALUE)))
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(Bouton_circuit, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(text_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Bouton_circuit)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Bouton_circuit)
+                    .addComponent(jButton3))
+                .addGap(0, 0, 0))
         );
 
         jInternalFrame2.setTitle("Simulation");
@@ -518,6 +533,49 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jInternalFrame3.setTitle("Station");
+        jInternalFrame3.setVisible(true);
+
+        text_nom.setToolTipText("");
+        text_nom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                text_nomActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nom");
+
+        jButton2.setText("Ajouter un besoin en transport");
+
+        javax.swing.GroupLayout jInternalFrame3Layout = new javax.swing.GroupLayout(jInternalFrame3.getContentPane());
+        jInternalFrame3.getContentPane().setLayout(jInternalFrame3Layout);
+        jInternalFrame3Layout.setHorizontalGroup(
+            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame3Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(text_nom))
+                    .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jInternalFrame3Layout.setVerticalGroup(
+            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame3Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(text_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap())
+        );
+
         menuFolderFichier.setMnemonic('f');
         menuFolderFichier.setText("Fichier");
 
@@ -667,8 +725,10 @@ public class SimulatHeure extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addContainerGap()))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -689,15 +749,18 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editionToolbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
 
@@ -705,62 +768,71 @@ public class SimulatHeure extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void createRoute(){
-       switch (createRouteState){
-           
-       //deuxieme clic, crée le circuit
-       case "reset": // reset
-          createRouteState = "Demande param";
-          //Radio_ajouter.setEnabled(true);
-          //Radio_deplacer.setEnabled(true);
-          Print.setText("Création de circuit annulée");
-          break;
-           
-       case "Creation":
-          if (Sim.newRoute.size()>1){
+        switch (createRouteState){
+
+        //deuxieme clic, crée le circuit
+        case "reset": // reset
+           createRouteState = "Demande param";
+           //Radio_ajouter.setEnabled(true);
+           //Radio_deplacer.setEnabled(true);
+           Print.setText("Création de circuit annulée");
+           break;
             
-            selectedRoute = Sim.addRoute(Sim.newRoute, (Integer)spin_num.getValue(), (Integer)spin_freq.getValue(), (Integer)spin_t.getValue());
-            selectedObject = "Circuit";
-            
-            Sim.newRoute.clear();
-            
-            defaultListModel.addElement(selectedRoute.getNumber());
-            listRoutes.setSelectedIndex(listRoutes.getLastVisibleIndex());
-            Print.setText("Circuit "+ selectedRoute.getNumber()+ " créé avec succès!");
-            fenetre_sim1.repaint();
-          }
-          else{
-              Print.setText("Vous n'avez pas selectionné assez de stations!");
-          }
-          createRouteState = "Demande param";
-          //Radio_ajouter.setEnabled(true);
-          //Radio_deplacer.setEnabled(true);
-          break;
-       
         //premier clic (mode selection de stations)
-       case  "Demande param":
-           fenetre_sim1.clearSelection();
-           //dialog
-           Dialog_circuit.setVisible(true);
-           //
-           // cas ou on pese sur le X du dialog
-           if (createRouteState == "reset"){
-               createRoute();
-               break;
+        case  "Demande param":
+            fenetre_sim1.clearSelection();
+            //dialog
+            Dialog_circuit.setVisible(true);
+            //
+            // cas ou on pese sur le X du dialog
+            if (createRouteState == "reset"){
+                createRoute();
+                break;
+            }
+
+            mouseClickState = "selection";
+            mouseClickStatePersistance = false;
+            selectorToggleButton.setSelected(true);
+            
+            List<Node> circuit = new ArrayList<Node>();
+            Print.setText("Veuillez sélectionner la station 1 du circuit.");
+            createRouteState = "Creation";
+            Sim.newRoute.clear();
+
+            break;    
+            
+        case "Creation":
+           if (Sim.newRoute.size()>1){
+
+             selectedRoute = Sim.addRoute(Sim.newRoute, (Integer)spin_num.getValue(), (Integer)spin_freq.getValue(), (Integer)spin_t.getValue(),(Integer) maxBus.getValue());
+             selectedObject = "Circuit";
+
+             Sim.newRoute.clear();
+             fenetre_sim1.clearSelection();
+
+             for (int y = 0; y< selectedRoute.getNumberOfNodes()-1; y++){
+                     fenetre_sim1.selectNode(selectedRoute.getNodeFromIndex(y));
+                     fenetre_sim1.selectLine(selectedRoute.getLineFromIndex(y));
+                 }
+             fenetre_sim1.selectNode(selectedRoute.getNodeFromIndex(selectedRoute.getNumberOfNodes()-1));
+
+             defaultListModel.addElement(selectedRoute.getNumber());
+             listRoutes.setSelectedIndex(listRoutes.getLastVisibleIndex());
+             Print.setText("Circuit "+ selectedRoute.getNumber()+ " créé avec succès!");
+             fenetre_sim1.repaint();
            }
-           
-           //Radio_ajouter.setEnabled(false);
-           //Radio_deplacer.setEnabled(false);
-           //Radio_select.setSelected(true);
-           List<Node> circuit = new ArrayList<Node>();
-           Print.setText("Veuillez sélectionner la station 1 du circuit.");
-           createRouteState = "Creation";
-           Sim.newRoute.clear();
-           
+           else{
+               Print.setText("Vous n'avez pas selectionné assez de stations!");
+           }
+           createRouteState = "Demande param";
+
            break;
-       default:
-           break;
-           
-       }
+
+
+        default:
+            break;
+
+        }
     }
     public void createNode(int x, int y){
         Line aSelect;
@@ -868,6 +940,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 break;
         }
     }
+    
     public void displayTime(){
         sim_time.setText(""+Sim.freq*Sim.count/1000);
     }
@@ -893,15 +966,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         
         //coordonnées du clic
-        
+        fenetre_sim1.clearSelection();
         drag = true;
         pressedX = fenetre_sim1.getGridPositionX(evt.getX());
         pressedY = fenetre_sim1.getGridPositionY(evt.getY());
- 
-        fenetre_sim1.x = pressedX;
-        fenetre_sim1.y = pressedY;
+
         
-        fenetre_sim1.clearSelection();
         /* -------------- Selection d'un Noeud ------------- */
         
         int size = 20;//   
@@ -921,7 +991,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 }
             }
             
-            /* -------------- Sélection d'une arête ------------- */
+        /* -------------- Sélection d'une arête ------------- */
             if (selectedNode == null){
                  Line l = Sim.isLine(pressedX, pressedY);
                  if (l != null){
@@ -939,21 +1009,19 @@ public class SimulatHeure extends javax.swing.JFrame {
             /* -------------- Ajout de station à un circuit ------------- */
             if (createRouteState == "Creation"){
                 if (selectedNode != null){
-                    Boolean isPossible = false;
-                    if (Sim.newRoute.size()>0){
-                        for (Line a: Sim.newRoute.get(Sim.newRoute.size()-1).listLines){
-                            if (selectedNode != Sim.newRoute.get(Sim.newRoute.size()-1)){
-                                if (selectedNode == a.destination){
-                                 isPossible = true;
-                                 break;
-                                }
-                            }
-                        }
-                    }
+                    Boolean isPossible = Sim.addNodeToNewRoute(selectedNode);
+
                     if (isPossible || Sim.newRoute.isEmpty()){
                         Sim.newRoute.add(selectedNode);
                         Print.setText("Noeud ajoutée (" +selectedNode.getName()+  ") au parcours!");
                         fenetre_sim1.selectNode(selectedNode);
+                        if (Sim.newRoute.size()>1){
+                            for (int i = 1; i<Sim.newRoute.size(); i++){
+                                Line l = Sim.getLine(Sim.newRoute.get(i-1), Sim.newRoute.get(i));
+                                fenetre_sim1.selectLine(l);
+                                fenetre_sim1.selectNode(Sim.newRoute.get(i-1));
+                            }
+                        }
                     }
                     else{
                         Print.setText("Veuillez sélectionner un noeud valide!");
@@ -1065,16 +1133,24 @@ public class SimulatHeure extends javax.swing.JFrame {
                 selectedRoute = Sim.getRouteFromIndex(i);
                 selectedObject = "Circuit";
                 Print.setText("Circuit sélectionné: "+selectedRoute.getNumber());
+                fenetre_sim1.clearSelection();
+                for (int y = 0; y< selectedRoute.getNumberOfNodes()-1; y++){
+                    fenetre_sim1.selectNode(selectedRoute.getNodeFromIndex(y));
+                    fenetre_sim1.selectLine(selectedRoute.getLineFromIndex(y));
+                }
+                fenetre_sim1.selectNode(selectedRoute.getNodeFromIndex(selectedRoute.getNumberOfNodes()-1));
+                
             }
             else{
                 selectedRoute = null;
                 selectedObject = "Circuit";
+                
             }
-        
+        fenetre_sim1.repaint();
     }//GEN-LAST:event_listRoutesValueChanged
     
  
-    //nécéssaire quand il pressedY a un seul circuit
+    //nécéssaire quand un seul circuit
     private void listRoutesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listRoutesFocusGained
         // TODO add your handling code here:
         listRoutesValueChanged(null);
@@ -1244,6 +1320,10 @@ private final int TICK_TIME = 16; // ms
         Print.setText("Transformez un noeud en station");
     }//GEN-LAST:event_addStationToggleButtonActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1297,9 +1377,13 @@ private final int TICK_TIME = 16; // ms
     private javax.swing.JInternalFrame editionToolbox;
     private simulatheure.SimDisplay fenetre_sim1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
+    private javax.swing.JInternalFrame jInternalFrame3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1314,6 +1398,7 @@ private final int TICK_TIME = 16; // ms
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JList listRoutes;
+    private javax.swing.JSpinner maxBus;
     private javax.swing.JMenuItem menuCommandAjouterArete;
     private javax.swing.JMenuItem menuCommandAjouterCircuit;
     private javax.swing.JMenuItem menuCommandAjouterNoeud;

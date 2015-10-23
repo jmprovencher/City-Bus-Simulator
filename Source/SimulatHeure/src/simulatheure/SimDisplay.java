@@ -205,7 +205,7 @@ public class SimDisplay extends JPanel {
                 g.drawImage(img_station, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null);    
            }
        }
-       
+       /*
        //Route creation
        g.setColor(Color.red);
        int x1 = 0, x2 = 0, y1 = 0, y2 = 0, count = 0;
@@ -218,7 +218,7 @@ public class SimDisplay extends JPanel {
            y1 = y2;
            count++;
        }
-       
+       */
        // ligne pendant la création d'une arrete
        BasicStroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
        if (createLineTemp != null){
@@ -272,11 +272,13 @@ public class SimDisplay extends JPanel {
     
     public int getGridPositionX(int mouseClickPositionX){
         int gridX = (int) ((double)mouseClickPositionX/scale - (-1+(1/scale))*getWidth()/2 - centerPositionX);
+        //x = gridX;
         return gridX;
     }
     
      public int getGridPositionY(int mouseClickPositionY){
         int gridY = (int) ((double)mouseClickPositionY/scale - (-1+(1/scale))*getHeight()/2 - centerPositionY);
+        //y = gridY;
         return gridY;
     }
     /*
@@ -325,8 +327,6 @@ public class SimDisplay extends JPanel {
      public BufferedImage img_bus;
      public int img_station_size;
      public int img_bus_size;
-     public int x;
-     public int y;
      public Line2D.Double createLineTemp;
      public Simulation Sim;
      public double scale;

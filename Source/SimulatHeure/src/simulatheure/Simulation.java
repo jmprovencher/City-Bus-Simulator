@@ -37,7 +37,7 @@ public class Simulation {
                 c.deleteBus(busDone);
             }
             
-            if ((int)(c.getTimeNextStart()*(1000/(freq))) == count){
+            if ((int)(c.getTimeNextStart()*(1000/(freq))) == count && c.busAvalaible()){
                 Bus newBus = c.addBus();
                 double typicalTime = c.getFrequency();
                 c.setTimeNextStart(triangular(typicalTime-2, typicalTime+2, typicalTime));
@@ -184,9 +184,9 @@ public class Simulation {
         return listNodes.size();
     }
     
-    public Route addRoute(List<Node> routeList, int number, int frequency, int firstStart)
+    public Route addRoute(List<Node> routeList, int number, int frequency, int firstStart, int maxBus)
     {
-        listRoutes.add(new Route(number, frequency , firstStart , routeList));
+        listRoutes.add(new Route(number, frequency , maxBus, firstStart , routeList));
         
         for (int i = 0; i< routeList.size(); i++){
             routeList.get(i).setNumberOfRoutes(1);
@@ -196,6 +196,20 @@ public class Simulation {
         }
 
         return listRoutes.get(listRoutes.size()-1);
+    }
+    
+    public Boolean addNodeToNewRoute(Node n){
+        if (newRoute.size()>0){
+            for (Line a: newRoute.get(newRoute.size()-1).listLines){
+                if (n != newRoute.get(newRoute.size()-1)){
+                    if (n == a.destination){
+                     return true;
+                     
+                    }
+                }
+            }
+        }
+        return false;
     }
     
     public void deleteRoute(Route route){

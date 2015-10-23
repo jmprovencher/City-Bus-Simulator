@@ -13,13 +13,14 @@ import java.util.*;
  * @author Sam
  */
 public class Route {
-    public Route(int arg_numero, int arg_frequence, int arg_t_depart, List<Node> p){
+    public Route(int arg_numero, int arg_frequence, int argMaxBus, int arg_t_depart, List<Node> p){
         number = arg_numero;
         frequency = arg_frequence;
         timeFirstStart = arg_t_depart;
         timeNextStart = arg_t_depart;
         route = new ArrayList<Node>(p);
         listBus = new ArrayList<Bus>();
+        maxBus = argMaxBus;
         if (p.get(0) == p.get(p.size()-1)){
             isLoop = true;
         }
@@ -78,6 +79,10 @@ public class Route {
         return route.size();
     }
     
+    public Boolean busAvalaible(){
+        return listBus.size()<maxBus;
+    }
+    
     public Line getLineFromIndex(int i){
         if (i+1 < route.size())
         {
@@ -99,6 +104,7 @@ public class Route {
     private int frequency;
     private int timeFirstStart;
     private int timeNextStart;
+    private int maxBus;
     public Boolean isLoop;
     public Boolean loopDone;
 }
