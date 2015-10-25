@@ -97,8 +97,19 @@ public class Route {
         }
         return null;
     }
+   public int getNodeIndexFromName(String name){
+       int i = 0;
+       for (Node n: route){
+          
+           if (n.isStation && n.getName().equalsIgnoreCase(name)){
+               return i;
+           }
+           i++;
+       }
+       return -1;
+   }
     
-    private List<Node> route;
+    public List<Node> route;
     public List<Bus> listBus;
     private int number;
     private int frequency;

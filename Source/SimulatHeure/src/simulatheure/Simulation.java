@@ -116,7 +116,8 @@ public class Simulation {
     
     public Node addStation(Node n)
     {
-        n.setStation("Station");
+        //temporaire
+        n.setStation("Station"+listNodes.indexOf(n));
         return n;
     }
     
@@ -199,11 +200,19 @@ public class Simulation {
     }
     
     public Boolean addNodeToNewRoute(Node n){
-        if (newRoute.size()>0){
+        if (newRoute.size() ==0 && n.isStation == false){
+            return false;
+        }
+        else if (newRoute.size() == 0 && n.isStation == true){
+            newRoute.add(n);
+            return true;
+        }
+        else if (newRoute.size()>0){
             for (Line a: newRoute.get(newRoute.size()-1).listLines){
                 if (n != newRoute.get(newRoute.size()-1)){
                     if (n == a.destination){
-                     return true;
+                        newRoute.add(n);
+                        return true;
                      
                     }
                 }
@@ -290,6 +299,15 @@ public class Simulation {
         }
         return null;
     }
+    
+    public Node getNodeFromName(String name){
+        for (Node n: listNodes){
+            if (n.isStation && n.getName().equalsIgnoreCase(name)){
+                return n;
+            }
+        }
+        return null;
+    }
 
     public int getRouteQuantity()
     {
@@ -299,6 +317,15 @@ public class Simulation {
     public Route getRouteFromIndex(int index){
         return listRoutes.get(index);
     }
+    
+    public Route getRouteFromNumber(int number){
+        for (Route r: listRoutes){
+            if (r.getNumber() == number)
+                return r;
+        }
+        return null;
+    }
+    
     
     public void updateLines(){
         for (Line l: listLines){
@@ -320,11 +347,12 @@ public class Simulation {
         else
            return b - Math.sqrt((1 - U) * (b - a) * (b - c));
     }
-
+    public Directions newDirections;
     public List<Node> newRoute;
-    private List<Route> listRoutes;
+    public List<Route> listRoutes;
     public List<Line> listLines;
     public List<Node> listNodes;
+    public List<Directions> listDirections;
     public int count;
     public double freq;
 

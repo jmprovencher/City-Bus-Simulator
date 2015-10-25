@@ -36,7 +36,9 @@ public class SimulatHeure extends javax.swing.JFrame {
     public String selectedObject;
     public String createRouteState;
     public SimTimer simTimer;
-    public DefaultListModel defaultListModel;
+    
+    public DefaultComboBoxModel listRoutesModel;
+    public DefaultComboBoxModel listSubRoutesModel;
     
     private Cursor defaultCursor;
     private Cursor handCursor;
@@ -56,8 +58,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         createRouteState = "Demande param";
         mouseClickState = "selection";
         mouseClickStatePersistance = true;
-        defaultListModel = new DefaultListModel();
-        listRoutes.setModel(defaultListModel);
+        listRoutesModel = new DefaultComboBoxModel();
+        listSubRoutesModel = new DefaultComboBoxModel();
+        listRoutes.setModel(listRoutesModel);
+        listSubRoutes.setModel(listSubRoutesModel);
+        routesComboBox.setModel(listRoutesModel);
         Dialog_circuit.pack();
         createLineState = 0;
         simTimer = new SimTimer(Sim);
@@ -93,6 +98,21 @@ public class SimulatHeure extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jMenuItem12 = new javax.swing.JMenuItem();
         editionButtonGroup = new javax.swing.ButtonGroup();
+        Dialog_besoin_transport = new javax.swing.JDialog();
+        jButton4 = new javax.swing.JButton();
+        routesComboBox = new javax.swing.JComboBox();
+        startComboBox = new javax.swing.JComboBox();
+        endComboBox = new javax.swing.JComboBox();
+        addSubRouteButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listSubRoutes = new javax.swing.JList();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jInternalFrame5 = new javax.swing.JInternalFrame();
+        menuBar1 = new java.awt.MenuBar();
+        menu1 = new java.awt.Menu();
+        menu2 = new java.awt.Menu();
         jScrollPane1 = new javax.swing.JScrollPane();
         Print = new javax.swing.JTextPane();
         fenetre_sim1 = new simulatheure.SimDisplay();
@@ -152,8 +172,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuOptionSeeTooltipsDisplay = new javax.swing.JCheckBoxMenuItem();
 
         Dialog_circuit.setAlwaysOnTop(true);
+        Dialog_circuit.setBounds(new java.awt.Rectangle(100, 1, 200, 350));
         Dialog_circuit.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         Dialog_circuit.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        Dialog_circuit.setResizable(false);
+        Dialog_circuit.setSize(new java.awt.Dimension(156, 254));
         Dialog_circuit.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 Dialog_circuitWindowClosing(evt);
@@ -240,6 +263,130 @@ public class SimulatHeure extends javax.swing.JFrame {
         );
 
         jMenuItem12.setText("jMenuItem12");
+
+        Dialog_besoin_transport.setAlwaysOnTop(true);
+        Dialog_besoin_transport.setBounds(new java.awt.Rectangle(100, 100, 440, 230));
+        Dialog_besoin_transport.setModal(true);
+        Dialog_besoin_transport.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+        Dialog_besoin_transport.setPreferredSize(new java.awt.Dimension(440, 300));
+        Dialog_besoin_transport.setResizable(false);
+        Dialog_besoin_transport.setSize(new java.awt.Dimension(440, 300));
+
+        jButton4.setText("Ok");
+
+        routesComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        routesComboBox.setEnabled(false);
+        routesComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                routesComboBoxActionPerformed(evt);
+            }
+        });
+
+        startComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        startComboBox.setEnabled(false);
+        startComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startComboBoxActionPerformed(evt);
+            }
+        });
+
+        endComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        endComboBox.setEnabled(false);
+        endComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endComboBoxActionPerformed(evt);
+            }
+        });
+
+        addSubRouteButton.setText("Add");
+        addSubRouteButton.setEnabled(false);
+        addSubRouteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSubRouteButtonActionPerformed(evt);
+            }
+        });
+
+        listSubRoutes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(listSubRoutes);
+
+        jLabel2.setText("Station de transit");
+
+        jLabel11.setText("Station de départ");
+
+        jLabel12.setText("Circuit");
+
+        javax.swing.GroupLayout Dialog_besoin_transportLayout = new javax.swing.GroupLayout(Dialog_besoin_transport.getContentPane());
+        Dialog_besoin_transport.getContentPane().setLayout(Dialog_besoin_transportLayout);
+        Dialog_besoin_transportLayout.setHorizontalGroup(
+            Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Dialog_besoin_transportLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addGap(10, 10, 10))
+                    .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(routesComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 215, Short.MAX_VALUE)
+                            .addComponent(endComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(addSubRouteButton)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel2))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(startComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
+        );
+        Dialog_besoin_transportLayout.setVerticalGroup(
+            Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                        .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(routesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(startComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(endComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addSubRouteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
+        );
+
+        jInternalFrame5.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame5Layout = new javax.swing.GroupLayout(jInternalFrame5.getContentPane());
+        jInternalFrame5.getContentPane().setLayout(jInternalFrame5Layout);
+        jInternalFrame5Layout.setHorizontalGroup(
+            jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame5Layout.setVerticalGroup(
+            jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        menu1.setLabel("File");
+        menuBar1.add(menu1);
+
+        menu2.setLabel("Edit");
+        menuBar1.add(menu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SimulatHeure");
@@ -546,6 +693,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel1.setText("Nom");
 
         jButton2.setText("Ajouter un besoin en transport");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame3Layout = new javax.swing.GroupLayout(jInternalFrame3.getContentPane());
         jInternalFrame3.getContentPane().setLayout(jInternalFrame3Layout);
@@ -802,7 +954,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             break;    
             
         case "Creation":
-           if (Sim.newRoute.size()>1){
+           if (Sim.newRoute.size()>1 && Sim.newRoute.get(Sim.newRoute.size()-1).isStation ==true){
 
              selectedRoute = Sim.addRoute(Sim.newRoute, (Integer)spin_num.getValue(), (Integer)spin_freq.getValue(), (Integer)spin_t.getValue(),(Integer) maxBus.getValue());
              selectedObject = "Circuit";
@@ -816,7 +968,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                  }
              fenetre_sim1.selectNode(selectedRoute.getNodeFromIndex(selectedRoute.getNumberOfNodes()-1));
 
-             defaultListModel.addElement(selectedRoute.getNumber());
+             listRoutesModel.addElement(selectedRoute.getNumber());
              listRoutes.setSelectedIndex(listRoutes.getLastVisibleIndex());
              Print.setText("Circuit "+ selectedRoute.getNumber()+ " créé avec succès!");
              fenetre_sim1.repaint();
@@ -954,11 +1106,13 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     private void text_nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_nomActionPerformed
         // TODO add your handling code here:
-         selectedNode.setName(text_nom.getText());
-         if (selectedNode.isStation){
-            Print.setText("Station selectionnée: " + text_nom.getText());
-         }
-
+        if (selectedNode != null){
+            if (selectedNode.isStation){
+                selectedNode.setName(text_nom.getText());
+            
+               Print.setText("Station selectionnée: " + selectedNode.getName());
+            }
+        }
          
     }//GEN-LAST:event_text_nomActionPerformed
 
@@ -1011,8 +1165,8 @@ public class SimulatHeure extends javax.swing.JFrame {
                 if (selectedNode != null){
                     Boolean isPossible = Sim.addNodeToNewRoute(selectedNode);
 
-                    if (isPossible || Sim.newRoute.isEmpty()){
-                        Sim.newRoute.add(selectedNode);
+                    if (isPossible ){
+                        
                         Print.setText("Noeud ajoutée (" +selectedNode.getName()+  ") au parcours!");
                         fenetre_sim1.selectNode(selectedNode);
                         if (Sim.newRoute.size()>1){
@@ -1038,7 +1192,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         if (mouseClickState == "ajoutStation")
         {
-            if (selectedNode != null){
+            if (selectedNode != null && !selectedNode.isStation){
                 Sim.addStation(selectedNode);
                 selectedObject = "Station";
                 Print.setText("Derniere station: " + selectedNode.getName());
@@ -1247,7 +1401,7 @@ private final int TICK_TIME = 16; // ms
 
                 int numero_circuit = selectedRoute.getNumber();
                 Sim.deleteRoute(selectedRoute);
-                defaultListModel.remove(i);
+                listRoutesModel.removeElementAt(i);
                 selectedRoute = null;
                 Print.setText("Circuit "+numero_circuit+ " supprimé avec succès.");
 
@@ -1324,6 +1478,75 @@ private final int TICK_TIME = 16; // ms
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        if (Sim.getRouteQuantity()>0){
+            Sim.newDirections = new Directions();
+            routesComboBox.setEnabled(true);
+            Dialog_besoin_transport.setVisible(true);
+            
+        }
+        else{
+            Print.setText("Il n'y a aucun circuit de créé!");
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void startComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startComboBoxActionPerformed
+        // TODO add your handling code here:
+       if (startComboBox.isEnabled()){
+            int routeNumber = (int)routesComboBox.getSelectedItem(); 
+            Route r = Sim.getRouteFromNumber(routeNumber);
+            DefaultComboBoxModel endComboBoxModel = new DefaultComboBoxModel();
+            Boolean startAdding = false;
+            for(Node n: r.route){
+
+                if(startAdding && n.isStation){
+                    endComboBoxModel.addElement(n.getName());
+                }
+                if (n == Sim.getNodeFromName((String)startComboBox.getSelectedItem())){
+                    startAdding = true;
+                }
+            }
+            endComboBox.setModel(endComboBoxModel);
+            endComboBox.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_startComboBoxActionPerformed
+
+    private void addSubRouteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSubRouteButtonActionPerformed
+        // TODO add your handling code here:
+        Route r = Sim.getRouteFromNumber((int)routesComboBox.getSelectedItem());
+        String startName =(String)startComboBox.getSelectedItem();
+        String endName =(String)endComboBox.getSelectedItem();
+        Sim.newDirections.addSubRoute(r, r.getNodeIndexFromName(startName),r.getNodeIndexFromName(endName));
+        listSubRoutesModel.addElement(""+r.getNumber()+": "+startName+" à "+endName);
+        
+        // set la liste de routesComboBox pour afficher seulement les Circuits possible and so on....
+    }//GEN-LAST:event_addSubRouteButtonActionPerformed
+
+    private void routesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routesComboBoxActionPerformed
+        // TODO add your handling code here:
+        if (routesComboBox.isEnabled()){
+            startComboBox.setEnabled(true);
+            int routeNumber = (int)routesComboBox.getSelectedItem(); 
+            Route r = Sim.getRouteFromNumber(routeNumber);
+            DefaultComboBoxModel startComboBoxModel = new DefaultComboBoxModel();
+            for(Node n: r.route){
+                if (n.isStation){
+                    startComboBoxModel.addElement(n.getName());
+                }
+            }
+            startComboBox.setModel(startComboBoxModel);
+        }         
+    }//GEN-LAST:event_routesComboBoxActionPerformed
+
+    private void endComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endComboBoxActionPerformed
+        // TODO add your handling code here:
+        addSubRouteButton.setEnabled(true);
+    }//GEN-LAST:event_endComboBoxActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1366,24 +1589,32 @@ private final int TICK_TIME = 16; // ms
     private javax.swing.JButton Bouton_arreter;
     private javax.swing.JButton Bouton_circuit;
     private javax.swing.JButton Bouton_simuler;
+    private javax.swing.JDialog Dialog_besoin_transport;
     private javax.swing.JDialog Dialog_circuit;
     private javax.swing.JTextPane Print;
     private javax.swing.JToggleButton addAreteToggleButton;
     private javax.swing.JToggleButton addNodeToggleButton;
     private javax.swing.JToggleButton addStationToggleButton;
+    private javax.swing.JButton addSubRouteButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel displayLabelCoordonnees;
     private javax.swing.ButtonGroup editionButtonGroup;
     private javax.swing.JInternalFrame editionToolbox;
+    private javax.swing.JComboBox endComboBox;
     private simulatheure.SimDisplay fenetre_sim1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JInternalFrame jInternalFrame3;
+    private javax.swing.JInternalFrame jInternalFrame5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1394,11 +1625,16 @@ private final int TICK_TIME = 16; // ms
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JList listRoutes;
+    private javax.swing.JList listSubRoutes;
     private javax.swing.JSpinner maxBus;
+    private java.awt.Menu menu1;
+    private java.awt.Menu menu2;
+    private java.awt.MenuBar menuBar1;
     private javax.swing.JMenuItem menuCommandAjouterArete;
     private javax.swing.JMenuItem menuCommandAjouterCircuit;
     private javax.swing.JMenuItem menuCommandAjouterNoeud;
@@ -1426,6 +1662,7 @@ private final int TICK_TIME = 16; // ms
     private javax.swing.JMenu menuSubfolderInformation;
     private javax.swing.JMenu menuSubfolderToolboxes;
     private javax.swing.JButton ok_dialog_circuit;
+    private javax.swing.JComboBox routesComboBox;
     private javax.swing.JToggleButton selectorToggleButton;
     private javax.swing.JTextField sim_duration;
     private javax.swing.JTextField sim_time;
@@ -1433,6 +1670,7 @@ private final int TICK_TIME = 16; // ms
     private javax.swing.JSpinner spin_freq;
     private javax.swing.JSpinner spin_num;
     private javax.swing.JSpinner spin_t;
+    private javax.swing.JComboBox startComboBox;
     private javax.swing.JTextField text_nom;
     // End of variables declaration//GEN-END:variables
 }
