@@ -20,11 +20,13 @@ public class Simulation {
         newRoute = new ArrayList<Node>();
         listLines = new ArrayList<Line>();
         listNodes = new ArrayList<Node>();
+        listDirections = new ArrayList<Directions>();
         count = 0;
     }
 
     public void simulateTick(){
-        
+        // get passenger in BUS
+ 
         for (Route c: listRoutes){
             Bus busDone = null;
             for (Bus b: c.listBus){
@@ -33,6 +35,7 @@ public class Simulation {
                     busDone = b;
                 }
             }
+            
             if (busDone != null){
                 c.deleteBus(busDone);
             }
@@ -41,8 +44,18 @@ public class Simulation {
                 Bus newBus = c.addBus();
                 double typicalTime = c.getFrequency();
                 c.setTimeNextStart(triangular(typicalTime-2, typicalTime+2, typicalTime));
+                passengerIn(newBus);
             }
         }
+        
+        for (Directions d: listDirections){
+            if ((int)(d.getTimeNextStart()*(1000/(freq))) == count){
+                d.addPassenger();
+                double typicalTime = d.getFrequency();
+                d.setTimeNextStart(triangular(typicalTime, typicalTime, typicalTime));
+            }
+        }
+        
         count++;
     }
     
@@ -51,11 +64,45 @@ public class Simulation {
         for (Route c: listRoutes){
             c.reset();
         }
+        for (Directions d: listDirections){
+            d.reset();
+        }
+        
+        for (Node n: listNodes){
+            n.listPassenger.clear();
+        }
+    }
+    
+    public void passengerIn(Bus aBus){
+        List<Passenger> passengerGettingIn = new ArrayList<Passenger>();
+        for (Passenger p: aBus.actualNode.listPassenger){
+            if (p.getNextRoute() == aBus.getRoute() && aBus.getCapacity()>aBus.listPassenger.size()){
+                passengerGettingIn.add(p);
+            }
+        }
+        for (Passenger p: passengerGettingIn){
+            p.setBus(aBus);
+        }
+    }
+    
+    public void passengerOut(Bus aBus){
+        List<Passenger> passengerGettingOut = new ArrayList<Passenger>();
+        for (Passenger p: aBus.listPassenger){
+            if (p.nextStop == aBus.actualNode){
+                passengerGettingOut.add(p);
+            }
+        }
+        for (Passenger p: passengerGettingOut){
+            p.setOutOfBus();
+            if (p.req_destination() == p.actualNode){
+                p.getDirection().removePassenger(p);
+            }
+        }
     }
     
     public Boolean moveBus(Bus b){
               
-        if (b.getRoute().getNumberOfNodes() == b.getNodesPast()){
+        if (b.getRoute().getNumberOfNodes() == b.getLastNodeIndex()+1){
             if (b.getRoute().isLoop){
                 b.getRoute().loopDone = true;
                 b.reset();
@@ -67,9 +114,14 @@ public class Simulation {
         double originX = b.getPositionX();
         double originY = b.getPositionY();
         
+        if(b.actualNode != null){
+            b.exitNode();
+        }
+        
         double relativeSpeed = (b.reqSpeed())*freq/1000;
-        int targetX = b.getRoute().getNodeFromIndex(b.getLastNodeIndex()+1).getPositionX();
-        int targetY= b.getRoute().getNodeFromIndex(b.getLastNodeIndex()+1).getPositionY();
+        Node nextNode = b.getRoute().getNodeFromIndex(b.getLastNodeIndex()+1);
+        int targetX = nextNode.getPositionX();
+        int targetY= nextNode.getPositionY();
         
         double angle;
         
@@ -100,15 +152,9 @@ public class Simulation {
         double tickTime = freq/1000;
         // si le temps restant avant le prochain noeud correspond à moins d'un tick de simulation....
         if (b.getTimeNextNode() <= tickTime){
-
-            b.setPositionX(targetX);
-            b.setPositionY(targetY);
-            
-            b.setLastNodeIndex();
-           
-            b.addNodesPast();
-            b.updateTimeNextNode();
-            b.updateSpeed();
+            b.setNode(nextNode);
+            passengerIn(b);
+            passengerOut(b);
         }
         return true;
     }
@@ -185,18 +231,23 @@ public class Simulation {
         return listNodes.size();
     }
     
-    public Route addRoute(List<Node> routeList, int number, int frequency, int firstStart, int maxBus)
+    public Route addRoute( int number, int frequency, int firstStart, int maxBus)
     {
-        listRoutes.add(new Route(number, frequency , maxBus, firstStart , routeList));
+        Route r = new Route(number, frequency , maxBus, firstStart , newRoute);
+        listRoutes.add(r);
         
-        for (int i = 0; i< routeList.size(); i++){
-            routeList.get(i).setNumberOfRoutes(1);
-            if (i < routeList.size()-1){
-                getLine(routeList.get(i), routeList.get(i+1)).setNumberOfRoutes(1);
+        for (int i = 0; i< newRoute.size(); i++){
+            newRoute.get(i).setRoute(1, r);
+            if (i < newRoute.size()-1){
+                getLine(newRoute.get(i), newRoute.get(i+1)).setRoute(1);
             }
         }
 
         return listRoutes.get(listRoutes.size()-1);
+    }
+    
+    public void addDirection(){
+        listDirections.add(newDirections);
     }
     
     public Boolean addNodeToNewRoute(Node n){
@@ -225,9 +276,9 @@ public class Simulation {
         if (route != null)
             {
             for (int i = 0; i<route.getNumberOfNodes(); i++){
-                route.getNodeFromIndex(i).setNumberOfRoutes(-1);
+                route.getNodeFromIndex(i).setRoute(-1, route);
                 if (i < route.getNumberOfNodes()-1){
-                    route.getLineFromIndex(i).setNumberOfRoutes(-1);
+                    route.getLineFromIndex(i).setRoute(-1);
                 }
             }
 
@@ -270,7 +321,6 @@ public class Simulation {
         listLines.add(new Line(n, line.destination));
         
         if (oppositeLine != null){
-            System.out.println("has opposite");
             oppositeLine.delete();
             listLines.remove(oppositeLine);
             listLines.add(new Line(oppositeLine.origine, n));

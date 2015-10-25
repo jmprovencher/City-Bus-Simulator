@@ -10,17 +10,22 @@ package Reseau;
  * @author Sam
  */
 public class Passenger {
-    public Passenger(Node arg_origine, Node arg_destination){
-        Noeud_origine = arg_origine;
-        Noeud_destination = arg_destination;
-        Noeud_actuelle = Noeud_origine;
-    }
-    public Node req_actuelle(){
-        return Noeud_actuelle;
+    public Passenger(Directions d){
+        
+        assignedDirections = d;
+        Noeud_origine = d.getStartPoint();
+        Noeud_destination = d.getEndPoint();
+
+        actualNode = Noeud_origine;
+        Noeud_origine.addPassenger(this);
+        actualBus = null;
+        nodesPast = 1;
+        nextStop = assignedDirections.getNextStop(nodesPast);
+
     }
     
-    void mod_station_actuelle(Node arg_actuelle){
-        Noeud_actuelle = arg_actuelle;
+    public Node req_actuelle(){
+        return actualNode;
     }
     
     public Node req_origine(){
@@ -29,9 +34,47 @@ public class Passenger {
     
     public Node req_destination(){
         return Noeud_destination;
+        
     }
     
+    public Directions getDirection(){
+        return assignedDirections;
+    }
+    
+    public int nodePast(){
+        nodesPast++;
+        return nodesPast;
+    }
+    
+    public void setBus(Bus b){
+        actualBus = b;
+        b.addPassenger(this);
+        actualNode.removePassenger(this);
+        actualNode = null;
+    }
+    
+    public void setOutOfBus(){
+        actualBus.removePassenger(this);
+        actualBus = null;
+        
+        actualNode = assignedDirections.getNode(nodesPast);
+
+        actualNode.addPassenger(this);
+        nextStop = assignedDirections.getNextStop(nodesPast);
+ 
+    }
+    
+    public Route getNextRoute(){
+        
+        return assignedDirections.getRoute(nodesPast);
+    }
+    
+            
+    private int nodesPast;
+    public Node actualNode;
+    private Directions assignedDirections;
     private Node Noeud_origine;
-    private Node Noeud_actuelle;
+    public Node nextStop;
+    public Bus actualBus;
     private Node Noeud_destination;
 }

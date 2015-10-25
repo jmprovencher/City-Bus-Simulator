@@ -53,7 +53,7 @@ public class Line {
         return numberOfRoutes;
 
     }
-    public void setNumberOfRoutes(int n){
+    public void setRoute(int n){
   
         if (n == 1){
             numberOfRoutes++;

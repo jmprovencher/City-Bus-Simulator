@@ -32,14 +32,18 @@ public class Route {
     }
     
     public void reset(){
+        for (Bus b: listBus){
+            b.listPassenger.clear();
+        }
         listBus.clear();
+        
         loopDone = false;
         timeNextStart = timeFirstStart;
     }
     
     public Bus addBus(){
         if (!loopDone){
-            Bus newBus = new Bus(0, this, 0);
+            Bus newBus = new Bus(0, this, 50);
             listBus.add(newBus);
             return newBus;
         }

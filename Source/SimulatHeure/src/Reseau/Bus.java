@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Reseau;
-
+import java.util.*;
 
 /**
  *
@@ -15,14 +15,15 @@ public class Bus {
      
         number = numeroArg;
         route = circuitActuelArg;
-        nodesPast = 1;
         positionX = route.getNodeFromIndex(0).getPositionX();
         positionY = route.getNodeFromIndex(0).getPositionY();
         capacity = arg_capacite;
-        numberOfPassenger = 0;
+        listPassenger = new ArrayList<Passenger>();
         lastNodeIndex = 0;
         speed = route.getLineFromIndex(0).speed;
         timeNextNode = (getNextNodeDistance()/speed);
+        actualNode = circuitActuelArg.getNodeFromIndex(0);
+        actualNode.addBus(this);
     }
     
     
@@ -36,17 +37,35 @@ public class Bus {
         }
     }
     
+    public void setNode(Node n){
+        actualNode = n;
+        setPositionX(n.getPositionX());
+        setPositionY(n.getPositionY());
+        lastNodeIndex++;
+        updateTimeNextNode();
+        updateSpeed();
+        if (n.isStation){
+            n.addBus(this);
+        
+            
+        }
+        for (Passenger p: listPassenger){
+            p.nodePast();
+        }
+    }
+    
+    public void exitNode(){
+        if (actualNode.isStation){
+            actualNode.removeBus(this);
+            actualNode = null;
+        }
+    }
+
+    
     public double reqSpeed(){
         return speed;
     }
-    public void addNodesPast(){
-        nodesPast++;
-    }
-    
-    public int getNodesPast(){
-        return nodesPast;
-    }
-    
+
     public Route getRoute(){
         return route;
     }
@@ -67,26 +86,12 @@ public class Bus {
     }
     
     // retourne le nb de passager qui ne sont pas entrer
-    public int addPassenger(int arg_nombre_passager){
-        
-        if (numberOfPassenger == capacity){
-            return arg_nombre_passager;
-        }
-        
-        if ((numberOfPassenger + arg_nombre_passager) < capacity){
-            numberOfPassenger += arg_nombre_passager;
-            return 0;
-        }
-        else{
-            int restant = arg_nombre_passager - (capacity - numberOfPassenger);
-            numberOfPassenger = capacity;
-            return restant;
-        }
+    public void addPassenger(Passenger p){
+        listPassenger.add(p);
     }
-    
-    public void getPassengerNumber(int arg_nombre_passager){
         
-        numberOfPassenger -= arg_nombre_passager;
+    public void removePassenger(Passenger p){
+        listPassenger.remove(p);
     }
     
     public void updateTimeNextNode(){
@@ -114,22 +119,15 @@ public class Bus {
          return lastNodeIndex;
      }
      
-     //not used yet
-     public int getNumberOfPassenger(){
-         return numberOfPassenger;
-     }
      
      public double getTimeNextNode(){
          return timeNextNode;
      }
      
-     public void setLastNodeIndex(){
-         lastNodeIndex++;
-     }
+
      
      public void reset(){
          lastNodeIndex = 0;
-         nodesPast = 1;
          speed = route.getLineFromIndex(0).speed;
          timeNextNode = (getNextNodeDistance()/speed);
      }
@@ -148,17 +146,17 @@ public class Bus {
          return distance;
      }
     
-     //using right now....
+    
     private double speed;
     private int number;
     private double positionX;
     private double positionY;
     private int capacity;
+    public Node actualNode;
     private Route route;
     private int lastNodeIndex;
-    private int nodesPast;
     private double timeNextNode;
+    public List<Passenger> listPassenger;
     
-    //not used yet
-    private int numberOfPassenger;
+
 }

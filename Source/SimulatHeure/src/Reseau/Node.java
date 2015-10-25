@@ -16,8 +16,10 @@ public class Node {
         positionY = argY;
         isStation = false;
         numberOfRoutes = 0;
-        numberOFPassengers = 0;
         listLines = new ArrayList<Line>();
+        listRoutes = new ArrayList<Route>();
+        listPassenger = new ArrayList<Passenger>();
+        listBus = new ArrayList<Bus>();
     }
     
     public void addLine(Line l){
@@ -63,34 +65,24 @@ public class Node {
      public void deleteStation(){
          isStation = false;
          name = null;
-         numberOFPassengers = 0;
+
          numberOfRoutes = 0;
      }
-     
-    public void setNumberOfPassengers(int number){
-         if(isStation){
-            numberOFPassengers = number;
-         }
-    }
 
-    public void setNumberOfRoutes(int n){
+
+    public void setRoute(int n, Route r){
   
         if (n == 1){
             numberOfRoutes++;
+            listRoutes.add(r);
         }
         if (n == -1){
             numberOfRoutes--;
+            listRoutes.remove(r);
         }
          
     }
-    
-    public int getNumberOfPassengers(){
-         if(isStation){
-        return numberOFPassengers;
-         }
-         return 0;
-    }
-    
+
     public String getName(){
          if(isStation){
         return name;
@@ -105,8 +97,27 @@ public class Node {
 
     }
     
+    public void addPassenger(Passenger p){
+        listPassenger.add(p);
+    }
+    
+    public void addBus(Bus b){
+        listBus.add(b);
+    }
+    
+      public void removeBus(Bus b){
+        listBus.remove(b);
+    }
+    
+    public void removePassenger(Passenger p){
+        listPassenger.remove(p);
+    }
+    
+    public List<Route> listRoutes;
     public List<Line> listLines;
+    public List<Passenger> listPassenger;
+    public List<Bus> listBus;
     private String name;
     private int numberOfRoutes;
-    private int numberOFPassengers;
+
 }

@@ -73,7 +73,7 @@ public class SimDisplay extends JPanel {
             }
         };
         
-        displayTimer = new javax.swing.Timer(16, action);
+        displayTimer = new javax.swing.Timer(33, action);
     }
     
    
@@ -140,7 +140,7 @@ public class SimDisplay extends JPanel {
                     (this.getHeight()/2) -((this.getHeight()/2-centerPositionY)*(scale)));
         tr.scale(scale,scale);
         g2.setTransform(tr);
-        
+
         //white background
         g.setColor(Color.white);
         g.fillRect(0-GRID_SIZE/2, 0-GRID_SIZE/2, GRID_SIZE, GRID_SIZE);
@@ -171,9 +171,10 @@ public class SimDisplay extends JPanel {
         
        for (int i = 0; i < Sim.getRouteQuantity(); i++){
            Route circuit_i = Sim.getRouteFromIndex(i);
-
+           
            for (Bus b : circuit_i.listBus){
                 g.drawImage(img_bus, (int)b.getPositionX() - img_bus_size/2, (int)b.getPositionY()- img_bus_size/2, null);
+                g.drawString(""+b.listPassenger.size(), (int)b.getPositionX(), (int)b.getPositionY()-40);
            }
        }
        
@@ -186,6 +187,9 @@ public class SimDisplay extends JPanel {
            
        }
        for (Node n: Sim.listNodes){
+           if (n.isStation){
+               g.drawString(""+n.listPassenger.size(), n.getPositionX(), n.getPositionY()-25);
+           }
            if (liste_Noeuds_selected.contains(n)){
                 g.setColor(Color.red);  
                 if (n.isStation){
@@ -199,26 +203,16 @@ public class SimDisplay extends JPanel {
            else if(!n.isStation){
                
                g.drawRect(n.getPositionX()-10, n.getPositionY()-10, 20, 20);
+               
                 
            }
            else{
-                g.drawImage(img_station, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null);    
+                
+                g.drawImage(img_station, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null); 
+                
            }
        }
-       /*
-       //Route creation
-       g.setColor(Color.red);
-       int x1 = 0, x2 = 0, y1 = 0, y2 = 0, count = 0;
-       for (Node n: Sim.newRoute){
-           if (count == 0){x1 = n.getPositionX(); y1 = n.getPositionY();count++;continue;}
-           x2 = n.getPositionX();
-           y2 = n.getPositionY();
-           g.drawLine(x1,y1,x2,y2);
-           x1 = x2;
-           y1 = y2;
-           count++;
-       }
-       */
+
        // ligne pendant la création d'une arrete
        BasicStroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
        if (createLineTemp != null){
