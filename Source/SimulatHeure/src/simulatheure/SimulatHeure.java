@@ -268,12 +268,12 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         Dialog_besoin_transport.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         Dialog_besoin_transport.setAlwaysOnTop(true);
-        Dialog_besoin_transport.setBounds(new java.awt.Rectangle(100, 100, 440, 230));
+        Dialog_besoin_transport.setBounds(new java.awt.Rectangle(100, 100, 440, 350));
         Dialog_besoin_transport.setModal(true);
         Dialog_besoin_transport.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
-        Dialog_besoin_transport.setPreferredSize(new java.awt.Dimension(440, 300));
+        Dialog_besoin_transport.setPreferredSize(new java.awt.Dimension(440, 350));
         Dialog_besoin_transport.setResizable(false);
-        Dialog_besoin_transport.setSize(new java.awt.Dimension(440, 300));
+        Dialog_besoin_transport.setSize(new java.awt.Dimension(440, 350));
         Dialog_besoin_transport.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 Dialog_besoin_transportWindowClosing(evt);
@@ -408,7 +408,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(spinFreqPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addComponent(okDirections))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
@@ -738,6 +738,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel1.setText("Nom");
 
         jButton2.setText("Ajouter un besoin en transport");
+        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -964,14 +965,24 @@ public class SimulatHeure extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selectOnly(Boolean state){
+            selectorToggleButton.setSelected(state);
+            addAreteToggleButton.setEnabled(!state);
+            addNodeToggleButton.setEnabled(!state);
+            addStationToggleButton.setEnabled(!state);
+             mouseClickState = "selection";
+            mouseClickStatePersistance = !state;
+            Bouton_arreter.setEnabled(!state);
+            Bouton_simuler.setEnabled(!state);
+            
+    }
+    
     public void createRoute(){
         switch (createRouteState){
 
         //deuxieme clic, crée le circuit
         case "reset": // reset
            createRouteState = "Demande param";
-           //Radio_ajouter.setEnabled(true);
-           //Radio_deplacer.setEnabled(true);
            Print.setText("Création de circuit annulée");
            break;
             
@@ -987,9 +998,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 break;
             }
 
-            mouseClickState = "selection";
-            mouseClickStatePersistance = false;
-            selectorToggleButton.setSelected(true);
+           selectOnly(true);
             
             List<Node> circuit = new ArrayList<Node>();
             Print.setText("Veuillez sélectionner la station 1 du circuit.");
@@ -1000,7 +1009,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             
         case "Creation":
            if (Sim.newRoute.size()>1 && Sim.newRoute.get(Sim.newRoute.size()-1).isStation ==true){
-
+             selectOnly(false);
              selectedRoute = Sim.addRoute((Integer)spin_num.getValue(), (Integer)spin_freq.getValue(), (Integer)spin_t.getValue(),(Integer) maxBus.getValue());
              selectedObject = "Circuit";
 
@@ -1016,19 +1025,18 @@ public class SimulatHeure extends javax.swing.JFrame {
              listRoutesModel.addElement(selectedRoute.getNumber());
              listRoutes.setSelectedIndex(listRoutes.getLastVisibleIndex());
              Print.setText("Circuit "+ selectedRoute.getNumber()+ " créé avec succès!");
+             jButton2.setEnabled(true);
              fenetre_sim1.repaint();
            }
            else{
+               selectOnly(false);
                Print.setText("Vous n'avez pas selectionné assez de stations!");
            }
            createRouteState = "Demande param";
 
            break;
-
-
         default:
             break;
-
         }
     }
     public void createNode(int x, int y){
@@ -1313,6 +1321,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void ok_dialog_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_dialog_circuitActionPerformed
         // TODO add your handling code here:
         Dialog_circuit.dispose();
+        
     }//GEN-LAST:event_ok_dialog_circuitActionPerformed
 
     private void Dialog_circuitWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_Dialog_circuitWindowClosing

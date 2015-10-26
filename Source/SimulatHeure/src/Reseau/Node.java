@@ -15,7 +15,6 @@ public class Node {
         positionX = argX;
         positionY = argY;
         isStation = false;
-        numberOfRoutes = 0;
         listLines = new ArrayList<Line>();
         listRoutes = new ArrayList<Route>();
         listPassenger = new ArrayList<Passenger>();
@@ -46,38 +45,36 @@ public class Node {
     private int positionY;
     public Boolean isStation;
     
-    
-    //Station
-    
+    // *****
+    //-----------------Station------------------//
+    // *****
      public void setName(String newName){
          if(isStation){
         name = newName;
          }
     }
     
-    //not used yet
-     
      public void setStation(String arg_nom){
          isStation = true;
          name = arg_nom;
      }
      
-     public void deleteStation(){
-         isStation = false;
-         name = null;
-
-         numberOfRoutes = 0;
+     public Boolean deleteStation(){
+         if (listRoutes.isEmpty()){
+            isStation = false;
+            name = null;
+            return true;
+         }
+         return false;
      }
 
 
     public void setRoute(int n, Route r){
   
         if (n == 1){
-            numberOfRoutes++;
             listRoutes.add(r);
         }
         if (n == -1){
-            numberOfRoutes--;
             listRoutes.remove(r);
         }
          
@@ -93,7 +90,7 @@ public class Node {
 
     public int getNumberOfRoutes(){
 
-        return numberOfRoutes;
+        return listRoutes.size();
 
     }
     
@@ -118,6 +115,5 @@ public class Node {
     public List<Passenger> listPassenger;
     public List<Bus> listBus;
     private String name;
-    private int numberOfRoutes;
 
 }

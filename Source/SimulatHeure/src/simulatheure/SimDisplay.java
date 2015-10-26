@@ -69,6 +69,7 @@ public class SimDisplay extends JPanel {
             {
                 repaint();
                 topFrame.displayTime();
+
                 
             }
         };
@@ -129,8 +130,9 @@ public class SimDisplay extends JPanel {
     }
     
     public void displaySim(Graphics g){
+
         
-        //coordinates seyup
+        //coordinates setup
         Graphics2D g2 = (Graphics2D) g;
         double w = this.getWidth(); // real width of canvas
         double h = this.getHeight();// real height of canvas
@@ -221,7 +223,7 @@ public class SimDisplay extends JPanel {
             g.drawLine((int)createLineTemp.getX1(), (int)createLineTemp.getY1(), (int)createLineTemp.getX2(), (int)createLineTemp.getY2());
        
        }
-       
+
     }
     
     @Override

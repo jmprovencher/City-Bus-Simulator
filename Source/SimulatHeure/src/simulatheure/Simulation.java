@@ -39,12 +39,14 @@ public class Simulation {
             if (busDone != null){
                 c.deleteBus(busDone);
             }
-            
-            if ((int)(c.getTimeNextStart()*(1000/(freq))) == count && c.busAvalaible()){
-                Bus newBus = c.addBus();
-                double typicalTime = c.getFrequency();
+            double typicalTime = c.getFrequency();
+            if ((int)(c.getTimeNextStart()*(1000/(freq))) == count){
+                if (c.busAvalaible()){
+                    Bus newBus = c.addBus();
+                    passengerIn(newBus);
+                }
                 c.setTimeNextStart(triangular(typicalTime-2, typicalTime+2, typicalTime));
-                passengerIn(newBus);
+                
             }
         }
         
