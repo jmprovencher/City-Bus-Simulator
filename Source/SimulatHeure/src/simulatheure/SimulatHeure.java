@@ -29,7 +29,6 @@ public class SimulatHeure extends javax.swing.JFrame {
     public Node nodeBuffer;
     public Route selectedRoute;
     public Line  selectedLine;
-    public Node lineNewNode;
     public int createLineState;
     public String selectedObject;
     public String createRouteState;
@@ -1078,24 +1077,22 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     }
     public void createLine(int x, int y){
-        Line aSelect;
+       
 
         switch (createLineState){
             case 0:
-                aSelect = null;
+                selectedLine = null;
                 if(selectedNode == null){
-                    aSelect = Sim.getLineFromPosition(x,y); 
+                    selectedLine = Sim.getLineFromPosition(x,y); 
                 }
-                
-                if(aSelect != null){
-                    nodeBuffer = Sim.splitLine(aSelect, x, y);
+                //point sur une ligne
+                if(selectedLine != null){
+                    nodeBuffer = Sim.splitLine(selectedLine, x, y);
                 }
                 //Nouveau point
                 else if (selectedNode == null){
-                    lineNewNode = Sim.addNode(x, y);
-                    
-                    nodeBuffer = null;
-                    
+                    nodeBuffer = Sim.addNode(x, y);
+
                 }
                 //point existant
                 else{
@@ -1107,46 +1104,20 @@ public class SimulatHeure extends javax.swing.JFrame {
                 break;
                 
             case 1:
-                Node noeud1;
+                Node noeud1 = nodeBuffer;
                 Node noeud2;
-                aSelect = null;
-                if (selectedNode == null && nodeBuffer == null){
-                    noeud1 = lineNewNode;
-                     aSelect = null;
-                     if(selectedNode == null){
-                        aSelect = Sim.getLineFromPosition(x,y); 
-                     }
-                    if (aSelect != null){
-                        noeud2 = Sim.splitLine(aSelect, x, y);
-                    }
-                    else{
-                        noeud2 = new Node(x,y);
-                    }
-                }
-                
-                else if (selectedNode != null && nodeBuffer == null){
-                    noeud1 = lineNewNode;
+                selectedLine = null;
+                if (selectedNode != null){
                     noeud2 = selectedNode;
                 }
-                else if (selectedNode == null && nodeBuffer != null){
-                    noeud1 = nodeBuffer;
-                    aSelect = null;
-                     if(selectedNode == null){
-                        aSelect = Sim.getLineFromPosition(x,y); 
-                     }
-                
-                    if (aSelect != null){
-                        noeud2 = Sim.splitLine(aSelect, x, y);
+                else{
+                    selectedLine = Sim.getLineFromPosition(x,y); 
+                    if (selectedLine != null){
+                        noeud2 = Sim.splitLine(selectedLine, x, y);
                     }
                     else{
                         noeud2 = new Node(x,y);
                     }
-                }
-                else{ //(selectedNode != null && nodeBuffer != null){
-
-                        noeud1 = nodeBuffer;
-                        noeud2 = selectedNode;
-
                 }
                 selectedLine = Sim.addLine(noeud1, noeud2);
                 if (selectedLine == null){
@@ -1155,6 +1126,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 }
                 selectedObject = "Noeud";
                 selectedNode = noeud2;
+                selectedLine = null;
                 createLineState = 0;
                 fenetre_sim1.createLineTemp = null;
                 fenetre_sim1.selectNode(noeud2);
