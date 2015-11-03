@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author rem54
  */
-public class Node {
+public class Node implements java.io.Serializable{
     
     public Node(int argX, int argY){
         positionX = argX;

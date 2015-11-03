@@ -9,7 +9,7 @@ package Reseau;
  *
  * @author Sam
  */
-public class Passenger {
+public class Passenger implements java.io.Serializable{
     public Passenger(Directions d){
         
         assignedDirections = d;

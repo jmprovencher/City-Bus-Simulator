@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author Rémi
  */
-public class Directions {
+public class Directions implements java.io.Serializable{
     
     public Directions(){
         directions = new ArrayList<SubRoute>();
@@ -140,7 +140,7 @@ public class Directions {
     public List<Passenger> listPassengersDone;
     
     
-    public class SubRoute{
+    public class SubRoute implements java.io.Serializable{
         
         public SubRoute(Route r,int start ,int end){
             route = r;

@@ -13,7 +13,7 @@ import Reseau.*;
  *
  * @author rem54
  */
-public class Simulation {
+public class Simulation implements java.io.Serializable{
     public Simulation(){
 
         listRoutes= new ArrayList<Route>();

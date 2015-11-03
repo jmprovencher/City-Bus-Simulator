@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author Sam
  */
-public class Bus {
+public class Bus implements java.io.Serializable{
     public Bus(int numeroArg, Route circuitActuelArg, int arg_capacite){
      
         number = numeroArg;

@@ -9,7 +9,7 @@ import java.awt.geom.Line2D;
  *
  * @author Sam
  */
-public class Line {
+public class Line implements java.io.Serializable{
     public Line(Node arg_origine, Node arg_destination){
         maxSpeed = 60;
         minSpeed = 5;

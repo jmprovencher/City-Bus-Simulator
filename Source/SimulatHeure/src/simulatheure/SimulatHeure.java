@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.Cursor;
 import java.awt.geom.Line2D;
 import java.awt.event.WindowEvent;
+import java.io.*;
 
 
 /**
@@ -142,7 +143,9 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame3 = new javax.swing.JInternalFrame();
         text_nom = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        buttonBesoins = new javax.swing.JButton();
+        buttonSave = new javax.swing.JButton();
+        buttonLoad = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
         menuCommandNouvDoc = new javax.swing.JMenuItem();
@@ -735,11 +738,11 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jLabel1.setText("Nom");
 
-        jButton2.setText("Ajouter un besoin en transport");
-        jButton2.setEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonBesoins.setText("Ajouter un besoin en transport");
+        buttonBesoins.setEnabled(false);
+        buttonBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonBesoinsActionPerformed(evt);
             }
         });
 
@@ -758,7 +761,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                             .addGroup(jInternalFrame3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))))
+                            .addComponent(buttonBesoins, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jInternalFrame3Layout.setVerticalGroup(
@@ -768,9 +771,23 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(text_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(buttonBesoins)
                 .addContainerGap())
         );
+
+        buttonSave.setText("TEST SAVE");
+        buttonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSaveActionPerformed(evt);
+            }
+        });
+
+        buttonLoad.setText("TEST LOAD");
+        buttonLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLoadActionPerformed(evt);
+            }
+        });
 
         menuFolderFichier.setMnemonic('f');
         menuFolderFichier.setText("Fichier");
@@ -930,7 +947,11 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(9, 9, 9)
                         .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 419, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                        .addComponent(buttonSave)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonLoad)
+                        .addGap(83, 83, 83)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -956,7 +977,9 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1)
+                        .addComponent(buttonSave)
+                        .addComponent(buttonLoad)))
                 .addContainerGap())
         );
 
@@ -996,6 +1019,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 createRoute();
                 break;
             }
+            
 
            selectOnly(true);
             
@@ -1024,7 +1048,7 @@ public class SimulatHeure extends javax.swing.JFrame {
              listRoutesModel.addElement(selectedRoute.getNumber());
              listRoutes.setSelectedIndex(listRoutes.getLastVisibleIndex());
              Print.setText("Circuit "+ selectedRoute.getNumber()+ " créé avec succès!");
-             jButton2.setEnabled(true);
+             buttonBesoins.setEnabled(true);
              fenetre_sim1.repaint();
            }
            else{
@@ -1314,10 +1338,15 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void ok_dialog_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_dialog_circuitActionPerformed
         // TODO add your handling code here:
-        if (createRouteState == "Edit"){
-            createRoute();
+        if (!Sim.routeNumberAvailable((int)spin_num.getValue())){
+            Print.setText("Numéro de pars déjà utilisé!");
         }
-        Dialog_circuit.dispose();
+        else{
+            if (createRouteState == "Edit"){
+                createRoute();
+            }
+            Dialog_circuit.dispose();
+        }
         
     }//GEN-LAST:event_ok_dialog_circuitActionPerformed
 
@@ -1528,7 +1557,7 @@ private final int TICK_TIME = 33; // ms
         }
     }//GEN-LAST:event_buttonEditRouteActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void buttonBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBesoinsActionPerformed
         // TODO add your handling code here:
         
         if (Sim.getRouteQuantity()>0){
@@ -1550,7 +1579,7 @@ private final int TICK_TIME = 33; // ms
             Print.setText("Il n'y a aucun circuit de créé!");
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_buttonBesoinsActionPerformed
 
     private void startComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startComboBoxActionPerformed
         // TODO add your handling code here:
@@ -1640,6 +1669,56 @@ private final int TICK_TIME = 33; // ms
          listSubRoutesModel.removeAllElements();
     }//GEN-LAST:event_Dialog_besoin_transportWindowClosing
 
+    private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
+        // TODO add your handling code here:
+      try
+      {
+         FileOutputStream fileOut =
+         new FileOutputStream("sim.ser");
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(Sim);
+         out.close();
+         fileOut.close();
+         System.out.printf("Serialized data is saved in /sim.ser");
+      }catch(IOException i)
+      {
+          i.printStackTrace();
+      }
+    }//GEN-LAST:event_buttonSaveActionPerformed
+
+    private void buttonLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoadActionPerformed
+        // TODO add your handling code here:
+              try
+      {
+         FileInputStream fileIn = new FileInputStream("sim.ser");
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         Sim = (Simulation) in.readObject();
+         fenetre_sim1.Sim = Sim;
+         
+         if (!Sim.listRoutes.isEmpty()){
+             buttonBesoins.setEnabled(true);
+         }
+         //refait la liste dans l'interface
+         for (Route r: Sim.listRoutes){
+             listRoutesModel.addElement(r.getNumber());
+         }
+         
+         fenetre_sim1.repaint();
+         simTimer = new SimTimer(Sim);
+         in.close();
+         fileIn.close();
+      }catch(IOException i)
+      {
+         i.printStackTrace();
+         return;
+      }catch(ClassNotFoundException c)
+      {
+         System.out.println("Simulation class not found");
+         c.printStackTrace();
+         return;
+      }
+    }//GEN-LAST:event_buttonLoadActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1689,15 +1768,17 @@ private final int TICK_TIME = 33; // ms
     private javax.swing.JToggleButton addNodeToggleButton;
     private javax.swing.JToggleButton addStationToggleButton;
     private javax.swing.JButton addSubRouteButton;
+    private javax.swing.JButton buttonBesoins;
     private javax.swing.JButton buttonEditRoute;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton buttonLoad;
+    private javax.swing.JButton buttonSave;
     private javax.swing.JLabel displayLabelCoordonnees;
     private javax.swing.ButtonGroup editionButtonGroup;
     private javax.swing.JInternalFrame editionToolbox;
     private javax.swing.JComboBox endComboBox;
     private simulatheure.SimDisplay fenetre_sim1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JInternalFrame jInternalFrame3;

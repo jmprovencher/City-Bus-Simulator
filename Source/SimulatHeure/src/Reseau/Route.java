@@ -12,7 +12,7 @@ import java.util.*;
  *
  * @author Sam
  */
-public class Route {
+public class Route implements java.io.Serializable{
     public Route(int arg_numero, int arg_frequence, int argMaxBus, int arg_t_depart, List<Node> p){
         number = arg_numero;
         frequency = arg_frequence;
