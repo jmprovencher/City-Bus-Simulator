@@ -283,14 +283,25 @@ public class SimDisplay extends JPanel {
     
     public void selectNode(Node n){
         liste_Noeuds_selected.add(n);
+        repaint();
     }
     
     public void selectLine(Line arr){
         liste_Aretes_selected.add(arr);
+        repaint();
     }
     
     public void selectBus(Bus b){
         liste_Buses_selected.add(b);
+        repaint();
+    }
+    
+    public void selectRoute(Route r){
+        for (int y = 0; y< r.getNumberOfNodes()-1; y++){
+            selectNode(r.getNodeFromIndex(y));
+            selectLine(r.getLineFromIndex(y));
+        }
+        selectNode(r.getNodeFromIndex(r.getNumberOfNodes()-1));
     }
     
     public void clearSelection(){

@@ -78,7 +78,7 @@ public class Simulation {
     public void passengerIn(Bus aBus){
         List<Passenger> passengerGettingIn = new ArrayList<Passenger>();
         for (Passenger p: aBus.actualNode.listPassenger){
-            if (p.getNextRoute() == aBus.getRoute() && aBus.getCapacity()>aBus.listPassenger.size()){
+            if (p.getNextRoute() == aBus.getRoute() && aBus.getCapacity()>(aBus.listPassenger.size()+passengerGettingIn.size())){
                 passengerGettingIn.add(p);
             }
         }
@@ -233,8 +233,17 @@ public class Simulation {
         return listNodes.size();
     }
     
-    public Route addRoute( int number, int frequency, int firstStart, int maxBus)
-    {
+    public Boolean routeNumberAvailable(int i){
+        for (Route r: listRoutes){
+            if (r.getNumber() == i){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public Route addRoute( int number, int frequency, int firstStart, int maxBus){
+    
         Route r = new Route(number, frequency , maxBus, firstStart , newRoute);
         listRoutes.add(r);
         
@@ -296,17 +305,21 @@ public class Simulation {
     }
     
     public Line addLine(Node node1, Node node2){
-        
-        if (!listNodes.contains(node1)){
-            listNodes.add(node1);
-        }
-        if (!listNodes.contains(node2)){
-            listNodes.add(node2);
-        }
+        if (node1 != node2){
+            if (!listNodes.contains(node1)){
+                listNodes.add(node1);
+            }
+            if (!listNodes.contains(node2)){
+                listNodes.add(node2);
+            }
 
-        Line newLine = new Line(node1, node2);
-        listLines.add(newLine);
-        return newLine;   
+            Line newLine = new Line(node1, node2);
+            listLines.add(newLine);
+            return newLine;   
+        }
+        else{
+            return null;
+        }
     }
     
     public Node splitLine(Line line, int x, int y){
@@ -334,7 +347,7 @@ public class Simulation {
         return n;
     }
     
-    public Line isLine(int x, int y){
+    public Line getLineFromPosition(int x, int y){
         for (Line a: listLines){
             if (a.line.intersects(x-10, y-10, 20, 20)){   
                 return a;

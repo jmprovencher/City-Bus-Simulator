@@ -67,6 +67,10 @@ public class Route {
         return frequency;
     }
     
+    public void setFrequency(int f){
+        frequency = f;
+    }
+    
     public int getTimeNextStart(){
         return timeNextStart;
     }
@@ -75,6 +79,13 @@ public class Route {
         timeNextStart += time;
     }
     
+    public int getMaxBus(){
+        return maxBus;
+    }
+    
+    public void setMaxBus(int m){
+        maxBus = m;
+    }
     public Node getNodeFromIndex(int index){
         return route.get(index);
     }
