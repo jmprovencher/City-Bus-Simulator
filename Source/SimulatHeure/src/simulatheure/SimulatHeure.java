@@ -16,6 +16,15 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 
 
+/* TO DO LIST
+
+- [ ] Ajouter un user input pour Line.min speed, maxSpeed et TypeSpedd
+- [ ] CTRL-Z (sérialiser à chaque ajout dans un fichier à part)
+- [ ] GÉRER TOUTE LES STATS de passagers
+- ????
+
+*/
+
 /**
  *
  * @author rem54
@@ -138,14 +147,14 @@ public class SimulatHeure extends javax.swing.JFrame {
         editionToolbox = new javax.swing.JInternalFrame();
         addNodeToggleButton = new javax.swing.JToggleButton();
         addAreteToggleButton = new javax.swing.JToggleButton();
-        addStationToggleButton = new javax.swing.JToggleButton();
         selectorToggleButton = new javax.swing.JToggleButton();
         jInternalFrame3 = new javax.swing.JInternalFrame();
         text_nom = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        buttonBesoins = new javax.swing.JButton();
+        checkBoxStation = new javax.swing.JCheckBox();
         buttonSave = new javax.swing.JButton();
         buttonLoad = new javax.swing.JButton();
+        buttonBesoins = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
         menuCommandNouvDoc = new javax.swing.JMenuItem();
@@ -155,7 +164,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuFolderEdition = new javax.swing.JMenu();
         menuCommandSupprimer = new javax.swing.JMenuItem();
         menuCommandAjouterNoeud = new javax.swing.JMenuItem();
-        menuCommandAjouterStation = new javax.swing.JMenuItem();
         menuCommandAjouterArete = new javax.swing.JMenuItem();
         menuCommandDeplacerNoeud = new javax.swing.JMenuItem();
         menuFolderSimulation = new javax.swing.JMenu();
@@ -586,6 +594,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
+        simulation_speed.setMaximum(500);
         simulation_speed.setMinimum(1);
         simulation_speed.setValue(4);
         simulation_speed.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -618,7 +627,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                             .addComponent(Bouton_arreter, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(simulation_speed, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                            .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jInternalFrame2Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(Bouton_simuler, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -680,14 +689,6 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
-        editionButtonGroup.add(addStationToggleButton);
-        addStationToggleButton.setText("Station");
-        addStationToggleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addStationToggleButtonActionPerformed(evt);
-            }
-        });
-
         editionButtonGroup.add(selectorToggleButton);
         selectorToggleButton.setSelected(true);
         selectorToggleButton.setText("Selection");
@@ -707,9 +708,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addComponent(selectorToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addAreteToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addNodeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addStationToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                .addComponent(addNodeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         editionToolboxLayout.setVerticalGroup(
@@ -720,9 +719,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addComponent(selectorToggleButton)
                     .addComponent(addNodeToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addAreteToggleButton)
-                    .addComponent(addStationToggleButton))
+                .addComponent(addAreteToggleButton)
                 .addContainerGap())
         );
 
@@ -738,11 +735,10 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jLabel1.setText("Nom");
 
-        buttonBesoins.setText("Ajouter un besoin en transport");
-        buttonBesoins.setEnabled(false);
-        buttonBesoins.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxStation.setText("Station");
+        checkBoxStation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBesoinsActionPerformed(evt);
+                checkBoxStationActionPerformed(evt);
             }
         });
 
@@ -757,12 +753,13 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(text_nom))
                     .addGroup(jInternalFrame3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jInternalFrame3Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(buttonBesoins, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))))
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(checkBoxStation)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jInternalFrame3Layout.setVerticalGroup(
             jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -770,9 +767,8 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(text_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonBesoins)
-                .addContainerGap())
+                .addGap(1, 1, 1)
+                .addComponent(checkBoxStation))
         );
 
         buttonSave.setText("TEST SAVE");
@@ -786,6 +782,14 @@ public class SimulatHeure extends javax.swing.JFrame {
         buttonLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonLoadActionPerformed(evt);
+            }
+        });
+
+        buttonBesoins.setText("Ajouter un besoin en transport");
+        buttonBesoins.setEnabled(false);
+        buttonBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBesoinsActionPerformed(evt);
             }
         });
 
@@ -826,15 +830,6 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
         menuFolderEdition.add(menuCommandAjouterNoeud);
-
-        menuCommandAjouterStation.setMnemonic('t');
-        menuCommandAjouterStation.setText("Ajouter Station");
-        menuCommandAjouterStation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuCommandAjouterStationActionPerformed(evt);
-            }
-        });
-        menuFolderEdition.add(menuCommandAjouterStation);
 
         menuCommandAjouterArete.setMnemonic('r');
         menuCommandAjouterArete.setText("Ajouter Arête");
@@ -932,28 +927,24 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(editionToolbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap()))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jInternalFrame2)
+                            .addComponent(jInternalFrame3)
+                            .addComponent(jInternalFrame1)
+                            .addComponent(editionToolbox)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(9, 9, 9)
                         .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonLoad)
-                        .addGap(83, 83, 83)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonBesoins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -968,7 +959,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(editionToolbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE))
                     .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -979,7 +970,8 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1)
                         .addComponent(buttonSave)
-                        .addComponent(buttonLoad)))
+                        .addComponent(buttonLoad)
+                        .addComponent(buttonBesoins)))
                 .addContainerGap())
         );
 
@@ -990,7 +982,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             selectorToggleButton.setSelected(state);
             addAreteToggleButton.setEnabled(!state);
             addNodeToggleButton.setEnabled(!state);
-            addStationToggleButton.setEnabled(!state);
+            checkBoxStation.setEnabled(!state);
             buttonEditRoute.setEnabled(!state);
             mouseClickState = "selection";
             mouseClickStatePersistance = !state;
@@ -1059,7 +1051,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
            break;
         case "Edit":
-            if (!Sim.routeNumberAvailable((int) spin_num.getValue())){
+            if (!Sim.routeNumberAvailable((int) spin_num.getValue()) && selectedRoute.getNumber() !=(int) spin_num.getValue()){
                 Print.setText("Ce numéro de circuit est déjà utilisé");
                 createRouteState = "Demande param";
                 break;
@@ -1202,17 +1194,20 @@ public class SimulatHeure extends javax.swing.JFrame {
         int size = 20;//   
         int size_s = fenetre_sim1.img_station_size; //taille d'une station
         
-        if (mouseClickState.matches("selection|ajoutArete|ajoutNoeud|ajoutStation")){
+        if (mouseClickState.matches("selection|ajoutArete|ajoutNoeud")){
             //va chercher la station correspondant au clic
             selectedNode = Sim.getNodeFromPosition(pressedX,pressedY, size, size_s);
 
             if (selectedNode != null){
                 selectedObject = "Noeud";
                 Print.setText("Noeud selectionne!");
+                checkBoxStation.setSelected(selectedNode.isStation);
+                text_nom.setText("-");
                 if (selectedNode.isStation){
                     selectedObject = "Station";
                     Print.setText("Station selectionnée: "+selectedNode.getName());
                     text_nom.setText(selectedNode.getName());
+                    
                 }
             }
             // les nodes ont priorité de sélection sur les arêtes
@@ -1228,6 +1223,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                  else{
                     Print.setText("Vous n'avez rien sélectionné");
                     text_nom.setText("-");  
+                    checkBoxStation.setSelected(false);
                 }    
             }
           
@@ -1259,22 +1255,7 @@ public class SimulatHeure extends javax.swing.JFrame {
          }
                 
             
-        /* -------------- Ajout d'une station sur un noeud------------- */
-        
-        if (mouseClickState == "ajoutStation")
-        {
-            if (selectedNode != null && !selectedNode.isStation){
-                Sim.addStation(selectedNode);
-                selectedObject = "Station";
-                Print.setText("Derniere station: " + selectedNode.getName());
-                text_nom.setText(selectedNode.getName());
-                //fenetre_sim1.selectNoeud(selectedNode);
-            }
-            if (mouseClickStatePersistance == false){
-                mouseClickState = "selection";
-            }
-        }
-        
+
         /* -------------- Deplacer station ------------- */
         
         if (mouseClickState == "deplacerNoeud"){
@@ -1338,8 +1319,8 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void ok_dialog_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_dialog_circuitActionPerformed
         // TODO add your handling code here:
-        if (!Sim.routeNumberAvailable((int)spin_num.getValue())){
-            Print.setText("Numéro de pars déjà utilisé!");
+        if (!Sim.routeNumberAvailable((int)spin_num.getValue())&& (int)spin_num.getValue() != selectedRoute.getNumber()){
+            Print.setText("Numéro de circuit déjà utilisé!");
         }
         else{
             if (createRouteState == "Edit"){
@@ -1393,18 +1374,13 @@ private final int TICK_TIME = 33; // ms
 
     private void Bouton_arreterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_arreterActionPerformed
         // TODO add your handling code here:
-        
-            simTimer.stop();
-            fenetre_sim1.displayTimer.stop();
-            fenetre_sim1.repaint();
+            if (simTimer.running){
+                simTimer.stop();
+                fenetre_sim1.displayTimer.stop();
+                fenetre_sim1.repaint();
+            }
          
     }//GEN-LAST:event_Bouton_arreterActionPerformed
-
-    private void menuCommandAjouterStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandAjouterStationActionPerformed
-        mouseClickState = "ajoutStation";
-        mouseClickStatePersistance = false;
-        Print.setText("Placez une station sur un noeud existant");
-    }//GEN-LAST:event_menuCommandAjouterStationActionPerformed
 
     private void sim_durationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sim_durationActionPerformed
         // TODO add your handling code here:
@@ -1539,12 +1515,6 @@ private final int TICK_TIME = 33; // ms
         Print.setText("Ajoutez une arête");
     }//GEN-LAST:event_addAreteToggleButtonActionPerformed
 
-    private void addStationToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStationToggleButtonActionPerformed
-        mouseClickState = "ajoutStation";
-        mouseClickStatePersistance = true;
-        Print.setText("Transformez un noeud en station");
-    }//GEN-LAST:event_addStationToggleButtonActionPerformed
-
     private void buttonEditRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditRouteActionPerformed
         // TODO add your handling code here:
         if (selectedRoute != null){
@@ -1607,7 +1577,7 @@ private final int TICK_TIME = 33; // ms
             String startName =(String)startComboBox.getSelectedItem();
             String endName =(String)endComboBox.getSelectedItem();
             Sim.newDirections.addSubRoute(r, r.getNodeIndexFromName(startName),r.getNodeIndexFromName(endName));
-            listSubRoutesModel.addElement(""+r.getNumber()+": "+startName+" à "+endName);
+            listSubRoutesModel.addElement("Circuit "+r.getNumber()+": "+startName+" à "+endName);
             DefaultComboBoxModel startComboBoxModel = new DefaultComboBoxModel();
             endComboBox.setEnabled(false);
             routesComboBox.setEnabled(false);
@@ -1719,6 +1689,26 @@ private final int TICK_TIME = 33; // ms
       }
     }//GEN-LAST:event_buttonLoadActionPerformed
 
+    private void checkBoxStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxStationActionPerformed
+        // TODO add your handling code here:
+        if(selectedNode != null){
+            Boolean isStation = checkBoxStation.isSelected();
+            if (isStation){
+                Sim.addStation(selectedNode);
+                text_nom.setText(selectedNode.getName());
+                selectedObject = "Station";
+            }
+            else{
+                Sim.deleteNode(selectedNode);
+                text_nom.setText("-");
+            }
+            fenetre_sim1.repaint();
+            
+        }
+        
+        
+    }//GEN-LAST:event_checkBoxStationActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1766,13 +1756,13 @@ private final int TICK_TIME = 33; // ms
     private javax.swing.JTextPane Print;
     private javax.swing.JToggleButton addAreteToggleButton;
     private javax.swing.JToggleButton addNodeToggleButton;
-    private javax.swing.JToggleButton addStationToggleButton;
     private javax.swing.JButton addSubRouteButton;
     private javax.swing.JButton buttonBesoins;
     private javax.swing.JButton buttonEditRoute;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buttonLoad;
     private javax.swing.JButton buttonSave;
+    private javax.swing.JCheckBox checkBoxStation;
     private javax.swing.JLabel displayLabelCoordonnees;
     private javax.swing.ButtonGroup editionButtonGroup;
     private javax.swing.JInternalFrame editionToolbox;
@@ -1813,7 +1803,6 @@ private final int TICK_TIME = 33; // ms
     private javax.swing.JMenuItem menuCommandAjouterArete;
     private javax.swing.JMenuItem menuCommandAjouterCircuit;
     private javax.swing.JMenuItem menuCommandAjouterNoeud;
-    private javax.swing.JMenuItem menuCommandAjouterStation;
     private javax.swing.JMenuItem menuCommandAnalResults;
     private javax.swing.JMenuItem menuCommandDeplacerNoeud;
     private javax.swing.JMenuItem menuCommandEnregSous;

@@ -56,7 +56,6 @@ public class SimTimer {
         simTimer = new javax.swing.Timer(freq, action);
         sim.freq = freq;
         sim.setLinesSpeed();
-        
         simTimer.start();
         running = true;
     }

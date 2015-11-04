@@ -490,15 +490,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandAjouterNoeudActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuCommandAjouterStation">
-              <Properties>
-                <Property name="mnemonic" type="int" value="116"/>
-                <Property name="text" type="java.lang.String" value="Ajouter Station"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandAjouterStationActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandAjouterArete">
               <Properties>
                 <Property name="mnemonic" type="int" value="114"/>
@@ -658,36 +649,28 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="fenetre_sim1" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="editionToolbox" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jInternalFrame2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jInternalFrame1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jInternalFrame3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jInternalFrame2" max="32767" attributes="0"/>
+                          <Component id="jInternalFrame3" max="32767" attributes="0"/>
+                          <Component id="jInternalFrame1" max="32767" attributes="0"/>
+                          <Component id="editionToolbox" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Component id="displayLabelCoordonnees" min="-2" pref="160" max="-2" attributes="0"/>
-                      <EmptySpace pref="131" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonLoad" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="297" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonBesoins" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="297" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -704,7 +687,7 @@
                       <Component id="editionToolbox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jInternalFrame3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                   </Group>
                   <Component id="fenetre_sim1" max="32767" attributes="0"/>
               </Group>
@@ -718,6 +701,7 @@
                       <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonSave" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonLoad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonBesoins" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -900,7 +884,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="simulation_speed" pref="123" max="32767" attributes="0"/>
+                              <Component id="simulation_speed" pref="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                   <Component id="Bouton_simuler" min="-2" pref="95" max="-2" attributes="0"/>
@@ -983,6 +967,7 @@
         </Component>
         <Component class="javax.swing.JSlider" name="simulation_speed">
           <Properties>
+            <Property name="maximum" type="int" value="500"/>
             <Property name="minimum" type="int" value="1"/>
             <Property name="value" type="int" value="4"/>
           </Properties>
@@ -1034,10 +1019,7 @@
                       <Component id="addAreteToggleButton" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="addNodeToggleButton" max="32767" attributes="0"/>
-                      <Component id="addStationToggleButton" pref="108" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="addNodeToggleButton" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -1051,10 +1033,7 @@
                       <Component id="addNodeToggleButton" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="addAreteToggleButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="addStationToggleButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="addAreteToggleButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -1081,17 +1060,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addAreteToggleButtonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JToggleButton" name="addStationToggleButton">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="editionButtonGroup"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Station"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStationToggleButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="selectorToggleButton">
@@ -1125,16 +1093,16 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="buttonBesoins" pref="224" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="checkBoxStation" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1144,9 +1112,8 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="text_nom" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="buttonBesoins" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  <Component id="checkBoxStation" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1165,13 +1132,12 @@
             <Property name="text" type="java.lang.String" value="Nom"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonBesoins">
+        <Component class="javax.swing.JCheckBox" name="checkBoxStation">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ajouter un besoin en transport"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Station"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBesoinsActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxStationActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -1190,6 +1156,15 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonLoadActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonBesoins">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ajouter un besoin en transport"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBesoinsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

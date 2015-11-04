@@ -56,13 +56,17 @@ public class Directions implements java.io.Serializable{
     public Node getEndPoint(){
         return endPoint;
     }
-    public void addPassenger(){
-        listPassengers.add(new Passenger(this));
+    public void addPassenger(double time){
+        Passenger newPassenger = new Passenger(this);
+        newPassenger.startTinme = time;
+        listPassengers.add(newPassenger);
     }
     
-    public void removePassenger(Passenger p){
+    public void removePassenger(Passenger p, double time){
+        p.stopTime = time;
         p.actualNode.listPassenger.remove(p);
         listPassengersDone.add(p);
+        
     }
     
     public void addSubRoute(Route r, int start, int end){

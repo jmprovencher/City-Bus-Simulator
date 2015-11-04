@@ -28,7 +28,6 @@ public class Route implements java.io.Serializable{
             isLoop = false;
         }
         loopDone = false;
-        System.out.println(isLoop);
     }
     
     public void reset(){

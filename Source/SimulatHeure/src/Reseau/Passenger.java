@@ -21,6 +21,7 @@ public class Passenger implements java.io.Serializable{
         actualBus = null;
         nodesPast = 1;
         nextStop = assignedDirections.getNextStop(nodesPast);
+        
 
     }
     
@@ -77,4 +78,6 @@ public class Passenger implements java.io.Serializable{
     public Node nextStop;
     public Bus actualBus;
     private Node Noeud_destination;
+    public double startTinme;
+    public double stopTime;
 }

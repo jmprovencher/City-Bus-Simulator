@@ -24,8 +24,64 @@ public class Bus implements java.io.Serializable{
         timeNextNode = (getNextNodeDistance()/speed);
         actualNode = circuitActuelArg.getNodeFromIndex(0);
         actualNode.addBus(this);
+        positionInTime = new ArrayList<PositionBus>();
+
     }
     
+    
+    public void initPositionInTime(double tickTime){
+        int datCount = 1;
+                    double angle;
+            double newX;
+            double newY;
+                        double originX = actualNode.getPositionX();
+            double originY = actualNode.getPositionY();
+        positionInTime.add(new PositionBus(positionX, positionY, 0));
+        for (int i = 0; i<route.route.size() - 1; i++){
+            Line l = route.getLineFromIndex(i);
+            double relativeSpeed = l.speed * tickTime;
+            Node previousNode = getRoute().getNodeFromIndex(i);
+            Node nextNode = getRoute().getNodeFromIndex(i+1);
+
+            int targetX = nextNode.getPositionX();
+            int targetY= nextNode.getPositionY();
+            double distance = Math.sqrt(Math.pow((targetX - originX),2)+ Math.pow((targetY - originY), 2));
+            int numberOfTick = (int)( distance / relativeSpeed);
+            if (distance % relativeSpeed != 0){
+                numberOfTick++;
+            }
+
+            for (int y = 0; y  < numberOfTick; y++){
+                angle = Math.atan((double)(targetY-originY)/(double)(targetX-originX));
+
+                if (targetX == originX){
+                    if (targetY > originY){
+                        angle = -Math.PI/2;
+                    }
+                    else{
+                        angle = (Math.PI/2);
+                    }
+                }
+
+                if (targetX - originX <= 0){
+                    newX = originX- (Math.cos(angle)*relativeSpeed);
+                    newY = originY- (Math.sin(angle)*relativeSpeed);
+                }
+                else{
+                    newX = (originX+ (Math.cos(angle)*relativeSpeed));
+                    newY = (originY+ (Math.sin(angle)*relativeSpeed));
+                }
+                if (numberOfTick == y){
+                    newX = targetX;
+                    newY = targetY;
+                }
+                originX = newX;
+                originY = newY;
+                positionInTime.add(new PositionBus(newX, newY, datCount));
+                datCount++;
+            }
+        }
+    }
     
     public void updateSpeed(){
         Line a = route.getLineFromIndex(lastNodeIndex);
@@ -157,6 +213,19 @@ public class Bus implements java.io.Serializable{
     private int lastNodeIndex;
     private double timeNextNode;
     public List<Passenger> listPassenger;
+    public List<PositionBus> positionInTime;
     
-
+    public class PositionBus implements java.io.Serializable{
+        
+        public PositionBus(double argX,double argY,int argCount){
+            positionX = argX;
+            positionY = argY;
+            count = argCount;
+            //System.out.println("X: " +(int)argX+ " Y: "+ (int)argY+" Count: "+count);
+        }
+    
+        public double positionX;
+        public double positionY;
+        public int count;
+}
 }

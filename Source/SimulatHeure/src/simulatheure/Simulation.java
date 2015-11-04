@@ -43,6 +43,8 @@ public class Simulation implements java.io.Serializable{
             if ((int)(c.getTimeNextStart()*(1000/(freq))) == count){
                 if (c.busAvalaible()){
                     Bus newBus = c.addBus();
+                    //The following function precalculate the bus position in time <---- this is stupid
+                    //newBus.initPositionInTime((freq/1000));
                     passengerIn(newBus);
                 }
                 c.setTimeNextStart(triangular(typicalTime-2, typicalTime+2, typicalTime));
@@ -52,7 +54,7 @@ public class Simulation implements java.io.Serializable{
         
         for (Directions d: listDirections){
             if ((int)(d.getTimeNextStart()*(1000/(freq))) == count){
-                d.addPassenger();
+                d.addPassenger((double)count*(double)freq/(double)1000);
                 double typicalTime = d.getFrequency();
                 d.setTimeNextStart(triangular(typicalTime, typicalTime, typicalTime));
             }
@@ -63,6 +65,33 @@ public class Simulation implements java.io.Serializable{
     
     public void stopSimulation(){
         count = 0;
+        
+        /*
+        
+        Stats and shit here
+        
+        */
+        double min = Double.MAX_VALUE;
+        double max = 0;
+        double average = 0;
+        double time;
+        for (Directions d: listDirections){
+            for (Passenger p: d.listPassengersDone){
+                
+                time = p.stopTime - p.startTinme;
+                if (time < min){
+                    min = time;
+                }
+                if (time > max){
+                    max = time;
+                }
+                average += time;
+            }
+            average = (double)average /(double) d.listPassengersDone.size();
+        }
+        
+        System.out.println("Min: "+min+" Max: "+max+ " Average: "+average);
+        
         for (Route c: listRoutes){
             c.reset();
         }
@@ -97,7 +126,7 @@ public class Simulation implements java.io.Serializable{
         for (Passenger p: passengerGettingOut){
             p.setOutOfBus();
             if (p.req_destination() == p.actualNode){
-                p.getDirection().removePassenger(p);
+                p.getDirection().removePassenger(p, (double)count*(double)freq/(double)1000);
             }
         }
     }
