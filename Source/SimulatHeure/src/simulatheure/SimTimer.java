@@ -44,20 +44,31 @@ public class SimTimer {
         
         };
     
+ 
+    
     public void setSimSpeed(int s){
         simSpeed= s;
     }
     
-    public void start(int t, int argFreq){
-        
-        
+    public void start(int t, int argFreq, Boolean fullSim){
         time = t;
         freq = argFreq;
-        simTimer = new javax.swing.Timer(freq, action);
         sim.freq = freq;
         sim.setLinesSpeed();
+       if (!fullSim){
+        
+        simTimer = new javax.swing.Timer(freq, action);
         simTimer.start();
         running = true;
+       }
+       else{
+           while (sim.count < time/((double)freq/1000)){
+
+            sim.simulateTick();
+           }
+            sim.stopSimulation();
+        }
+
     }
     
     public void stop(){

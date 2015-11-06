@@ -21,14 +21,16 @@ public class Route implements java.io.Serializable{
         route = new ArrayList<Node>(p);
         listBus = new ArrayList<Bus>();
         maxBus = argMaxBus;
+        isLoop = false;
         if (p.get(0) == p.get(p.size()-1)){
-            isLoop = true;
+            canLoop = true;
         }
         else{
-            isLoop = false;
+            canLoop = false;
         }
         loopDone = false;
     }
+    
     
     public void reset(){
         for (Bus b: listBus){
@@ -130,6 +132,7 @@ public class Route implements java.io.Serializable{
     private int timeFirstStart;
     private int timeNextStart;
     private int maxBus;
+    public Boolean canLoop;
     public Boolean isLoop;
     public Boolean loopDone;
 }

@@ -40,7 +40,7 @@ public class Simulation implements java.io.Serializable{
                 c.deleteBus(busDone);
             }
             double typicalTime = c.getFrequency();
-            if ((int)(c.getTimeNextStart()*(1000/(freq))) == count){
+            if ((int)(c.getTimeNextStart()*(1000/(freq))) == count && !c.loopDone){
                 if (c.busAvalaible()){
                     Bus newBus = c.addBus();
                     //The following function precalculate the bus position in time <---- this is stupid
@@ -65,35 +65,36 @@ public class Simulation implements java.io.Serializable{
     
     public void stopSimulation(){
         count = 0;
-        
-        /*
-        
-        Stats and shit here
-        
-        */
+
         double min = Double.MAX_VALUE;
         double max = 0;
         double average = 0;
         double time;
         for (Directions d: listDirections){
-            for (Passenger p: d.listPassengersDone){
-                
-                time = p.stopTime - p.startTinme;
-                if (time < min){
-                    min = time;
-                }
-                if (time > max){
-                    max = time;
-                }
-                average += time;
+            if (d.listPassengersDone.isEmpty()){
+                System.out.println("Aucun passager a terminé!");
             }
-            average = (double)average /(double) d.listPassengersDone.size();
+            else{
+                for (Passenger p: d.listPassengersDone){
+
+                    time = p.stopTime - p.startTinme;
+                    if (time < min){
+                        min = time;
+                    }
+                    if (time > max){
+                        max = time;
+                    }
+                    average += time;
+                }
+                average = (double)average /(double) d.listPassengersDone.size();
+                System.out.println("Min: "+min+" Max: "+max+ " Average: "+average);
+            }
         }
         
-        System.out.println("Min: "+min+" Max: "+max+ " Average: "+average);
         
-        for (Route c: listRoutes){
-            c.reset();
+        
+        for (Route r: listRoutes){
+            r.reset();
         }
         for (Directions d: listDirections){
             d.reset();
@@ -102,17 +103,20 @@ public class Simulation implements java.io.Serializable{
         for (Node n: listNodes){
             n.listPassenger.clear();
         }
+
     }
     
     public void passengerIn(Bus aBus){
         List<Passenger> passengerGettingIn = new ArrayList<Passenger>();
-        for (Passenger p: aBus.actualNode.listPassenger){
-            if (p.getNextRoute() == aBus.getRoute() && aBus.getCapacity()>(aBus.listPassenger.size()+passengerGettingIn.size())){
-                passengerGettingIn.add(p);
+        if (!aBus.actualNode.listPassenger.isEmpty()){
+            for (Passenger p: aBus.actualNode.listPassenger){
+                if (p.getNextRoute() == aBus.getRoute() && aBus.getCapacity()>(aBus.listPassenger.size()+passengerGettingIn.size())){
+                    passengerGettingIn.add(p);
+                }
             }
-        }
-        for (Passenger p: passengerGettingIn){
-            p.setBus(aBus);
+            for (Passenger p: passengerGettingIn){
+                p.setBus(aBus);
+            }
         }
     }
     

@@ -114,6 +114,7 @@ public class Bus implements java.io.Serializable{
         if (actualNode.isStation){
             actualNode.removeBus(this);
             actualNode = null;
+           
         }
     }
 
@@ -186,6 +187,9 @@ public class Bus implements java.io.Serializable{
          lastNodeIndex = 0;
          speed = route.getLineFromIndex(0).speed;
          timeNextNode = (getNextNodeDistance()/speed);
+         actualNode = route.getNodeFromIndex(0);
+         positionX = route.getNodeFromIndex(0).getPositionX();
+         positionY = route.getNodeFromIndex(0).getPositionY();
      }
      
      public double getNextNodeDistance(){

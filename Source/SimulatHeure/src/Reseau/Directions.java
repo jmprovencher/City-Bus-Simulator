@@ -26,6 +26,7 @@ public class Directions implements java.io.Serializable{
     
     public void reset(){
         listPassengers.clear();
+        listPassengersDone.clear();
         timeNextStart = timeFirstStart;
     }
     
@@ -70,14 +71,17 @@ public class Directions implements java.io.Serializable{
     }
     
     public void addSubRoute(Route r, int start, int end){
+        System.out.println(directions.size());
         if (directions.isEmpty() && r.getNodeFromIndex(start).isStation){
             directions.add(new SubRoute(r, start, end));
             startPoint = r.getNodeFromIndex(start);
             endPoint = r.getNodeFromIndex(end);
         }
-        else if (directions.size() > 0){
+        
+        else if (directions.size() >= 1){
             numberOfStops--; // car le start d'un subroute == end de l'autre avant, faut pas le compter 2x.
             Node lastNode = directions.get(directions.size()-1).getLastNode();
+            System.out.println(lastNode.getName());
             if (lastNode == r.getNodeFromIndex(start)){
                 directions.add(new SubRoute(r, start, end));
                 endPoint = r.getNodeFromIndex(end);
@@ -153,6 +157,13 @@ public class Directions implements java.io.Serializable{
                 subRoute.add(r.getNodeFromIndex(i));
                 numberOfStops++;
             }
+            if (start > end && r.isLoop){
+                for (int i = start; i < r.getNumberOfNodes();i++){
+                    subRoute.add(r.getNodeFromIndex(i));
+                }
+                subRoute.add(r.getNodeFromIndex(0));
+            }
+           
         }
         
         public Node getNode(int i){
@@ -164,7 +175,9 @@ public class Directions implements java.io.Serializable{
         }
         
         public Node getLastNode(){
-            return subRoute.get(subRoute.size()-1);
+
+                return subRoute.get(subRoute.size()-1);
+
         }
         
         public int size(){

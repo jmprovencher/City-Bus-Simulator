@@ -72,7 +72,10 @@ public class Node implements java.io.Serializable{
     public void setRoute(int n, Route r){
   
         if (n == 1){
-            listRoutes.add(r);
+            if(!listRoutes.contains(r)){
+                listRoutes.add(r);
+            }
+            
         }
         if (n == -1){
             listRoutes.remove(r);
