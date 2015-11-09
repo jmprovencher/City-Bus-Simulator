@@ -152,6 +152,7 @@ public class Directions implements java.io.Serializable{
         
         public SubRoute(Route r,int start ,int end){
             route = r;
+            r.directionsUsingMe++;
             subRoute = new ArrayList<Node>();
             for (int i = start; i<= end; i++){
                 subRoute.add(r.getNodeFromIndex(i));

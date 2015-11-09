@@ -61,20 +61,6 @@ public class SimDisplay extends JPanel {
         liste_Buses_selected = new ArrayList<Bus>();
         
         
-        /* ----------------- GRAPHIC CONTROL TIMER ------------------ */
-        ActionListener action = new ActionListener()
-        {   
-            @Override
-            public void actionPerformed(ActionEvent event)
-            {
-                repaint();
-                topFrame.displayTime();
-
-                
-            }
-        };
-        
-        displayTimer = new javax.swing.Timer(33, action);
     }
     
    
@@ -304,6 +290,25 @@ public class SimDisplay extends JPanel {
         selectNode(r.getNodeFromIndex(r.getNumberOfNodes()-1));
     }
     
+    public void selectDirections(Directions d){
+        Node currentNode;
+        Node lastNode = null;
+        for (Directions.SubRoute s: d.directions){
+            int size  = s.size();
+            Route r = s.gerRoute();
+            
+            for (int i = 0; i < size; i++){
+                currentNode = s.getNode(i);
+                selectNode(currentNode);
+                if (i > 0){
+                    selectLine(Sim.getLine(lastNode, currentNode));
+                }
+                lastNode = currentNode;
+                
+            }
+        }
+    }
+    
     public void clearSelection(){
         liste_Noeuds_selected.clear();
         liste_Aretes_selected.clear();
@@ -337,7 +342,6 @@ public class SimDisplay extends JPanel {
      public Line2D.Double createLineTemp;
      public Simulation Sim;
      public double scale;
-     public SimulatHeure topFrame;
      private Color lightGray;
      private Color lightLightGray;
      private Color lightLightLightGray;

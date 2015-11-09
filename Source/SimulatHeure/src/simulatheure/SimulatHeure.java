@@ -6,14 +6,14 @@
 package simulatheure;
 
 import Reseau.*;
-import java.util.List;
-
-import java.util.*;
 import javax.swing.*;
 import java.awt.Cursor;
 import java.awt.geom.Line2D;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
 
 
 /* TO DO LIST
@@ -39,6 +39,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     public Node nodeBuffer;
     public Route selectedRoute;
     public Line  selectedLine;
+    public Directions selectedDirections;
     public int createLineState;
     public String selectedObject;
     public String createRouteState;
@@ -46,6 +47,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     public DefaultComboBoxModel listRoutesModel;
     public DefaultComboBoxModel listSubRoutesModel;
+    public DefaultComboBoxModel listDirectionsModel;
     public DefaultComboBoxModel listSourcesModel;
     public DefaultComboBoxModel listPossibleSourcesModel;
     
@@ -61,7 +63,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     public SimulatHeure() {
         
         initComponents();
-        fenetre_sim1.topFrame = this;
+        
         
         Sim = fenetre_sim1.Sim;
         createRouteState = "idle";
@@ -71,16 +73,30 @@ public class SimulatHeure extends javax.swing.JFrame {
         listSubRoutesModel = new DefaultComboBoxModel();
         listSourcesModel = new DefaultComboBoxModel();
         listPossibleSourcesModel = new DefaultComboBoxModel();
+        listDirectionsModel = new DefaultComboBoxModel();
         listRoutes.setModel(listRoutesModel);
         listSources.setModel(listSourcesModel);
         listSubRoutes.setModel(listSubRoutesModel);
         comboSource.setModel(listPossibleSourcesModel);
+        listDirections.setModel(listDirectionsModel);
         Dialog_circuit.pack();
         createLineState = 0;
-        simTimer = new SimTimer(Sim);
+        simTimer = new SimTimer(Sim, fenetre_sim1, this);
         pressedX = 0;
         pressedY = 0;
         drag = false;
+        
+        // Bouton delete
+        InputMap in = fenetre_sim1.getInputMap(fenetre_sim1.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap am = fenetre_sim1.getActionMap();
+        in.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0), "Delete");
+        am.put("Delete", new AbstractAction() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               delete();
+           }
+        });
+        //
         
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
@@ -142,7 +158,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         fenetre_sim1 = new simulatheure.SimDisplay();
         displayLabelCoordonnees = new javax.swing.JLabel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listRoutes = new javax.swing.JList();
         Bouton_circuit = new javax.swing.JButton();
@@ -158,6 +173,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         sim_time = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         buttonStats = new javax.swing.JButton();
+        timeJSpinnerStart = new simulatheure.TimeJSpinner();
+        timeJSpinnerStop = new simulatheure.TimeJSpinner();
         jButton1 = new javax.swing.JButton();
         editionToolbox = new javax.swing.JInternalFrame();
         addNodeToggleButton = new javax.swing.JToggleButton();
@@ -169,7 +186,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         checkBoxStation = new javax.swing.JCheckBox();
         buttonSave = new javax.swing.JButton();
         buttonLoad = new javax.swing.JButton();
-        buttonBesoins = new javax.swing.JButton();
         editionToolbox1 = new javax.swing.JInternalFrame();
         spinMinSpeed = new javax.swing.JSpinner();
         spinTypeSpeed = new javax.swing.JSpinner();
@@ -178,6 +194,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         applyLine = new javax.swing.JButton();
+        jInternalFrame4 = new javax.swing.JInternalFrame();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listDirections = new javax.swing.JList();
+        buttonBesoins = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
         menuCommandNouvDoc = new javax.swing.JMenuItem();
@@ -534,12 +555,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SimulatHeure");
         setBackground(new java.awt.Color(0, 0, 0));
-        setMinimumSize(new java.awt.Dimension(900, 750));
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
 
         Print.setEditable(false);
         Print.setBorder(null);
@@ -575,7 +590,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         fenetre_sim1.setLayout(fenetre_sim1Layout);
         fenetre_sim1Layout.setHorizontalGroup(
             fenetre_sim1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 314, Short.MAX_VALUE)
         );
         fenetre_sim1Layout.setVerticalGroup(
             fenetre_sim1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,14 +602,13 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame1.setTitle("Circuit");
         jInternalFrame1.setAutoscrolls(true);
         jInternalFrame1.setFocusable(false);
+        jInternalFrame1.setMinimumSize(new java.awt.Dimension(249, 160));
         jInternalFrame1.setVisible(true);
         jInternalFrame1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jInternalFrame1MouseEntered(evt);
             }
         });
-
-        jLabel6.setText("Circuits");
 
         listRoutes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listRoutes.setMaximumSize(new java.awt.Dimension(100, 100));
@@ -611,14 +625,14 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(listRoutes);
 
-        Bouton_circuit.setText("Ajouter Circuit");
+        Bouton_circuit.setText("Ajouter");
         Bouton_circuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Bouton_circuitActionPerformed(evt);
             }
         });
 
-        buttonEditRoute.setText("Editer Circuit");
+        buttonEditRoute.setText("Editer");
         buttonEditRoute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditRouteActionPerformed(evt);
@@ -630,30 +644,20 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(Bouton_circuit, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonEditRoute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(Bouton_circuit, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonEditRoute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3)
+                .addGap(6, 6, 6)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bouton_circuit)
                     .addComponent(buttonEditRoute))
-                .addGap(0, 0, 0))
+                .addGap(6, 6, 6))
         );
 
         jInternalFrame2.setTitle("Simulation");
@@ -710,6 +714,12 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
+        timeJSpinnerStart.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                timeJSpinnerStartStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
         jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
         jInternalFrame2Layout.setHorizontalGroup(
@@ -719,6 +729,15 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame2Layout.createSequentialGroup()
                         .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9))
+                        .addGap(49, 49, 49)
+                        .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sim_time, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sim_duration)))
+                    .addComponent(buttonStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jInternalFrame2Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(Bouton_arreter, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -726,16 +745,14 @@ public class SimulatHeure extends javax.swing.JFrame {
                             .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jInternalFrame2Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
-                                .addComponent(Bouton_simuler, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(Bouton_simuler, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 3, Short.MAX_VALUE))))
                     .addGroup(jInternalFrame2Layout.createSequentialGroup()
-                        .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel9))
-                        .addGap(49, 49, 49)
-                        .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sim_time, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(sim_duration)))
-                    .addComponent(buttonStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addComponent(timeJSpinnerStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeJSpinnerStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)))
                 .addContainerGap())
         );
         jInternalFrame2Layout.setVerticalGroup(
@@ -749,6 +766,10 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(timeJSpinnerStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeJSpinnerStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sim_duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -803,22 +824,22 @@ public class SimulatHeure extends javax.swing.JFrame {
             .addGroup(editionToolboxLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(selectorToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addAreteToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addAreteToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(selectorToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addNodeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addNodeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
                 .addContainerGap())
         );
         editionToolboxLayout.setVerticalGroup(
             editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editionToolboxLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selectorToggleButton)
-                    .addComponent(addNodeToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
+                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addNodeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(selectorToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addAreteToggleButton)
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
         jInternalFrame3.setTitle("Noeud");
@@ -852,12 +873,12 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addGroup(jInternalFrame3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, 0)))
                 .addContainerGap())
             .addGroup(jInternalFrame3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(checkBoxStation)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jInternalFrame3Layout.setVerticalGroup(
             jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -866,7 +887,8 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(text_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(checkBoxStation))
+                .addComponent(checkBoxStation)
+                .addGap(6, 6, 6))
         );
 
         buttonSave.setText("TEST SAVE");
@@ -883,15 +905,10 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
-        buttonBesoins.setText("Ajouter un besoin en transport");
-        buttonBesoins.setEnabled(false);
-        buttonBesoins.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBesoinsActionPerformed(evt);
-            }
-        });
-
         editionToolbox1.setTitle("Arête");
+        editionToolbox1.setMaximumSize(new java.awt.Dimension(249, 141));
+        editionToolbox1.setMinimumSize(new java.awt.Dimension(249, 141));
+        editionToolbox1.setPreferredSize(new java.awt.Dimension(249, 141));
         editionToolbox1.setVisible(true);
 
         spinMinSpeed.setModel(new javax.swing.SpinnerNumberModel(20, 5, 100, 1));
@@ -919,7 +936,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         editionToolbox1Layout.setHorizontalGroup(
             editionToolbox1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editionToolbox1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addGroup(editionToolbox1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(editionToolbox1Layout.createSequentialGroup()
                         .addComponent(jLabel16)
@@ -933,27 +950,84 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(spinTypeSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addComponent(applyLine)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         editionToolbox1Layout.setVerticalGroup(
             editionToolbox1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editionToolbox1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addGroup(editionToolbox1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spinMinSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editionToolbox1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spinMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editionToolbox1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spinTypeSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(applyLine))
                 .addContainerGap())
+        );
+
+        jInternalFrame4.setTitle("Besoins en transport");
+        jInternalFrame4.setMaximumSize(new java.awt.Dimension(189, 140));
+        jInternalFrame4.setMinimumSize(new java.awt.Dimension(189, 140));
+        jInternalFrame4.setVisible(true);
+
+        listDirections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listDirections.setMaximumSize(new java.awt.Dimension(100, 100));
+        listDirections.setMinimumSize(new java.awt.Dimension(100, 100));
+        listDirections.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listDirectionsMouseClicked(evt);
+            }
+        });
+        listDirections.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listDirectionsValueChanged(evt);
+            }
+        });
+        jScrollPane5.setViewportView(listDirections);
+
+        buttonBesoins.setText("Ajouter");
+        buttonBesoins.setEnabled(false);
+        buttonBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBesoinsActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Editer");
+        jButton2.setEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jInternalFrame4Layout = new javax.swing.GroupLayout(jInternalFrame4.getContentPane());
+        jInternalFrame4.getContentPane().setLayout(jInternalFrame4Layout);
+        jInternalFrame4Layout.setHorizontalGroup(
+            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+            .addGroup(jInternalFrame4Layout.createSequentialGroup()
+                .addComponent(buttonBesoins, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jInternalFrame4Layout.setVerticalGroup(
+            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame4Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonBesoins)
+                    .addComponent(jButton2))
+                .addGap(3, 3, 3))
         );
 
         menuFolderFichier.setMnemonic('f');
@@ -1085,61 +1159,62 @@ public class SimulatHeure extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jInternalFrame2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(editionToolbox, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jInternalFrame4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jInternalFrame3)
-                            .addComponent(jInternalFrame1)
-                            .addComponent(editionToolbox)
-                            .addComponent(editionToolbox1)))
+                            .addComponent(jInternalFrame2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editionToolbox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(7, 7, 7))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(9, 9, 9)
-                        .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(displayLabelCoordonnees)
+                        .addGap(10, 10, 10)
                         .addComponent(buttonSave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(10, 10, 10)
                         .addComponent(buttonLoad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonBesoins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(8, 8, 8))
+                        .addComponent(jScrollPane1)
+                        .addGap(6, 6, 6))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(fenetre_sim1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jInternalFrame1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jInternalFrame2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editionToolbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editionToolbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 21, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)
-                        .addComponent(buttonSave)
-                        .addComponent(buttonLoad)
-                        .addComponent(buttonBesoins)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jInternalFrame4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editionToolbox1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(editionToolbox)
+                            .addComponent(jInternalFrame3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(buttonSave)
+                    .addComponent(buttonLoad)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1))
         );
 
         pack();
@@ -1238,6 +1313,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             break;
         }
     }
+    
     public void createNode(int x, int y){
         Line aSelect;
            
@@ -1260,6 +1336,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
 
     }
+    
     public void createLine(int x, int y){
        
 
@@ -1324,6 +1401,72 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
     }
     
+    public void delete(){
+            
+           if (selectedObject == "Noeud" || selectedObject == "Station") {
+                if(Sim.deleteNode(selectedNode)){
+                    if(selectedNode.isStation){
+                        Print.setText("Station supprimée avec succès.");
+                    }
+                    else{
+                        Print.setText("Noeud supprimé avec succès.");
+                        selectedNode = null;
+                    }
+                }
+                else{
+                    Print.setText("Le noeud appartient à un circuit!");
+                }
+           }
+           else if (selectedObject == "Line"){
+               if(Sim.deleteLine(selectedLine)){
+                   Print.setText("Arête supprimée avec succès.");
+               }
+               else{
+                    Print.setText("L'Arête appartient à un circuit!");
+               }
+               
+           }
+           else if (selectedObject == "Circuit"){
+            
+            int i = listRoutes.getSelectedIndex();
+            if (i >= 0){
+
+
+                int numero_circuit = selectedRoute.getNumber();
+                if (Sim.deleteRoute(selectedRoute)){
+                
+                    listRoutesModel.removeElementAt(i);
+                    selectedRoute = null;
+                    Print.setText("Circuit "+numero_circuit+ " supprimé avec succès.");
+                }
+                else{
+                    Print.setText("Ce circuit appartient à un besoin en transport!");
+                }
+
+
+            }
+           
+                
+                
+            }
+            else if (selectedObject == "Directions"){
+                int indexDirections = listDirections.getSelectedIndex();
+                listDirectionsModel.removeElementAt(indexDirections);
+                Sim.deleteDirections(selectedDirections);
+                selectedDirections = null;
+            }
+            else{
+            
+                    Print.setText("Il n'y a rien de selectionné à supprimer.");
+                
+
+            }
+        
+        selectedObject = null;
+        fenetre_sim1.clearSelection();
+        fenetre_sim1.repaint();
+    }
+    
     public void displayTime(){
         sim_time.setText(""+Sim.freq*Sim.count/1000);
     }
@@ -1349,6 +1492,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         }
     }
+    
     private void selectedLineRoutine(){ 
         selectedObject = "Line";
         Print.setText("Arête sélectionnée");
@@ -1394,8 +1538,8 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
     }
     
-    
     private void fenetre_sim1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fenetre_sim1MousePressed
+        
 
         //coordonnées du clic
         fenetre_sim1.clearSelection();
@@ -1486,40 +1630,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         
     }//GEN-LAST:event_fenetre_sim1MouseMoved
     
-    private void Bouton_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_circuitActionPerformed
-        // TODO add your handling code here:
-            
-            if (createRouteState == "select" ){
-                if (selectedNode != null){
-                    if (selectedNode.isStation && Sim.newRoute.route.size()>1){
-
-                        createRouteState = "dialog";
-                        listSourcesModel.removeAllElements();
-                        listPossibleSourcesModel.removeAllElements();
-                        for (Node n: Sim.newRoute.route)
-                            if (n.isStation && n.getName() != (String)listPossibleSourcesModel.getElementAt(0)){
-                                 listPossibleSourcesModel.addElement(n.getName());
-                            }
-                    }
-                    else{
-                        createRouteState = "reset";
-                    }
-                }
-                else{
-                    createRouteState = "reset";
-                }
-              
-            }
-           
-             if (createRouteState == "idle" && Sim.getNodeQuantity() >= 2){
-                Sim.newRoute = new Route();
-                createRouteState = "select";
-
-            }
-
-        createRoute();
-    }//GEN-LAST:event_Bouton_circuitActionPerformed
-
     private void ok_dialog_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_dialog_circuitActionPerformed
         // TODO add your handling code here:
         if (!Sim.routeNumberAvailable((int)spin_num.getValue()) && selectedRoute.getNumber() !=(int)spin_num.getValue()){
@@ -1543,40 +1653,14 @@ public class SimulatHeure extends javax.swing.JFrame {
         createRouteState ="reset";
         
     }//GEN-LAST:event_Dialog_circuitWindowClosing
-
-    private void listRoutesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listRoutesValueChanged
-        // TODO add your handling code here:
-        
-       
-            int i = listRoutes.getSelectedIndex();
-            
-            if (i>=0){
-                
-                int number =(int) listRoutesModel.getElementAt(i);
-                selectedRoute = Sim.getRouteFromNumber(number);
-                selectedObject = "Circuit";
-                Print.setText("Circuit sélectionné: "+selectedRoute.getNumber());
-                fenetre_sim1.clearSelection();
-                fenetre_sim1.selectRoute(selectedRoute);
-                if (selectedRoute.canLoop){
-                    checkLoop.setEnabled(true);
-                    checkLoop.setSelected(selectedRoute.isLoop);
-                }
-                else{
-                    checkLoop.setEnabled(false);
-                    checkLoop.setSelected(selectedRoute.isLoop);
-                }
-            }
-        fenetre_sim1.repaint();
-    }//GEN-LAST:event_listRoutesValueChanged
     
  
 private final int TICK_TIME = 33; // ms
     private void Bouton_simulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_simulerActionPerformed
         if (!simTimer.running){
+            
             simTimer.setSimSpeed(simulation_speed.getValue()/4);
             simTimer.start(Integer.parseInt(sim_duration.getText()), TICK_TIME, false);
-            fenetre_sim1.displayTimer.start();
         }
 
     }//GEN-LAST:event_Bouton_simulerActionPerformed
@@ -1585,7 +1669,6 @@ private final int TICK_TIME = 33; // ms
         // TODO add your handling code here:
             if (simTimer.running){
                 simTimer.stop();
-                fenetre_sim1.displayTimer.stop();
                 fenetre_sim1.repaint();
             }
          
@@ -1614,13 +1697,6 @@ private final int TICK_TIME = 33; // ms
         // TODO add your handling code here:
     }//GEN-LAST:event_menuOptionSeeCoordsDisplayActionPerformed
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        System.out.print("Key pressed: "+evt.KEY_PRESSED);
-        if (evt.KEY_PRESSED == 127){
-            System.out.println("DELETE pressed");
-        }
-    }//GEN-LAST:event_formKeyPressed
-
     private void menuCommandDeplacerNoeudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandDeplacerNoeudActionPerformed
         mouseClickState = "deplacerNoeud";
         Print.setText("Cliquez pour déplacer l'object selectioné");
@@ -1633,46 +1709,7 @@ private final int TICK_TIME = 33; // ms
     }//GEN-LAST:event_menuCommandAjouterAreteActionPerformed
 
     private void menuCommandSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandSupprimerActionPerformed
-            
-           if (selectedObject == "Noeud" || selectedObject == "Station") {
-                if(Sim.deleteNode(selectedNode)){
-                    if(selectedNode.isStation){
-                        Print.setText("Station supprimée avec succès.");
-                    }
-                    else{
-                        Print.setText("Noeud supprimé avec succès.");
-                        selectedNode = null;
-                    }
-                }
-           }
-           else if (selectedObject == "Line"){
-               Sim.deleteLine(selectedLine);
-               Print.setText("Arête supprimée avec succès.");
-           }
-           else if (selectedObject == "Circuit"){
-            
-            int i = listRoutes.getSelectedIndex();
-            if (i >= 0){
-
-
-                int numero_circuit = selectedRoute.getNumber();
-                Sim.deleteRoute(selectedRoute);
-                listRoutesModel.removeElementAt(i);
-                selectedRoute = null;
-                Print.setText("Circuit "+numero_circuit+ " supprimé avec succès.");
-
-
-            }
-            else{
-            
-                    Print.setText("Il n'y a rien de selectionné à supprimer.");
-                
-
-            }
-        }
-        selectedObject = null;
-        fenetre_sim1.clearSelection();
-        fenetre_sim1.repaint();
+        delete();
     }//GEN-LAST:event_menuCommandSupprimerActionPerformed
 
     private void fenetre_sim1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_fenetre_sim1MouseWheelMoved
@@ -1723,29 +1760,6 @@ private final int TICK_TIME = 33; // ms
         mouseClickStatePersistance = true;
         Print.setText("Ajoutez une arête");
     }//GEN-LAST:event_addAreteToggleButtonActionPerformed
-
-    private void buttonEditRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditRouteActionPerformed
-        // TODO add your handling code here:
-        if (selectedRoute != null){
-            
-            createRouteState = "Edit";
-            listSourcesModel.removeAllElements();
-            listPossibleSourcesModel.removeAllElements();
-            
-            for (Route.Source s: selectedRoute.listSources){
-                listSourcesModel.addElement(s.originNode.getName());
-            }
-            
-            for (Node n: selectedRoute.route){
-                    if (n.isStation){
-                listPossibleSourcesModel.addElement(n.getName());
-                    }
-            }
-            spin_num.setValue(selectedRoute.getNumber());
-            maxBus.setValue(selectedRoute.getMaxBus());
-            Dialog_circuit.setVisible(true);
-        }
-    }//GEN-LAST:event_buttonEditRouteActionPerformed
 
     private void buttonBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBesoinsActionPerformed
         // TODO add your handling code here:
@@ -1852,7 +1866,9 @@ private final int TICK_TIME = 33; // ms
         // TODO add your handling code here:
         Sim.newDirections.setTimeFirstStart((int)spinFirstStart.getValue());
         Sim.newDirections.setFrequency((int)spinFreqPassenger.getValue());
+        listDirectionsModel.addElement(Sim.newDirections.getStartPoint().getName()+" à "+Sim.newDirections.getEndPoint().getName());
         Sim.addDirection();
+        
         Dialog_besoin_transport.dispatchEvent(new WindowEvent(Dialog_besoin_transport, WindowEvent.WINDOW_CLOSING));
        
     }//GEN-LAST:event_okDirectionsActionPerformed
@@ -1893,12 +1909,16 @@ private final int TICK_TIME = 33; // ms
          }
          //refait la liste dans l'interface
          listRoutesModel.removeAllElements();
+         listDirectionsModel.removeAllElements();
          for (Route r: Sim.listRoutes){
              listRoutesModel.addElement(r.getNumber());
          }
+         for (Directions d: Sim.listDirections){
+             listDirectionsModel.addElement(d.getStartPoint().getName()+" à "+d.getEndPoint().getName());
+         }
          
          fenetre_sim1.repaint();
-         simTimer = new SimTimer(Sim);
+         simTimer = new SimTimer(Sim, fenetre_sim1, this);
          in.close();
          fileIn.close();
       }catch(IOException i)
@@ -1976,11 +1996,6 @@ private final int TICK_TIME = 33; // ms
         }
     }//GEN-LAST:event_checkLoopActionPerformed
 
-    private void listRoutesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listRoutesMouseClicked
-        // TODO add your handling code here:
-        listRoutesValueChanged(null);
-    }//GEN-LAST:event_listRoutesMouseClicked
-
     private void buttonSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSourceActionPerformed
         // TODO add your handling code here:
         String name = (String) comboSource.getSelectedItem();
@@ -2028,6 +2043,124 @@ private final int TICK_TIME = 33; // ms
             selectedRoute.listSources.remove(i);
         }
     }//GEN-LAST:event_buttonDeleteSourceActionPerformed
+
+    private void timeJSpinnerStartStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_timeJSpinnerStartStateChanged
+        // TODO add your handling code here:
+        timeJSpinnerStart.setTime();
+    }//GEN-LAST:event_timeJSpinnerStartStateChanged
+
+    private void buttonEditRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditRouteActionPerformed
+        // TODO add your handling code here:
+        if (selectedRoute != null){
+
+            createRouteState = "Edit";
+            listSourcesModel.removeAllElements();
+            listPossibleSourcesModel.removeAllElements();
+
+            for (Route.Source s: selectedRoute.listSources){
+                listSourcesModel.addElement(s.originNode.getName());
+            }
+
+            for (Node n: selectedRoute.route){
+                if (n.isStation){
+                    listPossibleSourcesModel.addElement(n.getName());
+                }
+            }
+            spin_num.setValue(selectedRoute.getNumber());
+            maxBus.setValue(selectedRoute.getMaxBus());
+            Dialog_circuit.setVisible(true);
+        }
+    }//GEN-LAST:event_buttonEditRouteActionPerformed
+
+    private void Bouton_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_circuitActionPerformed
+        // TODO add your handling code here:
+
+        if (createRouteState == "select" ){
+            if (selectedNode != null){
+                if (selectedNode.isStation && Sim.newRoute.route.size()>1){
+
+                    createRouteState = "dialog";
+                    listSourcesModel.removeAllElements();
+                    listPossibleSourcesModel.removeAllElements();
+                    for (Node n: Sim.newRoute.route)
+                    if (n.isStation && n.getName() != (String)listPossibleSourcesModel.getElementAt(0)){
+                        listPossibleSourcesModel.addElement(n.getName());
+                    }
+                }
+                else{
+                    createRouteState = "reset";
+                }
+            }
+            else{
+                createRouteState = "reset";
+            }
+
+        }
+
+        if (createRouteState == "idle" && Sim.getNodeQuantity() >= 2){
+            Sim.newRoute = new Route();
+            createRouteState = "select";
+
+        }
+
+        createRoute();
+    }//GEN-LAST:event_Bouton_circuitActionPerformed
+
+    private void listRoutesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listRoutesValueChanged
+        // TODO add your handling code here:
+
+        int i = listRoutes.getSelectedIndex();
+
+        if (i>=0){
+
+            int number =(int) listRoutesModel.getElementAt(i);
+            selectedRoute = Sim.getRouteFromNumber(number);
+            selectedObject = "Circuit";
+            Print.setText("Circuit sélectionné: "+selectedRoute.getNumber());
+            fenetre_sim1.clearSelection();
+            fenetre_sim1.selectRoute(selectedRoute);
+            if (selectedRoute.canLoop){
+                checkLoop.setEnabled(true);
+                checkLoop.setSelected(selectedRoute.isLoop);
+            }
+            else{
+                checkLoop.setEnabled(false);
+                checkLoop.setSelected(selectedRoute.isLoop);
+            }
+        }
+        fenetre_sim1.repaint();
+    }//GEN-LAST:event_listRoutesValueChanged
+
+    private void listRoutesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listRoutesMouseClicked
+        // TODO add your handling code here:
+        listRoutesValueChanged(null);
+    }//GEN-LAST:event_listRoutesMouseClicked
+
+    private void listDirectionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listDirectionsMouseClicked
+        // TODO add your handling code here:
+
+        int i = listDirections.getSelectedIndex();
+
+        if (i>=0){
+
+            selectedDirections = Sim.listDirections.get(i);
+            selectedObject = "Directions";
+            Print.setText("Besoin en transport sélectionné: "+selectedDirections.getStartPoint().getName()+ " à "+selectedDirections.getEndPoint().getName());
+            fenetre_sim1.clearSelection();
+            fenetre_sim1.selectDirections(selectedDirections);
+
+        }
+        fenetre_sim1.repaint();
+    }//GEN-LAST:event_listDirectionsMouseClicked
+
+    private void listDirectionsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listDirectionsValueChanged
+        // TODO add your handling code here:
+        listDirectionsMouseClicked(null);
+    }//GEN-LAST:event_listDirectionsValueChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     /**
@@ -2097,9 +2230,11 @@ private final int TICK_TIME = 33; // ms
     private javax.swing.JComboBox endComboBox;
     private simulatheure.SimDisplay fenetre_sim1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JInternalFrame jInternalFrame3;
+    private javax.swing.JInternalFrame jInternalFrame4;
     private javax.swing.JInternalFrame jInternalFrame5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2114,7 +2249,6 @@ private final int TICK_TIME = 33; // ms
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2124,9 +2258,11 @@ private final int TICK_TIME = 33; // ms
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JList listDirections;
     private javax.swing.JList listRoutes;
     private javax.swing.JList listSources;
     private javax.swing.JList listSubRoutes;
@@ -2176,5 +2312,7 @@ private final int TICK_TIME = 33; // ms
     private javax.swing.JSpinner spin_t;
     private javax.swing.JComboBox startComboBox;
     private javax.swing.JTextField text_nom;
+    private simulatheure.TimeJSpinner timeJSpinnerStart;
+    private simulatheure.TimeJSpinner timeJSpinnerStop;
     // End of variables declaration//GEN-END:variables
 }
