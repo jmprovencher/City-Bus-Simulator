@@ -21,6 +21,7 @@ public class Route implements java.io.Serializable{
         maxBus = 50;
         isLoop = false;
         loopDone = false;
+        directionsUsingMe = 0;
     }
     
     public Boolean addNode(Node n){
@@ -156,6 +157,7 @@ public class Route implements java.io.Serializable{
     public List<Source> listSources;
     private int number;
     private int maxBus;
+    public int directionsUsingMe;
     public Boolean canLoop;
     public Boolean isLoop;
     public Boolean loopDone;
@@ -180,5 +182,6 @@ public class Route implements java.io.Serializable{
         public int timeFirstStart;
         public int timeNextStart;
         public int frequency;
+        
     }
 }

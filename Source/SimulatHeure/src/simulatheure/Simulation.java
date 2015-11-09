@@ -200,7 +200,7 @@ public class Simulation implements java.io.Serializable{
     public Node addStation(Node n)
     {
         //temporaire
-        n.setStation("Station"+listNodes.indexOf(n));
+        n.setStation("Station "+listNodes.indexOf(n));
         return n;
     }
     
@@ -230,7 +230,7 @@ public class Simulation implements java.io.Serializable{
             
             }
         }
-        return false ;// n'l pas pu être supprimée
+        return false ;// n'a pas pu être supprimée
     }
 
     public Boolean deleteLine(Line l){
@@ -240,6 +240,14 @@ public class Simulation implements java.io.Serializable{
             return true;
         }
         return false;
+    }
+    
+    public Boolean deleteDirections(Directions d){
+        for (Directions.SubRoute s: d.directions){
+            s.gerRoute().directionsUsingMe--;
+        }
+        listDirections.remove(d);
+        return true;
     }
     
     public Node getNodeFromPosition(int positionX, int positionY, int nodeSize, int stationSize){
@@ -301,8 +309,8 @@ public class Simulation implements java.io.Serializable{
         return newRoute.addNode(n);
     }
     
-    public void deleteRoute(Route route){
-        if (route != null)
+    public Boolean deleteRoute(Route route){
+        if (route != null && route.directionsUsingMe == 0)
             {
             for (int i = 0; i<route.getNumberOfNodes(); i++){
                 route.getNodeFromIndex(i).setRoute(-1, route);
@@ -311,9 +319,13 @@ public class Simulation implements java.io.Serializable{
                 }
             }
 
-
+            
                 listRoutes.remove(route);
+                return true;
             }
+        else{
+            return false;
+        }
     }
     
     public Node addNode(int x, int y){

@@ -14,8 +14,10 @@ import java.awt.event.ActionListener;
  * @author rem54
  */
 public class SimTimer {
-    public SimTimer(Simulation sim_arg){
+    public SimTimer(Simulation sim_arg, SimDisplay d, SimulatHeure s){
         sim= sim_arg;
+        topFrame = s;
+        display = d;
         time = 0;
         freq = 0;
         running = false;
@@ -34,6 +36,8 @@ public class SimTimer {
 
                          for (int i = 0; i< simSpeed; i++){
                              sim.simulateTick();
+                             display.repaint();
+                             topFrame.displayTime();
                          }
                     }
                }
@@ -55,6 +59,7 @@ public class SimTimer {
         freq = argFreq;
         sim.freq = freq;
         sim.setLinesSpeed();
+        
        if (!fullSim){
         
         simTimer = new javax.swing.Timer(freq, action);
@@ -74,10 +79,14 @@ public class SimTimer {
     public void stop(){
         simTimer.stop();
         sim.stopSimulation();
+        display.repaint();
+        topFrame.displayTime();
         running = false;
     }
     
     public int simSpeed;
+    public SimulatHeure topFrame;
+    private SimDisplay display;
     private javax.swing.Timer simTimer;
     private Simulation sim;
     private int time;
