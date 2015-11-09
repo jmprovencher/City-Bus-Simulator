@@ -11,18 +11,25 @@ import java.util.*;
  * @author Sam
  */
 public class Bus implements java.io.Serializable{
-    public Bus(int numeroArg, Route circuitActuelArg, int arg_capacite){
+    public Bus(int numeroArg, Route circuitActuelArg, int arg_capacite, Route.Source s){
      
         number = numeroArg;
         route = circuitActuelArg;
-        positionX = route.getNodeFromIndex(0).getPositionX();
-        positionY = route.getNodeFromIndex(0).getPositionY();
+        actualNode = s.originNode;
+        positionX = actualNode.getPositionX();
+        positionY = actualNode.getPositionY();
+        source =s;
         capacity = arg_capacite;
         listPassenger = new ArrayList<Passenger>();
-        lastNodeIndex = 0;
+        if (route.canLoop && actualNode == route.getNodeFromIndex(0)){
+            lastNodeIndex = 0;
+        }
+        else{
+            lastNodeIndex = circuitActuelArg.route.lastIndexOf(actualNode);
+        }
         speed = route.getLineFromIndex(0).speed;
         timeNextNode = (getNextNodeDistance()/speed);
-        actualNode = circuitActuelArg.getNodeFromIndex(0);
+        nodePastCount = 1;
         actualNode.addBus(this);
         positionInTime = new ArrayList<PositionBus>();
 
@@ -98,6 +105,7 @@ public class Bus implements java.io.Serializable{
         setPositionX(n.getPositionX());
         setPositionY(n.getPositionY());
         lastNodeIndex++;
+        nodePastCount++;
         updateTimeNextNode();
         updateSpeed();
         if (n.isStation){
@@ -184,12 +192,20 @@ public class Bus implements java.io.Serializable{
 
      
      public void reset(){
-         lastNodeIndex = 0;
-         speed = route.getLineFromIndex(0).speed;
+         actualNode = source.originNode;
+
+        if (route.canLoop){
+            lastNodeIndex = 0;
+        }
+        else{
+            lastNodeIndex = route.route.lastIndexOf(actualNode);
+        }
+         speed = route.getLineFromIndex(lastNodeIndex).speed;
          timeNextNode = (getNextNodeDistance()/speed);
-         actualNode = route.getNodeFromIndex(0);
-         positionX = route.getNodeFromIndex(0).getPositionX();
-         positionY = route.getNodeFromIndex(0).getPositionY();
+         
+         positionX = route.getNodeFromIndex(lastNodeIndex).getPositionX();
+         positionY = route.getNodeFromIndex(lastNodeIndex).getPositionY();
+         nodePastCount = 1;
      }
      
      public double getNextNodeDistance(){
@@ -206,7 +222,7 @@ public class Bus implements java.io.Serializable{
          return distance;
      }
     
-    
+    private Route.Source source;
     private double speed;
     private int number;
     private double positionX;
@@ -215,6 +231,7 @@ public class Bus implements java.io.Serializable{
     public Node actualNode;
     private Route route;
     private int lastNodeIndex;
+    public int nodePastCount;
     private double timeNextNode;
     public List<Passenger> listPassenger;
     public List<PositionBus> positionInTime;

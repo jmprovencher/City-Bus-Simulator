@@ -17,7 +17,6 @@ public class Simulation implements java.io.Serializable{
     public Simulation(){
 
         listRoutes= new ArrayList<Route>();
-        newRoute = new ArrayList<Node>();
         listLines = new ArrayList<Line>();
         listNodes = new ArrayList<Node>();
         listDirections = new ArrayList<Directions>();
@@ -27,9 +26,9 @@ public class Simulation implements java.io.Serializable{
     public void simulateTick(){
         // get passenger in BUS
  
-        for (Route c: listRoutes){
+        for (Route r: listRoutes){
             Bus busDone = null;
-            for (Bus b: c.listBus){
+            for (Bus b: r.listBus){
                
                 if (!moveBus(b)){
                     busDone = b;
@@ -37,18 +36,21 @@ public class Simulation implements java.io.Serializable{
             }
             
             if (busDone != null){
-                c.deleteBus(busDone);
+                r.deleteBus(busDone);
             }
-            double typicalTime = c.getFrequency();
-            if ((int)(c.getTimeNextStart()*(1000/(freq))) == count && !c.loopDone){
-                if (c.busAvalaible()){
-                    Bus newBus = c.addBus();
-                    //The following function precalculate the bus position in time <---- this is stupid
-                    //newBus.initPositionInTime((freq/1000));
-                    passengerIn(newBus);
+            for (Route.Source s: r.listSources){
+                double typicalTime = s.frequency;
+                if ((int)(s.timeNextStart*(1000/(freq))) == count && !r.loopDone){
+                    if (r.busAvalaible()){
+                        Bus newBus = r.addBus(s);
+                        //The following function precalculate the bus position in time <---- this is stupid
+                        //newBus.initPositionInTime((freq/1000));
+                        passengerIn(newBus);
+                    }
+                    s.timeNextStart += (int) triangular(typicalTime-2, typicalTime+2, typicalTime);
+                    
+
                 }
-                c.setTimeNextStart(triangular(typicalTime-2, typicalTime+2, typicalTime));
-                
             }
         }
         
@@ -137,7 +139,7 @@ public class Simulation implements java.io.Serializable{
     
     public Boolean moveBus(Bus b){
               
-        if (b.getRoute().getNumberOfNodes() == b.getLastNodeIndex()+1){
+        if (b.getRoute().getNumberOfNodes() == b.nodePastCount){
             if (b.getRoute().isLoop){
                 b.getRoute().loopDone = true;
                 b.reset();
@@ -152,7 +154,7 @@ public class Simulation implements java.io.Serializable{
         if(b.actualNode != null){
             b.exitNode();
         }
-        
+
         double relativeSpeed = (b.reqSpeed())*freq/1000;
         Node nextNode = b.getRoute().getNodeFromIndex(b.getLastNodeIndex()+1);
         int targetX = nextNode.getPositionX();
@@ -275,15 +277,16 @@ public class Simulation implements java.io.Serializable{
         return true;
     }
     
-    public Route addRoute( int number, int frequency, int firstStart, int maxBus){
-    
-        Route r = new Route(number, frequency , maxBus, firstStart , newRoute);
-        listRoutes.add(r);
+    public Route addNewRoute(int number, int max){
         
-        for (int i = 0; i< newRoute.size(); i++){
-            newRoute.get(i).setRoute(1, r);
-            if (i < newRoute.size()-1){
-                getLine(newRoute.get(i), newRoute.get(i+1)).setRoute(1);
+        newRoute.setNumber(number);
+        newRoute.setMaxBus(max);
+        listRoutes.add(newRoute);
+        
+        for (int i = 0; i< newRoute.route.size(); i++){
+            newRoute.route.get(i).setRoute(1, newRoute);
+            if (i < newRoute.route.size()-1){
+                getLine(newRoute.route.get(i), newRoute.route.get(i+1)).setRoute(1);
             }
         }
 
@@ -295,25 +298,7 @@ public class Simulation implements java.io.Serializable{
     }
     
     public Boolean addNodeToNewRoute(Node n){
-        if (newRoute.size() ==0 && n.isStation == false){
-            return false;
-        }
-        else if (newRoute.size() == 0 && n.isStation == true){
-            newRoute.add(n);
-            return true;
-        }
-        else if (newRoute.size()>0){
-            for (Line a: newRoute.get(newRoute.size()-1).listLines){
-                if (n != newRoute.get(newRoute.size()-1)){
-                    if (n == a.destination){
-                        newRoute.add(n);
-                        return true;
-                     
-                    }
-                }
-            }
-        }
-        return false;
+        return newRoute.addNode(n);
     }
     
     public void deleteRoute(Route route){
@@ -446,7 +431,7 @@ public class Simulation implements java.io.Serializable{
            return b - Math.sqrt((1 - U) * (b - a) * (b - c));
     }
     public Directions newDirections;
-    public List<Node> newRoute;
+    public Route newRoute;
     public List<Route> listRoutes;
     public List<Line> listLines;
     public List<Node> listNodes;

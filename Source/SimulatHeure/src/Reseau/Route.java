@@ -13,22 +13,53 @@ import java.util.*;
  * @author Sam
  */
 public class Route implements java.io.Serializable{
-    public Route(int arg_numero, int arg_frequence, int argMaxBus, int arg_t_depart, List<Node> p){
-        number = arg_numero;
-        frequency = arg_frequence;
-        timeFirstStart = arg_t_depart;
-        timeNextStart = arg_t_depart;
-        route = new ArrayList<Node>(p);
+    public Route(){
+        number = 0;
+        route = new ArrayList<Node>();
         listBus = new ArrayList<Bus>();
-        maxBus = argMaxBus;
+        listSources = new ArrayList<Source>();
+        maxBus = 50;
         isLoop = false;
-        if (p.get(0) == p.get(p.size()-1)){
+        loopDone = false;
+    }
+    
+    public Boolean addNode(Node n){
+        if (route.size() ==0 && n.isStation == false){
+            return false;
+        }
+        else if (route.size() == 0 && n.isStation == true){
+            route.add(n);
+            return true;
+        }
+        else if (route.size()>0){
+            for (Line a: route.get(route.size()-1).listLines){
+                if (n != route.get(route.size()-1)){
+                    if (n == a.destination){
+                        route.add(n);
+                        return true;
+                     
+                    }
+                }
+            }
+        }
+        return false;
+       
+    }
+    
+    public Boolean updateIfLoop(){
+                 if (route.get(0) == route.get(route.size()-1)){
             canLoop = true;
+            return true;
         }
         else{
             canLoop = false;
+            return false;
         }
-        loopDone = false;
+    }
+    
+    
+    public void setMaxBus(int max){
+        maxBus = max;
     }
     
     
@@ -39,12 +70,15 @@ public class Route implements java.io.Serializable{
         listBus.clear();
         
         loopDone = false;
-        timeNextStart = timeFirstStart;
+        for (Source s: listSources){
+            s.timeNextStart = s.timeFirstStart;
+        }
+
     }
     
-    public Bus addBus(){
+    public Bus addBus(Source s){
         if (!loopDone){
-            Bus newBus = new Bus(0, this, 50);
+            Bus newBus = new Bus(0, this, 50, s);
             listBus.add(newBus);
             return newBus;
         }
@@ -64,29 +98,15 @@ public class Route implements java.io.Serializable{
         return number;
     }
     
-    public int getFrequency(){
-        return frequency;
-    }
-    
-    public void setFrequency(int f){
-        frequency = f;
-    }
-    
-    public int getTimeNextStart(){
-        return timeNextStart;
-    }
-    
-    public void setTimeNextStart(double time){
-        timeNextStart += time;
-    }
+
+
+
     
     public int getMaxBus(){
         return maxBus;
     }
     
-    public void setMaxBus(int m){
-        maxBus = m;
-    }
+
     public Node getNodeFromIndex(int index){
         return route.get(index);
     }
@@ -125,14 +145,40 @@ public class Route implements java.io.Serializable{
        return -1;
    }
     
+   public Source addSource(Node n, int time, int freq){
+       Source newSource = new Source(n, time, freq);
+       listSources.add(newSource);
+       return newSource;
+   }
+   
     public List<Node> route;
     public List<Bus> listBus;
+    public List<Source> listSources;
     private int number;
-    private int frequency;
-    private int timeFirstStart;
-    private int timeNextStart;
     private int maxBus;
     public Boolean canLoop;
     public Boolean isLoop;
     public Boolean loopDone;
+    
+    public class Source implements java.io.Serializable{
+        public Source(Node n, int time, int freq){
+            originNode = n;
+            timeFirstStart = time;
+            timeNextStart = timeFirstStart;
+            frequency = freq;
+            
+        }
+        
+    public void setTimeNextStart(double time){
+        timeNextStart += time;
+    }
+        public void setTimeFirstStart(int t){
+            timeFirstStart = t;
+            timeNextStart = t;
+        }
+        public Node originNode;
+        public int timeFirstStart;
+        public int timeNextStart;
+        public int frequency;
+    }
 }
