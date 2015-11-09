@@ -425,7 +425,7 @@ public class Simulation implements java.io.Serializable{
     }
     
     
-    public void updateLines(){
+    public void updateLines(Node n){
         for (Line l: listLines){
             l.update();
         }
