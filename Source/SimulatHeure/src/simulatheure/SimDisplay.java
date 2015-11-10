@@ -52,9 +52,9 @@ public class SimDisplay extends JPanel {
         Sim = new Simulation();
         
         createLineTemp = null;
-        lightGray = new Color(190,190,190);
-        lightLightGray = new Color(220,220,220);
-        lightLightLightGray = new Color(240,240,240);
+        lightGray = new Color(30,30,30);
+        lightLightGray = new Color(70,70,70);
+        lightLightLightGray = new Color(110,110,110);
 
         liste_Noeuds_selected = new ArrayList<Node>();
         liste_Aretes_selected = new ArrayList<Line>();
@@ -93,7 +93,7 @@ public class SimDisplay extends JPanel {
         for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
            g.drawLine( i, -GRID_SIZE/2, i,GRID_SIZE/2 );
        }
-        g.setColor(Color.black);
+        g.setColor(Color.white);
     }
     
     public void setCenterPosition(int x, int y){
@@ -130,22 +130,22 @@ public class SimDisplay extends JPanel {
         g2.setTransform(tr);
 
         //white background
-        g.setColor(Color.white);
+        g.setColor(Color.gray);
         g.fillRect(0-GRID_SIZE/2, 0-GRID_SIZE/2, GRID_SIZE, GRID_SIZE);
-        g.setColor(Color.black);
+        g.setColor(Color.white);
         //grid
-        if (scale >= 0.04 && scale <= 0.1){
+        if (scale >= 0.04 && scale <= 0.2){
             g.setColor(lightGray);
             drawGrid(g, 250);
         }
-        if (scale > 0.1 && scale <= 0.5){
+        if (scale > 0.2 && scale <= 0.6){
             
             g.setColor(lightLightGray);
             drawGrid(g, 50);
             g.setColor(lightGray);
             drawGrid(g, 250);
         }
-        if (scale >0.5 ){
+        if (scale >0.6 ){
             g.setColor(lightLightLightGray);
             drawGrid(g, 10);
             g.setColor(lightLightGray);
@@ -171,7 +171,7 @@ public class SimDisplay extends JPanel {
                g.setColor(Color.red);
            }
            drawArrow(g, (int)l.line.getX1(), (int)l.line.getY1(), (int)l.line.getX2(),(int)l.line.getY2());
-           g.setColor(Color.black);
+           g.setColor(Color.white);
            
        }
        for (Node n: Sim.listNodes){
@@ -186,7 +186,7 @@ public class SimDisplay extends JPanel {
                 else{
                     g.drawRect(n.getPositionX()-10, n.getPositionY()-10, 20, 20);
                 }
-                g.setColor(Color.black);
+                g.setColor(Color.white);
            }
            else if(!n.isStation){
                

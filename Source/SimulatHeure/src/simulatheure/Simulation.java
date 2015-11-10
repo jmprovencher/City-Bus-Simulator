@@ -138,16 +138,18 @@ public class Simulation implements java.io.Serializable{
     }
     
     public Boolean moveBus(Bus b){
-              
-        if (b.getRoute().getNumberOfNodes() == b.nodePastCount){
-            if (b.getRoute().isLoop){
+        
+        // Bus has reached its destination woohoo
+        if (b.getRoute().getNumberOfNodes() == b.nodePastCount &&b.getRoute().isLoop){
+            
                 b.getRoute().loopDone = true;
                 b.reset();
-            }
-            else{
-                return false;
-            } 
         }
+        else if (b.getLastNodeIndex()+1 == b.getRoute().getNumberOfNodes()){
+
+            return false;
+        }
+
         double originX = b.getPositionX();
         double originY = b.getPositionY();
         

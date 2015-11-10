@@ -59,6 +59,7 @@ public class SimTimer {
         freq = argFreq;
         sim.freq = freq;
         sim.setLinesSpeed();
+        topFrame.selectOnly(true);
         
        if (!fullSim){
         
@@ -71,6 +72,7 @@ public class SimTimer {
 
             sim.simulateTick();
            }
+            topFrame.selectOnly(false);
             sim.stopSimulation();
         }
 
@@ -81,6 +83,7 @@ public class SimTimer {
         sim.stopSimulation();
         display.repaint();
         topFrame.displayTime();
+        topFrame.selectOnly(false);
         running = false;
     }
     

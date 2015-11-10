@@ -21,13 +21,12 @@ public class TimeJSpinner extends JSpinner{
 
         calendar.add(Calendar.MINUTE, 1439); // number of minutes in a day - 1
 
-        SpinnerDateModel model = new SpinnerDateModel(calendar.getTime(),
+        model = new SpinnerDateModel(calendar.getTime(),
                 null,
                 null,
                 Calendar.MINUTE);
        this.setModel(model);
        this.setEditor(new JSpinner.DateEditor(this, "HH:mm"));
-        setTime();
 
 
     }
@@ -37,14 +36,28 @@ public class TimeJSpinner extends JSpinner{
     }
     
     public int getHours(){
-        return calendar.get(calendar.MINUTE);
+        if (calendar.get(Calendar.AM_PM) == Calendar.PM){
+            return  calendar.get(calendar.HOUR)+12;
+        }
+        return  calendar.get(calendar.HOUR);
         
     }
     
     public void setTime(){
        Date d = (Date)this.getValue();
+
        calendar.setTime(d);
+
     }
+    
+    public void incrementHours(){
+        model.setCalendarField(Calendar.HOUR);
+        calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR)+1);
+        model.setValue(model.getNextValue());
+        
+    }
+    
     private Calendar calendar;
+    private SpinnerDateModel model;
     
 }

@@ -11,9 +11,9 @@ import java.awt.geom.Line2D;
  */
 public class Line implements java.io.Serializable{
     public Line(Node arg_origine, Node arg_destination){
-        maxSpeed = 60;
-        minSpeed = 5;
-        typeSpeed = 35;
+        maxSpeed = 30*1000/60;
+        minSpeed = 30*1000/60;
+        typeSpeed = 30*1000/60;
         origine = arg_origine;
         destination = arg_destination;
         origine.addLine(this);

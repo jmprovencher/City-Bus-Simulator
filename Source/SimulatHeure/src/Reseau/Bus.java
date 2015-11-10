@@ -27,7 +27,7 @@ public class Bus implements java.io.Serializable{
         else{
             lastNodeIndex = circuitActuelArg.route.lastIndexOf(actualNode);
         }
-        speed = route.getLineFromIndex(0).speed;
+        speed = route.getLineFromIndex(lastNodeIndex).speed;
         timeNextNode = (getNextNodeDistance()/speed);
         nodePastCount = 1;
         actualNode.addBus(this);

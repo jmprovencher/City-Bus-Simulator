@@ -99,10 +99,6 @@ public class Route implements java.io.Serializable{
         return number;
     }
     
-
-
-
-    
     public int getMaxBus(){
         return maxBus;
     }
