@@ -29,7 +29,7 @@ public class Bus implements java.io.Serializable{
         }
         speed = route.getLineFromIndex(lastNodeIndex).speed;
         timeNextNode = (getNextNodeDistance()/speed);
-        nodePastCount = 1;
+
         actualNode.addBus(this);
         positionInTime = new ArrayList<PositionBus>();
 
@@ -101,11 +101,12 @@ public class Bus implements java.io.Serializable{
     }
     
     public void setNode(Node n){
+        System.out.println("sup");
         actualNode = n;
         setPositionX(n.getPositionX());
         setPositionY(n.getPositionY());
         lastNodeIndex++;
-        nodePastCount++;
+
         updateTimeNextNode();
         updateSpeed();
         if (n.isStation){
@@ -205,7 +206,6 @@ public class Bus implements java.io.Serializable{
          
          positionX = route.getNodeFromIndex(lastNodeIndex).getPositionX();
          positionY = route.getNodeFromIndex(lastNodeIndex).getPositionY();
-         nodePastCount = 1;
      }
      
      public double getNextNodeDistance(){
@@ -231,7 +231,7 @@ public class Bus implements java.io.Serializable{
     public Node actualNode;
     private Route route;
     private int lastNodeIndex;
-    public int nodePastCount;
+
     private double timeNextNode;
     public List<Passenger> listPassenger;
     public List<PositionBus> positionInTime;

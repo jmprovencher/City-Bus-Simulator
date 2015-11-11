@@ -185,7 +185,7 @@ public class Directions implements java.io.Serializable{
             return subRoute.size();
         }
         
-        private List<Node> subRoute;
+        public List<Node> subRoute;
         private Route route;
     }
 }

@@ -142,8 +142,8 @@ public class Route implements java.io.Serializable{
        return -1;
    }
     
-   public Source addSource(Node n, int time, int freq){
-       Source newSource = new Source(n, time, freq);
+   public Source addSource(Node n, int time, int minFreq, int maxFreq, int typeFreq){
+       Source newSource = new Source(n, time, minFreq, maxFreq, typeFreq);
        listSources.add(newSource);
        return newSource;
    }
@@ -159,11 +159,14 @@ public class Route implements java.io.Serializable{
     public Boolean loopDone;
     
     public class Source implements java.io.Serializable{
-        public Source(Node n, int time, int freq){
+        public Source(Node n, int time, int minFreq, int maxFreq, int typeFreq){
             originNode = n;
             timeFirstStart = time;
             timeNextStart = timeFirstStart;
-            frequency = freq;
+            minFrequency = minFreq;
+            maxFrequency = maxFreq;
+            typeFrequency = typeFreq;
+                    
             
         }
         
@@ -177,7 +180,9 @@ public class Route implements java.io.Serializable{
         public Node originNode;
         public int timeFirstStart;
         public int timeNextStart;
-        public int frequency;
+        public int minFrequency;
+        public int maxFrequency;
+        public int typeFrequency;
         
     }
 }

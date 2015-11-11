@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Cursor;
-import java.awt.geom.Line2D;
+import java.awt.geom.*;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.*;
@@ -42,6 +42,7 @@ public class SimDisplay extends JPanel {
         img_station = ImageIO.read(getClass().getResource("/images/icon.png"));
         img_station_selected = ImageIO.read(getClass().getResource("/images/station-selected.png"));
         img_bus = ImageIO.read(getClass().getResource("/images/bus.png"));
+        img_bus_selected = ImageIO.read(getClass().getResource("/images/selectedbus.png"));
         }
         catch (IOException e)
         {
@@ -49,9 +50,11 @@ public class SimDisplay extends JPanel {
         }
         img_station_size = img_station.getWidth();
         img_bus_size = img_bus.getWidth();
+        img_bus_selected_size = img_bus_selected.getWidth();
         Sim = new Simulation();
         
-        createLineTemp = null;
+        selectionRectangle = new Rectangle2D.Double(0, 0, 0, 0);
+        createLineTemp = new Line2D.Double(0, 0, 0, 0);
         lightGray = new Color(30,30,30);
         lightLightGray = new Color(70,70,70);
         lightLightLightGray = new Color(110,110,110);
@@ -59,6 +62,7 @@ public class SimDisplay extends JPanel {
         liste_Noeuds_selected = new ArrayList<Node>();
         liste_Aretes_selected = new ArrayList<Line>();
         liste_Buses_selected = new ArrayList<Bus>();
+        
         
         
     }
@@ -82,7 +86,7 @@ public class SimDisplay extends JPanel {
                               new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
    }
     
-    private final int GRID_SIZE = 10000;
+    private final int GRID_SIZE = 20000;
     
     public void drawGrid(Graphics g, int scale){
         
@@ -161,7 +165,13 @@ public class SimDisplay extends JPanel {
            Route circuit_i = Sim.getRouteFromIndex(i);
            
            for (Bus b : circuit_i.listBus){
-                g.drawImage(img_bus, (int)b.getPositionX() - img_bus_size/2, (int)b.getPositionY()- img_bus_size/2, null);
+               if (liste_Buses_selected.contains(b)){
+                    g.drawImage(img_bus_selected, (int)b.getPositionX() - img_bus_size/2, (int)b.getPositionY()- img_bus_size/2, null);
+               }
+               else{
+                    g.drawImage(img_bus, (int)b.getPositionX() - img_bus_size/2, (int)b.getPositionY()- img_bus_size/2, null);
+               
+               }
                 g.drawString(""+b.listPassenger.size(), (int)b.getPositionX(), (int)b.getPositionY()-40);
            }
        }
@@ -200,15 +210,19 @@ public class SimDisplay extends JPanel {
                 
            }
        }
-
+       
        // ligne pendant la création d'une arrete
        BasicStroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
        if (createLineTemp != null){
-            g.setColor(Color.gray);
+            g.setColor(Color.white);
             g2.setStroke(dashed);
             g.drawLine((int)createLineTemp.getX1(), (int)createLineTemp.getY1(), (int)createLineTemp.getX2(), (int)createLineTemp.getY2());
        
        }
+       if (selectionRectangle !=  null){  
+            g.drawRect((int)selectionRectangle.getX(), (int)selectionRectangle.getY(), (int)selectionRectangle.getWidth(), (int)selectionRectangle.getHeight());
+       }
+       
 
     }
     
@@ -267,8 +281,26 @@ public class SimDisplay extends JPanel {
     Item selection management
     */
     
-    public void selectNode(Node n){
-        liste_Noeuds_selected.add(n);
+    public void selectRectangle(){
+        List<Node> nodesToSelect = new ArrayList<Node>();
+        for (Node n: Sim.listNodes){
+            if(selectionRectangle.contains(n.getPositionX(), n.getPositionY())){
+                nodesToSelect.add(n);
+            }
+        }
+        selectNode(nodesToSelect);
+        //Lines
+        for (Line l: Sim.listLines){
+            if(selectionRectangle.intersectsLine(l.line)){
+                selectLine(l);
+            }
+        }
+    }
+     
+    public void selectNode(List<Node> listNodes){
+        for(Node n: listNodes){
+            liste_Noeuds_selected.add(n);
+        }
         repaint();
     }
     
@@ -284,10 +316,10 @@ public class SimDisplay extends JPanel {
     
     public void selectRoute(Route r){
         for (int y = 0; y< r.getNumberOfNodes()-1; y++){
-            selectNode(r.getNodeFromIndex(y));
+            selectNode(r.route);
             selectLine(r.getLineFromIndex(y));
         }
-        selectNode(r.getNodeFromIndex(r.getNumberOfNodes()-1));
+  
     }
     
     public void selectDirections(Directions d){
@@ -296,10 +328,9 @@ public class SimDisplay extends JPanel {
         for (Directions.SubRoute s: d.directions){
             int size  = s.size();
             Route r = s.gerRoute();
-            
+            selectNode(s.subRoute);
             for (int i = 0; i < size; i++){
                 currentNode = s.getNode(i);
-                selectNode(currentNode);
                 if (i > 0){
                     selectLine(Sim.getLine(lastNode, currentNode));
                 }
@@ -313,6 +344,9 @@ public class SimDisplay extends JPanel {
         liste_Noeuds_selected.clear();
         liste_Aretes_selected.clear();
         liste_Buses_selected.clear();
+        createLineTemp.setLine(0, 0, 0, 0);
+        selectionRectangle.setRect(0, 0, 0, 0);
+        repaint();
     }
     
     public double getSimTime(){
@@ -337,9 +371,12 @@ public class SimDisplay extends JPanel {
      public BufferedImage img_station;
      public BufferedImage img_station_selected;
      public BufferedImage img_bus;
+     public BufferedImage img_bus_selected;
      public int img_station_size;
      public int img_bus_size;
+     public int img_bus_selected_size;
      public Line2D.Double createLineTemp;
+     public Rectangle2D.Double selectionRectangle;
      public Simulation Sim;
      public double scale;
      private Color lightGray;

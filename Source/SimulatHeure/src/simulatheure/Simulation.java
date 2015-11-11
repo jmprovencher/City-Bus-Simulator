@@ -39,7 +39,10 @@ public class Simulation implements java.io.Serializable{
                 r.deleteBus(busDone);
             }
             for (Route.Source s: r.listSources){
-                double typicalTime = s.frequency;
+                
+                double typicalTime = s.typeFrequency;
+                double minimumTime = s.minFrequency;
+                double maximumTime = s.maxFrequency;
                 if ((int)(s.timeNextStart*(1000/(freq))) == count && !r.loopDone){
                     if (r.busAvalaible()){
                         Bus newBus = r.addBus(s);
@@ -47,7 +50,7 @@ public class Simulation implements java.io.Serializable{
                         //newBus.initPositionInTime((freq/1000));
                         passengerIn(newBus);
                     }
-                    s.timeNextStart += (int) triangular(typicalTime-2, typicalTime+2, typicalTime);
+                    s.timeNextStart += (int) triangular(minimumTime, maximumTime, typicalTime);
                     
 
                 }
@@ -140,15 +143,17 @@ public class Simulation implements java.io.Serializable{
     public Boolean moveBus(Bus b){
         
         // Bus has reached its destination woohoo
-        if (b.getRoute().getNumberOfNodes() == b.nodePastCount &&b.getRoute().isLoop){
-            
-                b.getRoute().loopDone = true;
-                b.reset();
-        }
-        else if (b.getLastNodeIndex()+1 == b.getRoute().getNumberOfNodes()){
 
-            return false;
+        if (b.getLastNodeIndex()+1 == b.getRoute().getNumberOfNodes() ){
+                if (b.getRoute().isLoop){
+                    b.getRoute().loopDone = true;
+                    b.reset();
+                }
+            else {
+                 return false;
+            }
         }
+       
 
         double originX = b.getPositionX();
         double originY = b.getPositionY();
@@ -199,21 +204,26 @@ public class Simulation implements java.io.Serializable{
     }
     
     
-    public Node addStation(Node n)
+    public void addStation(List<Node> listNodes)
     {
         //temporaire
-        n.setStation("Station "+listNodes.indexOf(n));
-        return n;
+        for (Node n: listNodes){
+            n.setStation("Station "+listNodes.indexOf(n));
+        }
+
+    }
+    public void deleteStation(List<Node> listNodes){
+        for (Node n: listNodes){
+            n.deleteStation();
+        }
     }
     
 
-    public Boolean deleteNode(Node node){
-        if (node != null)
+    public void deleteNode(List<Node> listNodesToDelete){
+        if (!listNodesToDelete.isEmpty())
         {
-            if (node.isStation){
-                node.deleteStation();
-            }
-            else{
+            
+            for (Node node: listNodesToDelete){
                 if (node.getNumberOfRoutes() == 0){
                     List<Line> linesToDelete = new ArrayList<Line>();
                     for (Line l: listLines){
@@ -224,15 +234,10 @@ public class Simulation implements java.io.Serializable{
                     for (Line l : linesToDelete){
                         deleteLine(l);
 ;                    }
-                    listNodes.remove(node);
-                    return true; // supprimée avec succès
+                   listNodes.remove(node);
                 }
-
-            
-            
             }
         }
-        return false ;// n'a pas pu être supprimée
     }
 
     public Boolean deleteLine(Line l){
@@ -434,6 +439,21 @@ public class Simulation implements java.io.Serializable{
         for (Line l: listLines){
             l.setSpeed(triangular(l.minSpeed, l.maxSpeed, l.typeSpeed));
         }
+    }
+    
+    public Bus getBusFromPosition(int positionX, int positionY, int size){
+        
+        
+        for (Route r: listRoutes){
+            for (Bus b : r.listBus){
+                if (positionX < b.getPositionX() +size/2 && positionX > b.getPositionX() -size/2){
+                    if (positionY < b.getPositionY() +size/2 && positionY > b.getPositionY() -size/2){
+                        return b;
+                    }
+                }    
+            }
+        }
+        return null;
     }
     
    double triangular(double a,double b,double c) {
