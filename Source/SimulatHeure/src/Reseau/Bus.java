@@ -173,7 +173,6 @@ public class Bus implements java.io.Serializable{
     public Node actualNode;
     private Route route;
     private int lastNodeIndex;
-
     private double timeNextNode;
     public List<Passenger> listPassenger;
     
