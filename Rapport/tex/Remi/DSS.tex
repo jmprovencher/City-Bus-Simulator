@@ -12,11 +12,14 @@ Le diagramme suivant montre la séquence de l'ajout d'un noeud à la simulation.
 	\label{f:dss_addNode}
 \end{figure}
 
+Lors de l'ajout d'un noeud, l'employé du RTC sélectionne le mode "Noeud" dans l'interface gratuite. Après, celui-ci clique sur la carte. Lors du clic, un MouseEvent est déclenché. Les positions X et Y sont obtenues avec les fonctions getGridPositionX() et getGridPositionY() de l'affichage.
+
+Par la suite, la fonction createNode() est appellée, où un noeud est créé à l'aide des coordonnées et rajouté à la liste de noeuds du contrôleur. L'affichage est ensuite rafraîchi afin d'inclure le nouveau noeud. Le contrôleur peut obtenir la position des noeuds à partir de la liste de noeuds.
 \newpage
 
 \subsection{Ajout d'une arête}
 
-Le diagramme suivant montre la séquence de l'ajout dun objet Line à la simulation à partir d'un deux points (Node) non-existants.
+Le diagramme suivant montre la séquence de l'ajout d'un objet Line à la simulation à partir de deux points (noeuds).
 
 \begin{figure}[H]
 	\includegraphics[scale=0.8]{fig/DSS/AddLine.jpg}
@@ -24,6 +27,8 @@ Le diagramme suivant montre la séquence de l'ajout dun objet Line à la simulatio
 	\caption{Diagramme de séquence: ajout d'une arête}
 	\label{f:dss_addLine}
 \end{figure}
+
+La fonction addLine() du contrôleur est appellée. Les deux noeuds passées en argument sont cherchées dans la liste de nodes. Si pour quelconque raison un des noeuds n'est pas trouvé dans la liste de noeuds, celui-ci est rajouté à la liste de noeuds du contrôleur. Par la suite, un objet Line est créé rejoignant les deux noeuds. Celui-ci est rajouté à la liste de noeuds.
 
 \newpage
 
@@ -63,3 +68,9 @@ Le diagramme suivant montre comment récupérer la position d'un autobus.
 	\caption{Diagramme de séquence: Position d'un autobus}
 	\label{f:dss_bus}
 \end{figure}
+
+L'utilisateur clique sur un autobus dans la fenêtre de simulation alors que cette dernière est en cours. Lors du clic, un MouseEvent est déclenché. Les positions X et Y sont obtenues avec les fonctions getGridPositionX() et getGridPositionY() de l'affichage. Comme le bus est prioritaire (en premier plan) la fonction de sélection appelle getBusFromClick() qui obtient l'objet bus approprié selon la position dans la liste de bus du contrôleur.
+
+La valeur de position centrale de l'autobus est obtenu à l'aide des fonctions getPositionX() et getPositionY() de l'autobus. Par la suite, le simulateur tente d'obtenir un noeud à partir de la position de l'autobus s'il y a lieu.
+
+Les fonctions selectBus, se chargeant du changement de couleur de l'autobus dans l'interface, et showBusStatus, responsable de l'affichage de la position et du noeud associé (s'il y a lieu).
