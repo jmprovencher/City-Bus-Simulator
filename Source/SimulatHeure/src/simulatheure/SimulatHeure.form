@@ -696,6 +696,18 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandAjouterAreteActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+A"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Selectionner tout"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandDeplacerNoeud">
               <Properties>
                 <Property name="mnemonic" type="int" value="100"/>
@@ -718,6 +730,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lancer simulation"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandLancerSimActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandStopperSim">
               <Properties>
@@ -741,11 +756,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandAjouterCircuitActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandModCircuit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modifier"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandModCircuitActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -977,7 +998,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Component id="Bouton_circuit" min="-2" pref="87" max="-2" attributes="0"/>
+                  <Component id="Bouton_circuit_add" min="-2" pref="87" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonEditRoute" max="32767" attributes="0"/>
               </Group>
@@ -990,7 +1011,7 @@
                   <Component id="jScrollPane3" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="Bouton_circuit" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Bouton_circuit_add" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonEditRoute" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -1026,17 +1047,17 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="Bouton_circuit">
+        <Component class="javax.swing.JButton" name="Bouton_circuit_add">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajouter"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_circuitActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_circuit_addActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonEditRoute">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Editer"/>
+            <Property name="text" type="java.lang.String" value="Modifier"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditRouteActionPerformed"/>
