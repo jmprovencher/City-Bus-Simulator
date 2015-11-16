@@ -1287,8 +1287,9 @@ public class SimulatHeure extends javax.swing.JFrame {
                 }
             }
         }
-        selectedObject = "multiples";
-        
+        if (selectedNode.size() >1 ){
+            selectedObject = "multiples";
+        }
     }
     
     public void clearSelection(){
@@ -1472,11 +1473,12 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void delete(){
-            
+           System.out.println(selectedObject);
            if (selectedObject == "Noeud" || selectedObject == "Station" || selectedObject == "multiples" ) {
                 Sim.deleteNode(selectedNode);
            }
            else if (selectedObject == "Line"){
+               
                if(Sim.deleteLine(selectedLine)){
                    Print.setText("Arête supprimée avec succès.");
                }
@@ -2087,6 +2089,7 @@ private final int TICK_TIME = 33; // ms
         String name = (String) listSources.getSelectedValue();
         Node n = Sim.getNodeFromName(name);
         display.clearSelection();
+        selectedNode.clear();
         selectedNode.add(n);
         display.selectNode(selectedNode);
         
