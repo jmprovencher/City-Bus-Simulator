@@ -635,7 +635,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         display.setLayout(displayLayout);
         displayLayout.setHorizontalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGap(0, 545, Short.MAX_VALUE)
         );
         displayLayout.setVerticalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1060,9 +1060,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuFolderFichier.setMnemonic('f');
         menuFolderFichier.setText("Fichier");
 
+        menuCommandNouvDoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK));
         menuCommandNouvDoc.setText("Nouveau document");
+        menuCommandNouvDoc.setEnabled(false);
         menuFolderFichier.add(menuCommandNouvDoc);
 
+        menuCommandOuvrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         menuCommandOuvrir.setText("Charger");
         menuCommandOuvrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1071,6 +1074,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderFichier.add(menuCommandOuvrir);
 
+        menuCommandEnregistrer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menuCommandEnregistrer.setText("Enregistrer");
         menuCommandEnregistrer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1079,7 +1083,9 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderFichier.add(menuCommandEnregistrer);
 
+        menuCommandEnregSous.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuCommandEnregSous.setText("Enregistrer sous");
+        menuCommandEnregSous.setEnabled(false);
         menuFolderFichier.add(menuCommandEnregSous);
 
         jMenuBar1.add(menuFolderFichier);
@@ -1087,6 +1093,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuFolderEdition.setMnemonic('e');
         menuFolderEdition.setText("Edition");
 
+        menuCommandSupprimer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuCommandSupprimer.setMnemonic('u');
         menuCommandSupprimer.setText("Supprimer");
         menuCommandSupprimer.addActionListener(new java.awt.event.ActionListener() {
@@ -1096,6 +1103,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderEdition.add(menuCommandSupprimer);
 
+        menuCommandAjouterNoeud.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, 0));
         menuCommandAjouterNoeud.setMnemonic('o');
         menuCommandAjouterNoeud.setText("Ajouter Noeud");
         menuCommandAjouterNoeud.addActionListener(new java.awt.event.ActionListener() {
@@ -1105,6 +1113,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderEdition.add(menuCommandAjouterNoeud);
 
+        menuCommandAjouterArete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
         menuCommandAjouterArete.setMnemonic('r');
         menuCommandAjouterArete.setText("Ajouter Arête");
         menuCommandAjouterArete.addActionListener(new java.awt.event.ActionListener() {
@@ -1116,6 +1125,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         menuCommandDeplacerNoeud.setMnemonic('d');
         menuCommandDeplacerNoeud.setText("Déplacer Noeud/Station");
+        menuCommandDeplacerNoeud.setEnabled(false);
         menuCommandDeplacerNoeud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuCommandDeplacerNoeudActionPerformed(evt);
@@ -1152,6 +1162,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         menuFolderAffichage.setMnemonic('a');
         menuFolderAffichage.setText("Affichage");
+        menuFolderAffichage.setEnabled(false);
 
         menuSubfolderToolboxes.setText("Barres d'outils");
 
@@ -1237,19 +1248,16 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(editionToolbox)
                             .addComponent(jInternalFrame3))
-                        .addGap(0, 16, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(1, 1, 1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
