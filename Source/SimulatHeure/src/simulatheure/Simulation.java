@@ -46,8 +46,6 @@ public class Simulation implements java.io.Serializable{
                 if ((int)(s.timeNextStart*(1000/(freq))) == count && !r.loopDone){
                     if (r.busAvalaible()){
                         Bus newBus = r.addBus(s);
-                        //The following function precalculate the bus position in time <---- this is stupid
-                        //newBus.initPositionInTime((freq/1000));
                         passengerIn(newBus);
                     }
                     s.timeNextStart += (int) triangular(minimumTime, maximumTime, typicalTime);
@@ -134,7 +132,7 @@ public class Simulation implements java.io.Serializable{
         }
         for (Passenger p: passengerGettingOut){
             p.setOutOfBus();
-            if (p.req_destination() == p.actualNode){
+            if (p.getEndPoint() == p.actualNode){
                 p.getDirection().removePassenger(p, (double)count*(double)freq/(double)1000);
             }
         }
@@ -227,7 +225,7 @@ public class Simulation implements java.io.Serializable{
                 if (node.getNumberOfRoutes() == 0){
                     List<Line> linesToDelete = new ArrayList<Line>();
                     for (Line l: listLines){
-                        if (l.origine == node || l.destination == node){
+                        if (l.origin == node || l.destination == node){
                             linesToDelete.add(l);
                         }
                     }
@@ -251,7 +249,7 @@ public class Simulation implements java.io.Serializable{
     
     public Boolean deleteDirections(Directions d){
         for (Directions.SubRoute s: d.directions){
-            s.gerRoute().directionsUsingMe--;
+            s.getRoute().directionsUsingMe--;
         }
         listDirections.remove(d);
         return true;
@@ -364,18 +362,18 @@ public class Simulation implements java.io.Serializable{
         line.delete();
         listLines.remove(line);
         
-        Line oppositeLine = getLine(line.destination, line.origine);
+        Line oppositeLine = getLine(line.destination, line.origin);
         
         Node n = new Node(x,y);
         
         listNodes.add(n);
-        listLines.add(new Line(line.origine, n));
+        listLines.add(new Line(line.origin, n));
         listLines.add(new Line(n, line.destination));
         
         if (oppositeLine != null){
             oppositeLine.delete();
             listLines.remove(oppositeLine);
-            listLines.add(new Line(oppositeLine.origine, n));
+            listLines.add(new Line(oppositeLine.origin, n));
             listLines.add(new Line(n, oppositeLine.destination));
             oppositeLine = null;
         }
@@ -395,7 +393,7 @@ public class Simulation implements java.io.Serializable{
     
     public Line getLine(Node origine, Node destination){
         for (Line l : listLines){
-            if (l.origine == origine && l.destination == destination){
+            if (l.origin == origine && l.destination == destination){
                 return l;
             }
         }

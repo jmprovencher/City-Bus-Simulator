@@ -10,24 +10,24 @@ import java.awt.geom.Line2D;
  * @author Sam
  */
 public class Line implements java.io.Serializable{
-    public Line(Node arg_origine, Node arg_destination){
+    public Line(Node startPoint, Node endPoint){
         maxSpeed = 30*1000/60;
         minSpeed = 30*1000/60;
         typeSpeed = 30*1000/60;
-        origine = arg_origine;
-        destination = arg_destination;
-        origine.addLine(this);
+        origin = startPoint;
+        destination = endPoint;
+        origin.addLine(this);
         int x1, x2, y1, y2;
-        x1 = origine.getPositionX();
-        y1 = origine.getPositionY();
+        x1 = origin.getPositionX();
+        y1 = origin.getPositionY();
         x2 = destination.getPositionX();
         y2 = destination.getPositionY();        
         line = new Line2D.Double(x1,y1,x2,y2);
         numberOfRoutes =0;
     }
     
-    public Node getOrigine(){
-        return origine;
+    public Node getOrigin(){
+        return origin;
     }
     
     public Node getDestination(){
@@ -36,12 +36,12 @@ public class Line implements java.io.Serializable{
     
 
     public void update(){
-        line.setLine(origine.getPositionX(), origine.getPositionY(), destination.getPositionX(), destination.getPositionY());
+        line.setLine(origin.getPositionX(), origin.getPositionY(), destination.getPositionX(), destination.getPositionY());
     }
     
     public void delete(){
-        if (origine.listLines.contains(this)){
-            origine.listLines.remove(this);
+        if (origin.listLines.contains(this)){
+            origin.listLines.remove(this);
         }
          if (destination.listLines.contains(this)){
             destination.listLines.remove(this);
@@ -75,6 +75,6 @@ public class Line implements java.io.Serializable{
     
     private int numberOfRoutes;
     public Line2D line;
-    public Node origine;
+    public Node origin;
     public Node destination;
 }

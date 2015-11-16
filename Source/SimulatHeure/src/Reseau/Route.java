@@ -120,8 +120,8 @@ public class Route implements java.io.Serializable{
         if (i+1 < route.size())
         {
             for (Line a: route.get(i).listLines){
-                if (a.origine == route.get(i+1) || a.destination == route.get(i+1) ){
-                    if (a.origine == route.get(i) || a.destination == route.get(i) ){
+                if (a.origin == route.get(i+1) || a.destination == route.get(i+1) ){
+                    if (a.origin == route.get(i) || a.destination == route.get(i) ){
                         return a;
                     }
 
@@ -165,9 +165,7 @@ public class Route implements java.io.Serializable{
             timeNextStart = timeFirstStart;
             minFrequency = minFreq;
             maxFrequency = maxFreq;
-            typeFrequency = typeFreq;
-                    
-            
+            typeFrequency = typeFreq; 
         }
         
     public void setTimeNextStart(double time){

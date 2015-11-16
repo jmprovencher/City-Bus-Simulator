@@ -39,19 +39,19 @@ public class SimDisplay extends JPanel {
 
         try
         {
-        img_station = ImageIO.read(getClass().getResource("/images/icon.png"));
-        img_station_selected = ImageIO.read(getClass().getResource("/images/station-selected.png"));
-        img_bus = ImageIO.read(getClass().getResource("/images/bus.png"));
-        img_bus_selected = ImageIO.read(getClass().getResource("/images/selectedbus.png"));
+            imgStation = ImageIO.read(getClass().getResource("/images/icon.png"));
+            imgStationSelected = ImageIO.read(getClass().getResource("/images/station-selected.png"));
+            imgBus = ImageIO.read(getClass().getResource("/images/bus.png"));
+            imgBusSelected = ImageIO.read(getClass().getResource("/images/selectedbus.png"));
         }
         catch (IOException e)
         {
             
         }
-        img_station_size = img_station.getWidth();
-        img_bus_size = img_bus.getWidth();
-        img_bus_selected_size = img_bus_selected.getWidth();
-        Sim = new Simulation();
+        imgStationSize = imgStation.getWidth();
+        imgBusSize = imgBus.getWidth();
+        imgBusSelectedSize = imgBusSelected.getWidth();
+        size = new Simulation();
         
         selectionRectangle = new Rectangle2D.Double(0, 0, 0, 0);
         createLineTemp = new Line2D.Double(0, 0, 0, 0);
@@ -59,10 +59,9 @@ public class SimDisplay extends JPanel {
         lightLightGray = new Color(70,70,70);
         lightLightLightGray = new Color(110,110,110);
 
-        liste_Noeuds_selected = new ArrayList<Node>();
-        liste_Aretes_selected = new ArrayList<Line>();
-        liste_Buses_selected = new ArrayList<Bus>();
-
+        listSelectedNode = new ArrayList<Node>();
+        listSelectedLine = new ArrayList<Line>();
+        listSelectedBus = new ArrayList<Bus>();
     }
     
    
@@ -160,37 +159,37 @@ public class SimDisplay extends JPanel {
        
         // end grid
         
-       for (int i = 0; i < Sim.getRouteQuantity(); i++){
-           Route circuit_i = Sim.getRouteFromIndex(i);
+       for (int i = 0; i < size.getRouteQuantity(); i++){
+           Route circuit_i = size.getRouteFromIndex(i);
            
            for (Bus b : circuit_i.listBus){
-               if (liste_Buses_selected.contains(b)){
-                    g.drawImage(img_bus_selected, (int)b.getPositionX() - img_bus_size/2, (int)b.getPositionY()- img_bus_size/2, null);
+               if (listSelectedBus.contains(b)){
+                    g.drawImage(imgBusSelected, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                }
                else{
-                    g.drawImage(img_bus, (int)b.getPositionX() - img_bus_size/2, (int)b.getPositionY()- img_bus_size/2, null);
+                    g.drawImage(imgBus, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                
                }
                 g.drawString(""+b.listPassenger.size(), (int)b.getPositionX(), (int)b.getPositionY()-40);
            }
        }
        
-       for (Line l: Sim.listLines){
-           if (liste_Aretes_selected.contains(l)){
+       for (Line l: size.listLines){
+           if (listSelectedLine.contains(l)){
                g.setColor(Color.red);
            }
            drawArrow(g, (int)l.line.getX1(), (int)l.line.getY1(), (int)l.line.getX2(),(int)l.line.getY2());
            g.setColor(Color.white);
            
        }
-       for (Node n: Sim.listNodes){
+       for (Node n: size.listNodes){
            if (n.isStation){
                g.drawString(""+n.listPassenger.size(), n.getPositionX(), n.getPositionY()-25);
            }
-           if (liste_Noeuds_selected.contains(n)){
+           if (listSelectedNode.contains(n)){
                 g.setColor(Color.red);  
                 if (n.isStation){
-                    g.drawImage(img_station_selected, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null);    
+                    g.drawImage(imgStationSelected, n.getPositionX() - imgStationSize/2, n.getPositionY()- imgStationSize/2, null);    
                 }
                 else{
                     g.drawRect(n.getPositionX()-10, n.getPositionY()-10, 20, 20);
@@ -205,7 +204,7 @@ public class SimDisplay extends JPanel {
            }
            else{
                 
-                g.drawImage(img_station, n.getPositionX() - img_station_size/2, n.getPositionY()- img_station_size/2, null); 
+                g.drawImage(imgStation, n.getPositionX() - imgStationSize/2, n.getPositionY()- imgStationSize/2, null); 
                 
            }
        }
@@ -284,14 +283,14 @@ public class SimDisplay extends JPanel {
     
     public void selectRectangle(){
         List<Node> nodesToSelect = new ArrayList<Node>();
-        for (Node n: Sim.listNodes){
+        for (Node n: size.listNodes){
             if(selectionRectangle.contains(n.getPositionX(), n.getPositionY())){
                 nodesToSelect.add(n);
             }
         }
         selectNode(nodesToSelect);
         //Lines
-        for (Line l: Sim.listLines){
+        for (Line l: size.listLines){
             if(selectionRectangle.intersectsLine(l.line)){
                 selectLine(l);
             }
@@ -300,18 +299,18 @@ public class SimDisplay extends JPanel {
      
     public void selectNode(List<Node> listNodes){
         for(Node n: listNodes){
-            liste_Noeuds_selected.add(n);
+            listSelectedNode.add(n);
         }
         repaint();
     }
     
     public void selectLine(Line arr){
-        liste_Aretes_selected.add(arr);
+        listSelectedLine.add(arr);
         repaint();
     }
     
     public void selectBus(Bus b){
-        liste_Buses_selected.add(b);
+        listSelectedBus.add(b);
         repaint();
     }
     
@@ -328,12 +327,12 @@ public class SimDisplay extends JPanel {
         Node lastNode = null;
         for (Directions.SubRoute s: d.directions){
             int size  = s.size();
-            Route r = s.gerRoute();
+            Route r = s.getRoute();
             selectNode(s.subRoute);
             for (int i = 0; i < size; i++){
                 currentNode = s.getNode(i);
                 if (i > 0){
-                    selectLine(Sim.getLine(lastNode, currentNode));
+                    selectLine(this.size.getLine(lastNode, currentNode));
                 }
                 lastNode = currentNode;
                 
@@ -342,16 +341,16 @@ public class SimDisplay extends JPanel {
     }
     
     public void clearSelection(){
-        liste_Noeuds_selected.clear();
-        liste_Aretes_selected.clear();
-        liste_Buses_selected.clear();
+        listSelectedNode.clear();
+        listSelectedLine.clear();
+        listSelectedBus.clear();
         createLineTemp.setLine(0, 0, 0, 0);
         selectionRectangle.setRect(0, 0, 0, 0);
         repaint();
     }
     
     public double getSimTime(){
-        return Sim.freq*Sim.count;
+        return size.freq*size.count;
     }
     
 
@@ -363,22 +362,22 @@ public class SimDisplay extends JPanel {
      double centerPositionX;
      double centerPositionY;
      public javax.swing.Timer displayTimer;
-     private List<Node> liste_Noeuds_selected;
-     private List<Line> liste_Aretes_selected;
-     private List<Bus> liste_Buses_selected;
+     private List<Node> listSelectedNode;
+     private List<Line> listSelectedLine;
+     private List<Bus> listSelectedBus;
      public Cursor defaultCursor;
      public Cursor quadraArrowsCursor;
      public Cursor handCursor;
-     public BufferedImage img_station;
-     public BufferedImage img_station_selected;
-     public BufferedImage img_bus;
-     public BufferedImage img_bus_selected;
-     public int img_station_size;
-     public int img_bus_size;
-     public int img_bus_selected_size;
+     public BufferedImage imgStation;
+     public BufferedImage imgStationSelected;
+     public BufferedImage imgBus;
+     public BufferedImage imgBusSelected;
+     public int imgStationSize;
+     public int imgBusSize;
+     public int imgBusSelectedSize;
      public Line2D.Double createLineTemp;
      public Rectangle2D.Double selectionRectangle;
-     public Simulation Sim;
+     public Simulation size;
      public double scale;
      private Color lightGray;
      private Color lightLightGray;

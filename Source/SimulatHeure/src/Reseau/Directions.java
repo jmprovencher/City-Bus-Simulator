@@ -110,7 +110,7 @@ public class Directions implements java.io.Serializable{
             for (Node n: s.subRoute){
                 count++;
                 if (count == i){
-                    return s.gerRoute();
+                    return s.getRoute();
                 }
             }
             count--;
@@ -171,7 +171,7 @@ public class Directions implements java.io.Serializable{
             return subRoute.get(i);
         }
         
-        public Route gerRoute(){
+        public Route getRoute(){
             return route;
         }
         

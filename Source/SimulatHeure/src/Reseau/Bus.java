@@ -11,83 +11,27 @@ import java.util.*;
  * @author Sam
  */
 public class Bus implements java.io.Serializable{
-    public Bus(int numeroArg, Route circuitActuelArg, int arg_capacite, Route.Source s){
+    public Bus(int numeroArg, Route startRoute, int maxCapacity, Route.Source sourceInit){
      
         number = numeroArg;
-        route = circuitActuelArg;
-        actualNode = s.originNode;
+        route = startRoute;
+        actualNode = sourceInit.originNode;
         positionX = actualNode.getPositionX();
         positionY = actualNode.getPositionY();
-        source =s;
-        capacity = arg_capacite;
+        source =sourceInit;
+        capacity = maxCapacity;
         listPassenger = new ArrayList<Passenger>();
         if (route.canLoop && actualNode == route.getNodeFromIndex(0)){
             lastNodeIndex = 0;
         }
         else{
-            lastNodeIndex = circuitActuelArg.route.lastIndexOf(actualNode);
+            lastNodeIndex = startRoute.route.lastIndexOf(actualNode);
         }
         speed = route.getLineFromIndex(lastNodeIndex).speed;
         timeNextNode = (getNextNodeDistance()/speed);
 
         actualNode.addBus(this);
-        positionInTime = new ArrayList<PositionBus>();
 
-    }
-    
-    
-    public void initPositionInTime(double tickTime){
-        int datCount = 1;
-                    double angle;
-            double newX;
-            double newY;
-                        double originX = actualNode.getPositionX();
-            double originY = actualNode.getPositionY();
-        positionInTime.add(new PositionBus(positionX, positionY, 0));
-        for (int i = 0; i<route.route.size() - 1; i++){
-            Line l = route.getLineFromIndex(i);
-            double relativeSpeed = l.speed * tickTime;
-            Node previousNode = getRoute().getNodeFromIndex(i);
-            Node nextNode = getRoute().getNodeFromIndex(i+1);
-
-            int targetX = nextNode.getPositionX();
-            int targetY= nextNode.getPositionY();
-            double distance = Math.sqrt(Math.pow((targetX - originX),2)+ Math.pow((targetY - originY), 2));
-            int numberOfTick = (int)( distance / relativeSpeed);
-            if (distance % relativeSpeed != 0){
-                numberOfTick++;
-            }
-
-            for (int y = 0; y  < numberOfTick; y++){
-                angle = Math.atan((double)(targetY-originY)/(double)(targetX-originX));
-
-                if (targetX == originX){
-                    if (targetY > originY){
-                        angle = -Math.PI/2;
-                    }
-                    else{
-                        angle = (Math.PI/2);
-                    }
-                }
-
-                if (targetX - originX <= 0){
-                    newX = originX- (Math.cos(angle)*relativeSpeed);
-                    newY = originY- (Math.sin(angle)*relativeSpeed);
-                }
-                else{
-                    newX = (originX+ (Math.cos(angle)*relativeSpeed));
-                    newY = (originY+ (Math.sin(angle)*relativeSpeed));
-                }
-                if (numberOfTick == y){
-                    newX = targetX;
-                    newY = targetY;
-                }
-                originX = newX;
-                originY = newY;
-                positionInTime.add(new PositionBus(newX, newY, datCount));
-                datCount++;
-            }
-        }
     }
     
     public void updateSpeed(){
@@ -190,8 +134,6 @@ public class Bus implements java.io.Serializable{
          return timeNextNode;
      }
      
-
-     
      public void reset(){
          actualNode = source.originNode;
 
@@ -234,19 +176,6 @@ public class Bus implements java.io.Serializable{
 
     private double timeNextNode;
     public List<Passenger> listPassenger;
-    public List<PositionBus> positionInTime;
     
-    public class PositionBus implements java.io.Serializable{
-        
-        public PositionBus(double argX,double argY,int argCount){
-            positionX = argX;
-            positionY = argY;
-            count = argCount;
-            //System.out.println("X: " +(int)argX+ " Y: "+ (int)argY+" Count: "+count);
-        }
-    
-        public double positionX;
-        public double positionY;
-        public int count;
-}
+
 }

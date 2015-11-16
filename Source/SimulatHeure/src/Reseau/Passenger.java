@@ -13,11 +13,11 @@ public class Passenger implements java.io.Serializable{
     public Passenger(Directions d){
         
         assignedDirections = d;
-        Noeud_origine = d.getStartPoint();
-        Noeud_destination = d.getEndPoint();
+        startPoint = d.getStartPoint();
+        endPoint = d.getEndPoint();
 
-        actualNode = Noeud_origine;
-        Noeud_origine.addPassenger(this);
+        actualNode = startPoint;
+        startPoint.addPassenger(this);
         actualBus = null;
         nodesPast = 1;
         nextStop = assignedDirections.getNextStop(nodesPast);
@@ -25,16 +25,16 @@ public class Passenger implements java.io.Serializable{
 
     }
     
-    public Node req_actuelle(){
+    public Node getNode(){
         return actualNode;
     }
     
-    public Node req_origine(){
-        return Noeud_origine;
+    public Node getStartPoint(){
+        return startPoint;
     }
     
-    public Node req_destination(){
-        return Noeud_destination;
+    public Node getEndPoint(){
+        return endPoint;
         
     }
     
@@ -74,10 +74,10 @@ public class Passenger implements java.io.Serializable{
     private int nodesPast;
     public Node actualNode;
     private Directions assignedDirections;
-    private Node Noeud_origine;
+    private Node startPoint;
     public Node nextStop;
     public Bus actualBus;
-    private Node Noeud_destination;
+    private Node endPoint;
     public double startTinme;
     public double stopTime;
 }
