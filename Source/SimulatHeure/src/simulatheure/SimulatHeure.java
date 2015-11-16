@@ -1964,6 +1964,7 @@ private final int TICK_TIME = 33; // ms
            String startStationName = (String)startComboBox.getSelectedItem();
            Node n = Sim.getNodeFromName(startStationName);
            fenetre_sim1.clearSelection();
+           selectedNode.clear();
            selectedNode.add(n);
            fenetre_sim1.selectNode(selectedNode);
            DefaultComboBoxModel routesComboBoxModel = new DefaultComboBoxModel();
@@ -2031,6 +2032,7 @@ private final int TICK_TIME = 33; // ms
         // TODO add your handling code here:
         addSubRouteButton.setEnabled(true);
         String endStationName = (String)endComboBox.getSelectedItem();
+        selectedNode.clear();
         selectedNode.add(Sim.getNodeFromName(endStationName));
         fenetre_sim1.clearSelection();
         fenetre_sim1.selectNode(selectedNode);

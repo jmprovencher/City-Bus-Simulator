@@ -204,10 +204,10 @@ public class Simulation implements java.io.Serializable{
     }
     
     
-    public void addStation(List<Node> listNodes)
+    public void addStation(List<Node> listNodesStations)
     {
         //temporaire
-        for (Node n: listNodes){
+        for (Node n: listNodesStations){
             n.setStation("Station "+listNodes.indexOf(n));
         }
 

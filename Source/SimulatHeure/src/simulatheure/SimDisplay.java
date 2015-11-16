@@ -62,9 +62,7 @@ public class SimDisplay extends JPanel {
         liste_Noeuds_selected = new ArrayList<Node>();
         liste_Aretes_selected = new ArrayList<Line>();
         liste_Buses_selected = new ArrayList<Bus>();
-        
-        
-        
+
     }
     
    
@@ -81,6 +79,7 @@ public class SimDisplay extends JPanel {
                 g.transform(at);
 
                 // Draw horizontal arrow starting in (0, 0)
+                g.setStroke(new BasicStroke(2));
                 g.drawLine(0, 0, len, 0);
                 g.fillPolygon(new int[] {len-12, len-ARR_SIZE-12, len-ARR_SIZE-12, len-12},
                               new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
@@ -212,10 +211,12 @@ public class SimDisplay extends JPanel {
        }
        
        // ligne pendant la création d'une arrete
-       BasicStroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+       BasicStroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0);
        if (createLineTemp != null){
             g.setColor(Color.white);
-            g2.setStroke(dashed);
+
+                g2.setStroke(dashed);
+
             g.drawLine((int)createLineTemp.getX1(), (int)createLineTemp.getY1(), (int)createLineTemp.getX2(), (int)createLineTemp.getY2());
        
        }
@@ -225,7 +226,7 @@ public class SimDisplay extends JPanel {
        
 
     }
-    
+
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
