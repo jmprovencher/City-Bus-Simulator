@@ -8,7 +8,7 @@
 	\includegraphics[scale=0.5]{fig/packageDiagram.jpg}
 	\centering
 	\caption{Diagramme de package de SimulatHEURE}
-	\label{f:dss_addLine}
+	\label{f:package_Diag}
 \end{figure}
 
 \section{Diagramme d'états}
@@ -17,5 +17,16 @@
 	\includegraphics[scale=0.6]{fig/StateDiagram.jpg}
 	\centering
 	\caption{Diagramme d'état de SimulatHEURE}
-	\label{f:dss_addLine}
+	\label{f:state_Diag}
 \end{figure}
+
+\section{Diagramme d'activité}
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{fig/activityDiagram.jpg}
+	\centering
+	\caption{Diagramme d'activité de SimulatHEURE}
+	\label{f:activity_Diag}
+\end{figure}
+
+Lors du démarrage de la simulation, les heures de départ et de fin sont sélectionnées. Si celles-ci sont égales, un message d'erreur est affiché, sinon la simulation débute. Le timer est démarré avec un durée (t) et une fréquences (freq) afin de déterminer la longueur d'un tick. À chaque "tick", les positions de chaque bus et la durée de leur trajet sont actualisés. Dans chaque station, les bus apparaîssent à chaque station selon la fréquence de chacune. Par la suite, pour chaque trajet, le nombre de passagers est modifié. Si le temps actuel est égal au temps de fin, ou si le bouton stop est appuyé, la simulation arrête. Sinon, le temps est incrémenté, l'affichage remis à jour et l'exécution continue.

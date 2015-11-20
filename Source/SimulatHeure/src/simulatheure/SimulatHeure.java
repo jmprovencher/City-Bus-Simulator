@@ -89,18 +89,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         dragSelect = false;
         timeJSpinnerStop.incrementHours();
         
-        // Bouton delete
-        InputMap in = display.getInputMap(display.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap am = display.getActionMap();
-        in.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0), "Delete");
-        am.put("Delete", new AbstractAction() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               delete();
-           }
-        });
-        //
-        
+
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
@@ -1287,8 +1276,9 @@ public class SimulatHeure extends javax.swing.JFrame {
                 }
             }
         }
-        selectedObject = "multiples";
-        
+        if (selectedNode.size() >1 ){
+            selectedObject = "multiples";
+        }
     }
     
     public void clearSelection(){
@@ -1304,6 +1294,50 @@ public class SimulatHeure extends javax.swing.JFrame {
         createRoute();
         
 
+    }
+    
+    public void createRouteNextState(){
+        
+        if (createRouteState == "select" ){
+            if (!selectedNode.isEmpty()){
+                if (selectedNode.get(0).isStation && Sim.newRoute.route.size()>1){
+
+                    createRouteState = "dialog";
+                    listSourcesModel.removeAllElements();
+                    listPossibleSourcesModel.removeAllElements();
+                    for (Node n: Sim.newRoute.route)
+                    if (n.isStation ){
+                        if (n != Sim.newRoute.getNodeFromIndex(Sim.newRoute.getNumberOfNodes()-1)){
+                            listPossibleSourcesModel.addElement(n.getName());
+                        }
+
+                    }
+                    Sim.newRoute.updateIfLoop();
+                    if (Sim.newRoute.canLoop){
+                         listPossibleSourcesModel.addElement(Sim.newRoute.route.get(0).getName());
+                          checkLoop.setEnabled(true);
+                    }
+
+                    else{
+                        checkLoop.setEnabled(false);
+                    }
+                }
+                else{
+                    createRouteState = "reset";
+                }
+            }
+            else{
+                createRouteState = "reset";
+            }
+
+        }
+
+        if (createRouteState == "idle" && Sim.getNodeQuantity() >= 2){
+            clearSelection();
+            Sim.newRoute = new Route();
+            createRouteState = "select";
+
+        }
     }
     
     public void createRoute(){
@@ -1472,11 +1506,12 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void delete(){
-            
+           System.out.println(selectedObject);
            if (selectedObject == "Noeud" || selectedObject == "Station" || selectedObject == "multiples" ) {
                 Sim.deleteNode(selectedNode);
            }
            else if (selectedObject == "Line"){
+               
                if(Sim.deleteLine(selectedLine)){
                    Print.setText("Arête supprimée avec succès.");
                }
@@ -2087,6 +2122,7 @@ private final int TICK_TIME = 33; // ms
         String name = (String) listSources.getSelectedValue();
         Node n = Sim.getNodeFromName(name);
         display.clearSelection();
+        selectedNode.clear();
         selectedNode.add(n);
         display.selectNode(selectedNode);
         
@@ -2153,49 +2189,7 @@ private final int TICK_TIME = 33; // ms
     private void Bouton_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_circuitActionPerformed
         // TODO add your handling code here:
 
-        if (createRouteState == "select" ){
-            if (!selectedNode.isEmpty()){
-                if (selectedNode.get(0).isStation && Sim.newRoute.route.size()>1){
-
-                    createRouteState = "dialog";
-                    listSourcesModel.removeAllElements();
-                    listPossibleSourcesModel.removeAllElements();
-                    for (Node n: Sim.newRoute.route)
-                    if (n.isStation ){
-                        if (n != Sim.newRoute.getNodeFromIndex(Sim.newRoute.getNumberOfNodes()-1)){
-                            listPossibleSourcesModel.addElement(n.getName());
-                        }
-
-                    }
-                    Sim.newRoute.updateIfLoop();
-                    if (Sim.newRoute.canLoop){
-                         listPossibleSourcesModel.addElement(Sim.newRoute.route.get(0).getName());
-                          checkLoop.setEnabled(true);
-                    }
-
-                       
-
-                    else{
-                        checkLoop.setEnabled(false);
-                    }
-                }
-                else{
-                    createRouteState = "reset";
-                }
-            }
-            else{
-                createRouteState = "reset";
-            }
-
-        }
-
-        if (createRouteState == "idle" && Sim.getNodeQuantity() >= 2){
-            clearSelection();
-            Sim.newRoute = new Route();
-            createRouteState = "select";
-
-        }
-
+        createRouteNextState();
         createRoute();
     }//GEN-LAST:event_Bouton_circuitActionPerformed
 
