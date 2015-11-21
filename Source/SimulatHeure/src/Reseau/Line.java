@@ -5,6 +5,7 @@
  */
 package Reseau;
 import java.awt.geom.Line2D;
+import java.util.*;
 /**
  *
  * @author Sam
@@ -17,14 +18,55 @@ public class Line implements java.io.Serializable{
         origin = startPoint;
         destination = endPoint;
         origin.addLine(this);
-        int x1, x2, y1, y2;
+        double x1, x2, y1, y2;
         x1 = origin.getPositionX();
         y1 = origin.getPositionY();
         x2 = destination.getPositionX();
         y2 = destination.getPositionY();        
         line = new Line2D.Double(x1,y1,x2,y2);
-        numberOfRoutes =0;
+        associatedRoutes =new ArrayList<Route>();
+        offsetLine();
     }
+    
+    public void offsetLine()
+    {
+        
+        double originX = origin.getPositionX();
+        double originY = origin.getPositionY();
+
+        double targetX = destination.getPositionX();
+        double targetY= destination.getPositionY();
+
+        double angle = Math.atan((double)(targetY-originY)/(double)(targetX-originX));
+         if (targetX == originX){
+            if (targetY > originY){
+                angle = -Math.PI/2;
+            }
+            else{
+                angle = (Math.PI/2);
+            }
+        }
+         
+         if (targetY < originY && targetX < originX){
+             angle-= Math.PI/2;
+         }
+         else if (targetY > originY && targetX < originX){
+             angle-= Math.PI/2;
+         }
+         else if (targetY < originY && targetX > originX){
+             angle+= Math.PI/2;
+         }
+             
+         else{
+             angle+= Math.PI/2;
+         }
+         double N = 7;
+         double moveX = N* Math.cos(angle);
+         double moveY = N* Math.sin(angle);
+         
+         line.setLine(origin.getPositionX()+moveX, origin.getPositionY()+moveY, destination.getPositionX()+moveX,destination.getPositionY()+moveY );
+        
+    }   
     
     public Node getOrigin(){
         return origin;
@@ -37,29 +79,30 @@ public class Line implements java.io.Serializable{
 
     public void update(){
         line.setLine(origin.getPositionX(), origin.getPositionY(), destination.getPositionX(), destination.getPositionY());
+        offsetLine();
     }
     
     public void delete(){
-        if (origin.listLines.contains(this)){
+
             origin.listLines.remove(this);
-        }
-         if (destination.listLines.contains(this)){
             destination.listLines.remove(this);
-         }
+         
  
     }
+    
     public int getNumberOfRoutes(){
 
-        return numberOfRoutes;
+        return associatedRoutes.size();
 
     }
-    public void setRoute(int n){
+    public void setRoute(int n, Route r){
   
         if (n == 1){
-            numberOfRoutes++;
+            associatedRoutes.add(r);
         }
         if (n == -1){
-            numberOfRoutes--;
+            associatedRoutes.remove(r);
+            
         }
          
     }
@@ -73,7 +116,7 @@ public class Line implements java.io.Serializable{
     public double typeSpeed;
     public double speed;
     
-    private int numberOfRoutes;
+    public List<Route> associatedRoutes;
     public Line2D line;
     public Node origin;
     public Node destination;

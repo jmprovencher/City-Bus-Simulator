@@ -7,9 +7,9 @@ package Reseau;
 import java.util.*;
 /**
  *
- * @author rem54
+ * @author Rémi
  */
-public class Node implements java.io.Serializable{
+public class Node extends  LocationData implements java.io.Serializable{
     
     public Node(int argX, int argY){
         positionX = argX;
@@ -25,24 +25,29 @@ public class Node implements java.io.Serializable{
         listLines.add(l);
     }
     
-    public int getPositionX(){
+
+    @Override
+    public double getPositionX(){
         return positionX;
     }
     
-    public int getPositionY(){
+    @Override
+    public double getPositionY(){
         return positionY;
     }
     
-    public void setPositionX(int x_arg){
-        positionX = x_arg;
+    @Override
+    public void setPositionX(double x){
+        positionX = x;
     }
     
-    public void setPositionY(int y_arg){
-        positionY = y_arg;
+    @Override
+    public void setPositionY(double y){
+        positionY = y;
     }
     
-    private int positionX;
-    private int positionY;
+    private double positionX;
+    private double positionY;
     public Boolean isStation;
     
     // *****

@@ -24,6 +24,15 @@ public class Directions implements java.io.Serializable{
         listPassengersDone = new ArrayList<Passenger>();
     }
     
+    public void update(){
+        numberOfStops = 0;
+        for (SubRoute s: directions){
+            s.update();
+            numberOfStops+= s.size();
+        }
+        
+    }
+    
     public void reset(){
         listPassengers.clear();
         listPassengersDone.clear();
@@ -58,9 +67,7 @@ public class Directions implements java.io.Serializable{
         return endPoint;
     }
     public void addPassenger(double time){
-        Passenger newPassenger = new Passenger(this);
-        newPassenger.startTinme = time;
-        listPassengers.add(newPassenger);
+        listPassengers.add(new Passenger(this, time));
     }
     
     public void removePassenger(Passenger p, double time){
@@ -165,6 +172,23 @@ public class Directions implements java.io.Serializable{
                 subRoute.add(r.getNodeFromIndex(0));
             }
            
+        }
+        
+        public void update(){
+            
+            Node origin = getStartPoint();
+            Node destination = getEndPoint();
+            
+            int startIndex = route.route.indexOf(origin);
+            int endIndex = route.route.indexOf(destination);
+            
+            subRoute.clear();
+            while (startIndex!= endIndex){
+                subRoute.add(route.route.get(startIndex));
+                startIndex++;
+            }
+            subRoute.add(route.route.get(endIndex));
+            
         }
         
         public Node getNode(int i){

@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author Sam
  */
-public class Bus implements java.io.Serializable{
+public class Bus extends LocationData implements java.io.Serializable{
     public Bus(int numeroArg, Route startRoute, int maxCapacity, Route.Source sourceInit){
      
         number = numeroArg;
@@ -25,11 +25,10 @@ public class Bus implements java.io.Serializable{
             lastNodeIndex = 0;
         }
         else{
-            lastNodeIndex = startRoute.route.lastIndexOf(actualNode);
+            lastNodeIndex = startRoute.route.indexOf(actualNode);
         }
         speed = route.getLineFromIndex(lastNodeIndex).speed;
         timeNextNode = (getNextNodeDistance()/speed);
-
         actualNode.addBus(this);
 
     }
@@ -45,7 +44,6 @@ public class Bus implements java.io.Serializable{
     }
     
     public void setNode(Node n){
-        System.out.println("sup");
         actualNode = n;
         setPositionX(n.getPositionX());
         setPositionY(n.getPositionY());
@@ -54,9 +52,7 @@ public class Bus implements java.io.Serializable{
         updateTimeNextNode();
         updateSpeed();
         if (n.isStation){
-            n.addBus(this);
-        
-            
+            n.addBus(this);  
         }
         for (Passenger p: listPassenger){
             p.nodePast();
@@ -70,9 +66,8 @@ public class Bus implements java.io.Serializable{
            
         }
     }
-
     
-    public double reqSpeed(){
+    public double getSpeed(){
         return speed;
     }
 
@@ -84,12 +79,12 @@ public class Bus implements java.io.Serializable{
     {
         return capacity;
     }
-    
+    @Override
     public void setPositionX(double x)
     {
         positionX = x;
     }
-    
+    @Override
     public void setPositionY(double y)
     {
         positionY = y;
@@ -115,11 +110,13 @@ public class Bus implements java.io.Serializable{
         return number;
     }
      
+    @Override
      public double getPositionX(){
     
         return positionX;
     }
           
+    @Override
      public double getPositionY(){
     
         return positionY;
@@ -132,6 +129,10 @@ public class Bus implements java.io.Serializable{
      
      public double getTimeNextNode(){
          return timeNextNode;
+     }
+     
+     public int getSize(){
+         return size;
      }
      
      public void reset(){
@@ -169,12 +170,15 @@ public class Bus implements java.io.Serializable{
     private int number;
     private double positionX;
     private double positionY;
+    public static final int size = 20;
     private int capacity;
     public Node actualNode;
     private Route route;
     private int lastNodeIndex;
     private double timeNextNode;
     public List<Passenger> listPassenger;
-    
+
+
+
 
 }

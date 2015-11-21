@@ -80,7 +80,7 @@ public class Simulation implements java.io.Serializable{
             else{
                 for (Passenger p: d.listPassengersDone){
 
-                    time = p.stopTime - p.startTinme;
+                    time = p.stopTime - p.startTime;
                     if (time < min){
                         min = time;
                     }
@@ -160,10 +160,10 @@ public class Simulation implements java.io.Serializable{
             b.exitNode();
         }
 
-        double relativeSpeed = (b.reqSpeed())*freq/1000;
+        double relativeSpeed = (b.getSpeed())*freq/1000;
         Node nextNode = b.getRoute().getNodeFromIndex(b.getLastNodeIndex()+1);
-        int targetX = nextNode.getPositionX();
-        int targetY= nextNode.getPositionY();
+        double targetX = nextNode.getPositionX();
+        double targetY= nextNode.getPositionY();
         
         double angle;
         
@@ -229,22 +229,26 @@ public class Simulation implements java.io.Serializable{
                             linesToDelete.add(l);
                         }
                     }
-                    for (Line l : linesToDelete){
-                        deleteLine(l);
-;                    }
+
+                        deleteLine(linesToDelete);
+
                    listNodes.remove(node);
                 }
             }
         }
     }
 
-    public Boolean deleteLine(Line l){
-        if (l.getNumberOfRoutes() == 0){
-            l.delete();
-            listLines.remove(l);
-            return true;
+    public Boolean deleteLine(List<Line> listLinesToDelete){
+        for (Line l: listLinesToDelete){
+            if (l.getNumberOfRoutes() == 0){
+                listLines.remove(l);
+                l.delete();
+            }
+            else{
+                return false;
+            }
         }
-        return false;
+        return true;
     }
     
     public Boolean deleteDirections(Directions d){
@@ -299,7 +303,7 @@ public class Simulation implements java.io.Serializable{
         for (int i = 0; i< newRoute.route.size(); i++){
             newRoute.route.get(i).setRoute(1, newRoute);
             if (i < newRoute.route.size()-1){
-                getLine(newRoute.route.get(i), newRoute.route.get(i+1)).setRoute(1);
+                getLine(newRoute.route.get(i), newRoute.route.get(i+1)).setRoute(1, newRoute);
             }
         }
 
@@ -320,7 +324,7 @@ public class Simulation implements java.io.Serializable{
             for (int i = 0; i<route.getNumberOfNodes(); i++){
                 route.getNodeFromIndex(i).setRoute(-1, route);
                 if (i < route.getNumberOfNodes()-1){
-                    route.getLineFromIndex(i).setRoute(-1);
+                    route.getLineFromIndex(i).setRoute(-1, route);
                 }
             }
 
@@ -347,10 +351,14 @@ public class Simulation implements java.io.Serializable{
             if (!listNodes.contains(node2)){
                 listNodes.add(node2);
             }
-
+            if (getLine(node1, node2) != null){
+                return null;
+            }
+            
             Line newLine = new Line(node1, node2);
             listLines.add(newLine);
             return newLine;   
+            
         }
         else{
             return null;
@@ -361,7 +369,7 @@ public class Simulation implements java.io.Serializable{
         
         line.delete();
         listLines.remove(line);
-        
+
         Line oppositeLine = getLine(line.destination, line.origin);
         
         Node n = new Node(x,y);
@@ -375,11 +383,35 @@ public class Simulation implements java.io.Serializable{
             listLines.remove(oppositeLine);
             listLines.add(new Line(oppositeLine.origin, n));
             listLines.add(new Line(n, oppositeLine.destination));
+            updateRoutesAfterSplitLine(oppositeLine, n);
             oppositeLine = null;
+        }
+        updateRoutesAfterSplitLine(line, n);
+        for (Directions d: listDirections){
+            d.update();
         }
         
         line = null;     
         return n;
+    }
+    
+    public void updateRoutesAfterSplitLine(Line l, Node n){
+        int i = 0;
+        for (Route r: l.associatedRoutes){
+
+           List<Integer> indexToAdd = new ArrayList<>();
+            for (Node node: r.route){
+                
+                if (node == l.destination){
+                    indexToAdd.add(i);
+                    i++; 
+                }
+                i++;
+            }
+            for (int newIndex: indexToAdd){
+                r.route.add(newIndex, n);
+            }
+        }
     }
     
     public Line getLineFromPosition(int x, int y){
