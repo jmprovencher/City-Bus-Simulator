@@ -8,6 +8,7 @@ package simulatheure;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 /**
  *
@@ -22,6 +23,7 @@ public class SimTimer {
         freq = 0;
         running = false;
         simSpeed = 0;
+        simTimer = new javax.swing.Timer(freq, action);
     }
     
 
@@ -73,7 +75,7 @@ public class SimTimer {
             sim.simulateTick();
            }
             topFrame.selectOnly(false);
-            sim.stopSimulation();
+            stop();
         }
 
     }

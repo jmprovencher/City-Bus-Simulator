@@ -10,13 +10,13 @@ package Reseau;
  * @author Sam
  */
 public class Passenger implements java.io.Serializable{
-    public Passenger(Directions d){
+    public Passenger(Directions d, double time){
         
         assignedDirections = d;
         startPoint = d.getStartPoint();
         endPoint = d.getEndPoint();
-
         actualNode = startPoint;
+        startTime = time;
         startPoint.addPassenger(this);
         actualBus = null;
         nodesPast = 1;
@@ -65,6 +65,10 @@ public class Passenger implements java.io.Serializable{
  
     }
     
+    public Bus getBus(){
+        return actualBus;
+    }
+    
     public Route getNextRoute(){
         
         return assignedDirections.getRoute(nodesPast);
@@ -73,11 +77,11 @@ public class Passenger implements java.io.Serializable{
             
     private int nodesPast;
     public Node actualNode;
-    private Directions assignedDirections;
-    private Node startPoint;
+    private final Directions assignedDirections;
+    private final Node startPoint;
     public Node nextStop;
     public Bus actualBus;
-    private Node endPoint;
-    public double startTinme;
+    private final Node endPoint;
+    public final double startTime;
     public double stopTime;
 }

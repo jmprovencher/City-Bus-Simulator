@@ -614,11 +614,18 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandNouvDoc">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+N"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Nouveau document"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandOuvrir">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+O"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Charger"/>
               </Properties>
               <Events>
@@ -627,6 +634,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandEnregistrer">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+S"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Enregistrer"/>
               </Properties>
               <Events>
@@ -635,7 +645,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandEnregSous">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+S"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Enregistrer sous"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -648,6 +662,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandSupprimer">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="DELETE"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="117"/>
                 <Property name="text" type="java.lang.String" value="Supprimer"/>
               </Properties>
@@ -657,6 +674,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandAjouterNoeud">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="N"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="111"/>
                 <Property name="text" type="java.lang.String" value="Ajouter Noeud"/>
               </Properties>
@@ -666,6 +686,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandAjouterArete">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="A"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="114"/>
                 <Property name="text" type="java.lang.String" value="Ajouter Ar&#xea;te"/>
               </Properties>
@@ -673,10 +696,23 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandAjouterAreteActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+A"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Selectionner tout"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandDeplacerNoeud">
               <Properties>
                 <Property name="mnemonic" type="int" value="100"/>
                 <Property name="text" type="java.lang.String" value="D&#xe9;placer Noeud/Station"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandDeplacerNoeudActionPerformed"/>
@@ -694,6 +730,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lancer simulation"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandLancerSimActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandStopperSim">
               <Properties>
@@ -717,11 +756,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandAjouterCircuitActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandModCircuit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modifier"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandModCircuitActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -729,6 +774,7 @@
           <Properties>
             <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" value="Affichage"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="menuSubfolderToolboxes">
@@ -819,7 +865,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="editionToolbox" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jInternalFrame1" alignment="0" pref="198" max="32767" attributes="0"/>
+                          <Component id="jInternalFrame1" alignment="0" pref="208" max="32767" attributes="0"/>
                           <Component id="jInternalFrame4" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -863,22 +909,20 @@
                           <Component id="editionToolbox" max="32767" attributes="0"/>
                           <Component id="jInternalFrame3" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="displayLabelCoordonnees" alignment="3" min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="displayLabelCoordonnees" alignment="3" min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -921,7 +965,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="333" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="535" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -954,7 +998,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Component id="Bouton_circuit" min="-2" pref="87" max="-2" attributes="0"/>
+                  <Component id="Bouton_circuit_add" min="-2" pref="87" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonEditRoute" max="32767" attributes="0"/>
               </Group>
@@ -967,7 +1011,7 @@
                   <Component id="jScrollPane3" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="Bouton_circuit" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Bouton_circuit_add" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonEditRoute" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -1003,17 +1047,17 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="Bouton_circuit">
+        <Component class="javax.swing.JButton" name="Bouton_circuit_add">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajouter"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_circuitActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_circuit_addActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonEditRoute">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Editer"/>
+            <Property name="text" type="java.lang.String" value="Modifier"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditRouteActionPerformed"/>
@@ -1117,6 +1161,7 @@
         </Component>
         <Component class="javax.swing.JSlider" name="simulation_speed">
           <Properties>
+            <Property name="maximum" type="int" value="20"/>
             <Property name="minimum" type="int" value="1"/>
             <Property name="value" type="int" value="4"/>
           </Properties>
@@ -1189,11 +1234,10 @@
                       <Component id="addAreteToggleButton" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="moveToggleButton" max="32767" attributes="0"/>
                       <Component id="addNodeToggleButton" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
