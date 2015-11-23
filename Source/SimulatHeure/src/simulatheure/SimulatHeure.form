@@ -738,11 +738,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Stopper simulation"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandStopperSimActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandAnalResults">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Analyser resultats"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandAnalResultsActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

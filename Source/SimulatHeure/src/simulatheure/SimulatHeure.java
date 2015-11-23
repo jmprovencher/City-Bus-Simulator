@@ -1148,9 +1148,19 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuFolderSimulation.add(menuCommandLancerSim);
 
         menuCommandStopperSim.setText("Stopper simulation");
+        menuCommandStopperSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCommandStopperSimActionPerformed(evt);
+            }
+        });
         menuFolderSimulation.add(menuCommandStopperSim);
 
         menuCommandAnalResults.setText("Analyser resultats");
+        menuCommandAnalResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCommandAnalResultsActionPerformed(evt);
+            }
+        });
         menuFolderSimulation.add(menuCommandAnalResults);
 
         jMenuBar1.add(menuFolderSimulation);
@@ -1295,6 +1305,14 @@ public class SimulatHeure extends javax.swing.JFrame {
             buttonBesoins.setEnabled(!state);
             selectorToggleButton.setEnabled(!state);
             moveToggleButton.setEnabled(!state);
+            menuCommandAjouterArete.setEnabled(!state);
+            menuCommandAjouterCircuit.setEnabled(!state);
+            menuCommandModCircuit.setEnabled(!state);
+            menuCommandAjouterNoeud.setEnabled(!state);
+            menuCommandDeplacerNoeud.setEnabled(!state);
+            menuCommandSupprimer.setEnabled(!state);
+            menuCommandLancerSim.setEnabled(!state);
+            menuCommandAnalResults.setEnabled(!state);
             
     }
     
@@ -1724,7 +1742,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     private void selectedBusRoutine(){
         selectedObject = "Bus";
-        Print.setText("Bus sélectionné, contient "+selectedBus.listPassenger.size()+ " passagers!");
+        Print.setText("Bus sélectionné, appartient au circuit "+selectedBus.getRoute().getNumber()+" et contient "+selectedBus.listPassenger.size()+ " passagers!");
         display.selectBus(selectedBus);
     }
     
@@ -2450,6 +2468,18 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void menuCommandLancerSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandLancerSimActionPerformed
         SimulateButtonAction();
     }//GEN-LAST:event_menuCommandLancerSimActionPerformed
+
+    private void menuCommandAnalResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandAnalResultsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuCommandAnalResultsActionPerformed
+
+    private void menuCommandStopperSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandStopperSimActionPerformed
+        // TODO add your handling code here:
+                if (simTimer.running){
+            simTimer.stop();
+            display.repaint();
+        }
+    }//GEN-LAST:event_menuCommandStopperSimActionPerformed
 
 
     /**

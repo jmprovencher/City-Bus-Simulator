@@ -202,7 +202,10 @@ public class SimDisplay extends JPanel {
                      g.drawImage(imgBus, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
 
                 }
-                 g.drawString(""+b.listPassenger.size(), (int)b.getPositionX(), (int)b.getPositionY()-40);
+                g.setColor(Color.WHITE);
+                g.drawString(""+b.listPassenger.size(), (int)b.getPositionX(), (int)b.getPositionY()-40);
+                g.setColor(Color.WHITE);
+                g.drawString("Circuit: "+b.getRoute().getNumber(), (int)b.getPositionX()-20, (int)b.getPositionY()-3);
             }
        }
        
