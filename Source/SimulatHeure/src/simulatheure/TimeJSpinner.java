@@ -6,6 +6,7 @@
 package simulatheure;
 
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
@@ -20,7 +21,6 @@ public class TimeJSpinner extends JSpinner{
         calendar.setTime(new Date());
 
         calendar.add(Calendar.MINUTE, 1439); // number of minutes in a day - 1
-
         model = new SpinnerDateModel(calendar.getTime(),
                 null,
                 null,
@@ -43,12 +43,19 @@ public class TimeJSpinner extends JSpinner{
         
     }
     
+    public void setNewTime(int hours, int minutes){
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        model.setValue(calendar.getTime());
+    }
+    
     public void setTime(){
        Date d = (Date)this.getValue();
 
        calendar.setTime(d);
 
     }
+    
     
     public void incrementHours(){
         model.setCalendarField(Calendar.HOUR);

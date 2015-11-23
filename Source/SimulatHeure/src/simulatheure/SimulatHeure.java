@@ -86,7 +86,9 @@ public class SimulatHeure extends javax.swing.JFrame {
         pressedY = 0;
         dragMove = false;
         dragSelect = false;
-        timeJSpinnerStop.incrementHours();
+        timeJSpinnerStart.setNewTime(5, 0);
+        timeJSpinnerStop.setNewTime(1, 0);
+        //timeJSpinnerStop.incrementHours();
         
 
         defaultCursor = new Cursor(0); // pointing hand
@@ -1702,7 +1704,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             int deltaMinutes = timeJSpinnerStop.getMinutes()- timeJSpinnerStart.getMinutes();
             
             deltaMinutes += deltaHours*60;
-            
+            System.out.println(deltaMinutes);
             if (deltaMinutes > 0){
                 simTimer.setSimSpeed(simulation_speed.getValue()/4);
                 simTimer.start(deltaMinutes, TICK_TIME, false);
