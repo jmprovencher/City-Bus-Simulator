@@ -11,32 +11,10 @@
 	\label{f:package_Diag}
 \end{figure}
 
-La figure \ref*{f:package_Diag} Présente la structure logique des modules du programme. Le module principal, nommé SimulatHeure, est composé des librairies SimDisplay et SimTimer, dont le fonctionnement est expliqué au paragraphe suivant. Le Module SimulatHeure appelle et contrôle un second module gérant le fonctionnement du réseau routier, d'où son nom "Network". Ce dernier est constitué de tout les éléments composant un réseau d'autobus, incluant \textit{Route}, \textit{Bus} et \textit{Passenger}. L'interaction des librairies dans Network est présenté en détail plus loin.
+\paragraph{}
+La figure \ref{f:package_Diag} présente la structure logique des modules du programme. Le module principal, nommé SimulatHeure, est composé des classes SimDisplay et SimTimer et Simulation, dont le fonctionnement est expliqué au paragraphe suivant. Le Module SimulatHeure appelle et contrôle un second module gérant le fonctionnement du réseau routier, d'où son nom "Network". Ce dernier est constitué de tout les éléments composant un réseau d'autobus, incluant \textit{Node}, \textit{Line}, \textit{Source}, \textit{Directions}, \textit{Route}, \textit{Bus} et \textit{Passenger}. L'interaction des classes dans Network est présenté en détail plus loin.
+\paragraph{}
+La classe \textit{Simulation} est le cerveau de la simulation. C'est elle qui contient les listes des différentes composantes du réseau routier. Elle permet d'ajouter, de supprimer et de faire bouger les différentes composantes du réseau routier. La classe \textit{SimDisplay}, incorporée dans le module SimulatHeure, prend en charge l'affichage en temps réel de la simulation des transports. Son champs d'actions couvre entre autres le dessin des éléments du réseau sur la fenêtre de simulation, la gestion des contrôles usagers avec la souris (déplacement de la vue, zoom, dezoom, selection, etc.) ainsi que l'affichage de la grille d'alignement dynamique. La classe \textit{SimTimer} permet d'appeller périodiquement la fonction simulateTick() de \textit{Simulation}, ce qui met en marche la simulation.
+\paragraph{}
+Les classes dans \textit{Network} sont toutes des classes purement logique, c'est à dire qu'elle n'ont aucun lien avec l'interface utilisateur. Les divers éléments tels les noeuds, les segments où les bus possèdent des attributs spatiaux, correspondant à leur position sur une grille virtuelle, qui doit être configurée de façon externe, ici par un contrôlleur et un panneau d'affichage graphique.  C'est le contrôlleur qui permet de faire intéragir les différentes classes ensemble par leurs fonctions.
 
-La librairie SimDisplay, incorporée dans le module SimulatHeure, prend en charge l'affichage en temps réel de la simulation des transports. Son champs d'actions couvre entre autres le dessin des éléments du réseau sur la fenêtre de simulation, la gestion des contrôles usagers avec la souris (déplacement de la vue, zoom, dezoom, selection, etc.) ainsi que l'affichage de la grille d'alignement dynamique. Afin d'assurer que l'apparition des éléments sur la fenêtre de simulation ne subisse pas de délai causé par le traitement des autres fonctions du programme, le module SimDisplay est appelé périodiquement par le module SimTimer à ré-effectuer un \textit{draw} des éléments graphiques. Cette approche, soit de faire le dessin de façon asynchrone avec le reste du programme, permet à l'affichage d'être plus fluide et constant. De plus, cela évite toute forme de délais lorsque l'utilisateur effectue un commande telle que \textit{ajoutArête} par exemple. \textit{SimTimer} contrôle aussi la librarie \textit{Simulation}, une structure servant à la fois d'agrégat d'éléments du réseau ainsi que de structure de contrôle mathématique des animations telles que le déplacement d'un bus sur un circuit.
-
-Le second module principal, \textit{Network}, prend en charge les détails du fonctionnement du réseau routier. Tout objet affiché sur la fenêtre de simulation, qu'il s'agisse d'un segment de route, d'un bus, passager ou même de le besoin en transport de passagers (Directions), correspond à un objet distinct, contrôlé par la libraire \textit{SimDisplay}. 
-
-\section{Diagramme d'états}
-
-\begin{figure}[H]
-	\includegraphics[scale=0.6]{fig/StateDiagram.jpg}
-	\centering
-	\caption{Diagramme d'état de SimulatHEURE}
-	\label{f:state_Diag}
-\end{figure}
-
-Le diagramme présenté dans la figure \ref*{f:state_Diag} montre le fonctionnement d'une simulation dans laquelle un bus se déplace sur son circuit. Tout d'abord, un objet \textit{Bus} est nécessairement créé avec une position initiale correspondant à celle d'un \textit{Noeud}. Le bus ainsi créé se trouve alors à l'état nommé \textit{At a Node}. En fonction du nombre de \textit{Passagers} ayant un besoin en transport incluant le circuit du \textit{Bus}, celui-ci peut immédiatement se remplir de \textit{Passagers}. À l'itération suivante du programme, le bus entre dans l'état \textit{Moving}, où il reste jusqu'à ce la condition ("temps avant prochain \textit{Noeud}" < "Temps d'un \textit{Tick}") soit remplie. On considère alors que le bus se trouve de nouveau à l'état \textit{At a Node}.
-
-À l'instant (\textit{Tick}) où la position d'un bus correspond à celle d'une station, plusieurs situations peuvent survenir. Dans le cas où le bus contient un ou des passagers dont le besoin en transport (destination) correspond au n?ud actuel, ceux-ci "sortent" du bus, décrémentant son nombre de passagers actuels. Inversement, tout comme au \textit{Node} précédent, d'autres passagers peuvent "entrer" dans le bus. Finalement, si la condition ("Est dernier noeud du présent circuit" AND "Circuit n'est pas une \textit{Loop}") est remplie, l'objet bus est supprimé à l'itération suivante. (La vie d'aucun passager n'est en danger, bien sûr!) La condition "Loop" détermine si le circuit est circulaire, c'est à dire que son n?ud de départ correspond à son n?ud d'arrivé et que les bus doivent y continuer leur parcours plutôt que d'être supprimés.
-
-\section{Diagramme d'activité}
-
-\begin{figure}[H]
-	\includegraphics[scale=0.5]{fig/activityDiagram.jpg}
-	\centering
-	\caption{Diagramme d'activité de SimulatHEURE}
-	\label{f:activity_Diag}
-\end{figure}
-
-Lors du démarrage de la simulation, les heures de départ et de fin sont sélectionnées. Si celles-ci sont égales, un message d'erreur est affiché, sinon la simulation débute. Le timer est démarré avec un durée (t) et une fréquences (freq) afin de déterminer la longueur d'un tick. À chaque "tick", les positions de chaque bus et la durée de leur trajet sont actualisés. Dans chaque station, les bus apparaîssent à chaque station selon la fréquence de chacune. Par la suite, pour chaque trajet, le nombre de passagers est modifié. Si le temps actuel est égal au temps de fin, ou si le bouton stop est appuyé, la simulation arrête. Sinon, le temps est incrémenté, l'affichage remis à jour et l'exécution continue.

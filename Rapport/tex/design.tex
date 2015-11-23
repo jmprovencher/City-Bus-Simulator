@@ -4,3 +4,27 @@
 \input{tex/Jim/classDiagram}
 \input{tex/sam/gui}
 \input{tex/Remi/DSS}
+
+\section{Diagramme d'états}
+
+\begin{figure}[H]
+	\includegraphics[scale=0.6]{fig/StateDiagram.jpg}
+	\centering
+	\caption{Diagramme d'état de SimulatHEURE}
+	\label{f:state_Diag}
+\end{figure}
+
+Le diagramme présenté dans la figure \ref*{f:state_Diag} montre le fonctionnement d'une simulation dans laquelle un bus se déplace sur son circuit. Tout d'abord, un objet \textit{Bus} est nécessairement créé avec une position initiale correspondant à celle d'un \textit{Noeud}. Le bus ainsi créé se trouve alors à l'état nommé \textit{At a Node}. En fonction du nombre de \textit{Passagers} ayant un besoin en transport incluant le circuit du \textit{Bus}, celui-ci peut immédiatement se remplir de \textit{Passagers}. À l'itération suivante du programme, le bus entre dans l'état \textit{Moving}, où il reste jusqu'à ce la condition ("temps avant prochain \textit{Noeud}" < "Temps d'un \textit{Tick}") soit remplie. On considère alors que le bus se trouve de nouveau à l'état \textit{At a Node}.
+\paragraph{}
+À l'instant (\textit{Tick}) où la position d'un bus correspond à celle d'une station, plusieurs situations peuvent survenir. Dans le cas où le bus contient un ou des passagers dont le besoin en transport (destination) correspond au n?ud actuel, ceux-ci "sortent" du bus, décrémentant son nombre de passagers actuels. Inversement, tout comme au \textit{Node} précédent, d'autres passagers peuvent "entrer" dans le bus. Finalement, si la condition ("Est dernier noeud du présent circuit" AND "Circuit n'est pas une \textit{Loop}") est remplie, l'objet bus est supprimé à l'itération suivante. (La vie d'aucun passager n'est en danger, bien sûr!) La condition "Loop" détermine si le circuit est circulaire, c'est à dire que son n?ud de départ correspond à son n?ud d'arrivé et que les bus doivent y continuer leur parcours plutôt que d'être supprimés.
+
+\section{Diagramme d'activité}
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{fig/activityDiagram.jpg}
+	\centering
+	\caption{Diagramme d'activité de SimulatHEURE}
+	\label{f:activity_Diag}
+\end{figure}
+
+Lors du démarrage de la simulation, les heures de départ et de fin sont sélectionnées. Si celles-ci sont égales, un message d'erreur est affiché, sinon la simulation débute. Le timer est démarré avec un durée (t) et une fréquences (freq) afin de déterminer la longueur d'un tick. À chaque "tick", les positions de chaque bus et la durée de leur trajet sont actualisés. Dans chaque station, les bus apparaîssent à chaque station selon la fréquence de chacune. Par la suite, pour chaque trajet, le nombre de passagers est modifié. Si le temps actuel est égal au temps de fin, ou si le bouton stop est appuyé, la simulation arrête. Sinon, le temps est incrémenté, l'affichage remis à jour et l'exécution continue.

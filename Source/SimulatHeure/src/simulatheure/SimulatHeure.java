@@ -17,9 +17,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/* TO DO LIST
-
-*/
 
 /**
  *
@@ -62,13 +59,16 @@ public class SimulatHeure extends javax.swing.JFrame {
     public SimulatHeure()  {
 
         initComponents();
-        
+        Sim = new Simulation();
         selectedNode = new ArrayList<>();
         selectedLine = new ArrayList<>();
-        Sim = display.Sim;
+        display.Sim = Sim;
         createRouteState = "idle";
         mouseClickState = "selection";
         mouseClickStatePersistance = true;
+        pressedX = 0;
+        pressedY = 0;
+        simTimer = new SimTimer(Sim, display, this);
         listRoutesModel = new DefaultComboBoxModel();
         listSubRoutesModel = new DefaultComboBoxModel();
         listSourcesModel = new DefaultComboBoxModel();
@@ -81,16 +81,10 @@ public class SimulatHeure extends javax.swing.JFrame {
         listDirections.setModel(listDirectionsModel);
         Dialog_circuit.pack();
         createLineState = 0;
-        simTimer = new SimTimer(Sim, display, this);
-        pressedX = 0;
-        pressedY = 0;
         dragMove = false;
         dragSelect = false;
         timeJSpinnerStart.setNewTime(5, 0);
         timeJSpinnerStop.setNewTime(1, 0);
-        //timeJSpinnerStop.incrementHours();
-        
-
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
@@ -173,7 +167,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         timeJSpinnerStop = new simulatheure.TimeJSpinner();
         jLabel6 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        buttonRecenter = new javax.swing.JButton();
         editionToolbox = new javax.swing.JInternalFrame();
         addNodeToggleButton = new javax.swing.JToggleButton();
         addAreteToggleButton = new javax.swing.JToggleButton();
@@ -801,10 +795,10 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
-        jButton1.setText("Recentrer");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonRecenter.setText("Recentrer");
+        buttonRecenter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonRecenterActionPerformed(evt);
             }
         });
 
@@ -1249,7 +1243,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                             .addComponent(jInternalFrame3))
                         .addGap(6, 6, 6))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(buttonRecenter)
                         .addGap(9, 9, 9)
                         .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -1281,7 +1275,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(displayLabelCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))
+                        .addComponent(buttonRecenter))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -1317,30 +1311,32 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void selectRectangle(){
-        display.selectRectangle();
-        
-        //Nodes
-        for (Node n: Sim.listNodes){
-            if(display.selectionRectangle.contains(n.getPositionX(), n.getPositionY())){
-                if (!selectedNode.contains(n)){
-                    selectedNode.add(n);
-                    selectedObject = "Noeud";
+        if (!simTimer.running){
+            display.selectRectangle();
+
+            //Nodes
+            for (Node n: Sim.listNodes){
+                if(display.selectionRectangle.contains(n.getPositionX(), n.getPositionY())){
+                    if (!selectedNode.contains(n)){
+                        selectedNode.add(n);
+                        selectedObject = "Noeud";
+                    }
                 }
             }
-        }
-        
-        for (Line l: Sim.listLines){
-            if(display.selectionRectangle.intersectsLine(l.line)){
-                System.out.println(!selectedLine.contains(l));
-                
-                if (!selectedLine.contains(l)){
-                    selectedLine.add(l);
-                    selectedObject = "Line";
+
+            for (Line l: Sim.listLines){
+                if(display.selectionRectangle.intersectsLine(l.line)){
+                    System.out.println(!selectedLine.contains(l));
+
+                    if (!selectedLine.contains(l)){
+                        selectedLine.add(l);
+                        selectedObject = "Line";
+                    }
                 }
             }
-        }
-        if (selectedNode.size() + selectedLine.size() >1 ){
-            selectedObject = "multiples";
+            if (selectedNode.size() + selectedLine.size() >1 ){
+                selectedObject = "multiples";
+            }
         }
     }
     
@@ -1642,6 +1638,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         if (Sim.getNodeFromPosition(x,y, 20, display.stationSize) != null){
             return true;
         }
+        if (Sim.getLineFromPosition(x,y) != null){
+            return true;
+        }
+        if (Sim.getBusFromPosition(x, y, display.imgBusSize) != null){
+            return true;
+        }
         return false;
     }
     
@@ -1808,18 +1810,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     if (selectedBus != null){
                         selectedBusRoutine();
                     }
-                    else{
-                        Node n = Sim.getNodeFromPosition(pressedX,pressedY, size, size_s);
-                        if (n != null){
-                            selectedNode.add(n);
-                        }
-                        if (!selectedNode.isEmpty()){
-                           selectedNodeRoutine();
-                        }
-                        else{
-                           noneSelectedRoutine();
-                        }
-                    }
+
                 }
 
                 else{
@@ -1882,13 +1873,13 @@ public class SimulatHeure extends javax.swing.JFrame {
             display.createLineTemp.setLine(pressedX, pressedY, x, y);
             display.repaint();
         }
-  
+
         if (cursorIsOnObject(x, y)){
             setCursor(handCursor);
         } else{
             setCursor(defaultCursor);
         }
-        
+
     }//GEN-LAST:event_displayMouseMoved
     
     private void ok_dialog_circuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_dialog_circuitActionPerformed
@@ -2019,11 +2010,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_sim_timeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonRecenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRecenterActionPerformed
         // TODO add your handling code here:
         display.resetDisplay();
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonRecenterActionPerformed
 
     private void selectorToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectorToggleButtonActionPerformed
         clearSelection();
@@ -2520,6 +2511,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JButton buttonDeleteSource;
     private javax.swing.JButton buttonEditRoute;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton buttonRecenter;
     private javax.swing.JButton buttonSource;
     private javax.swing.JButton buttonStats;
     private javax.swing.JCheckBox checkBoxStation;
@@ -2530,7 +2522,6 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.ButtonGroup editionButtonGroup;
     private javax.swing.JInternalFrame editionToolbox;
     private javax.swing.JComboBox endComboBox;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
