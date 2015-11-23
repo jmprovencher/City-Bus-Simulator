@@ -1,32 +1,19 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.25)  22 NOV 2015 22:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.1)  23 NOV 2015 00:48
 entering extended mode
-**Rapport*de*developpement.tex
-
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\R
-apport de developpement.tex"
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
-abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
-croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2013-05-26, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
- lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
-german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
-ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
-an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
-ishmax, welsh, loaded.
-
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\U
-Lrapport.cls"
+**"Rapport de developpement.tex"
+("Rapport de developpement.tex"
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 69 languages loaded.
+(ULrapport.cls
 Document Class: ULrapport 2008/03/28 v1.1g Classe de rapport technique - Univer
 site Laval
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
-Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\report.cls"
-Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size12.clo"
-File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@chapter=\count80
@@ -45,7 +32,7 @@ File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
@@ -113,10 +100,10 @@ Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.def"
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
-LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
-Package: babel 2008/07/08 v3.8m The Babel package
+Package: babel 2015/08/03 3.9m The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
@@ -128,7 +115,7 @@ File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
 Language: english 2012/08/20 v3.3p English support from the babel system
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
-File: babel.def 2008/07/08 v3.8m Babel common definitions
+File: babel.def 2015/08/03 3.9m Babel common definitions
 \babel@savecnt=\count91
 \U@D=\dimen111
 )
@@ -138,33 +125,41 @@ File: babel.def 2008/07/08 v3.8m Babel common definitions
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babel-french\frenchb.ldf"
 Language: frenchb 2015/08/19 v3.1h French support from the babel system
-
-
-! Package frenchb.ldf Error: frenchb requires babel v.3.9i.
-(frenchb.ldf)                Aborting here.
-
-See the frenchb.ldf package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.116          {Please upgrade Babel!}
-                                      
-? 
-)) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty"
+\l@acadian = a dialect from \language\l@french 
+\l@canadien = a dialect from \language\l@french 
+\FBcolonskip=\skip43
+\FBthinskip=\skip44
+\FB@interchartokenstateORI=\count92
+Package babel Info: Making : an active character on input line 353.
+Package babel Info: Making ; an active character on input line 354.
+Package babel Info: Making ! an active character on input line 355.
+Package babel Info: Making ? an active character on input line 356.
+\FBguillskip=\skip45
+\FBguill@level=\count93
+\FB@Mht=\dimen112
+\std@mcc=\count94
+\dec@mcc=\count95
+\listindentFB=\skip46
+\labelwidthFB=\skip47
+\leftmarginFB=\skip48
+\parindentFFN=\dimen113
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\carlisle\scalefnt.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty"
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption3.sty"
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
-\captionmargin=\dimen112
-\captionmargin@=\dimen113
-\captionwidth=\dimen114
-\caption@tempdima=\dimen115
-\caption@indent=\dimen116
-\caption@parindent=\dimen117
-\caption@hangindent=\dimen118
+\captionmargin=\dimen114
+\captionmargin@=\dimen115
+\captionwidth=\dimen116
+\caption@tempdima=\dimen117
+\caption@indent=\dimen118
+\caption@parindent=\dimen119
+\caption@hangindent=\dimen120
 )
-\c@ContinuedFloat=\count92
+\c@ContinuedFloat=\count96
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\textcomp.sty"
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
@@ -179,81 +174,82 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             only a restricted character set as indicated.
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
-Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1enc.def"
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 )
-LaTeX Info: Redefining \oldstylenums on input line 266.
-Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
-Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
-Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
-Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
-Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
-Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
-Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
-Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
-Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
-Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
-Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
-Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
-Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
-Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
-Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
-Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
-Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
-Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
-Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
-Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
-Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
-Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
-Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
-Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
 
-Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
-Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
-Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
-Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
-Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
-Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
-Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
-Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
-Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
-Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
-Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
-Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
-Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
-Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
-Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
-Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
-Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
-Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
-Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
-Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
-Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
-Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
-Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
-Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
-Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
-Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
-Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
-Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
-Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
-Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
-Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
-Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
-Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
-Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
-Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
-Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\array.sty"
-Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen119
-\extrarowheight=\dimen120
+Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen121
+\extrarowheight=\dimen122
 \NC@list=\toks16
-\extratabsurround=\skip43
-\backup@length=\skip44
+\extratabsurround=\skip49
+\backup@length=\skip50
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01
@@ -261,28 +257,28 @@ Package: amstext 2000/06/29 v2.01
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks17
-\ex@=\dimen121
+\ex@=\dimen123
 ))
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
-Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
-\TX@col@width=\dimen122
-\TX@old@table=\dimen123
-\TX@old@col=\dimen124
-\TX@target=\dimen125
-\TX@delta=\dimen126
-\TX@cols=\count93
+Package: tabularx 2014/10/28 v2.10 `tabularx' package (DPC)
+\TX@col@width=\dimen124
+\TX@old@table=\dimen125
+\TX@old@col=\dimen126
+\TX@target=\dimen127
+\TX@delta=\dimen128
+\TX@cols=\count97
 \TX@ftn=\toks18
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\colortbl\colortbl.sty"
 Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 130.
+Package color Info: Driver file: pdftex.def on input line 142.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
@@ -293,34 +289,34 @@ Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count94
+\Gread@gobject=\count98
 ))
 \everycr=\toks19
-\minrowclearance=\skip45
+\minrowclearance=\skip51
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\longtable.sty"
-Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip46
-\LTright=\skip47
-\LTpre=\skip48
-\LTpost=\skip49
-\LTchunksize=\count95
-\LTcapwidth=\dimen127
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip52
+\LTright=\skip53
+\LTpre=\skip54
+\LTpost=\skip55
+\LTchunksize=\count99
+\LTcapwidth=\dimen129
 \LT@head=\box26
 \LT@firsthead=\box27
 \LT@foot=\box28
 \LT@lastfoot=\box29
-\LT@cols=\count96
-\LT@rows=\count97
-\c@LT@tables=\count98
-\c@LT@chunks=\count99
+\LT@cols=\count100
+\LT@rows=\count101
+\c@LT@tables=\count102
+\c@LT@chunks=\count103
 \LT@p@ftn=\toks20
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
@@ -328,16 +324,16 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 94.
 )
-\Gin@req@height=\dimen128
-\Gin@req@width=\dimen129
+\Gin@req@height=\dimen130
+\Gin@req@width=\dimen131
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\rotating\rotating.sty"
 Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
-\c@r@tfl@t=\count100
-\rotFPtop=\skip50
-\rotFPbot=\skip51
+\c@r@tfl@t=\count104
+\rotFPtop=\skip56
+\rotFPbot=\skip57
 \rot@float@box=\box30
 \rot@mess@toks=\toks21
 )
@@ -397,14 +393,14 @@ Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
-\@linkdim=\dimen130
-\Hy@linkcounter=\count101
-\Hy@pagecounter=\count102
+\@linkdim=\dimen132
+\Hy@linkcounter=\count105
+\Hy@pagecounter=\count106
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count103
+\Hy@SavedSpaceFactor=\count107
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
@@ -416,12 +412,12 @@ Package hyperref Info: Plain pages OFF on input line 4458.
 Package hyperref Info: Backreferencing OFF on input line 4463.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
-\c@Hy@tempcnt=\count104
+\c@Hy@tempcnt=\count108
 LaTeX Info: Redefining \url on input line 5041.
-\XeTeXLinkMargin=\dimen131
-\Fld@menulength=\count105
-\Field@Width=\dimen132
-\Fld@charsize=\dimen133
+\XeTeXLinkMargin=\dimen133
+\Fld@menulength=\count109
+\Field@Width=\dimen134
+\Fld@charsize=\dimen135
 Package hyperref Info: Hyper figures OFF on input line 6295.
 Package hyperref Info: Link nesting OFF on input line 6300.
 Package hyperref Info: Hyper index ON on input line 6303.
@@ -431,40 +427,40 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6320.
 Package hyperref Info: PDF/A mode OFF on input line 6325.
 LaTeX Info: Redefining \ref on input line 6365.
 LaTeX Info: Redefining \pageref on input line 6369.
-\Hy@abspage=\count106
-\c@Item=\count107
-\c@Hfootnote=\count108
+\Hy@abspage=\count110
+\c@Item=\count111
+\c@Hfootnote=\count112
 )
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
-\Fld@listcount=\count109
-\c@bookmark@seq@number=\count110
+\Fld@listcount=\count113
+\c@bookmark@seq@number=\count114
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip52
+\Hy@SectionHShift=\skip58
 )
 Package hyperref Info: Option `plainpages' set `false' on input line 67.
 Package hyperref Info: Option `breaklinks' set `false' on input line 67.
 Package hyperref Info: Option `colorlinks' set `true' on input line 67.
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
-Package: inputenc 2008/03/30 v1.1d Input encoding file
+Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks22
 \inpenc@posthook=\toks23
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ansinew.def"
-File: ansinew.def 2008/03/30 v1.1d Input encoding file
+File: ansinew.def 2015/03/17 v1.2c Input encoding file
 ))
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count111
+\c@float@type=\count115
 \float@exts=\toks24
 \float@box=\box31
 \@float@everytoks=\toks25
@@ -473,47 +469,47 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@table=\toks26
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\hhline.sty"
-Package: hhline 1994/05/23 v2.03 Table rule package (DPC)
+Package: hhline 2014/10/28 v2.03 Table rule package (DPC)
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
-Package: pdfpages 2013/08/25 v0.4v Insert pages of external PDF documents (AM)
+Package: pdfpages 2015/08/16 v0.5c Insert pages of external PDF documents (AM)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\calc.sty"
-Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count112
-\calc@Bcount=\count113
-\calc@Adimen=\dimen134
-\calc@Bdimen=\dimen135
-\calc@Askip=\skip53
-\calc@Bskip=\skip54
-LaTeX Info: Redefining \setlength on input line 76.
-LaTeX Info: Redefining \addtolength on input line 77.
-\calc@Ccount=\count114
-\calc@Cskip=\skip55
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count116
+\calc@Bcount=\count117
+\calc@Adimen=\dimen136
+\calc@Bdimen=\dimen137
+\calc@Askip=\skip59
+\calc@Bskip=\skip60
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count118
+\calc@Cskip=\skip61
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
-Package: eso-pic 2013/10/06 v2.0d eso-pic (RN)
+Package: eso-pic 2015/07/21 v2.0g eso-pic (RN)
 )
+\AM@pagewidth=\dimen138
+\AM@pageheight=\dimen139
+
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
-File: pppdftex.def 2013/08/25 v0.4v Pdfpages driver for pdfTeX (AM)
+File: pppdftex.def 2015/08/16 v0.5c Pdfpages driver for pdfTeX (AM)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty"
+Package: pdflscape 2008/08/11 v0.10 Display of landscape pages in PDF (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\lscape.sty"
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 80.
 )
 \AM@pagebox=\box33
 \AM@toc@title=\toks27
-\c@AM@survey=\count115
+\c@AM@survey=\count119
 \AM@templatesizebox=\box34
 )
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\R
-apport de developpement.aux"
-
-! Package babel Error: You haven't loaded the option french yet.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.23 \select@language{french}
-                             
-? 
+("Rapport de developpement.aux"
 
 LaTeX Warning: Label `f:dss_addLine' multiply defined.
 
@@ -533,7 +529,7 @@ LaTeX Font Info:    ... okay on input line 37.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 37.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
-File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 37.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
@@ -579,10 +575,17 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+LaTeX Info: Redefining \degres on input line 37.
+LaTeX Info: Redefining \dots on input line 37.
+LaTeX Info: Redefining \up on input line 37.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\hhline.sty"
+Package: hhline 2014/10/28 v2.03 Table rule package (DPC)
+)
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
+
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\ltcaption.sty"
 Package: ltcaption 2013/02/03 v1.3-62 longtable captions (AR)
 )
@@ -591,16 +594,16 @@ Package caption Info: End \AtBeginDocument code.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count116
-\scratchdimen=\dimen136
+\scratchcounter=\count120
+\scratchdimen=\dimen140
 \scratchbox=\box35
-\nofMPsegments=\count117
-\nofMParguments=\count118
+\nofMPsegments=\count121
+\nofMParguments=\count122
 \everyMPshowfont=\toks28
-\MPscratchCnt=\count119
-\MPscratchDim=\dimen137
-\MPnumerator=\count120
-\makeMPintoPDFobject=\count121
+\MPscratchCnt=\count123
+\MPscratchDim=\dimen141
+\MPnumerator=\count124
+\makeMPintoPDFobject=\count125
 \everyMPtoPDFconversion=\toks29
 )
 \AtBeginShipoutBox=\box36
@@ -611,28 +614,15 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count122
+\c@section@level=\count126
 )
 LaTeX Info: Redefining \ref on input line 37.
 LaTeX Info: Redefining \pageref on input line 37.
 LaTeX Info: Redefining \nameref on input line 37.
 
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\R
-apport de developpement.out")
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\R
-apport de developpement.out")
+("Rapport de developpement.out") ("Rapport de developpement.out")
 \@outlinefile=\write3
 
-
-! Package babel Error: You haven't loaded the option french yet.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.37 \begin{document}
-                     
-? 
 <./pdf/UL_P.pdf, id=207, 546.54187pt x 229.49742pt>
 File: ./pdf/UL_P.pdf Graphic file (type pdf)
  <use ./pdf/UL_P.pdf>
@@ -668,36 +658,19 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 37.
  [999
 
-{C:/Users/Rémi/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/R�
-�mi/Google Drive/Génie logiciel orienté objet/glo-2004/Rapport/pdf/UL_P.pdf>]
-
+{C:/Users/Sam/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./pdf/UL_P.pd
+f>]
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmss.fd") [0
 
 ]
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\R
-apport de developpement.toc"
-
-! Package babel Error: You haven't loaded the option french yet.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.2 \select@language {french}
-                             
-? 
-[1
+("Rapport de developpement.toc" [1
 
 
 ])
 \tf@toc=\write4
- [2]
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/design.tex"
-Chapter 1.
-
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/Jim/classDiagram.tex"
+ [2] (tex/design.tex
+Chapitre 1.
+(tex/Jim/classDiagram.tex
 <fig/classDiagram.jpg, id=284, 1789.68625pt x 1525.7pt>
 File: fig/classDiagram.jpg Graphic file (type jpg)
 
@@ -711,56 +684,47 @@ Package pdftex.def Info: fig/classDiagram.jpg used on input line 4.
 Overfull \vbox (30.41597pt too high) has occurred while \output is active []
 
 
-[2 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rapport
-/fig/classDiagram.jpg>]
+[2 <./fig/classDiagram.jpg>]
 <fig/packageDiagram.jpg, id=296, 340.27126pt x 588.1975pt>
 File: fig/packageDiagram.jpg Graphic file (type jpg)
 
 <use fig/packageDiagram.jpg>
 Package pdftex.def Info: fig/packageDiagram.jpg used on input line 13.
 (pdftex.def)             Requested size: 88.46843pt x 152.92773pt.
-)
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/sam/gui.tex" [3 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/
-glo-2004/Rapport/fig/packageDiagram.jpg>]
-<fig/gui/ajoutNoeud.png, id=303, 1691.31876pt x 1000.73875pt>
+) (tex/sam/gui.tex [3 <./fig/packageDiagram.jpg>]
+<fig/gui/ajoutNoeud.png, id=303, 1686.3pt x 1052.93375pt>
 File: fig/gui/ajoutNoeud.png Graphic file (type png)
 
 <use fig/gui/ajoutNoeud.png>
 Package pdftex.def Info: fig/gui/ajoutNoeud.png used on input line 8.
-(pdftex.def)             Requested size: 422.82866pt x 250.18408pt.
+(pdftex.def)             Requested size: 421.57397pt x 263.23279pt.
 
-<fig/gui/ajoutCircuit.png, id=305, 1691.31876pt x 1000.73875pt>
+<fig/gui/ajoutCircuit.png, id=305, 1686.3pt x 1052.93375pt>
 File: fig/gui/ajoutCircuit.png Graphic file (type png)
 
 <use fig/gui/ajoutCircuit.png>
 Package pdftex.def Info: fig/gui/ajoutCircuit.png used on input line 17.
-(pdftex.def)             Requested size: 422.82866pt x 250.18408pt.
- [4 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappor
-t/fig/gui/ajoutNoeud.png>]
-<fig/gui/simulation.png, id=312, 1691.31876pt x 1000.73875pt>
+(pdftex.def)             Requested size: 421.57397pt x 263.23279pt.
+ [4 <./fig/gui/ajoutNoeud.png>]
+<fig/gui/simulation.png, id=312, 1686.3pt x 1052.93375pt>
 File: fig/gui/simulation.png Graphic file (type png)
 
 <use fig/gui/simulation.png>
 Package pdftex.def Info: fig/gui/simulation.png used on input line 26.
-(pdftex.def)             Requested size: 422.82866pt x 250.18408pt.
- [5 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappor
-t/fig/gui/ajoutCircuit.png>]
-<fig/gui/simulationZoomedOut.png, id=321, 1691.31876pt x 1000.73875pt>
+(pdftex.def)             Requested size: 421.57397pt x 263.23279pt.
+ [5 <./fig/gui/ajoutCircuit.png>]
+<fig/gui/simulationZoomedOut.png, id=321, 1686.3pt x 1052.93375pt>
 File: fig/gui/simulationZoomedOut.png Graphic file (type png)
 
 <use fig/gui/simulationZoomedOut.png>
 Package pdftex.def Info: fig/gui/simulationZoomedOut.png used on input line 35.
 
-(pdftex.def)             Requested size: 422.82866pt x 250.18408pt.
- [6 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappor
-t/fig/gui/simulation.png>] [7 <C:/Users/Rémi/Google Drive/Génie logiciel orie
-nté objet/glo-2004/Rapport/fig/gui/simulationZoomedOut.png>])
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/Remi/DSS.tex" <fig/DSS/AddNode.jpg, id=334, 957.5775pt x 586.19pt>
+(pdftex.def)             Requested size: 421.57397pt x 263.23279pt.
+ [6 <./fig/gui/simulation.png>] [7 <./fig/gui/simulationZoomedOut.png>]) (tex/R
+emi/DSS.tex
+<fig/DSS/AddNode.jpg, id=334, 957.5775pt x 586.19pt>
 File: fig/DSS/AddNode.jpg Graphic file (type jpg)
-
-<use fig/DSS/AddNode.jpg>
+ <use fig/DSS/AddNode.jpg>
 Package pdftex.def Info: fig/DSS/AddNode.jpg used on input line 9.
 (pdftex.def)             Requested size: 478.78758pt x 293.09428pt.
 
@@ -768,31 +732,28 @@ Overfull \hbox (6.75635pt too wide) in paragraph at lines 9--11
  [][] 
  []
 
-[8 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rapport
-/fig/DSS/AddNode.jpg>] <fig/DSS/AddLine.jpg, id=340, 538.01pt x 468.75125pt>
+[8 <./fig/DSS/AddNode.jpg>]
+<fig/DSS/AddLine.jpg, id=340, 538.01pt x 468.75125pt>
 File: fig/DSS/AddLine.jpg Graphic file (type jpg)
 
 <use fig/DSS/AddLine.jpg>
 Package pdftex.def Info: fig/DSS/AddLine.jpg used on input line 25.
 (pdftex.def)             Requested size: 430.40858pt x 375.0015pt.
- [9 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappor
-t/fig/DSS/AddLine.jpg>]
+ [9 <./fig/DSS/AddLine.jpg>]
 <fig/DSS/Simulation.jpg, id=347, 1004.75375pt x 859.21pt>
 File: fig/DSS/Simulation.jpg Graphic file (type jpg)
 
 <use fig/DSS/Simulation.jpg>
 Package pdftex.def Info: fig/DSS/Simulation.jpg used on input line 40.
 (pdftex.def)             Requested size: 301.42845pt x 257.76498pt.
- [10 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappo
-rt/fig/DSS/Simulation.jpg>]
+ [10 <./fig/DSS/Simulation.jpg>]
 <fig/DSS/triangular.jpg, id=353, 780.9175pt x 499.8675pt>
 File: fig/DSS/triangular.jpg Graphic file (type jpg)
 
 <use fig/DSS/triangular.jpg>
 Package pdftex.def Info: fig/DSS/triangular.jpg used on input line 55.
 (pdftex.def)             Requested size: 468.55411pt x 299.9228pt.
- [11 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappo
-rt/fig/DSS/triangular.jpg>]
+ [11 <./fig/DSS/triangular.jpg>]
 <fig/DSS/positionBus.jpg, id=359, 1186.4325pt x 643.40375pt>
 File: fig/DSS/positionBus.jpg Graphic file (type jpg)
 
@@ -804,17 +765,8 @@ Overfull \hbox (2.53336pt too wide) in paragraph at lines 70--72
  [][] 
  []
 
-))
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/logique.tex"
-Overfull \hbox (9.45241pt too wide) in paragraph at lines 80--2
-[]\T1/lmr/m/n/12 Les fonc-tions se-lect-Bus, se chargeant du change-ment de cou
-leur de l'autobus dans l'interface,
- []
-
-[12 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappor
-t/fig/DSS/positionBus.jpg>]
-Chapter 2.
+)) (tex/logique.tex [12 <./fig/DSS/positionBus.jpg>]
+Chapitre 2.
 File: fig/packageDiagram.jpg Graphic file (type jpg)
 <use fig/packageDiagram.jpg>
 Package pdftex.def Info: fig/packageDiagram.jpg used on input line 8.
@@ -822,88 +774,57 @@ Package pdftex.def Info: fig/packageDiagram.jpg used on input line 8.
  [13
 
 ]
-Overfull \hbox (8.73283pt too wide) in paragraph at lines 16--17
-[]\T1/lmr/m/n/12 La li-brairie SimDis-play, in-cor-por�e dans le mod-ule Sim-u-
-latHeure, prend en charge l'affichage
- []
-
 <fig/StateDiagram.jpg, id=370, 617.30624pt x 214.8025pt>
 File: fig/StateDiagram.jpg Graphic file (type jpg)
 
 <use fig/StateDiagram.jpg>
 Package pdftex.def Info: fig/StateDiagram.jpg used on input line 23.
 (pdftex.def)             Requested size: 370.3866pt x 128.88249pt.
- [14 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappo
-rt/fig/StateDiagram.jpg>]
+ [14 <./fig/StateDiagram.jpg>]
 <fig/activityDiagram.jpg, id=376, 798.985pt x 782.925pt>
 File: fig/activityDiagram.jpg Graphic file (type jpg)
 
 <use fig/activityDiagram.jpg>
 Package pdftex.def Info: fig/activityDiagram.jpg used on input line 36.
 (pdftex.def)             Requested size: 399.49152pt x 391.46155pt.
-) [15 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rapp
-ort/fig/activityDiagram.jpg>]
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/Remi/Vision.tex" [16]
-Chapter 3.
-
-Underfull \hbox (badness 1762) in paragraph at lines 23--23
-[]|\T1/lmr/m/n/12 Cr�ation d'un mod-�le de
- []
-
+) [15 <./fig/activityDiagram.jpg>]
+(tex/Remi/Vision.tex [16]
+Chapitre 3.
 
 Underfull \hbox (badness 10000) in paragraph at lines 23--23
-[]|\T1/lmr/m/n/12 Difficult�, com-plex-it� et
+[]|\T1/lmr/m/n/12 Difficult�, com-plexit� et
  []
 
 
 Underfull \hbox (badness 1946) in paragraph at lines 23--23
-\T1/lmr/m/n/12 d'un r�seau de trans-port
+\T1/lmr/m/n/12 d'un r�-seau de trans-port
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/lmr/m/n/12 vari-ables le mod-�le du
- []
-
-
-Underfull \hbox (badness 2922) in paragraph at lines 24--24
-\T1/lmr/m/n/12 qui seront b�n�-fiques au
- []
-
-
-Underfull \hbox (badness 3128) in paragraph at lines 25--25
-\T1/lmr/m/n/12 (temps de tran-sit, nom-
+Underfull \hbox (badness 6300) in paragraph at lines 25--25
+\T1/lmr/m/n/12 de v�-hi-cules en cir-cu-la-
  []
 
 
 Underfull \hbox (badness 2368) in paragraph at lines 25--25
-\T1/lmr/m/n/12 rapi-de-ment les dif-f�rentes
+\T1/lmr/m/n/12 ra-pi-de-ment les dif-f�-rentes
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 25--25
-\T1/lmr/m/n/12 con-fig-u-ra-tions pos-si-bles
+\T1/lmr/m/n/12 confi-gu-ra-tions pos-sibles
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 26--26
-[]|\T1/lmr/m/n/12 Rendre ac-ces-si-ble �
+Underfull \hbox (badness 4416) in paragraph at lines 26--26
+\T1/lmr/m/n/12 porte quel uti-li-sa-teur la
  []
 
 [17
 
-]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 36.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ts1lmr.fd"
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-))
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/besoins.tex" [18]
-Chapter 4.
-
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/Charlo/UseCase.tex" <fig/useCaseDiagram.png, id=399, 1027.84pt x 770.88pt>
+]) (tex/besoins.tex [18]
+Chapitre 4.
+(tex/Charlo/UseCase.tex <fig/useCaseDiagram.png, id=398, 1027.84pt x 770.88pt>
 File: fig/useCaseDiagram.png Graphic file (type png)
 
 <use fig/useCaseDiagram.png>
@@ -911,54 +832,44 @@ Package pdftex.def Info: fig/useCaseDiagram.png used on input line 6.
 (pdftex.def)             Requested size: 411.12872pt x 308.34654pt.
  [19
 
-] [20 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rapp
-ort/fig/useCaseDiagram.png>]
+] [20 <./fig/useCaseDiagram.png>]
 <fig/creationSimulation.jpg, id=411, 390.45876pt x 599.23875pt>
 File: fig/creationSimulation.jpg Graphic file (type jpg)
 
 <use fig/creationSimulation.jpg>
 Package pdftex.def Info: fig/creationSimulation.jpg used on input line 64.
 (pdftex.def)             Requested size: 312.36742pt x 479.39165pt.
- [21] [22 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/
-Rapport/fig/creationSimulation.jpg>]
-<fig/chargeSimulation.jpg, id=436, 394.47375pt x 236.885pt>
+ [21] [22 <./fig/creationSimulation.jpg>]
+<fig/chargeSimulation.jpg, id=435, 394.47375pt x 236.885pt>
 File: fig/chargeSimulation.jpg Graphic file (type jpg)
 
 <use fig/chargeSimulation.jpg>
 Package pdftex.def Info: fig/chargeSimulation.jpg used on input line 91.
 (pdftex.def)             Requested size: 315.57942pt x 189.50824pt.
- [23 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappo
-rt/fig/chargeSimulation.jpg>]
-<fig/roulSimul.jpg, id=446, 395.4775pt x 344.28625pt>
+ [23 <./fig/chargeSimulation.jpg>]
+<fig/roulSimul.jpg, id=448, 395.4775pt x 344.28625pt>
 File: fig/roulSimul.jpg Graphic file (type jpg)
  <use fig/roulSimul.jpg>
 Package pdftex.def Info: fig/roulSimul.jpg used on input line 133.
 (pdftex.def)             Requested size: 316.38243pt x 275.42937pt.
 
-[24] <fig/suppElem.jpg, id=462, 395.4775pt x 205.76875pt>
+[24 <./fig/roulSimul.jpg>]
+<fig/suppElem.jpg, id=462, 395.4775pt x 205.76875pt>
 File: fig/suppElem.jpg Graphic file (type jpg)
-
-<use fig/suppElem.jpg>
+ <use fig/suppElem.jpg>
 Package pdftex.def Info: fig/suppElem.jpg used on input line 155.
 (pdftex.def)             Requested size: 316.38243pt x 164.6152pt.
- [25 <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rappo
-rt/fig/roulSimul.jpg>]
-<fig/creaElem.jpg, id=472, 395.4775pt x 205.76875pt>
+
+<fig/creaElem.jpg, id=463, 395.4775pt x 205.76875pt>
 File: fig/creaElem.jpg Graphic file (type jpg)
  <use fig/creaElem.jpg>
 Package pdftex.def Info: fig/creaElem.jpg used on input line 177.
 (pdftex.def)             Requested size: 316.38243pt x 164.6152pt.
 )
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/Sam/besoins.tex" [26 <C:/Users/Rémi/Google Drive/Génie logiciel orienté o
-bjet/glo-2004/Rapport/fig/suppElem.jpg> <C:/Users/Rémi/Google Drive/Génie log
-iciel orienté objet/glo-2004/Rapport/fig/creaElem.jpg>])
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/Jim/glossaire.tex" [27]))
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\t
-ex/Jim/domainModel.tex" [28]
-Chapter 5.
-<fig/domainModel.pdf, id=494, 845.1575pt x 597.23125pt>
+(tex/Sam/besoins.tex [25 <./fig/suppElem.jpg>] [26 <./fig/creaElem.jpg>])
+(tex/Jim/glossaire.tex)) (tex/Jim/domainModel.tex [27]
+Chapitre 5.
+<fig/domainModel.pdf, id=489, 845.1575pt x 597.23125pt>
 File: fig/domainModel.pdf Graphic file (type pdf)
 
 <use fig/domainModel.pdf>
@@ -966,30 +877,16 @@ Package pdftex.def Info: fig/domainModel.pdf used on input line 10.
 (pdftex.def)             Requested size: 422.57771pt x 298.61488pt.
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 50.
- [29
+ [28
 
- <C:/Users/Rémi/Google Drive/Génie logiciel orienté objet/glo-2004/Rapport/f
-ig/domainModel.pdf, page is rotated 90 degrees>]
+ <./fig/domainModel.pdf, page is rotated 90 degrees>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 50.
-
-("C:\Users\Rémi\Google Drive\Génie logiciel orienté objet\glo-2004\Rapport\R
-apport de developpement.aux"
-
-! Package babel Error: You haven't loaded the option french yet.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.23 \select@language{french}
-                             
-? 
-)
+ ("Rapport de developpement.aux")
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 50.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 50.
-Package rerunfilecheck Info: File `Rapport*de*developpement.out' has not change
-d.
-(rerunfilecheck)             Checksum: <no file>.
+Package rerunfilecheck Info: File `"Rapport de developpement".out' has not chan
+ged.
+(rerunfilecheck)             Checksum: 6EBF44D96CD83C1105956C7656187F77;3904.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -997,23 +894,23 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 50.
  ) 
 Here is how much of TeX's memory you used:
- 9098 strings out of 493921
- 143021 string characters out of 3144876
- 221782 words of memory out of 3000000
- 12021 multiletter control sequences out of 15000+200000
- 52993 words of font info for 39 fonts, out of 3000000 for 9000
- 841 hyphenation exceptions out of 8191
- 43i,11n,40p,2333b,453s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files (x86)/MiK
-TeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
-ts/type1/public/lm/lmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/p
-ublic/lm/lmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr
-i12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmro12.pfb><C:
-/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb>
-Output written on "Rapport de developpement.pdf" (33 pages, 2186506 bytes).
+ 9837 strings out of 493673
+ 151062 string characters out of 3141537
+ 243147 words of memory out of 3000000
+ 12813 multiletter control sequences out of 15000+200000
+ 52618 words of font info for 38 fonts, out of 3000000 for 9000
+ 1025 hyphenation exceptions out of 8191
+ 43i,11n,40p,2335b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files (x86)/
+MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9
+/fonts/type1/public/lm/lmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
+/public/lm/lmri12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/
+lmro12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb>
+
+Output written on "Rapport de developpement.pdf" (32 pages, 1996928 bytes).
 PDF statistics:
- 559 PDF objects out of 1000 (max. 8388607)
- 148 named destinations out of 1000 (max. 500000)
+ 552 PDF objects out of 1000 (max. 8388607)
+ 147 named destinations out of 1000 (max. 500000)
  514 words of extra memory for PDF output out of 10000 (max. 10000000)
 
