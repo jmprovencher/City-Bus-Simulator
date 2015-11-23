@@ -43,8 +43,7 @@ Le diagramme suivant montre la séquence du processus de démarrage d'une simulati
 	\label{f:dss_addLine}
 \end{figure}
 
-
-
+La fonction simulateTick() est utilisée comme un incrément de simulation. Dans le diagramme, la fonction est seulement appellée une seule fois puisque cela correspond au premier cycle de la simulation quand elle est démarrée. Durant cette ittération de simulation, les autobus et les passagers qui sont programmés pour apparaître au temps de départ font leur entrée. De plus, les prochains temps de création de bus et de passagers sont calculés à l'aide de la fonction triangular(). Ce n'est que dans les appelles suivant de simulateTick() dans une boucle correspondant au temps demandé de simulation que les bus vont commencer à se déplacer et où les passagers vont embarquer/débarquer des autobus.
 
 \newpage
 
@@ -58,6 +57,8 @@ Le diagramme suivant montre comment la fonction triangular() est utilisé afin de
 	\caption{Diagramme de séquence: distribution triangulaire de l'assignation de la vitesse à un segment}
 	\label{f:dss_triangular}
 \end{figure}
+
+La fonction triangular prend la vitesse minimum, typique et maximum configurée pour le segment et calcul alors une valeur aléatoire à partir de la distribution triangulaire afin de déterminer la vitesse des autobus sur le segment lors de la simulation.
 
 \newpage
 

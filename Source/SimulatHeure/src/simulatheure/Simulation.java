@@ -24,7 +24,6 @@ public class Simulation implements java.io.Serializable{
     }
 
     public void simulateTick(){
-        // get passenger in BUS
  
         for (Route r: listRoutes){
             Bus busDone = null;
@@ -49,8 +48,6 @@ public class Simulation implements java.io.Serializable{
                         passengerIn(newBus);
                     }
                     s.timeNextStart += (int) triangular(minimumTime, maximumTime, typicalTime);
-                    
-
                 }
             }
         }
@@ -141,7 +138,6 @@ public class Simulation implements java.io.Serializable{
     public Boolean moveBus(Bus b){
         
         // Bus has reached its destination woohoo
-
         if (b.getLastNodeIndex()+1 == b.getRoute().getNumberOfNodes() ){
                 if (b.getRoute().isLoop){
                     b.getRoute().loopDone = true;
