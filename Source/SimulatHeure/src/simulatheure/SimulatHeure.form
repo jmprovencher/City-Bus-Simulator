@@ -29,132 +29,161 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="spin_num" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="maxBus" min="-2" pref="48" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                          <Component id="checkLoop" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
+              <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="ok_dialog_circuit" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="spin_t" min="-2" pref="51" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jScrollPane4" pref="137" max="32767" attributes="0"/>
+                                      <Component id="buttonSource" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="comboSource" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="spinFreqMax" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="buttonApplySource" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="spinFreqMin" max="32767" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                                      <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="spinFreqMax" min="-2" pref="51" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="spinFreqType" min="-2" pref="51" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="spinFreqType" min="-2" pref="51" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel22" min="-2" pref="51" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="comboSource" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <Component id="spin_t" alignment="1" min="-2" pref="51" max="-2" attributes="0"/>
+                                              <Component id="spinFreqMin" alignment="1" min="-2" pref="51" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel5" alignment="0" min="-2" pref="62" max="-2" attributes="0"/>
+                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="buttonDeleteSource" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonSource" min="-2" pref="137" max="-2" attributes="0"/>
-                              <Component id="buttonDeleteSource" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="52" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="maxBus" min="-2" pref="51" max="-2" attributes="0"/>
+                                      <Component id="checkLoop" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="spin_num" min="-2" pref="51" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
+                                  <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonApplySource" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton1" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="ok_dialog_circuit" min="-2" pref="103" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="spin_num" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="maxBus" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkLoop" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSeparator3" min="-2" pref="8" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="maxBus" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="checkLoop" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="comboSource" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="comboSource" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="spin_t" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="spinFreqMin" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="spinFreqType" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="spinFreqMax" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="spinFreqMin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                              <Component id="spinFreqMax" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                              <Component id="spinFreqType" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonSource" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonApplySource" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonDeleteSource" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonDeleteSource" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="ok_dialog_circuit" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="jSeparator4" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="buttonApplySource" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ok_dialog_circuit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -163,6 +192,7 @@
         <Component class="javax.swing.JButton" name="ok_dialog_circuit">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ok"/>
+            <Property name="toolTipText" type="java.lang.String" value="Appliquer et quitter."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ok_dialog_circuitActionPerformed"/>
@@ -171,16 +201,19 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Num&#xe9;ro"/>
+            <Property name="toolTipText" type="java.lang.String" value="Num&#xe9;ro d&apos;identification du bus"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Fr&#xe9;quence"/>
+            <Property name="text" type="java.lang.String" value="Fr&#xe9;quence min"/>
+            <Property name="toolTipText" type="java.lang.String" value="Temps minimal entre chaque d&#xe9;part"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Temps avant premier d&#xe9;part"/>
+            <Property name="text" type="java.lang.String" value="D&#xe9;lai initial"/>
+            <Property name="toolTipText" type="java.lang.String" value="D&#xe9;lai avant le premier d&#xe9;part de bus"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spin_num">
@@ -188,6 +221,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="1" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Num&#xe9;ro d&apos;identification du bus"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spinFreqType">
@@ -195,6 +229,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="15" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Temps typique entre chaque d&#xe9;part"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spin_t">
@@ -202,6 +237,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="0" maximum="999" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="D&#xe9;lai avant le premier d&#xe9;part de bus"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="maxBus">
@@ -209,11 +245,13 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="25" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Nombre maximal de bus pouvant se trouver sur le circuit &#xe0; un moment donn&#xe9;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre max de bus"/>
+            <Property name="toolTipText" type="java.lang.String" value="Nombre maximal de bus pouvant se trouver sur le circuit &#xe0; un moment donn&#xe9;"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane4">
@@ -228,6 +266,7 @@
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                   <StringArray count="0"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Liste des d&#xe9;parts du circuit"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listSourcesMouseClicked"/>
@@ -239,6 +278,7 @@
         <Component class="javax.swing.JButton" name="buttonSource">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajouter source"/>
+            <Property name="toolTipText" type="java.lang.String" value="Ajouter une nouvelle source de d&#xe9;part"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSourceActionPerformed"/>
@@ -254,6 +294,7 @@
                 <StringItem index="3" value="Item 4"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Station de d&#xe9;part des bus"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboSourceActionPerformed"/>
@@ -261,7 +302,8 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonApplySource">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Appliquer modification"/>
+            <Property name="text" type="java.lang.String" value="Appliquer"/>
+            <Property name="toolTipText" type="java.lang.String" value="Appliquer les changements sur la source selectionn&#xe9;e"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonApplySourceActionPerformed"/>
@@ -270,6 +312,7 @@
         <Component class="javax.swing.JButton" name="buttonDeleteSource">
           <Properties>
             <Property name="text" type="java.lang.String" value="Supprimer Source"/>
+            <Property name="toolTipText" type="java.lang.String" value="Supprimer la source selectionn&#xe9;e"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteSourceActionPerformed"/>
@@ -279,7 +322,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="checkLoop">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Boucle?"/>
+            <Property name="toolTipText" type="java.lang.String" value="Si coch&#xe9;, les buses continueront leur trajet &#xe0; l&apos;infini."/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -291,6 +334,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="15" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Temps maximal entre chaque d&#xe9;part"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spinFreqMin">
@@ -298,22 +342,48 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="15" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Min"/>
+            <Property name="toolTipText" type="java.lang.String" value="Temps minimal entre chaque d&#xe9;part"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel19">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Max"/>
+            <Property name="text" type="java.lang.String" value="Fr&#xe9;quence Max"/>
+            <Property name="toolTipText" type="java.lang.String" value="Temps maximal entre chaque d&#xe9;part"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel20">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Typique"/>
+            <Property name="text" type="java.lang.String" value="Fr&#xe9;quence Typique"/>
+            <Property name="toolTipText" type="java.lang.String" value="Temps typique entre chaque d&#xe9;part"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel22">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Source"/>
+            <Property name="toolTipText" type="java.lang.String" value="Station de d&#xe9;part des bus"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Roule en boucle"/>
+            <Property name="toolTipText" type="java.lang.String" value="Si coch&#xe9;, les buses continueront leur trajet &#xe0; l&apos;infini."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel23">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#xc9;dition de circuit"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Annuler"/>
+            <Property name="toolTipText" type="java.lang.String" value="Annule les changements apport&#xe9;s"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator4">
         </Component>
       </SubComponents>
     </Container>
@@ -357,30 +427,25 @@
                   <Component id="jScrollPane2" min="-2" pref="195" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                  <Component id="addSubRouteButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                  <Component id="okDirections" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="spinFirstStart" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                                          <Component id="spinFreqPassenger" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                      <Component id="addSubRouteButton" min="-2" pref="90" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="spinFirstStart" min="-2" max="-2" attributes="0"/>
+                                      <Component id="okDirections" min="-2" pref="90" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="spinFreqPassenger" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -442,6 +507,7 @@
         <Component class="javax.swing.JButton" name="okDirections">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ok"/>
+            <Property name="toolTipText" type="java.lang.String" value="Terminer et quitter"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -461,6 +527,7 @@
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Circuits disponibles"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -480,6 +547,7 @@
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Station g&#xe9;n&#xe9;ratrice de besoins"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -499,6 +567,7 @@
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Station de fin du besoin actuel"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -508,6 +577,7 @@
         <Component class="javax.swing.JButton" name="addSubRouteButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add"/>
+            <Property name="toolTipText" type="java.lang.String" value="Ajouter &#xe0; la liste des besoins"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -527,13 +597,15 @@
                   <StringArray count="0"/>
                 </Property>
                 <Property name="selectionMode" type="int" value="0"/>
+                <Property name="toolTipText" type="java.lang.String" value="Liste des besoins en transport &#xe0; ajouter"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Station de transit"/>
+            <Property name="text" type="java.lang.String" value="Station de transit/d&apos;arriv&#xe9;"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
@@ -551,6 +623,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="0" maximum="999" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="D&#xe9;lai avant premier besoin"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
@@ -563,6 +636,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="1" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Temps entre chaque nouveau besoins"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
@@ -984,10 +1058,12 @@
     <Component class="javax.swing.JLabel" name="displayLabelCoordonnees">
       <Properties>
         <Property name="text" type="java.lang.String" value="Coordonn&#xe9;es"/>
+        <Property name="toolTipText" type="java.lang.String" value="Coordon&#xe9;es du curseur"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JInternalFrame" name="jInternalFrame1">
       <Properties>
+        <Property name="defaultCloseOperation" type="int" value="1"/>
         <Property name="title" type="java.lang.String" value="Circuit"/>
         <Property name="autoscrolls" type="boolean" value="true"/>
         <Property name="focusable" type="boolean" value="false"/>
@@ -1039,6 +1115,7 @@
                   <StringArray count="0"/>
                 </Property>
                 <Property name="selectionMode" type="int" value="0"/>
+                <Property name="toolTipText" type="java.lang.String" value="Liste des circuits en activit&#xe9;"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[100, 100]"/>
                 </Property>
@@ -1056,6 +1133,7 @@
         <Component class="javax.swing.JButton" name="Bouton_circuit_add">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajouter"/>
+            <Property name="toolTipText" type="java.lang.String" value="Cr&#xe9;er un nouveau circuit"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_circuit_addActionPerformed"/>
@@ -1064,6 +1142,7 @@
         <Component class="javax.swing.JButton" name="buttonEditRoute">
           <Properties>
             <Property name="text" type="java.lang.String" value="Modifier"/>
+            <Property name="toolTipText" type="java.lang.String" value="Modifier le circuit s&#xe9;lection&#xe9;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditRouteActionPerformed"/>
@@ -1152,6 +1231,7 @@
         <Component class="javax.swing.JButton" name="Bouton_arreter">
           <Properties>
             <Property name="text" type="java.lang.String" value="Arr&#xea;ter"/>
+            <Property name="toolTipText" type="java.lang.String" value="Arreter la simulation"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_arreterActionPerformed"/>
@@ -1160,6 +1240,7 @@
         <Component class="javax.swing.JButton" name="Bouton_simuler">
           <Properties>
             <Property name="text" type="java.lang.String" value="Simuler"/>
+            <Property name="toolTipText" type="java.lang.String" value="Lancer la simulation"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_simulerActionPerformed"/>
@@ -1169,6 +1250,7 @@
           <Properties>
             <Property name="maximum" type="int" value="20"/>
             <Property name="minimum" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" value="Regle la vitesse de simulation (glisser completement a gauche pour pauser)"/>
             <Property name="value" type="int" value="4"/>
           </Properties>
           <Events>
@@ -1178,11 +1260,13 @@
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
             <Property name="text" type="java.lang.String" value="Vitesse"/>
+            <Property name="toolTipText" type="java.lang.String" value="Regle la vitesse de simulation (glisser completement a gauche pour pauser)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="sim_time">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Temps depuis le d&#xe9;but de la simulation"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sim_timeActionPerformed"/>
@@ -1191,28 +1275,38 @@
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
             <Property name="text" type="java.lang.String" value="Temps (m) "/>
+            <Property name="toolTipText" type="java.lang.String" value="Temps depuis le d&#xe9;but de la simulation"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="buttonStats">
           <Properties>
             <Property name="text" type="java.lang.String" value="G&#xe9;n&#xe9;rer Stats"/>
+            <Property name="toolTipText" type="java.lang.String" value="Lance la simulation sans l&apos;afficher"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStatsActionPerformed"/>
           </Events>
         </Component>
         <Component class="simulatheure.TimeJSpinner" name="timeJSpinnerStart">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Heure de d&#xe9;part de la simulation"/>
+          </Properties>
         </Component>
         <Component class="simulatheure.TimeJSpinner" name="timeJSpinnerStop">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Heure de fin de la simulation"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="text" type="java.lang.String" value="D&#xe9;part"/>
+            <Property name="toolTipText" type="java.lang.String" value="Heure de d&#xe9;part de la simulation"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fin"/>
+            <Property name="toolTipText" type="java.lang.String" value="Heure de fin de la simulation"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -1220,6 +1314,7 @@
     <Component class="javax.swing.JButton" name="buttonRecenter">
       <Properties>
         <Property name="text" type="java.lang.String" value="Recentrer"/>
+        <Property name="toolTipText" type="java.lang.String" value="Rencentrer l&apos;affichage"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRecenterActionPerformed"/>
@@ -1227,6 +1322,7 @@
     </Component>
     <Container class="javax.swing.JInternalFrame" name="editionToolbox">
       <Properties>
+        <Property name="defaultCloseOperation" type="int" value="1"/>
         <Property name="title" type="java.lang.String" value="Edition"/>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
@@ -1271,6 +1367,7 @@
               <ComponentRef name="editionButtonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Noeud"/>
+            <Property name="toolTipText" type="java.lang.String" value="Outil d&apos;ajout de noeuds"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNodeToggleButtonActionPerformed"/>
@@ -1282,6 +1379,7 @@
               <ComponentRef name="editionButtonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ar&#xea;te"/>
+            <Property name="toolTipText" type="java.lang.String" value="Outil d&apos;ajout de noeuds et d&apos;ar&#xea;tes"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[63, 23]"/>
             </Property>
@@ -1302,6 +1400,7 @@
               <ComponentRef name="editionButtonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Selection"/>
+            <Property name="toolTipText" type="java.lang.String" value="Outil de s&#xe9;lection d&apos;elements"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[63, 23]"/>
             </Property>
@@ -1322,6 +1421,7 @@
               <ComponentRef name="editionButtonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="D&#xe9;placer"/>
+            <Property name="toolTipText" type="java.lang.String" value="Outil de d&#xe9;placement d&apos;&#xe9;l&#xe9;ments"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moveToggleButtonActionPerformed"/>
@@ -1377,6 +1477,7 @@
         <Component class="javax.swing.JCheckBox" name="checkBoxStation">
           <Properties>
             <Property name="text" type="java.lang.String" value="Station"/>
+            <Property name="toolTipText" type="java.lang.String" value="Cocher pour transformer en station"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxStationActionPerformed"/>
@@ -1385,6 +1486,7 @@
         <Component class="javax.swing.JFormattedTextField" name="textStationName">
           <Properties>
             <Property name="text" type="java.lang.String" value="-"/>
+            <Property name="toolTipText" type="java.lang.String" value="&#xc9;dition du nom d&apos;une station (non-applicable aux noeuds)"/>
           </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textStationNameKeyReleased"/>
@@ -1394,7 +1496,8 @@
     </Container>
     <Container class="javax.swing.JInternalFrame" name="jInternalFrame4">
       <Properties>
-        <Property name="title" type="java.lang.String" value="Besoins en transport"/>
+        <Property name="defaultCloseOperation" type="int" value="1"/>
+        <Property name="title" type="java.lang.String" value="Besoin en transport"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[189, 140]"/>
         </Property>
@@ -1443,6 +1546,7 @@
                   <StringArray count="0"/>
                 </Property>
                 <Property name="selectionMode" type="int" value="0"/>
+                <Property name="toolTipText" type="java.lang.String" value="Liste des besoins en transport"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[100, 100]"/>
                 </Property>
@@ -1460,6 +1564,7 @@
         <Component class="javax.swing.JButton" name="buttonBesoins">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajouter"/>
+            <Property name="toolTipText" type="java.lang.String" value="Cr&#xe9;er un besoin en transport"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -1469,6 +1574,7 @@
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Editer"/>
+            <Property name="toolTipText" type="java.lang.String" value="Modifier le besoin en transport s&#xe9;lectionn&#xe9;"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -1543,6 +1649,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Vitesse minimale de transit"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[47, 20]"/>
             </Property>
@@ -1554,11 +1661,13 @@
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
             <Property name="text" type="java.lang.String" value="Min"/>
+            <Property name="toolTipText" type="java.lang.String" value="Vitesse minimale de transit"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
             <Property name="text" type="java.lang.String" value="Max"/>
+            <Property name="toolTipText" type="java.lang.String" value="Vitesse maximale de transit"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spinMaxSpeed">
@@ -1566,6 +1675,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Vitesse maximale de transit"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spinTypeSpeed">
@@ -1573,16 +1683,19 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Vitesse typique de transit"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
             <Property name="text" type="java.lang.String" value="Typical"/>
+            <Property name="toolTipText" type="java.lang.String" value="Vitesse typique de transit"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="applyLine">
           <Properties>
             <Property name="text" type="java.lang.String" value="Appliquer"/>
+            <Property name="toolTipText" type="java.lang.String" value="Appliquer les changements apport&#xe9;s"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
