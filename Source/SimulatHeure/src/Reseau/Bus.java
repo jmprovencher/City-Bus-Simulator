@@ -177,8 +177,4 @@ public class Bus extends LocationData implements java.io.Serializable{
     private int lastNodeIndex;
     private double timeNextNode;
     public List<Passenger> listPassenger;
-
-
-
-
 }

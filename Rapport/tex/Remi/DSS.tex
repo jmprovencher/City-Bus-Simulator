@@ -73,6 +73,6 @@ Le diagramme suivant montre comment sélectionner un autobus sur l'interface et r
 	\label{f:dss_bus}
 \end{figure}
 
-L'utilisateur clique sur un autobus dans la fenêtre de simulation alors que cette dernière est en cours. Lors du clic, un MouseEvent est déclenché. Les positions X et Y sont obtenues avec les fonctions getGridPositionX() et getGridPositionY() de l'affichage. Comme le bus est prioritaire (en premier plan) la fonction de sélection appelle getBusFromClick() qui retour l'objet bus approprié selon la position dans la liste de bus du contrôleur.
-
-La valeur de position centrale de l'autobus peut-être obtenu à l'aide des fonctions getPositionX() et getPositionY() de l'autobus, cet appel peut être fait continuellement pour mettre à jour la position de l'autobus sur l'interface. La fonction selectBus se charge du changement de couleur de l'autobus dans l'interface lors de la sélection.
+L'utilisateur clique sur un autobus dans la fenêtre de simulation alors que cette dernière est en cours. Lors du clic, un MouseEvent est déclenché. Les positions X et Y sont obtenues avec les fonctions getGridPositionX() et getGridPositionY() de l'affichage. Comme le bus est prioritaire (en premier plan) la fonction de sélection appelle getBusFromClick() qui retourne l'objet bus approprié selon la position dans la liste de bus du contrôleur de simulation.
+\paragraph{}
+La valeur de position centrale de l'autobus peut-être obtenu à l'aide des fonctions getPositionX() et getPositionY() de l'autobus sélectionné, cet appel peut être fait continuellement pour mettre à jour la position de l'autobus sur l'interface. La fonction selectBus() et displaySim() se charge conjointement du changement de couleur de l'autobus dans l'interface lors de la sélection.
