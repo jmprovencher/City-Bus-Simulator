@@ -1783,7 +1783,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         if (SwingUtilities.isRightMouseButton(evt)){
             dragMove = true;
             if (createRouteState == "idle"){
-                clearSelection();
+                //clearSelection();
             }
             if (createLineState == 1){
                 createLineState = 0;
@@ -2145,12 +2145,14 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void okDirectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okDirectionsActionPerformed
         // TODO add your handling code here:
-        Sim.newDirections.setTimeFirstStart((int)spinFirstStart.getValue());
-        Sim.newDirections.setFrequency((int)spinFreqPassenger.getValue());
-        listDirectionsModel.addElement(Sim.newDirections.getStartPoint().getName()+" à "+Sim.newDirections.getEndPoint().getName());
-        Sim.addDirection();
-        
-        Dialog_besoin_transport.dispatchEvent(new WindowEvent(Dialog_besoin_transport, WindowEvent.WINDOW_CLOSING));
+        if (listSubRoutesModel.getSize() != 0){
+            Sim.newDirections.setTimeFirstStart((int)spinFirstStart.getValue());
+            Sim.newDirections.setFrequency((int)spinFreqPassenger.getValue());
+            listDirectionsModel.addElement(Sim.newDirections.getStartPoint().getName()+" à "+Sim.newDirections.getEndPoint().getName());
+            Sim.addDirection();
+            okDirections.setEnabled(false);
+            Dialog_besoin_transport.dispatchEvent(new WindowEvent(Dialog_besoin_transport, WindowEvent.WINDOW_CLOSING));
+        }
        
     }//GEN-LAST:event_okDirectionsActionPerformed
 
@@ -2184,6 +2186,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 selectedObject = "Station";
             }
             else{
+                
                 Sim.deleteStation(selectedNode);
                 textStationName.setText("-");
             }
