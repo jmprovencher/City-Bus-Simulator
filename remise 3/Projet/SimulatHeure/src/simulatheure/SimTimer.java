@@ -56,7 +56,7 @@ public class SimTimer {
         simSpeed= s;
     }
     
-    public void start(int t, int argFreq, Boolean fullSim){
+    public void start(int t, int startTime, int argFreq, Boolean fullSim){
         time = t;
         freq = argFreq;
         sim.freq = freq;
@@ -65,6 +65,10 @@ public class SimTimer {
         
        if (!fullSim){
         
+        while (sim.count < startTime/((double)freq/1000)){
+
+            sim.simulateTick();
+        }
         simTimer = new javax.swing.Timer(freq, action);
         simTimer.start();
         running = true;

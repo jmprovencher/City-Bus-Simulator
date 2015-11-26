@@ -207,6 +207,7 @@ public class Simulation implements java.io.Serializable{
     }
     public void deleteStation(List<Node> listNodes){
         for (Node n: listNodes){
+            
             n.deleteStation();
         }
     }

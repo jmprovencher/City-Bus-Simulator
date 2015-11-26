@@ -24,6 +24,7 @@ public class Line implements java.io.Serializable{
         x2 = destination.getPositionX();
         y2 = destination.getPositionY();        
         line = new Line2D.Double(x1,y1,x2,y2);
+        updateDistance();
         associatedRoutes =new ArrayList<Route>();
         offsetLine();
     }
@@ -79,6 +80,12 @@ public class Line implements java.io.Serializable{
 
     public void update(){
         line.setLine(origin.getPositionX(), origin.getPositionY(), destination.getPositionX(), destination.getPositionY());
+        double oldDistance = new Double(distance);
+        updateDistance();
+        double ratio = distance/oldDistance;
+        minSpeed = minSpeed * ratio;
+        maxSpeed =maxSpeed * ratio;
+        typeSpeed = typeSpeed*ratio;
         offsetLine();
     }
     
@@ -111,10 +118,21 @@ public class Line implements java.io.Serializable{
         speed =s;
     }
     
+    private void updateDistance(){
+        double x1,x2,y1,y2;
+        x2 = destination.getPositionX();
+        x1 = origin.getPositionX();
+        y2 = destination.getPositionY();
+        y1 = origin.getPositionY();
+        distance = (Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)));
+    }
+    
+    //SPEED IN METERS/MINUTES
     public double maxSpeed;
     public double minSpeed;
     public double typeSpeed;
     public double speed;
+    public double distance;
     
     public List<Route> associatedRoutes;
     public Line2D line;

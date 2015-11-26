@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.1)  23 NOV 2015 00:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.9)  23 NOV 2015 22:37
 entering extended mode
 **"Rapport de developpement.tex"
 ("Rapport de developpement.tex"
@@ -658,8 +658,8 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 37.
  [999
 
-{C:/Users/Sam/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./pdf/UL_P.pd
-f>]
+{C:/Users/rem54/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./pdf/UL_P.
+pdf>]
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmss.fd") [0
 
 ]
@@ -685,12 +685,12 @@ Overfull \vbox (30.41597pt too high) has occurred while \output is active []
 
 
 [2 <./fig/classDiagram.jpg>]
-<fig/packageDiagram.jpg, id=296, 340.27126pt x 588.1975pt>
+<fig/packageDiagram.jpg, id=296, 341.275pt x 588.1975pt>
 File: fig/packageDiagram.jpg Graphic file (type jpg)
 
 <use fig/packageDiagram.jpg>
 Package pdftex.def Info: fig/packageDiagram.jpg used on input line 13.
-(pdftex.def)             Requested size: 88.46843pt x 152.92773pt.
+(pdftex.def)             Requested size: 88.7294pt x 152.92773pt.
 ) (tex/sam/gui.tex [3 <./fig/packageDiagram.jpg>]
 <fig/gui/ajoutNoeud.png, id=303, 1686.3pt x 1052.93375pt>
 File: fig/gui/ajoutNoeud.png Graphic file (type png)
@@ -722,13 +722,13 @@ Package pdftex.def Info: fig/gui/simulationZoomedOut.png used on input line 35.
 (pdftex.def)             Requested size: 421.57397pt x 263.23279pt.
  [6 <./fig/gui/simulation.png>] [7 <./fig/gui/simulationZoomedOut.png>]) (tex/R
 emi/DSS.tex
-<fig/DSS/AddNode.jpg, id=334, 957.5775pt x 586.19pt>
+<fig/DSS/AddNode.jpg, id=334, 947.54pt x 586.19pt>
 File: fig/DSS/AddNode.jpg Graphic file (type jpg)
  <use fig/DSS/AddNode.jpg>
 Package pdftex.def Info: fig/DSS/AddNode.jpg used on input line 9.
-(pdftex.def)             Requested size: 478.78758pt x 293.09428pt.
+(pdftex.def)             Requested size: 473.76883pt x 293.09428pt.
 
-Overfull \hbox (6.75635pt too wide) in paragraph at lines 9--11
+Overfull \hbox (1.7376pt too wide) in paragraph at lines 9--11
  [][] 
  []
 
@@ -754,41 +754,40 @@ File: fig/DSS/triangular.jpg Graphic file (type jpg)
 Package pdftex.def Info: fig/DSS/triangular.jpg used on input line 55.
 (pdftex.def)             Requested size: 468.55411pt x 299.9228pt.
  [11 <./fig/DSS/triangular.jpg>]
-<fig/DSS/positionBus.jpg, id=359, 1186.4325pt x 643.40375pt>
+<fig/DSS/positionBus.jpg, id=359, 1189.44376pt x 643.40375pt>
 File: fig/DSS/positionBus.jpg Graphic file (type jpg)
 
 <use fig/DSS/positionBus.jpg>
 Package pdftex.def Info: fig/DSS/positionBus.jpg used on input line 70.
-(pdftex.def)             Requested size: 474.56459pt x 257.35693pt.
+(pdftex.def)             Requested size: 475.76907pt x 257.35693pt.
 
-Overfull \hbox (2.53336pt too wide) in paragraph at lines 70--72
+Overfull \hbox (3.73784pt too wide) in paragraph at lines 70--72
  [][] 
  []
 
-)) (tex/logique.tex [12 <./fig/DSS/positionBus.jpg>]
+) <fig/StateDiagram.jpg, id=360, 617.30624pt x 214.8025pt>
+File: fig/StateDiagram.jpg Graphic file (type jpg)
+
+<use fig/StateDiagram.jpg>
+Package pdftex.def Info: fig/StateDiagram.jpg used on input line 11.
+(pdftex.def)             Requested size: 370.3866pt x 128.88249pt.
+ [12 <./fig/DSS/positionBus.jpg>]
+<fig/activityDiagram.jpg, id=367, 798.985pt x 782.925pt>
+File: fig/activityDiagram.jpg Graphic file (type jpg)
+
+<use fig/activityDiagram.jpg>
+Package pdftex.def Info: fig/activityDiagram.jpg used on input line 24.
+(pdftex.def)             Requested size: 399.49152pt x 391.46155pt.
+ [13 <./fig/StateDiagram.jpg>]) (tex/logique.tex
+[14 <./fig/activityDiagram.jpg>]
 Chapitre 2.
 File: fig/packageDiagram.jpg Graphic file (type jpg)
 <use fig/packageDiagram.jpg>
 Package pdftex.def Info: fig/packageDiagram.jpg used on input line 8.
-(pdftex.def)             Requested size: 170.13521pt x 294.09802pt.
- [13
+(pdftex.def)             Requested size: 170.63707pt x 294.09802pt.
+ [15
 
-]
-<fig/StateDiagram.jpg, id=370, 617.30624pt x 214.8025pt>
-File: fig/StateDiagram.jpg Graphic file (type jpg)
-
-<use fig/StateDiagram.jpg>
-Package pdftex.def Info: fig/StateDiagram.jpg used on input line 23.
-(pdftex.def)             Requested size: 370.3866pt x 128.88249pt.
- [14 <./fig/StateDiagram.jpg>]
-<fig/activityDiagram.jpg, id=376, 798.985pt x 782.925pt>
-File: fig/activityDiagram.jpg Graphic file (type jpg)
-
-<use fig/activityDiagram.jpg>
-Package pdftex.def Info: fig/activityDiagram.jpg used on input line 36.
-(pdftex.def)             Requested size: 399.49152pt x 391.46155pt.
-) [15 <./fig/activityDiagram.jpg>]
-(tex/Remi/Vision.tex [16]
+]) (tex/Remi/Vision.tex [16]
 Chapitre 3.
 
 Underfull \hbox (badness 10000) in paragraph at lines 23--23
@@ -824,7 +823,7 @@ Underfull \hbox (badness 4416) in paragraph at lines 26--26
 
 ]) (tex/besoins.tex [18]
 Chapitre 4.
-(tex/Charlo/UseCase.tex <fig/useCaseDiagram.png, id=398, 1027.84pt x 770.88pt>
+(tex/Charlo/UseCase.tex <fig/useCaseDiagram.png, id=404, 1027.84pt x 770.88pt>
 File: fig/useCaseDiagram.png Graphic file (type png)
 
 <use fig/useCaseDiagram.png>
@@ -833,34 +832,34 @@ Package pdftex.def Info: fig/useCaseDiagram.png used on input line 6.
  [19
 
 ] [20 <./fig/useCaseDiagram.png>]
-<fig/creationSimulation.jpg, id=411, 390.45876pt x 599.23875pt>
+<fig/creationSimulation.jpg, id=417, 390.45876pt x 599.23875pt>
 File: fig/creationSimulation.jpg Graphic file (type jpg)
 
 <use fig/creationSimulation.jpg>
 Package pdftex.def Info: fig/creationSimulation.jpg used on input line 64.
 (pdftex.def)             Requested size: 312.36742pt x 479.39165pt.
  [21] [22 <./fig/creationSimulation.jpg>]
-<fig/chargeSimulation.jpg, id=435, 394.47375pt x 236.885pt>
+<fig/chargeSimulation.jpg, id=441, 394.47375pt x 236.885pt>
 File: fig/chargeSimulation.jpg Graphic file (type jpg)
 
 <use fig/chargeSimulation.jpg>
 Package pdftex.def Info: fig/chargeSimulation.jpg used on input line 91.
 (pdftex.def)             Requested size: 315.57942pt x 189.50824pt.
  [23 <./fig/chargeSimulation.jpg>]
-<fig/roulSimul.jpg, id=448, 395.4775pt x 344.28625pt>
+<fig/roulSimul.jpg, id=454, 395.4775pt x 344.28625pt>
 File: fig/roulSimul.jpg Graphic file (type jpg)
  <use fig/roulSimul.jpg>
 Package pdftex.def Info: fig/roulSimul.jpg used on input line 133.
 (pdftex.def)             Requested size: 316.38243pt x 275.42937pt.
 
 [24 <./fig/roulSimul.jpg>]
-<fig/suppElem.jpg, id=462, 395.4775pt x 205.76875pt>
+<fig/suppElem.jpg, id=468, 395.4775pt x 205.76875pt>
 File: fig/suppElem.jpg Graphic file (type jpg)
  <use fig/suppElem.jpg>
 Package pdftex.def Info: fig/suppElem.jpg used on input line 155.
 (pdftex.def)             Requested size: 316.38243pt x 164.6152pt.
 
-<fig/creaElem.jpg, id=463, 395.4775pt x 205.76875pt>
+<fig/creaElem.jpg, id=469, 395.4775pt x 205.76875pt>
 File: fig/creaElem.jpg Graphic file (type jpg)
  <use fig/creaElem.jpg>
 Package pdftex.def Info: fig/creaElem.jpg used on input line 177.
@@ -869,7 +868,7 @@ Package pdftex.def Info: fig/creaElem.jpg used on input line 177.
 (tex/Sam/besoins.tex [25 <./fig/suppElem.jpg>] [26 <./fig/creaElem.jpg>])
 (tex/Jim/glossaire.tex)) (tex/Jim/domainModel.tex [27]
 Chapitre 5.
-<fig/domainModel.pdf, id=489, 845.1575pt x 597.23125pt>
+<fig/domainModel.pdf, id=495, 845.1575pt x 597.23125pt>
 File: fig/domainModel.pdf Graphic file (type pdf)
 
 <use fig/domainModel.pdf>
@@ -886,7 +885,7 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 50.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 50.
 Package rerunfilecheck Info: File `"Rapport de developpement".out' has not chan
 ged.
-(rerunfilecheck)             Checksum: 6EBF44D96CD83C1105956C7656187F77;3904.
+(rerunfilecheck)             Checksum: 6051D286684CEE22C886E1C31E8019E9;3904.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -894,13 +893,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 50.
  ) 
 Here is how much of TeX's memory you used:
- 9837 strings out of 493673
- 151062 string characters out of 3141537
+ 9842 strings out of 493673
+ 151117 string characters out of 3141531
  243147 words of memory out of 3000000
  12813 multiletter control sequences out of 15000+200000
  52618 words of font info for 38 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 43i,11n,40p,2335b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 43i,11n,40p,2423b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files (x86)/
 MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9
@@ -908,9 +907,9 @@ MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9
 /public/lm/lmri12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/
 lmro12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb>
 
-Output written on "Rapport de developpement.pdf" (32 pages, 1996928 bytes).
+Output written on "Rapport de developpement.pdf" (32 pages, 1992289 bytes).
 PDF statistics:
- 552 PDF objects out of 1000 (max. 8388607)
- 147 named destinations out of 1000 (max. 500000)
+ 559 PDF objects out of 1000 (max. 8388607)
+ 152 named destinations out of 1000 (max. 500000)
  514 words of extra memory for PDF output out of 10000 (max. 10000000)
 

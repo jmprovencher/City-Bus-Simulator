@@ -154,8 +154,10 @@ public class Simulation implements java.io.Serializable{
         if(b.actualNode != null){
             b.exitNode();
         }
-
+        // speeds are in meters/min, each tick is freq/1000 of a minute
+        // the following is the movement per tick
         double relativeSpeed = (b.getSpeed())*freq/1000;
+        
         Node nextNode = b.getRoute().getNodeFromIndex(b.getLastNodeIndex()+1);
         double targetX = nextNode.getPositionX();
         double targetY= nextNode.getPositionY();

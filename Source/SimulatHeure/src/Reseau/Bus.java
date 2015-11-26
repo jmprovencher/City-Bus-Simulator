@@ -28,6 +28,7 @@ public class Bus extends LocationData implements java.io.Serializable{
             lastNodeIndex = startRoute.route.indexOf(actualNode);
         }
         speed = route.getLineFromIndex(lastNodeIndex).speed;
+        System.out.println("my speed is:" +speed);
         timeNextNode = (getNextNodeDistance()/speed);
         actualNode.addBus(this);
 
@@ -166,7 +167,7 @@ public class Bus extends LocationData implements java.io.Serializable{
      }
     
     private Route.Source source;
-    private double speed;
+    private double speed; 
     private int number;
     private double positionX;
     private double positionY;
