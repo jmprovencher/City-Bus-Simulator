@@ -69,6 +69,8 @@ public class Simulation implements java.io.Serializable{
         double max = 0;
         double average = 0;
         double time;
+        
+        // GESTION PRÉLIMINAIRE DE STATS
         for (Directions d: listDirections){
             if (d.listPassengersDone.isEmpty()){
                 System.out.println("Aucun passager a terminé!");

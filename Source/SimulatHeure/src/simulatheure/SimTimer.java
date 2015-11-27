@@ -56,15 +56,15 @@ public class SimTimer {
         simSpeed= s;
     }
     
-    public void start(int t, int startTime, int argFreq, Boolean fullSim){
+    public void start(int t, int startTime, int argFreq, Boolean fullSim, int numberOfSimulations){
         time = t;
         freq = argFreq;
         sim.freq = freq;
-        sim.setLinesSpeed();
+        
         topFrame.selectOnly(true);
         
        if (!fullSim){
-        
+           sim.setLinesSpeed();
         while (sim.count < startTime/((double)freq/1000)){
 
             sim.simulateTick();
@@ -74,13 +74,18 @@ public class SimTimer {
         running = true;
        }
        else{
-           while (sim.count < time/((double)freq/1000)){
+          
+          for (int i = 0; i< numberOfSimulations; i++){
+            sim.setLinesSpeed();
+            while (sim.count < time/((double)freq/1000)){
 
-            sim.simulateTick();
-           }
+             sim.simulateTick();
+            }
             topFrame.selectOnly(false);
             stop();
         }
+       }
+       
 
     }
     

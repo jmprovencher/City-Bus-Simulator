@@ -73,15 +73,10 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="52" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="maxBus" min="-2" pref="51" max="-2" attributes="0"/>
                                       <Component id="checkLoop" min="-2" max="-2" attributes="0"/>
@@ -576,7 +571,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="addSubRouteButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add"/>
+            <Property name="text" type="java.lang.String" value="Ajouter"/>
             <Property name="toolTipText" type="java.lang.String" value="Ajouter &#xe0; la liste des besoins"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -1045,7 +1040,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="542" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="541" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -1164,20 +1159,19 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="timeJSpinnerStartSim" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                   <Component id="timeJSpinnerStart" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="buttonStats" alignment="0" max="32767" attributes="0"/>
                               <Component id="Bouton_simuler" alignment="0" max="32767" attributes="0"/>
                               <Component id="Bouton_arreter" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -1197,6 +1191,11 @@
                               <Component id="sim_time" min="-2" pref="58" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="skipBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="spinNumberOfSimulations" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1209,8 +1208,11 @@
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Component id="Bouton_arreter" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonStats" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="skipBox" min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="spinNumberOfSimulations" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="simulation_speed" min="-2" pref="16" max="-2" attributes="0"/>
                       <Component id="jLabel8" max="32767" attributes="0"/>
@@ -1291,15 +1293,6 @@
             <Property name="toolTipText" type="java.lang.String" value="Temps depuis le d&#xe9;but de la simulation"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonStats">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="G&#xe9;n&#xe9;rer Stats"/>
-            <Property name="toolTipText" type="java.lang.String" value="Lance la simulation sans l&apos;afficher"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStatsActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="simulatheure.TimeJSpinner" name="timeJSpinnerStart">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Heure de d&#xe9;part de la simulation"/>
@@ -1328,6 +1321,21 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="D&#xe9;part Sim"/>
             <Property name="toolTipText" type="java.lang.String" value="Heure de fin de la simulation"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="skipBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Skip"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="skipBoxActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="spinNumberOfSimulations">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="1" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -1625,13 +1633,13 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="spinMaxSpeed" min="-2" pref="47" max="-2" attributes="0"/>
-                              <Component id="spinMinSpeed" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
-                              <Component id="spinTypeSpeed" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="spinMaxTime" min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="spinMinTime" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="spinTypeTime" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -1643,18 +1651,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="spinMinSpeed" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="spinMinTime" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="spinMaxSpeed" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="spinMaxTime" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="spinTypeSpeed" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="spinTypeTime" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -1665,7 +1673,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JSpinner" name="spinMinSpeed">
+        <Component class="javax.swing.JSpinner" name="spinMinTime">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
@@ -1691,7 +1699,7 @@
             <Property name="toolTipText" type="java.lang.String" value="Vitesse maximale de transit"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="spinMaxSpeed">
+        <Component class="javax.swing.JSpinner" name="spinMaxTime">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
@@ -1699,7 +1707,7 @@
             <Property name="toolTipText" type="java.lang.String" value="Vitesse maximale de transit"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="spinTypeSpeed">
+        <Component class="javax.swing.JSpinner" name="spinTypeTime">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
