@@ -40,6 +40,8 @@ public class SimulatHeure extends javax.swing.JFrame {
     public String createRouteState;
     public SimTimer simTimer;
     
+    private byte[] CTRLZ;
+    private byte[] CTRLY;
     
     public DefaultComboBoxModel listRoutesModel;
     public DefaultComboBoxModel listSubRoutesModel;
@@ -213,6 +215,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuCommandAjouterArete = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuCommandDeplacerNoeud = new javax.swing.JMenuItem();
+        menuUndo = new javax.swing.JMenuItem();
+        menuRedo = new javax.swing.JMenuItem();
         menuFolderSimulation = new javax.swing.JMenu();
         menuCommandLancerSim = new javax.swing.JMenuItem();
         menuCommandStopperSim = new javax.swing.JMenuItem();
@@ -990,6 +994,11 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         textStationName.setText("-");
         textStationName.setToolTipText("Édition du nom d'une station (non-applicable aux noeuds)");
+        textStationName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textStationNameActionPerformed(evt);
+            }
+        });
         textStationName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textStationNameKeyReleased(evt);
@@ -1247,6 +1256,24 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderEdition.add(menuCommandDeplacerNoeud);
 
+        menuUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        menuUndo.setText("Annuler");
+        menuUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuUndoActionPerformed(evt);
+            }
+        });
+        menuFolderEdition.add(menuUndo);
+
+        menuRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        menuRedo.setText("Répéter");
+        menuRedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRedoActionPerformed(evt);
+            }
+        });
+        menuFolderEdition.add(menuRedo);
+
         jMenuBar1.add(menuFolderEdition);
 
         menuFolderSimulation.setMnemonic('s');
@@ -1401,7 +1428,57 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void reloadInterface(){
+            display.Sim = Sim;
 
+            if (!Sim.listRoutes.isEmpty()){
+                buttonBesoins.setEnabled(true);
+            }
+            //refait la liste dans l'interface
+            listRoutesModel.removeAllElements();
+            listDirectionsModel.removeAllElements();
+            for (Route r: Sim.listRoutes){
+                listRoutesModel.addElement(r.getNumber());
+            }
+            for (Directions d: Sim.listDirections){
+                listDirectionsModel.addElement(d.getStartPoint().getName()+" à "+d.getEndPoint().getName());
+            }
+
+            display.repaint();
+            simTimer = new SimTimer(Sim, display, this);
+            clearSelection();
+
+            createLineState = 0;
+            createRouteState = "idle";
+    }
+    
+    private byte[] convertToBytes() throws IOException {
+       
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutput out = new ObjectOutputStream(bos)) {
+            out.writeObject(Sim);
+            out.close();
+            return  bos.toByteArray();
+           
+            
+            
+        } 
+    }
+
+
+    private void convertFromBytes(byte[] bytes) throws IOException, ClassNotFoundException {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+            ObjectInput in = new ObjectInputStream(bis)) {
+            Sim = (Simulation) in.readObject();
+            display.Sim = Sim;
+            
+            reloadInterface();
+            
+            in.close();
+        } 
+    }
+    
     public void selectOnly(Boolean state){
             selectorToggleButton.setSelected(state);
             addAreteToggleButton.setEnabled(!state);
@@ -1425,6 +1502,8 @@ public class SimulatHeure extends javax.swing.JFrame {
             menuCommandSupprimer.setEnabled(!state);
             menuCommandLancerSim.setEnabled(!state);
             menuCommandAnalResults.setEnabled(!state);
+            menuUndo.setEnabled(!state);
+            menuRedo.setEnabled(!state);
     }
     
     public void selectRectangle(){
@@ -1551,12 +1630,19 @@ public class SimulatHeure extends javax.swing.JFrame {
             break;
             
         case  "select":
+        {
+            try {
+                CTRLZ = convertToBytes();
+            } catch (IOException ex) {
+                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
            selectOnly(true);
 
             Print.setText("Veuillez sélectionner la station 1 du circuit.");
             Sim.newRoute.route.clear();
             Bouton_circuit_add.setText("Terminer");
-            break;    
+            break;        
             
         case "Creation":
            if (Sim.newRoute.route.size()>1 && Sim.newRoute.route.get(Sim.newRoute.route.size()-1).isStation ==true && Sim.routeNumberAvailable((int)spin_num.getValue())){
@@ -1602,6 +1688,12 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void createNode(int x, int y){
+          try{
+       CTRLZ = convertToBytes();
+        }     
+         catch (IOException ex) {
+            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Line aSelect;
            
         aSelect = null;
@@ -1621,7 +1713,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             Print.setText("Noeud selectionne!");
             display.selectNode(selectedNode);
         }
-
+      
     }
     
     public void createLine(int x, int y){
@@ -1629,7 +1721,13 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         switch (createLineState){
             case 0:
-
+        {
+            try {
+                CTRLZ = convertToBytes();
+            } catch (IOException ex) {
+                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
                 if(selectedNode.isEmpty()){
                     Line l = Sim.getLineFromPosition(x,y);
                     if (l != null){
@@ -1697,6 +1795,11 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void delete(){
+        try {
+            CTRLZ = convertToBytes();
+        } catch (IOException ex) {
+            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+        }
            
            if (selectedObject == "Noeud" || selectedObject == "Station" ) {
                 Sim.deleteNode(selectedNode);
@@ -1820,7 +1923,11 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     private void moveNodeRoutine(){
-        
+        try {
+            CTRLZ = convertToBytes();
+        } catch (IOException ex) {
+            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (!selectedNode.isEmpty())
             {
                 for (Node n: selectedNode){
@@ -2046,6 +2153,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (simTimer.running){
             simTimer.stop();
+            
             display.repaint();
         }
          
@@ -2179,6 +2287,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if (Sim.getRouteQuantity()>0){
+            try {
+                CTRLZ = convertToBytes();
+            } catch (IOException ex) {
+                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Sim.newDirections = new Directions();
             startComboBox.setEnabled(true);
             DefaultComboBoxModel startComboBoxModel = new DefaultComboBoxModel();
@@ -2300,6 +2413,11 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void checkBoxStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxStationActionPerformed
         // TODO add your handling code here:
         if(!selectedNode.isEmpty()){
+            try {
+                CTRLZ = convertToBytes();
+            } catch (IOException ex) {
+                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Boolean isStation = checkBoxStation.isSelected();
             if (isStation){
                 Sim.addStation(selectedNode);
@@ -2461,6 +2579,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 spinMinTime.commitEdit();
                 spinMaxTime.commitEdit();
                 spinTypeTime.commitEdit();
+                CTRLZ = convertToBytes();
             }
             catch(Exception e){
 
@@ -2497,6 +2616,11 @@ public class SimulatHeure extends javax.swing.JFrame {
           if (!evt.isActionKey()){
 
                     if (selectedNode != null){
+                        try {
+                            CTRLZ = convertToBytes();
+                        } catch (IOException ex) {
+                            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+                        }
             if (selectedNode.get(0).isStation){
 
                 selectedNode.get(0).setName(textStationName.getText());
@@ -2543,23 +2667,8 @@ public class SimulatHeure extends javax.swing.JFrame {
             FileInputStream fileIn = new FileInputStream("sim.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             Sim = (Simulation) in.readObject();
-            display.Sim = Sim;
-
-            if (!Sim.listRoutes.isEmpty()){
-                buttonBesoins.setEnabled(true);
-            }
-            //refait la liste dans l'interface
-            listRoutesModel.removeAllElements();
-            listDirectionsModel.removeAllElements();
-            for (Route r: Sim.listRoutes){
-                listRoutesModel.addElement(r.getNumber());
-            }
-            for (Directions d: Sim.listDirections){
-                listDirectionsModel.addElement(d.getStartPoint().getName()+" à "+d.getEndPoint().getName());
-            }
-
-            display.repaint();
-            simTimer = new SimTimer(Sim, display, this);
+ 
+            reloadInterface();
             in.close();
             fileIn.close();
       }
@@ -2612,6 +2721,38 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void skipBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skipBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_skipBoxActionPerformed
+
+    private void menuUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUndoActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (!simTimer.running){
+                CTRLY = convertToBytes();
+                convertFromBytes(CTRLZ);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_menuUndoActionPerformed
+
+    private void textStationNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textStationNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textStationNameActionPerformed
+
+    private void menuRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRedoActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (!simTimer.running){
+            convertFromBytes(CTRLY);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuRedoActionPerformed
 
 
     /**
@@ -2737,8 +2878,10 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem menuOptionSeeEditionToolbox;
     private javax.swing.JCheckBoxMenuItem menuOptionSeeSimToolbox;
     private javax.swing.JCheckBoxMenuItem menuOptionSeeTooltipsDisplay;
+    private javax.swing.JMenuItem menuRedo;
     private javax.swing.JMenu menuSubfolderInformation;
     private javax.swing.JMenu menuSubfolderToolboxes;
+    private javax.swing.JMenuItem menuUndo;
     private javax.swing.JToggleButton moveToggleButton;
     private javax.swing.JButton okDirections;
     private javax.swing.JButton ok_dialog_circuit;

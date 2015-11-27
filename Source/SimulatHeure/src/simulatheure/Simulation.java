@@ -502,5 +502,7 @@ public class Simulation implements java.io.Serializable{
     public List<Directions> listDirections;
     public int count;
     public double freq;
+    
+    
 
 }
