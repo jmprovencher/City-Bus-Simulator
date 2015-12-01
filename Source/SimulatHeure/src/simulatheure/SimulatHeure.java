@@ -2663,8 +2663,13 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
         try
         {
-            
-            FileInputStream fileIn = new FileInputStream("sim.ser");
+            File file = null;
+            JFileChooser fc = new JFileChooser();
+            int returnVal = fc.showOpenDialog(SimulatHeure.this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                file = fc.getSelectedFile();
+            }
+            FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             Sim = (Simulation) in.readObject();
  
