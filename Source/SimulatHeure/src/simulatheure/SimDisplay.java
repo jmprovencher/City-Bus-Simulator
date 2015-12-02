@@ -37,16 +37,18 @@ public class SimDisplay extends JPanel {
 
         try
         {
-            imgStation = ImageIO.read(getClass().getResource("/images/icon.png"));
-            imgStationSelected = ImageIO.read(getClass().getResource("/images/station-selected.png"));
-            imgBus = ImageIO.read(getClass().getResource("/images/bus.png"));
-            imgBusSelected = ImageIO.read(getClass().getResource("/images/selectedbus.png"));
+            imgStationEmpty = ImageIO.read(getClass().getResource("/images/bustop0.png"));
+            imgStationHalf = ImageIO.read(getClass().getResource("/images/bustop1.png"));
+            imgStationFull = ImageIO.read(getClass().getResource("/images/bustop2.png"));
+            imgStationSelected = ImageIO.read(getClass().getResource("/images/bustopselected.png"));
+            imgBus = ImageIO.read(getClass().getResource("/images/bus2.png"));
+            imgBusSelected = ImageIO.read(getClass().getResource("/images/bus2Selected.png"));
         }
         catch (IOException e)
         {
             
         }
-        stationSize = imgStation.getWidth();
+        stationSize = imgStationEmpty.getWidth();
         imgBusSize = imgBus.getWidth();
         imgBusSelectedSize = imgBusSelected.getWidth();
         nodeSize = 20;
@@ -79,7 +81,7 @@ public class SimDisplay extends JPanel {
                 // Draw horizontal arrow starting in (0, 0)
                 g.setStroke(new BasicStroke(4));
                 g.drawLine(0, 0, len, 0);
-                g.fillPolygon(new int[] {len-12, len-ARR_SIZE-12, len-ARR_SIZE-12, len-12},
+                g.fillPolygon(new int[] {len/2+20, len/2-ARR_SIZE+20, len/2-ARR_SIZE+20, len/2+20},
                               new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
    }
     
@@ -165,33 +167,7 @@ public class SimDisplay extends JPanel {
            g.setColor(Color.white);
            
        }
-       for (Node n: Sim.listNodes){
-           if (n.isStation){
-               g.drawString(""+n.listPassenger.size(), (int)n.getPositionX(), (int)n.getPositionY()-25);
-           }
-           if (listSelectedNode.contains(n)){
-                g.setColor(Color.red);  
-                if (n.isStation){
-                    g.drawImage(imgStationSelected, (int)n.getPositionX() - stationSize/2, (int)n.getPositionY()- stationSize/2, null);    
-                }
-                else{
-                    g.fillOval((int)n.getPositionX()-10, (int)n.getPositionY()-10, 20, 20);
-                }
-                g.setColor(Color.white);
-           }
-           else if(!n.isStation){
-               
-               g.fillOval((int)n.getPositionX()-10, (int)n.getPositionY()-10, 20, 20);
-               
-                
-           }
-           else{
-                
-                g.drawImage(imgStation, (int)n.getPositionX() - stationSize/2, (int)n.getPositionY()- stationSize/2, null); 
-                
-           }
-        }
-        for (int i = 0; i < Sim.getRouteQuantity(); i++){
+       for (int i = 0; i < Sim.getRouteQuantity(); i++){
             Route circuit_i = Sim.getRouteFromIndex(i);
 
             for (Bus b : circuit_i.listBus){
@@ -205,9 +181,44 @@ public class SimDisplay extends JPanel {
                 g.setColor(Color.WHITE);
                 g.drawString(""+b.listPassenger.size(), (int)b.getPositionX(), (int)b.getPositionY()-40);
                 g.setColor(Color.WHITE);
-                g.drawString("Circuit: "+b.getRoute().getNumber(), (int)b.getPositionX()-20, (int)b.getPositionY()-3);
+                g.drawString(""+b.getRoute().getNumber(), (int)b.getPositionX()-5, (int)b.getPositionY()-5);
             }
        }
+       
+       for (Node n: Sim.listNodes){
+           if (n.isStation){
+               g.drawString(""+n.listPassenger.size(), (int)n.getPositionX(), (int)n.getPositionY()-50);
+           }
+           if (listSelectedNode.contains(n)){
+                g.setColor(Color.red);  
+                if (n.isStation){
+                    g.drawImage(imgStationSelected, (int)n.getPositionX() - stationSize/2, (int)n.getPositionY()- imgStationEmpty.getHeight()/2, null);    
+                }
+                else{
+                    g.fillOval((int)n.getPositionX()-10, (int)n.getPositionY()-10, 20, 20);
+                }
+                g.setColor(Color.white);
+           }
+           else if(!n.isStation){
+               
+               g.fillOval((int)n.getPositionX()-10, (int)n.getPositionY()-10, 20, 20);
+               
+                
+           }
+           else{
+               int passengerInStation = n.listPassenger.size();
+                if (passengerInStation == 0){
+                    g.drawImage(imgStationEmpty, (int)n.getPositionX() - stationSize/2, (int)n.getPositionY()- imgStationEmpty.getHeight()/2, null); 
+                }
+                else if (passengerInStation < 10){
+                    g.drawImage(imgStationHalf, (int)n.getPositionX() - stationSize/2, (int)n.getPositionY()- imgStationEmpty.getHeight()/2, null); 
+                }
+                else{
+                    g.drawImage(imgStationFull, (int)n.getPositionX() - stationSize/2, (int)n.getPositionY()- imgStationEmpty.getHeight()/2, null); 
+                }
+                
+           }
+        }
        
        // ligne pendant la création d'une arrete
        BasicStroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0);
@@ -388,7 +399,9 @@ public class SimDisplay extends JPanel {
      public Cursor defaultCursor;
      public Cursor quadraArrowsCursor;
      public Cursor handCursor;
-     public BufferedImage imgStation;
+     public BufferedImage imgStationEmpty;
+     public BufferedImage imgStationHalf;
+     public BufferedImage imgStationFull;
      public BufferedImage imgStationSelected;
      public BufferedImage imgBus;
      public BufferedImage imgBusSelected;

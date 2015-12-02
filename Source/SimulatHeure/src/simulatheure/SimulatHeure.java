@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.StyleConstants;
+import java.util.Stack;
 
 
 /**
@@ -41,8 +42,9 @@ public class SimulatHeure extends javax.swing.JFrame {
     public String createRouteState;
     public SimTimer simTimer;
     
-    private byte[] CTRLZ;
-    private byte[] CTRLY;
+    private final int stackSize = 25;
+    private final Stack<byte[]> CTRLZ = new SizedStack<>(stackSize);
+    private final Stack<byte[]> CTRLY = new SizedStack<>(stackSize);
     
     public DefaultComboBoxModel listRoutesModel;
     public DefaultComboBoxModel listSubRoutesModel;
@@ -149,8 +151,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         spinFirstStart = new javax.swing.JSpinner();
         jLabel13 = new javax.swing.JLabel();
-        spinFreqPassenger = new javax.swing.JSpinner();
+        spinTypeFreqPassenger = new javax.swing.JSpinner();
         jLabel14 = new javax.swing.JLabel();
+        spinTypeMaxPassenger = new javax.swing.JSpinner();
+        spinTypeMinPassenger = new javax.swing.JSpinner();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
         jInternalFrame5 = new javax.swing.JInternalFrame();
         menuBar1 = new java.awt.MenuBar();
         menu1 = new java.awt.Menu();
@@ -560,10 +566,18 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jLabel13.setText("Premier départ");
 
-        spinFreqPassenger.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
-        spinFreqPassenger.setToolTipText("Temps entre chaque nouveau besoins");
+        spinTypeFreqPassenger.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
+        spinTypeFreqPassenger.setToolTipText("Temps entre chaque nouveau besoins");
 
-        jLabel14.setText("Fréquence");
+        jLabel14.setText("Fréquence minimum");
+
+        spinTypeMaxPassenger.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
+
+        spinTypeMinPassenger.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
+
+        jLabel25.setText("Fréquence maximum");
+
+        jLabel26.setText("Fréuence typique");
 
         javax.swing.GroupLayout Dialog_besoin_transportLayout = new javax.swing.GroupLayout(Dialog_besoin_transport.getContentPane());
         Dialog_besoin_transport.getContentPane().setLayout(Dialog_besoin_transportLayout);
@@ -572,23 +586,8 @@ public class SimulatHeure extends javax.swing.JFrame {
             .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
-                                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(addSubRouteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(spinFirstStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(okDirections, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(spinFreqPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Dialog_besoin_transportLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -596,14 +595,39 @@ public class SimulatHeure extends javax.swing.JFrame {
                             .addComponent(jLabel11)
                             .addComponent(startComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(routesComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(endComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(endComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Dialog_besoin_transportLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(addSubRouteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(okDirections, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Dialog_besoin_transportLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(spinTypeFreqPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(spinFirstStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(spinTypeMaxPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(spinTypeMinPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         Dialog_besoin_transportLayout.setVerticalGroup(
             Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
                         .addComponent(jLabel11)
@@ -617,18 +641,27 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(endComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spinFirstStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spinFreqPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(okDirections)
-                            .addComponent(addSubRouteButton))))
+                            .addComponent(jLabel13)
+                            .addComponent(spinFirstStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(spinTypeMinPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Dialog_besoin_transportLayout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26)
+                                    .addComponent(spinTypeFreqPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(addSubRouteButton)
+                                    .addComponent(okDirections)))
+                            .addComponent(spinTypeMaxPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(10, 10, 10))
         );
 
@@ -1147,7 +1180,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                             .addComponent(spinTypeTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel21)
-                        .addGap(0, 1, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jInternalFrame6Layout.setVerticalGroup(
@@ -1457,27 +1490,37 @@ public class SimulatHeure extends javax.swing.JFrame {
     private byte[] convertToBytes() throws IOException {
        
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-             ObjectOutput out = new ObjectOutputStream(bos)) {
+            ObjectOutput out = new ObjectOutputStream(bos)) {
             out.writeObject(Sim);
             out.close();
             return  bos.toByteArray();
-           
-            
-            
         } 
     }
 
+    private void convertFromBytes(Stack<byte[]> stack) throws IOException, ClassNotFoundException {
+        if (!stack.isEmpty()){
+            try {
+                
+                if (stack == CTRLZ){
+                    CTRLY.push(convertToBytes());
+                }
+                else{
+                    CTRLZ.push(convertToBytes());
+                }
+                byte[] pop = stack.pop();
+                ByteArrayInputStream bis = new ByteArrayInputStream(pop);
+                ObjectInput in = new ObjectInputStream(bis); 
+                Sim = (Simulation) in.readObject();
+                display.Sim = Sim;
 
-    private void convertFromBytes(byte[] bytes) throws IOException, ClassNotFoundException {
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            ObjectInput in = new ObjectInputStream(bis)) {
-            Sim = (Simulation) in.readObject();
-            display.Sim = Sim;
-            
-            reloadInterface();
-            
-            in.close();
-        } 
+                reloadInterface();
+
+                in.close();
+            } 
+            catch (Exception e){
+                
+            }
+        }
     }
     
     public void selectOnly(Boolean state){
@@ -1633,7 +1676,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         case  "select":
         {
             try {
-                CTRLZ = convertToBytes();
+                CTRLZ.push(convertToBytes());
             } catch (IOException ex) {
                 Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1690,7 +1733,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     public void createNode(int x, int y){
           try{
-       CTRLZ = convertToBytes();
+       CTRLZ.push(convertToBytes());
         }     
          catch (IOException ex) {
             Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
@@ -1724,7 +1767,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             case 0:
         {
             try {
-                CTRLZ = convertToBytes();
+                CTRLZ.push(convertToBytes());
             } catch (IOException ex) {
                 Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1797,7 +1840,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     public void delete(){
         try {
-            CTRLZ = convertToBytes();
+            CTRLZ.push(convertToBytes());
         } catch (IOException ex) {
             Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1925,7 +1968,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     private void moveNodeRoutine(){
         try {
-            CTRLZ = convertToBytes();
+            CTRLZ.push(convertToBytes());
         } catch (IOException ex) {
             Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2289,7 +2332,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         if (Sim.getRouteQuantity()>0){
             try {
-                CTRLZ = convertToBytes();
+                 CTRLZ.push(convertToBytes());
             } catch (IOException ex) {
                 Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2397,7 +2440,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (listSubRoutesModel.getSize() != 0){
             Sim.newDirections.setTimeFirstStart((int)spinFirstStart.getValue());
-            Sim.newDirections.setFrequency((int)spinFreqPassenger.getValue());
+            Sim.newDirections.setFrequency((int)spinTypeMinPassenger.getValue(),(int)spinTypeMaxPassenger.getValue(),(int)spinTypeFreqPassenger.getValue());
             listDirectionsModel.addElement(Sim.newDirections.getStartPoint().getName()+" à "+Sim.newDirections.getEndPoint().getName());
             Sim.addDirection();
             okDirections.setEnabled(false);
@@ -2415,7 +2458,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!selectedNode.isEmpty()){
             try {
-                CTRLZ = convertToBytes();
+                 CTRLZ.push(convertToBytes());
             } catch (IOException ex) {
                 Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2580,7 +2623,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 spinMinTime.commitEdit();
                 spinMaxTime.commitEdit();
                 spinTypeTime.commitEdit();
-                CTRLZ = convertToBytes();
+                 CTRLZ.push(convertToBytes());
             }
             catch(Exception e){
 
@@ -2618,7 +2661,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
                     if (selectedNode != null){
                         try {
-                            CTRLZ = convertToBytes();
+                             CTRLZ.push(convertToBytes());
                         } catch (IOException ex) {
                             Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -2666,9 +2709,10 @@ public class SimulatHeure extends javax.swing.JFrame {
             System.out.printf("Serialized data is saved in "+filename);
        }
          
-      }catch(IOException i)
+      }catch(Exception i)
       {
           i.printStackTrace();
+          return;
       }
     }//GEN-LAST:event_menuCommandEnregistrerActionPerformed
 
@@ -2684,24 +2728,26 @@ public class SimulatHeure extends javax.swing.JFrame {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 file = fc.getSelectedFile();
             }
+            
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             Sim = (Simulation) in.readObject();
             reloadInterface();
+            CTRLY.clear();
+            CTRLZ.clear();
             in.close();
             fileIn.close();
       }
-        catch(IOException i)
+        catch(NullPointerException e){
+            System.out.println("Vous n'avez pas sélectionner de fichier!");
+            return;
+        }
+        catch(Exception i)
         {
            i.printStackTrace();
            return;
         }
-        catch(ClassNotFoundException c)
-        {
-           System.out.println("Simulation class not found");
-           c.printStackTrace();
-           return;
-        }
+
     }//GEN-LAST:event_menuCommandOuvrirActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -2745,7 +2791,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             if (!simTimer.running){
-                CTRLY = convertToBytes();
+                //oCTRLY.push(convertToBytes());
                 convertFromBytes(CTRLZ);
             }
         } catch (IOException ex) {
@@ -2764,7 +2810,9 @@ public class SimulatHeure extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             if (!simTimer.running){
-            convertFromBytes(CTRLY);
+                if (!CTRLY.isEmpty()){
+                    convertFromBytes(CTRLY);
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
@@ -2847,6 +2895,8 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2912,11 +2962,13 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JSpinner spinFirstStart;
     private javax.swing.JSpinner spinFreqMax;
     private javax.swing.JSpinner spinFreqMin;
-    private javax.swing.JSpinner spinFreqPassenger;
     private javax.swing.JSpinner spinFreqType;
     private javax.swing.JSpinner spinMaxTime;
     javax.swing.JSpinner spinMinTime;
     private javax.swing.JSpinner spinNumberOfSimulations;
+    private javax.swing.JSpinner spinTypeFreqPassenger;
+    private javax.swing.JSpinner spinTypeMaxPassenger;
+    private javax.swing.JSpinner spinTypeMinPassenger;
     private javax.swing.JSpinner spinTypeTime;
     private javax.swing.JSpinner spin_num;
     private javax.swing.JSpinner spin_t;

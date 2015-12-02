@@ -16,7 +16,9 @@ public class Directions implements java.io.Serializable{
         directions = new ArrayList<SubRoute>();
         startPoint = null;
         endPoint = null;
-        frequency = 1;
+        minFreq = 1;
+        maxFreq = 1;
+        typeFreq = 1;
         timeFirstStart = 0;
         timeNextStart = timeFirstStart;
         numberOfStops = 0;
@@ -51,14 +53,13 @@ public class Directions implements java.io.Serializable{
         return timeNextStart;
     }
     
-    public void setFrequency(int f){
-        frequency = f;
+    public void setFrequency(int min, int max, int type){
+        minFreq = min;
+        maxFreq = max;
+        typeFreq = type;
     }
     
-     public int getFrequency(){
-        return frequency;
-    }
-    
+
     public Node getStartPoint(){
         return startPoint;
     }
@@ -147,7 +148,9 @@ public class Directions implements java.io.Serializable{
     private Node startPoint;
     private Node endPoint;
     private int timeFirstStart;
-    private int frequency;
+    public int minFreq;
+    public int maxFreq;
+    public int typeFreq;
     private int timeNextStart;
     private int numberOfStops;
     public List<SubRoute> directions;

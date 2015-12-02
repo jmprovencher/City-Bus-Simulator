@@ -12,9 +12,7 @@ import java.util.*;
  */
 public class Line implements java.io.Serializable{
     public Line(Node startPoint, Node endPoint){
-        maxSpeed = 30*1000/60;
-        minSpeed = 30*1000/60;
-        typeSpeed = 30*1000/60;
+
         origin = startPoint;
         destination = endPoint;
         origin.addLine(this);
@@ -25,6 +23,9 @@ public class Line implements java.io.Serializable{
         y2 = destination.getPositionY();        
         line = new Line2D.Double(x1,y1,x2,y2);
         updateDistance();
+        maxSpeed = distance/5;
+        minSpeed = distance/5;
+        typeSpeed = distance/5;
         associatedRoutes =new ArrayList<Route>();
         offsetLine();
     }
