@@ -2647,13 +2647,25 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
     try
       {
-         FileOutputStream fileOut =
-         new FileOutputStream("sim.ser");
-         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-         out.writeObject(Sim);
-         out.close();
-         fileOut.close();
-         System.out.printf("Serialized data is saved in /sim.ser");
+        JFileChooser fc = new JFileChooser();
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("Serialized Simulation File","ser"));
+        fc.removeChoosableFileFilter(fc.getAcceptAllFileFilter());
+        fc.setFileFilter(new FileNameExtensionFilter("Serialized Simulation File","ser"));
+
+        if (fc.showSaveDialog(SimulatHeure.this) == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+               String filename = file.toString();
+            if (!filename .endsWith(".ser"))
+                 filename += ".ser";
+                 file = new File(filename);
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(Sim);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in "+filename);
+       }
+         
       }catch(IOException i)
       {
           i.printStackTrace();
