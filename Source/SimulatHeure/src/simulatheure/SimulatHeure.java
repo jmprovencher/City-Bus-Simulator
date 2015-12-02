@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.StyleConstants;
 
 
@@ -2665,6 +2666,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         {
             File file = null;
             JFileChooser fc = new JFileChooser();
+            fc.addChoosableFileFilter(new FileNameExtensionFilter("Serialized Simulation File","ser"));
+            fc.removeChoosableFileFilter(fc.getAcceptAllFileFilter());
             int returnVal = fc.showOpenDialog(SimulatHeure.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 file = fc.getSelectedFile();
@@ -2672,7 +2675,6 @@ public class SimulatHeure extends javax.swing.JFrame {
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             Sim = (Simulation) in.readObject();
- 
             reloadInterface();
             in.close();
             fileIn.close();
