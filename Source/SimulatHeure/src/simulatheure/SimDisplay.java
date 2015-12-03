@@ -65,6 +65,7 @@ public class SimDisplay extends JPanel {
         listSelectedNode = new ArrayList<>();
         listSelectedLine = new ArrayList<>();
         listSelectedBus = new ArrayList<>();
+        bgImage = new BackgroundImage();
     }
     
    
@@ -122,15 +123,19 @@ public class SimDisplay extends JPanel {
             repaint();
     }
     
-    public void setBackgroundImage(Image img){
+    public void setBackgroundImage(BackgroundImage bgImg){
         /*if(backgroundImage == null){
             toggleGrid(false);
         }*/
-        bgScaler = 10;
-        backgroundImage = img.getScaledInstance(img.getWidth(this)*bgScaler, img.getHeight(this)*bgScaler, Image.SCALE_SMOOTH);
-        gridWidth = img.getWidth(this)*bgScaler;
-        gridHeight = img.getHeight(this)*bgScaler;
+        bgImage = bgImg;
+        Image img = bgImg.getImage();
+        Image scaledImg = img.getScaledInstance(img.getWidth(this)*10, img.getHeight(this)*10, Image.SCALE_SMOOTH);
+        gridWidth = scaledImg.getWidth(this);
+        gridHeight = scaledImg.getHeight(this);
+        
+        bgImage.setImage(scaledImg);
         repaint();
+        System.out.print("Image set");
     }
     
     public void displaySim(Graphics g){
@@ -153,8 +158,9 @@ public class SimDisplay extends JPanel {
         g.setColor(Color.white);
         
         //background image
-        if(backgroundImage != null){
-            g.drawImage(backgroundImage, -backgroundImage.getWidth(this)/2, -backgroundImage.getHeight(this)/2, null);            
+        if(bgImage.enabled){
+            Image img = bgImage.getImage();
+            g.drawImage(img, -img.getWidth(this)/2, -img.getHeight(this)/2, null);            
         }
 
         
@@ -429,12 +435,10 @@ public class SimDisplay extends JPanel {
      public BufferedImage imgStationSelected;
      public BufferedImage imgBus;
      public BufferedImage imgBusSelected;
-     public Image backgroundImage;
      public int nodeSize;
      public int stationSize;
      public int imgBusSize;
      public int imgBusSelectedSize;
-     public double backgroundAspectRatio;
      public Line2D.Double createLineTemp;
      public Rectangle2D.Double selectionRectangle;
      public Simulation Sim;
@@ -445,7 +449,7 @@ public class SimDisplay extends JPanel {
      private boolean gridEnabled;
      private int gridWidth;
      private int gridHeight;
-     public int bgScaler;
+     private BackgroundImage bgImage;
      
      
 }
