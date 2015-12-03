@@ -19,6 +19,7 @@ import java.util.*;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.BasicStroke;
+import java.awt.Image;
 /**
  *
  * @author rem54
@@ -34,6 +35,7 @@ public class SimDisplay extends JPanel {
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
+        gridActivated = true;
 
         try
         {
@@ -44,10 +46,10 @@ public class SimDisplay extends JPanel {
             imgBus = ImageIO.read(getClass().getResource("/images/bus2.png"));
             imgBusSelected = ImageIO.read(getClass().getResource("/images/bus2Selected.png"));
         }
-        catch (IOException e)
-        {
-            
-        }
+        catch (IOException e){}
+        
+        //backgroundDimension = backgroundImage.getWidth(this);
+        
         stationSize = imgStationEmpty.getWidth();
         imgBusSize = imgBus.getWidth();
         imgBusSelectedSize = imgBusSelected.getWidth();
@@ -88,15 +90,22 @@ public class SimDisplay extends JPanel {
     private final int GRID_SIZE = 20000;
     
     public void drawGrid(Graphics g, int scale){
-        
-        for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
-           g.drawLine(-GRID_SIZE/2, i, GRID_SIZE/2 , i);
-       }
-        
-        for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
-           g.drawLine( i, -GRID_SIZE/2, i,GRID_SIZE/2 );
-       }
-        g.setColor(Color.white);
+        if(gridActivated){
+            for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
+               g.drawLine(-GRID_SIZE/2, i, GRID_SIZE/2 , i);
+           }
+
+            for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
+               g.drawLine( i, -GRID_SIZE/2, i,GRID_SIZE/2 );
+           }
+            g.setColor(Color.white);            
+        }
+
+    }
+    
+    public void toggleGrid(boolean val){
+        gridActivated = val;
+        repaint();
     }
     
     public void setCenterPosition(int x, int y){
@@ -118,6 +127,15 @@ public class SimDisplay extends JPanel {
             repaint();
     }
     
+    public void setBackgroundImage(Image img){
+        //g.drawImage(img, 0, 0, null);
+        backgroundImage = img;
+        backgroundHeight = img.getHeight(this);
+        backgroundWidth = img.getWidth(this);
+        repaint();
+        
+    }
+    
     public void displaySim(Graphics g){
         
         //coordinates setup
@@ -136,6 +154,11 @@ public class SimDisplay extends JPanel {
         g.setColor(Color.gray);
         g.fillRect(0-GRID_SIZE/2, 0-GRID_SIZE/2, GRID_SIZE, GRID_SIZE);
         g.setColor(Color.white);
+        
+        //background image
+        g.drawImage(backgroundImage, (int)-w, (int)-h, null);
+        
+        
         //grid
         if (scale >= 0.02 && scale <= 0.2){
             g.setColor(lightGray);
@@ -405,10 +428,13 @@ public class SimDisplay extends JPanel {
      public BufferedImage imgStationSelected;
      public BufferedImage imgBus;
      public BufferedImage imgBusSelected;
+     public Image backgroundImage;
      public int nodeSize;
      public int stationSize;
      public int imgBusSize;
      public int imgBusSelectedSize;
+     public int backgroundHeight;
+     public int backgroundWidth;
      public Line2D.Double createLineTemp;
      public Rectangle2D.Double selectionRectangle;
      public Simulation Sim;
@@ -416,6 +442,7 @@ public class SimDisplay extends JPanel {
      private Color lightGray;
      private Color lightLightGray;
      private Color lightLightLightGray;
+     private boolean gridActivated;
      
      
 }

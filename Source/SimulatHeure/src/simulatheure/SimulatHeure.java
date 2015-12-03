@@ -9,6 +9,7 @@ import Reseau.*;
 import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
 import javax.swing.*;
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.text.ParseException;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.StyleConstants;
 import java.util.Stack;
+import javax.imageio.ImageIO;
 
 
 /**
@@ -232,6 +234,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuCommandAjouterCircuit = new javax.swing.JMenuItem();
         menuCommandModCircuit = new javax.swing.JMenuItem();
         menuFolderAffichage = new javax.swing.JMenu();
+        backgroundSelectorMenuItem = new javax.swing.JMenuItem();
+        displayGridSelectMenu = new javax.swing.JCheckBoxMenuItem();
         menuSubfolderToolboxes = new javax.swing.JMenu();
         menuOptionSeeEditionToolbox = new javax.swing.JCheckBoxMenuItem();
         menuOptionSeeCircuitToolbox = new javax.swing.JCheckBoxMenuItem();
@@ -722,7 +726,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         display.setLayout(displayLayout);
         displayLayout.setHorizontalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGap(0, 957, Short.MAX_VALUE)
         );
         displayLayout.setVerticalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1204,7 +1208,6 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        menuFolderFichier.setMnemonic('f');
         menuFolderFichier.setText("Fichier");
 
         menuCommandNouvDoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK));
@@ -1237,11 +1240,9 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jMenuBar1.add(menuFolderFichier);
 
-        menuFolderEdition.setMnemonic('e');
         menuFolderEdition.setText("Edition");
 
         menuCommandSupprimer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuCommandSupprimer.setMnemonic('u');
         menuCommandSupprimer.setText("Supprimer");
         menuCommandSupprimer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1250,8 +1251,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderEdition.add(menuCommandSupprimer);
 
-        menuCommandAjouterNoeud.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, 0));
-        menuCommandAjouterNoeud.setMnemonic('o');
+        menuCommandAjouterNoeud.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
         menuCommandAjouterNoeud.setText("Ajouter Noeud");
         menuCommandAjouterNoeud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1260,8 +1260,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderEdition.add(menuCommandAjouterNoeud);
 
-        menuCommandAjouterArete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
-        menuCommandAjouterArete.setMnemonic('r');
+        menuCommandAjouterArete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         menuCommandAjouterArete.setText("Ajouter Arête");
         menuCommandAjouterArete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1280,7 +1279,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderEdition.add(jMenuItem1);
 
-        menuCommandDeplacerNoeud.setMnemonic('d');
+        menuCommandDeplacerNoeud.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
         menuCommandDeplacerNoeud.setText("Déplacer Noeud/Station");
         menuCommandDeplacerNoeud.setEnabled(false);
         menuCommandDeplacerNoeud.addActionListener(new java.awt.event.ActionListener() {
@@ -1310,9 +1309,9 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jMenuBar1.add(menuFolderEdition);
 
-        menuFolderSimulation.setMnemonic('s');
         menuFolderSimulation.setText("Simulation");
 
+        menuCommandLancerSim.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         menuCommandLancerSim.setText("Lancer simulation");
         menuCommandLancerSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1321,6 +1320,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderSimulation.add(menuCommandLancerSim);
 
+        menuCommandStopperSim.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         menuCommandStopperSim.setText("Stopper simulation");
         menuCommandStopperSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1329,6 +1329,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         });
         menuFolderSimulation.add(menuCommandStopperSim);
 
+        menuCommandAnalResults.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
         menuCommandAnalResults.setText("Analyser resultats");
         menuCommandAnalResults.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1339,7 +1340,6 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jMenuBar1.add(menuFolderSimulation);
 
-        menuFolderCircuit.setMnemonic('c');
         menuFolderCircuit.setText("Circuit");
 
         menuCommandAjouterCircuit.setText("Ajouter");
@@ -1360,11 +1360,29 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jMenuBar1.add(menuFolderCircuit);
 
-        menuFolderAffichage.setMnemonic('a');
         menuFolderAffichage.setText("Affichage");
-        menuFolderAffichage.setEnabled(false);
+        menuFolderAffichage.setToolTipText("");
+
+        backgroundSelectorMenuItem.setText("Arrière-plan");
+        backgroundSelectorMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backgroundSelectorMenuItemActionPerformed(evt);
+            }
+        });
+        menuFolderAffichage.add(backgroundSelectorMenuItem);
+
+        displayGridSelectMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
+        displayGridSelectMenu.setSelected(true);
+        displayGridSelectMenu.setText("Grille");
+        displayGridSelectMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayGridSelectMenuActionPerformed(evt);
+            }
+        });
+        menuFolderAffichage.add(displayGridSelectMenu);
 
         menuSubfolderToolboxes.setText("Barres d'outils");
+        menuSubfolderToolboxes.setEnabled(false);
 
         menuOptionSeeEditionToolbox.setSelected(true);
         menuOptionSeeEditionToolbox.setText("jCheckBoxMenuItem1");
@@ -1381,6 +1399,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuFolderAffichage.add(menuSubfolderToolboxes);
 
         menuSubfolderInformation.setText("Informations");
+        menuSubfolderInformation.setEnabled(false);
 
         menuOptionSeeCoordsDisplay.setSelected(true);
         menuOptionSeeCoordsDisplay.setText("Coordonées");
@@ -1448,7 +1467,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(editionToolbox)
                             .addComponent(jInternalFrame3))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 105, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2821,6 +2840,23 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuRedoActionPerformed
 
+    private void backgroundSelectorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backgroundSelectorMenuItemActionPerformed
+        try {
+        Image img = ImageIO.read(new File("F:/Libraries/Documents/Session 2015 - Automne/GLO-2004/Projet/maps/Quebec city.png"));
+        display.setBackgroundImage(img);           
+            
+        } catch (IOException ex){}
+
+    }//GEN-LAST:event_backgroundSelectorMenuItemActionPerformed
+
+    private void displayGridSelectMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayGridSelectMenuActionPerformed
+        if(displayGridSelectMenu.isSelected()){
+            display.toggleGrid(true);
+        } else {
+            display.toggleGrid(false);
+        }
+    }//GEN-LAST:event_displayGridSelectMenuActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -2855,6 +2891,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JToggleButton addNodeToggleButton;
     private javax.swing.JButton addSubRouteButton;
     private javax.swing.JButton applyLine;
+    private javax.swing.JMenuItem backgroundSelectorMenuItem;
     private javax.swing.JButton buttonApplySource;
     private javax.swing.JButton buttonBesoins;
     private javax.swing.JButton buttonDeleteSource;
@@ -2866,6 +2903,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkLoop;
     private javax.swing.JComboBox comboSource;
     private simulatheure.SimDisplay display;
+    private javax.swing.JCheckBoxMenuItem displayGridSelectMenu;
     private javax.swing.JLabel displayLabelCoordonnees;
     private javax.swing.ButtonGroup editionButtonGroup;
     private javax.swing.JInternalFrame editionToolbox;

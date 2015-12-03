@@ -724,7 +724,6 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuFolderFichier">
           <Properties>
-            <Property name="mnemonic" type="int" value="102"/>
             <Property name="text" type="java.lang.String" value="Fichier"/>
           </Properties>
           <SubComponents>
@@ -772,7 +771,6 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuFolderEdition">
           <Properties>
-            <Property name="mnemonic" type="int" value="101"/>
             <Property name="text" type="java.lang.String" value="Edition"/>
           </Properties>
           <SubComponents>
@@ -781,7 +779,6 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="DELETE"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="117"/>
                 <Property name="text" type="java.lang.String" value="Supprimer"/>
               </Properties>
               <Events>
@@ -791,9 +788,8 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandAjouterNoeud">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="N"/>
+                  <KeyStroke key="Alt+N"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="111"/>
                 <Property name="text" type="java.lang.String" value="Ajouter Noeud"/>
               </Properties>
               <Events>
@@ -803,9 +799,8 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandAjouterArete">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="A"/>
+                  <KeyStroke key="Alt+A"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="114"/>
                 <Property name="text" type="java.lang.String" value="Ajouter Ar&#xea;te"/>
               </Properties>
               <Events>
@@ -826,7 +821,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandDeplacerNoeud">
               <Properties>
-                <Property name="mnemonic" type="int" value="100"/>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+D"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="D&#xe9;placer Noeud/Station"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -860,12 +857,14 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuFolderSimulation">
           <Properties>
-            <Property name="mnemonic" type="int" value="115"/>
             <Property name="text" type="java.lang.String" value="Simulation"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandLancerSim">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+P"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Lancer simulation"/>
               </Properties>
               <Events>
@@ -874,6 +873,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandStopperSim">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+S"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Stopper simulation"/>
               </Properties>
               <Events>
@@ -882,6 +884,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCommandAnalResults">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+R"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Analyser resultats"/>
               </Properties>
               <Events>
@@ -892,7 +897,6 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuFolderCircuit">
           <Properties>
-            <Property name="mnemonic" type="int" value="99"/>
             <Property name="text" type="java.lang.String" value="Circuit"/>
           </Properties>
           <SubComponents>
@@ -916,14 +920,34 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuFolderAffichage">
           <Properties>
-            <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" value="Affichage"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="backgroundSelectorMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Arri&#xe8;re-plan"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backgroundSelectorMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayGridSelectMenu">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+G"/>
+                </Property>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Grille"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayGridSelectMenuActionPerformed"/>
+              </Events>
+            </MenuItem>
             <Menu class="javax.swing.JMenu" name="menuSubfolderToolboxes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Barres d&apos;outils"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menuOptionSeeEditionToolbox">
@@ -949,6 +973,7 @@
             <Menu class="javax.swing.JMenu" name="menuSubfolderInformation">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Informations"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menuOptionSeeCoordsDisplay">
@@ -1053,7 +1078,7 @@
                           <Component id="editionToolbox" max="32767" attributes="0"/>
                           <Component id="jInternalFrame3" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -1109,7 +1134,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="541" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="957" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
