@@ -128,14 +128,17 @@ public class SimDisplay extends JPanel {
             toggleGrid(false);
         }*/
         bgImage = bgImg;
-        Image img = bgImg.getImage();
-        Image scaledImg = img.getScaledInstance(img.getWidth(this)*10, img.getHeight(this)*10, Image.SCALE_SMOOTH);
-        gridWidth = scaledImg.getWidth(this);
-        gridHeight = scaledImg.getHeight(this);
-        
-        bgImage.setImage(scaledImg);
+        if(bgImage.enabled && bgImage.getImage() != null){
+            Image img = bgImg.getImage();
+            if(bgImage.getRequireRescaling()){
+                img = img.getScaledInstance(img.getWidth(this)*bgImage.getScaleFactor(), img.getHeight(this)*bgImage.getScaleFactor(), Image.SCALE_SMOOTH);
+            }
+            gridWidth = img.getWidth(this);
+            gridHeight = img.getHeight(this);
+            bgImage.setImage(img);
+        }
         repaint();
-        System.out.print("Image set");
+        System.out.print("Image set\n");
     }
     
     public void displaySim(Graphics g){
@@ -158,7 +161,7 @@ public class SimDisplay extends JPanel {
         g.setColor(Color.white);
         
         //background image
-        if(bgImage.enabled){
+        if(bgImage.enabled && bgImage.getImage() != null){
             Image img = bgImage.getImage();
             g.drawImage(img, -img.getWidth(this)/2, -img.getHeight(this)/2, null);            
         }

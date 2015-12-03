@@ -407,7 +407,7 @@
         </Property>
         <Property name="resizable" type="boolean" value="false"/>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[440, 350]"/>
+          <Dimension value="[440, 400]"/>
         </Property>
       </Properties>
       <Events>
@@ -437,7 +437,7 @@
                           <Component id="addSubRouteButton" min="-2" pref="90" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="okDirections" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -737,14 +737,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                          <Component id="scaleAdjustLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="scaleAdjustSlider" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                          <Component id="openBgImageLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="77" max="-2" attributes="0"/>
+                          <Component id="openBgImageFileButton" min="-2" pref="77" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="bgImageTitleLabel" max="32767" attributes="0"/>
                       </Group>
@@ -754,12 +754,12 @@
                                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                                   <Component id="cancelBgButton" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="jButton4" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Component id="applyChangesButton" min="-2" pref="91" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jToggleButton1" min="-2" pref="158" max="-2" attributes="0"/>
+                                  <Component id="bgEnabledToggle" min="-2" pref="158" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton2" min="-2" pref="158" max="-2" attributes="0"/>
+                                  <Component id="bgDisabledToggle" min="-2" pref="158" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -775,25 +775,25 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jToggleButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jToggleButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bgEnabledToggle" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bgDisabledToggle" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator5" min="-2" pref="5" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="openBgImageLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="openBgImageFileButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bgImageTitleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="scaleAdjustSlider" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                      <Component id="scaleAdjustLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="applyChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelBgButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -802,18 +802,18 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel27">
+        <Component class="javax.swing.JLabel" name="openBgImageLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Choisir image"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="openBgImageFileButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ouvrir"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openBgImageFileButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="bgImageTitleLabel">
@@ -829,7 +829,7 @@
         </Component>
         <Component class="javax.swing.JSlider" name="scaleAdjustSlider">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel28">
+        <Component class="javax.swing.JLabel" name="scaleAdjustLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="R&#xe9;glage de l&apos;&#xe9;chelle:"/>
           </Properties>
@@ -842,26 +842,35 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelBgButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="applyChangesButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ok"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyChangesButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+        <Component class="javax.swing.JToggleButton" name="bgEnabledToggle">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="bgActiveSelector"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Actif"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bgEnabledToggleActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="jToggleButton2">
+        <Component class="javax.swing.JToggleButton" name="bgDisabledToggle">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="bgActiveSelector"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Inactif"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bgDisabledToggleActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator5">
         </Component>
@@ -1227,7 +1236,7 @@
                           <Component id="editionToolbox" max="32767" attributes="0"/>
                           <Component id="jInternalFrame3" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="107" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>

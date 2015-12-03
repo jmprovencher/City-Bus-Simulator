@@ -67,6 +67,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private int pressedX;
     private int pressedY;
     private BackgroundImage savedBgImage;
+    private BackgroundImage temporaryBgImage;
     
     public SimulatHeure()  {
 
@@ -103,6 +104,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
         savedBgImage = new BackgroundImage();
+        temporaryBgImage = new BackgroundImage();
     }
 
     /**
@@ -169,15 +171,15 @@ public class SimulatHeure extends javax.swing.JFrame {
         menu1 = new java.awt.Menu();
         menu2 = new java.awt.Menu();
         addBackgroundDialog = new javax.swing.JDialog();
-        jLabel27 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        openBgImageLabel = new javax.swing.JLabel();
+        openBgImageFileButton = new javax.swing.JButton();
         bgImageTitleLabel = new javax.swing.JLabel();
         scaleAdjustSlider = new javax.swing.JSlider();
-        jLabel28 = new javax.swing.JLabel();
+        scaleAdjustLabel = new javax.swing.JLabel();
         cancelBgButton = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        applyChangesButton = new javax.swing.JButton();
+        bgEnabledToggle = new javax.swing.JToggleButton();
+        bgDisabledToggle = new javax.swing.JToggleButton();
         jSeparator5 = new javax.swing.JSeparator();
         bgActiveSelector = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -516,7 +518,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         Dialog_besoin_transport.setModal(true);
         Dialog_besoin_transport.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         Dialog_besoin_transport.setResizable(false);
-        Dialog_besoin_transport.setSize(new java.awt.Dimension(440, 350));
+        Dialog_besoin_transport.setSize(new java.awt.Dimension(440, 400));
         Dialog_besoin_transport.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 Dialog_besoin_transportWindowClosing(evt);
@@ -622,7 +624,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(addSubRouteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(okDirections, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1, Short.MAX_VALUE))
+                        .addGap(0, 10, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Dialog_besoin_transportLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -710,13 +712,13 @@ public class SimulatHeure extends javax.swing.JFrame {
         addBackgroundDialog.setResizable(false);
         addBackgroundDialog.setSize(new java.awt.Dimension(355, 230));
 
-        jLabel27.setText("Choisir image");
+        openBgImageLabel.setText("Choisir image");
 
-        jButton3.setText("Ouvrir");
-        jButton3.setToolTipText("");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        openBgImageFileButton.setText("Ouvrir");
+        openBgImageFileButton.setToolTipText("");
+        openBgImageFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                openBgImageFileButtonActionPerformed(evt);
             }
         });
 
@@ -724,7 +726,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         bgImageTitleLabel.setForeground(new java.awt.Color(180, 180, 180));
         bgImageTitleLabel.setText("Pas d'image selectionnée");
 
-        jLabel28.setText("Réglage de l'échelle:");
+        scaleAdjustLabel.setText("Réglage de l'échelle:");
 
         cancelBgButton.setText("Annuler");
         cancelBgButton.addActionListener(new java.awt.event.ActionListener() {
@@ -733,13 +735,28 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Ok");
+        applyChangesButton.setText("Ok");
+        applyChangesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                applyChangesButtonActionPerformed(evt);
+            }
+        });
 
-        bgActiveSelector.add(jToggleButton1);
-        jToggleButton1.setText("Actif");
+        bgActiveSelector.add(bgEnabledToggle);
+        bgEnabledToggle.setText("Actif");
+        bgEnabledToggle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bgEnabledToggleActionPerformed(evt);
+            }
+        });
 
-        bgActiveSelector.add(jToggleButton2);
-        jToggleButton2.setText("Inactif");
+        bgActiveSelector.add(bgDisabledToggle);
+        bgDisabledToggle.setText("Inactif");
+        bgDisabledToggle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bgDisabledToggleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout addBackgroundDialogLayout = new javax.swing.GroupLayout(addBackgroundDialog.getContentPane());
         addBackgroundDialog.getContentPane().setLayout(addBackgroundDialogLayout);
@@ -749,13 +766,13 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(addBackgroundDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(addBackgroundDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel28)
+                        .addComponent(scaleAdjustLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(scaleAdjustSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(addBackgroundDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel27)
+                        .addComponent(openBgImageLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(openBgImageFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bgImageTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(addBackgroundDialogLayout.createSequentialGroup()
@@ -764,11 +781,11 @@ public class SimulatHeure extends javax.swing.JFrame {
                                 .addGap(63, 63, 63)
                                 .addComponent(cancelBgButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(applyChangesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(addBackgroundDialogLayout.createSequentialGroup()
-                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bgEnabledToggle, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16)
-                                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(bgDisabledToggle, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jSeparator5)
@@ -778,22 +795,22 @@ public class SimulatHeure extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addBackgroundDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(addBackgroundDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1)
-                    .addComponent(jToggleButton2))
+                    .addComponent(bgEnabledToggle)
+                    .addComponent(bgDisabledToggle))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(addBackgroundDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(jButton3)
+                    .addComponent(openBgImageLabel)
+                    .addComponent(openBgImageFileButton)
                     .addComponent(bgImageTitleLabel))
                 .addGap(18, 18, 18)
                 .addGroup(addBackgroundDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scaleAdjustSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28))
+                    .addComponent(scaleAdjustLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(addBackgroundDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(applyChangesButton)
                     .addComponent(cancelBgButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1577,7 +1594,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(editionToolbox)
                             .addComponent(jInternalFrame3))
-                        .addGap(0, 105, Short.MAX_VALUE)))
+                        .addGap(0, 107, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2950,13 +2967,29 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuRedoActionPerformed
 
-    
+/*
+    Section relative to background edition
+*/
     
     private void backgroundSelectorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backgroundSelectorMenuItemActionPerformed
+        log("backgroundSelectorMenuItemActionPerformed()");
+        if(!addBackgroundDialog.isVisible()){
+            temporaryBgImage = savedBgImage;
+            if(temporaryBgImage.enabled){
+                bgEnabledToggle.setSelected(true);
+                bgDisabledToggle.setSelected(false);
+                enableBackgroundImageSelection();
+            } else {
+                bgEnabledToggle.setSelected(false);
+                bgDisabledToggle.setSelected(true);
+                disableBackgroundImageSelection();
+            }
+        }
         addBackgroundDialog.setVisible(true);
     }//GEN-LAST:event_backgroundSelectorMenuItemActionPerformed
 
     private void displayGridSelectMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayGridSelectMenuActionPerformed
+        log("displayGridSelectMenuActionPerformed()");
         if(displayGridSelectMenu.isSelected()){
             display.toggleGrid(true);
         } else {
@@ -2964,7 +2997,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_displayGridSelectMenuActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void openBgImageFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBgImageFileButtonActionPerformed
+     log("openBgImageFileButtonActionPerformed()");
      try
         {
             File file = null;
@@ -2981,9 +3015,11 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
             bgImageTitleLabel.setText(file.getName());
             Image img = ImageIO.read(file);
-            savedBgImage.setImage(img);
-            savedBgImage.enabled = true;
+            log("   original image: "+savedBgImage.getImage());
+            temporaryBgImage.setImage(img);
+            temporaryBgImage.enabled = true;
             display.setBackgroundImage(savedBgImage);
+            log("   original image: "+savedBgImage.getImage());
       }
         catch(NullPointerException e){
             //e.printStackTrace();
@@ -2994,12 +3030,61 @@ public class SimulatHeure extends javax.swing.JFrame {
            i.printStackTrace();
            return;
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_openBgImageFileButtonActionPerformed
 
     private void cancelBgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBgButtonActionPerformed
-        // TODO add your handling code here:
+        log("cancelBgButtonActionPerformed()");
+        display.setBackgroundImage(savedBgImage);
+        addBackgroundDialog.setVisible(false);
     }//GEN-LAST:event_cancelBgButtonActionPerformed
 
+    private void enableBackgroundImageSelection(){
+        log("enableBackgroundImageSelection()");
+        openBgImageLabel.setEnabled(true);
+        openBgImageFileButton.setEnabled(true);
+        scaleAdjustLabel.setEnabled(true);
+        bgImageTitleLabel.setEnabled(true);
+        scaleAdjustSlider.setEnabled(true);
+    }
+    
+    private void bgEnabledToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgEnabledToggleActionPerformed
+        log("bgEnabledToggleActionPerformed()");
+        enableBackgroundImageSelection();
+        temporaryBgImage.enabled = true;
+        if(temporaryBgImage.getImage() == null){
+            log("   Image: null");
+        } else{
+            log("   Image: "+temporaryBgImage.getImage().getClass());
+        }
+        
+        display.setBackgroundImage(temporaryBgImage);
+    }//GEN-LAST:event_bgEnabledToggleActionPerformed
+
+    private void disableBackgroundImageSelection(){
+        log("disableBackgroundImageSelection()");
+        openBgImageLabel.setEnabled(false);
+        openBgImageFileButton.setEnabled(false);
+        scaleAdjustLabel.setEnabled(false);
+        bgImageTitleLabel.setEnabled(false);
+        scaleAdjustSlider.setEnabled(false);
+    }
+    
+    private void bgDisabledToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgDisabledToggleActionPerformed
+        log("bgDisabledToggleActionPerformed()");
+        disableBackgroundImageSelection();
+        temporaryBgImage.enabled = false;
+        display.setBackgroundImage(temporaryBgImage);
+    }//GEN-LAST:event_bgDisabledToggleActionPerformed
+
+    private void applyChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyChangesButtonActionPerformed
+        log("applyChangesButtonActionPerformed()");
+        savedBgImage = temporaryBgImage;
+        addBackgroundDialog.setVisible(false);
+    }//GEN-LAST:event_applyChangesButtonActionPerformed
+
+    private void log(String st){
+        System.out.print(st+"\n");
+    }
 
     /**
      * @param args the command line arguments
@@ -3022,6 +3107,8 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
     }
+    
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bouton_arreter;
@@ -3034,9 +3121,12 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JDialog addBackgroundDialog;
     private javax.swing.JToggleButton addNodeToggleButton;
     private javax.swing.JButton addSubRouteButton;
+    private javax.swing.JButton applyChangesButton;
     private javax.swing.JButton applyLine;
     private javax.swing.JMenuItem backgroundSelectorMenuItem;
     private javax.swing.ButtonGroup bgActiveSelector;
+    private javax.swing.JToggleButton bgDisabledToggle;
+    private javax.swing.JToggleButton bgEnabledToggle;
     private javax.swing.JLabel bgImageTitleLabel;
     private javax.swing.JButton buttonApplySource;
     private javax.swing.JButton buttonBesoins;
@@ -3057,8 +3147,6 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JComboBox endComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JInternalFrame jInternalFrame3;
@@ -3084,8 +3172,6 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -3106,8 +3192,6 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JList listDirections;
     private javax.swing.JList listRoutes;
     private javax.swing.JList listSources;
@@ -3146,7 +3230,10 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JToggleButton moveToggleButton;
     private javax.swing.JButton okDirections;
     private javax.swing.JButton ok_dialog_circuit;
+    private javax.swing.JButton openBgImageFileButton;
+    private javax.swing.JLabel openBgImageLabel;
     private javax.swing.JComboBox routesComboBox;
+    private javax.swing.JLabel scaleAdjustLabel;
     private javax.swing.JSlider scaleAdjustSlider;
     private javax.swing.JToggleButton selectorToggleButton;
     private javax.swing.JTextField sim_time;

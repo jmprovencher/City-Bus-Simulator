@@ -17,11 +17,15 @@ public class BackgroundImage{
     private Image bgImage;
     public boolean enabled;
     public boolean gridEnabled;
+    private int scaleFactor;
+    private boolean requireRescaling;
     
     // constructor
     public BackgroundImage(){
         enabled = false;
         gridEnabled = true;
+        scaleFactor = 1;
+        requireRescaling = false;
     }
     
     //get/set image
@@ -33,4 +37,18 @@ public class BackgroundImage{
         bgImage = img;
     }
     
+    public int getScaleFactor(){
+        return scaleFactor;
+    }
+    public void setScaleFactor(int newScale){
+        scaleFactor = newScale;
+        requireRescaling = true;
+    }
+    
+    public void setRequireRescaling(boolean newVal){
+        requireRescaling = newVal;
+    }
+    public boolean getRequireRescaling(){
+        return requireRescaling;
+    }
 }
