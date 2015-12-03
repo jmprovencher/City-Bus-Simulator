@@ -35,7 +35,9 @@ public class SimDisplay extends JPanel {
         defaultCursor = new Cursor(0); // pointing hand
         handCursor = new Cursor(12); // pointing hand
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
-        gridActivated = true;
+        gridEnabled = true;
+        gridWidth = 20000;
+        gridHeight = 20000;
 
         try
         {
@@ -47,9 +49,7 @@ public class SimDisplay extends JPanel {
             imgBusSelected = ImageIO.read(getClass().getResource("/images/bus2Selected.png"));
         }
         catch (IOException e){}
-        
-        //backgroundDimension = backgroundImage.getWidth(this);
-        
+                
         stationSize = imgStationEmpty.getWidth();
         imgBusSize = imgBus.getWidth();
         imgBusSelectedSize = imgBusSelected.getWidth();
@@ -87,31 +87,26 @@ public class SimDisplay extends JPanel {
                               new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
    }
     
-    private final int GRID_SIZE = 20000;
-    
     public void drawGrid(Graphics g, int scale){
-        if(gridActivated){
-            for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
-               g.drawLine(-GRID_SIZE/2, i, GRID_SIZE/2 , i);
-           }
+        for (int i = -gridHeight/2; i <=gridHeight/2; i = i+scale){
+           g.drawLine(-gridWidth/2, i, gridWidth/2 , i);
+       }
 
-            for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
-               g.drawLine( i, -GRID_SIZE/2, i,GRID_SIZE/2 );
-           }
-            g.setColor(Color.white);            
-        }
-
+        for (int i = -gridWidth/2; i <=gridWidth/2; i = i+scale){
+           g.drawLine(i, -gridHeight/2, i,gridHeight/2 );
+       }
+        g.setColor(Color.white);            
     }
     
     public void toggleGrid(boolean val){
-        gridActivated = val;
+        gridEnabled = val;
         repaint();
     }
     
     public void setCenterPosition(int x, int y){
             centerPositionX -= x;
             centerPositionY -=  y;
-            int limit = GRID_SIZE/2 +750;
+            int limit = gridWidth/2 +750;
             if (centerPositionX >limit){
                 centerPositionX = limit;
             }
@@ -128,12 +123,14 @@ public class SimDisplay extends JPanel {
     }
     
     public void setBackgroundImage(Image img){
-        //g.drawImage(img, 0, 0, null);
-        backgroundImage = img;
-        backgroundHeight = img.getHeight(this);
-        backgroundWidth = img.getWidth(this);
+        /*if(backgroundImage == null){
+            toggleGrid(false);
+        }*/
+        bgScaler = 10;
+        backgroundImage = img.getScaledInstance(img.getWidth(this)*bgScaler, img.getHeight(this)*bgScaler, Image.SCALE_SMOOTH);
+        gridWidth = img.getWidth(this)*bgScaler;
+        gridHeight = img.getHeight(this)*bgScaler;
         repaint();
-        
     }
     
     public void displaySim(Graphics g){
@@ -152,34 +149,38 @@ public class SimDisplay extends JPanel {
 
         //white background
         g.setColor(Color.gray);
-        g.fillRect(0-GRID_SIZE/2, 0-GRID_SIZE/2, GRID_SIZE, GRID_SIZE);
+        g.fillRect(0-gridWidth/2, 0-gridHeight/2, gridWidth, gridHeight);
         g.setColor(Color.white);
         
         //background image
-        g.drawImage(backgroundImage, (int)-w, (int)-h, null);
+        if(backgroundImage != null){
+            g.drawImage(backgroundImage, -backgroundImage.getWidth(this)/2, -backgroundImage.getHeight(this)/2, null);            
+        }
+
         
         
         //grid
-        if (scale >= 0.02 && scale <= 0.2){
-            g.setColor(lightGray);
-            drawGrid(g, 250);
-        }
-        if (scale > 0.2 && scale <= 0.6){
-            
-            g.setColor(lightLightGray);
-            drawGrid(g, 50);
-            g.setColor(lightGray);
-            drawGrid(g, 250);
-        }
-        if (scale >0.6 ){
-            g.setColor(lightLightLightGray);
-            drawGrid(g, 10);
-            g.setColor(lightLightGray);
-            drawGrid(g, 50);
-            g.setColor(lightGray);
-            drawGrid(g, 250);
-        }
+        if(gridEnabled){
+            if (scale >= 0.02 && scale <= 0.2){
+                g.setColor(lightGray);
+                drawGrid(g, 250);
+            }
+            if (scale > 0.2 && scale <= 0.6){
 
+                g.setColor(lightLightGray);
+                drawGrid(g, 50);
+                g.setColor(lightGray);
+                drawGrid(g, 250);
+            }
+            if (scale >0.6 ){
+                g.setColor(lightLightLightGray);
+                drawGrid(g, 10);
+                g.setColor(lightLightGray);
+                drawGrid(g, 50);
+                g.setColor(lightGray);
+                drawGrid(g, 250);
+            }
+        }
         // end grid
        
        for (Line l: Sim.listLines){
@@ -433,8 +434,7 @@ public class SimDisplay extends JPanel {
      public int stationSize;
      public int imgBusSize;
      public int imgBusSelectedSize;
-     public int backgroundHeight;
-     public int backgroundWidth;
+     public double backgroundAspectRatio;
      public Line2D.Double createLineTemp;
      public Rectangle2D.Double selectionRectangle;
      public Simulation Sim;
@@ -442,7 +442,10 @@ public class SimDisplay extends JPanel {
      private Color lightGray;
      private Color lightLightGray;
      private Color lightLightLightGray;
-     private boolean gridActivated;
+     private boolean gridEnabled;
+     private int gridWidth;
+     private int gridHeight;
+     public int bgScaler;
      
      
 }
