@@ -6,15 +6,15 @@
 package simulatheure;
 
 import java.awt.Image;
-
+import java.io.*;
 
 /**
  *
  * @author Sam
  */
-public class BackgroundImage{
+public class BackgroundImage implements Serializable{
     
-    private Image bgImage;
+    private transient Image bgImage;
     public boolean enabled;
     public boolean gridEnabled;
     private int scaleFactor;

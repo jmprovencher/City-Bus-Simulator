@@ -2862,6 +2862,24 @@ public class SimulatHeure extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_menuCommandEnregistrerActionPerformed
 
+    // method used to deep-copy object which implement "Serializable"
+    // code fount @ http: //alvinalexander.com/java/java-deep-clone-example-source-code
+    // author : Alvin Alexander. Thank you.
+    private static Object deepClone(Object object) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(object);
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            return ois.readObject();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     private void menuCommandOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandOuvrirActionPerformed
         // TODO add your handling code here:
         try
@@ -2973,8 +2991,14 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     private void backgroundSelectorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backgroundSelectorMenuItemActionPerformed
         log("backgroundSelectorMenuItemActionPerformed()");
-        if(!addBackgroundDialog.isVisible()){
-            temporaryBgImage = savedBgImage;
+        //if(!addBackgroundDialog.isVisible()){
+            log("   savedImage: "+savedBgImage.getImage());
+            log("   tempImage: "+temporaryBgImage.getImage());
+            log("   deepcloning...");
+            temporaryBgImage = (BackgroundImage)deepClone(savedBgImage);
+            temporaryBgImage.setImage(savedBgImage.getImage());
+            log("   savedImage: "+savedBgImage.getImage());
+            log("   tempImage: "+temporaryBgImage.getImage());
             if(temporaryBgImage.enabled){
                 bgEnabledToggle.setSelected(true);
                 bgDisabledToggle.setSelected(false);
@@ -2984,7 +3008,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 bgDisabledToggle.setSelected(true);
                 disableBackgroundImageSelection();
             }
-        }
+        //}
         addBackgroundDialog.setVisible(true);
     }//GEN-LAST:event_backgroundSelectorMenuItemActionPerformed
 
@@ -3015,11 +3039,9 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
             bgImageTitleLabel.setText(file.getName());
             Image img = ImageIO.read(file);
-            log("   original image: "+savedBgImage.getImage());
             temporaryBgImage.setImage(img);
             temporaryBgImage.enabled = true;
-            display.setBackgroundImage(savedBgImage);
-            log("   original image: "+savedBgImage.getImage());
+            display.setBackgroundImage(temporaryBgImage);
       }
         catch(NullPointerException e){
             //e.printStackTrace();
@@ -3039,7 +3061,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBgButtonActionPerformed
 
     private void enableBackgroundImageSelection(){
-        log("enableBackgroundImageSelection()");
+        //log("enableBackgroundImageSelection()");
         openBgImageLabel.setEnabled(true);
         openBgImageFileButton.setEnabled(true);
         scaleAdjustLabel.setEnabled(true);
@@ -3051,17 +3073,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         log("bgEnabledToggleActionPerformed()");
         enableBackgroundImageSelection();
         temporaryBgImage.enabled = true;
-        if(temporaryBgImage.getImage() == null){
-            log("   Image: null");
-        } else{
-            log("   Image: "+temporaryBgImage.getImage().getClass());
-        }
-        
+        log("   Image: "+temporaryBgImage.getImage());
         display.setBackgroundImage(temporaryBgImage);
     }//GEN-LAST:event_bgEnabledToggleActionPerformed
 
     private void disableBackgroundImageSelection(){
-        log("disableBackgroundImageSelection()");
+        //log("disableBackgroundImageSelection()");
         openBgImageLabel.setEnabled(false);
         openBgImageFileButton.setEnabled(false);
         scaleAdjustLabel.setEnabled(false);
@@ -3078,7 +3095,13 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void applyChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyChangesButtonActionPerformed
         log("applyChangesButtonActionPerformed()");
-        savedBgImage = temporaryBgImage;
+        log("   savedImage: "+savedBgImage.getImage());
+        log("   tempImage: "+temporaryBgImage.getImage());
+        log("   deepcloning...");
+        savedBgImage = (BackgroundImage)deepClone(temporaryBgImage);
+        savedBgImage.setImage(temporaryBgImage.getImage());
+        log("   savedImage: "+savedBgImage.getImage());
+        log("   tempImage: "+temporaryBgImage.getImage());
         addBackgroundDialog.setVisible(false);
     }//GEN-LAST:event_applyChangesButtonActionPerformed
 
