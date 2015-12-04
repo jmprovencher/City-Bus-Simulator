@@ -2996,7 +2996,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 */
     
     private void backgroundSelectorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backgroundSelectorMenuItemActionPerformed
-        log("backgroundSelectorMenuItemActionPerformed()");
+        //log("backgroundSelectorMenuItemActionPerformed()");
         if(!addBackgroundDialog.isVisible()){
             temporaryBgImage = (BackgroundImage)deepClone(savedBgImage);
             temporaryBgImage.setOriginalImage(savedBgImage.getOriginalImage());
@@ -3014,7 +3014,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_backgroundSelectorMenuItemActionPerformed
 
     private void displayGridSelectMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayGridSelectMenuActionPerformed
-        log("displayGridSelectMenuActionPerformed()");
+        //log("displayGridSelectMenuActionPerformed()");
         if(displayGridSelectMenu.isSelected()){
             display.toggleGrid(true);
         } else {
@@ -3023,7 +3023,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_displayGridSelectMenuActionPerformed
 
     private void openBgImageFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBgImageFileButtonActionPerformed
-     log("openBgImageFileButtonActionPerformed()");
+     //log("openBgImageFileButtonActionPerformed()");
      try
         {
             File file = null;
@@ -3058,7 +3058,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_openBgImageFileButtonActionPerformed
 
     private void cancelBgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBgButtonActionPerformed
-        log("cancelBgButtonActionPerformed()");
+        //log("cancelBgButtonActionPerformed()");
         savedBgImage.setRequireRescaling(true);
         display.setBackgroundImage(savedBgImage);
         addBackgroundDialog.setVisible(false);
@@ -3074,7 +3074,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     private void bgEnabledToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgEnabledToggleActionPerformed
-        log("bgEnabledToggleActionPerformed()");
+        //log("bgEnabledToggleActionPerformed()");
         enableBackgroundImageSelection();
         temporaryBgImage.enabled = true;
         temporaryBgImage.setRequireRescaling(true);
@@ -3091,28 +3091,27 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     private void bgDisabledToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgDisabledToggleActionPerformed
-        log("bgDisabledToggleActionPerformed()");
+        //log("bgDisabledToggleActionPerformed()");
         disableBackgroundImageSelection();
         temporaryBgImage.enabled = false;
         display.setBackgroundImage(temporaryBgImage);
     }//GEN-LAST:event_bgDisabledToggleActionPerformed
 
     private void applyChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyChangesButtonActionPerformed
-        log("applyChangesButtonActionPerformed()");
+        //log("applyChangesButtonActionPerformed()");
         savedBgImage = (BackgroundImage)deepClone(temporaryBgImage);
         savedBgImage.setOriginalImage(temporaryBgImage.getOriginalImage());
         addBackgroundDialog.setVisible(false);
     }//GEN-LAST:event_applyChangesButtonActionPerformed
 
     private void scaleAdjustSliderMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scaleAdjustSliderMouseReleased
-        log("scaleAdjustSliderMouseReleased()");
+        //log("scaleAdjustSliderMouseReleased()");
         int val = scaleAdjustSlider.getValue();
         if(val == 0){val=1;}
         temporaryBgImage.setScaleFactor(val);
         //temporaryBgImage.setResizeQuality(Image.SCALE_FAST);
         temporaryBgImage.setRequireRescaling(true);
         display.setBackgroundImage(temporaryBgImage);
-        log("   scaler: "+val);
     }//GEN-LAST:event_scaleAdjustSliderMouseReleased
 
     private void log(String st){
