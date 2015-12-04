@@ -167,15 +167,27 @@ public class Directions implements java.io.Serializable{
             route = r;
             r.directionsUsingMe++;
             subRoute = new ArrayList<Node>();
-            for (int i = start; i<= end; i++){
-                subRoute.add(r.getNodeFromIndex(i));
-                numberOfStops++;
-            }
+            
             if (start > end && r.isLoop){
                 for (int i = start; i < r.getNumberOfNodes();i++){
                     subRoute.add(r.getNodeFromIndex(i));
+                    numberOfStops++;
+
                 }
-                subRoute.add(r.getNodeFromIndex(0));
+                for (int i = 1; i<= end; i++){
+                    
+                    subRoute.add(r.getNodeFromIndex(i));
+                    numberOfStops++;
+
+                }
+
+            }
+            else{
+                for (int i = start; i<= end; i++){
+                subRoute.add(r.getNodeFromIndex(i));
+                numberOfStops++;
+
+            }
             }
            
         }

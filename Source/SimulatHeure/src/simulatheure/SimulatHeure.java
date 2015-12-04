@@ -1717,7 +1717,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         }
             for (Line l: Sim.listLines){
                 if(display.selectionRectangle.intersectsLine(l.line)){
-                    System.out.println(!selectedLine.contains(l));
+                  
 
                     if (!selectedLine.contains(l)){
                         selectedLine.add(l);
@@ -2054,7 +2054,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     private boolean cursorIsOnObject(int x, int y){
-        if (Sim.getNodeFromPosition(x,y, 20, display.stationSize) != null){
+        if (Sim.getNodeFromPosition(x,y, display.nodeSize, display.stationSize) != null){
             return true;
         }
         if (Sim.getLineFromPosition(x,y) != null){

@@ -56,7 +56,7 @@ public class SimDisplay extends JPanel {
         stationSize = imgStationEmpty.getWidth();
         imgBusSize = imgBus.getWidth();
         imgBusSelectedSize = imgBusSelected.getWidth();
-        nodeSize = 20;
+        nodeSize = 30;
         Sim = new Simulation();
         
         selectionRectangle = new Rectangle2D.Double(0, 0, 0, 0);
@@ -217,16 +217,16 @@ public class SimDisplay extends JPanel {
                 if (listSelectedBus.contains(b)){
                      g.drawImage(imgBusSelected, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                 }
-                else if (numberOFPassenger <=10){
+                else if (numberOFPassenger ==0){
                      g.drawImage(imgBus, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                 }
-                else if (numberOFPassenger <= 20){
+                else if (numberOFPassenger < 10){
                      g.drawImage(imgbusOne, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                 }
-                else if (numberOFPassenger <= 30){
+                else if (numberOFPassenger < 20){
                      g.drawImage(imgbusTwo, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                 }
-                else if (numberOFPassenger > 30){
+                else if (numberOFPassenger >= 20){
                      g.drawImage(imgbusThree, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                 }
                 g.setColor(Color.WHITE);
@@ -246,13 +246,13 @@ public class SimDisplay extends JPanel {
                     g.drawImage(imgStationSelected, (int)n.getPositionX() - stationSize/2, (int)n.getPositionY()- imgStationEmpty.getHeight()/2, null);    
                 }
                 else{
-                    g.fillOval((int)n.getPositionX()-10, (int)n.getPositionY()-10, 20, 20);
+                    g.fillOval((int)n.getPositionX()-nodeSize/2, (int)n.getPositionY()-nodeSize/2, nodeSize, nodeSize);
                 }
                 g.setColor(Color.white);
            }
            else if(!n.isStation){
                
-               g.fillOval((int)n.getPositionX()-10, (int)n.getPositionY()-10, 20, 20);
+               g.fillOval((int)n.getPositionX()-nodeSize/2, (int)n.getPositionY()-nodeSize/2, nodeSize, nodeSize);
                
                 
            }
@@ -407,7 +407,10 @@ public class SimDisplay extends JPanel {
     public void selectDirections(Directions d){
         Node currentNode;
         Node lastNode = null;
+        System.out.println("   ");
+        System.out.println("Direction: ");
         for (Directions.SubRoute s: d.directions){
+            System.out.println("SubRoute:");
             for (Node n: s.subRoute){
                 System.out.println(n.getName());
             }
