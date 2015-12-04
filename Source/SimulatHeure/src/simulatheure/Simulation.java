@@ -372,10 +372,14 @@ public class Simulation implements java.io.Serializable{
         Line oppositeLine = getLine(line.destination, line.origin);
         
         Node n = new Node(x,y);
-        
+        n.listRoutes = line.associatedRoutes;
         listNodes.add(n);
-        listLines.add(new Line(line.origin, n));
-        listLines.add(new Line(n, line.destination));
+        Line lineOne = new Line(line.origin, n);
+        Line lineTwo = new Line(n, line.destination);
+        lineOne.associatedRoutes = line.associatedRoutes;
+        lineTwo.associatedRoutes = line.associatedRoutes;
+        listLines.add(lineOne);
+        listLines.add(lineTwo);
         
         if (oppositeLine != null){
             oppositeLine.delete();

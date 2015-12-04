@@ -46,6 +46,9 @@ public class SimDisplay extends JPanel {
             imgStationFull = ImageIO.read(getClass().getResource("/images/bustop2.png"));
             imgStationSelected = ImageIO.read(getClass().getResource("/images/bustopselected.png"));
             imgBus = ImageIO.read(getClass().getResource("/images/bus2.png"));
+            imgbusOne = ImageIO.read(getClass().getResource("/images/bus2_1.png"));
+            imgbusTwo = ImageIO.read(getClass().getResource("/images/bus2_2.png"));
+            imgbusThree = ImageIO.read(getClass().getResource("/images/bus2_3.png"));
             imgBusSelected = ImageIO.read(getClass().getResource("/images/bus2Selected.png"));
         }
         catch (IOException e){}
@@ -204,12 +207,21 @@ public class SimDisplay extends JPanel {
             Route circuit_i = Sim.getRouteFromIndex(i);
 
             for (Bus b : circuit_i.listBus){
+                int numberOFPassenger = b.listPassenger.size();
                 if (listSelectedBus.contains(b)){
                      g.drawImage(imgBusSelected, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                 }
-                else{
+                else if (numberOFPassenger <=10){
                      g.drawImage(imgBus, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
-
+                }
+                else if (numberOFPassenger <= 20){
+                     g.drawImage(imgbusOne, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
+                }
+                else if (numberOFPassenger <= 30){
+                     g.drawImage(imgbusTwo, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
+                }
+                else if (numberOFPassenger > 30){
+                     g.drawImage(imgbusThree, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                 }
                 g.setColor(Color.WHITE);
                 g.drawString(""+b.listPassenger.size(), (int)b.getPositionX(), (int)b.getPositionY()-40);
@@ -437,6 +449,9 @@ public class SimDisplay extends JPanel {
      public BufferedImage imgStationFull;
      public BufferedImage imgStationSelected;
      public BufferedImage imgBus;
+     public BufferedImage imgbusOne;
+     public BufferedImage imgbusTwo;
+     public BufferedImage imgbusThree;
      public BufferedImage imgBusSelected;
      public int nodeSize;
      public int stationSize;
