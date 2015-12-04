@@ -87,7 +87,7 @@ public class Simulation implements java.io.Serializable{
                     average += time;
                 }
                 average = (double)average /(double) d.listPassengersDone.size();
-                System.out.println("Min: "+min+" Max: "+max+ " Average: "+average);
+                System.out.println("Trajet" + d.getStartPoint() + " - " + d.getEndPoint() + "Min: "+min+" Max: "+max+ " Average: "+average);
             }
         }
         

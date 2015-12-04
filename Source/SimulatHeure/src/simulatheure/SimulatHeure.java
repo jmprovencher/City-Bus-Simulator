@@ -1693,8 +1693,10 @@ public class SimulatHeure extends javax.swing.JFrame {
             menuCommandAjouterNoeud.setEnabled(!state);
             menuCommandDeplacerNoeud.setEnabled(!state);
             menuCommandSupprimer.setEnabled(!state);
+            menuCommandOuvrir.setEnabled(!state);
             menuCommandLancerSim.setEnabled(!state);
             menuCommandAnalResults.setEnabled(!state);
+            menuCommandEnregistrer.setEnabled(!state);
             menuUndo.setEnabled(!state);
             menuRedo.setEnabled(!state);
     }
