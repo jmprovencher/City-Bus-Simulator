@@ -131,17 +131,23 @@ public class SimDisplay extends JPanel {
             toggleGrid(false);
         }*/
         bgImage = bgImg;
-        if(bgImage.enabled && bgImage.getImage() != null){
-            Image img = bgImg.getImage();
+        if(bgImage.enabled && bgImage.getOriginalImage() != null){
+            Image img = bgImg.getOriginalImage();
             if(bgImage.getRequireRescaling()){
-                img = img.getScaledInstance(img.getWidth(this)*bgImage.getScaleFactor(), img.getHeight(this)*bgImage.getScaleFactor(), Image.SCALE_SMOOTH);
+                Image newImg = img.getScaledInstance(img.getWidth(this)*bgImage.getScaleFactor()/10, 
+                        img.getHeight(this)*bgImage.getScaleFactor()/10, bgImage.getResizeQuality());
+                gridWidth = newImg.getWidth(this);
+                gridHeight = newImg.getHeight(this);
+                bgImage.setImage(newImg);
+                bgImage.setRequireRescaling(false);
+            } else {
+                gridWidth = img.getWidth(this);
+                gridHeight = img.getHeight(this);
+                bgImage.setImage(img);
             }
-            gridWidth = img.getWidth(this);
-            gridHeight = img.getHeight(this);
-            bgImage.setImage(img);
         }
         repaint();
-        System.out.print("Image set\n");
+        //System.out.print("Image set\n");
     }
     
     public void displaySim(Graphics g){

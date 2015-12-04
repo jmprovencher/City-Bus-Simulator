@@ -828,6 +828,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="scaleAdjustSlider">
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="scaleAdjustSliderMouseReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="scaleAdjustLabel">
           <Properties>
