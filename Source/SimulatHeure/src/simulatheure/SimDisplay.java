@@ -289,6 +289,9 @@ public class SimDisplay extends JPanel {
        g2.setStroke(new BasicStroke());
        g2.setTransform(old);
        g2.setColor(Color.WHITE);
+       if (bgImage.enabled){
+           g2.setColor(Color.BLACK);
+       }
        int scaleIndicatorLeft =  getGridPositionX((int)w-110);
        int scaleIndicatorRight = getGridPositionX((int)w-10);
        int size = scaleIndicatorRight - scaleIndicatorLeft;
