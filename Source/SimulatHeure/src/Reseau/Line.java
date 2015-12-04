@@ -49,13 +49,13 @@ public class Line implements java.io.Serializable{
             }
         }
          
-         if (targetY < originY && targetX < originX){
+         if (targetY <= originY && targetX <= originX){
              angle-= Math.PI/2;
          }
-         else if (targetY > originY && targetX < originX){
+         else if (targetY > originY && targetX <= originX){
              angle-= Math.PI/2;
          }
-         else if (targetY < originY && targetX > originX){
+         else if (targetY < originY && targetX >= originX){
              angle+= Math.PI/2;
          }
              
