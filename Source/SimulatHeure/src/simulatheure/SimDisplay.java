@@ -144,7 +144,7 @@ public class SimDisplay extends JPanel {
             }
         }
         repaint();
-        System.out.print("Image set\n");
+        //System.out.print("Image set\n");
     }
     
     public void displaySim(Graphics g){
