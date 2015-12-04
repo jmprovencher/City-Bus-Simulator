@@ -79,7 +79,10 @@ public class Directions implements java.io.Serializable{
     }
     
     public void addSubRoute(Route r, int start, int end){
-        System.out.println(directions.size());
+        if (start == end){
+            System.out.println("CRISS WTF YOU DOING");
+            return;
+        }
         if (directions.isEmpty() && r.getNodeFromIndex(start).isStation){
             directions.add(new SubRoute(r, start, end));
             startPoint = r.getNodeFromIndex(start);

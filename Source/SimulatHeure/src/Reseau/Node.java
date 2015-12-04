@@ -59,12 +59,21 @@ public class Node extends  LocationData implements java.io.Serializable{
          }
     }
     
-     public void setStation(String arg_nom){
-         isStation = true;
-         name = arg_nom;
+     public Boolean setStation(String arg_nom){
+         if (!isStation){
+            isStation = true;
+            name = arg_nom;
+            return true;
+         }
+         else{
+             return false;
+         }
      }
      
      public Boolean deleteStation(){
+         if (!isStation){
+             return false;
+         }
          if (listRoutes.isEmpty()){
             isStation = false;
             name = null;

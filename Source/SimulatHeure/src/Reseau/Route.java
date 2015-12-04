@@ -25,6 +25,9 @@ public class Route implements java.io.Serializable{
     }
     
     public Boolean addNode(Node n){
+        if (isLoop){
+            return false;
+        }
         if (route.size() ==0 && n.isStation == false){
             return false;
         }
@@ -36,8 +39,16 @@ public class Route implements java.io.Serializable{
             for (Line a: route.get(route.size()-1).listLines){
                 if (n != route.get(route.size()-1)){
                     if (n == a.destination){
-                        route.add(n);
-                        return true;
+                        if (!route.contains(n)){
+                            route.add(n);
+                            return true;
+                        }
+                        if (n == route.get(0)){
+                            route.add(n);
+                            isLoop = true;
+                            return true;
+                        }
+                        
                      
                     }
                 }

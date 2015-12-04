@@ -123,7 +123,7 @@ public class Simulation implements java.io.Serializable{
     public void passengerOut(Bus aBus){
         List<Passenger> passengerGettingOut = new ArrayList<Passenger>();
         for (Passenger p: aBus.listPassenger){
-            if (p.nextStop == aBus.actualNode){
+            if (p.nextStop == aBus.actualNode || p.getEndPoint() ==aBus.actualNode){
                 passengerGettingOut.add(p);
             }
         }
@@ -200,19 +200,26 @@ public class Simulation implements java.io.Serializable{
     }
     
     
-    public void addStation(List<Node> listNodesStations)
+    public Boolean addStation(List<Node> listNodesStations)
     {
-        //temporaire
+        Boolean newStation = false;
         for (Node n: listNodesStations){
-            n.setStation("Station "+listNodes.indexOf(n));
+            if (n.setStation("Station "+listNodes.indexOf(n))){
+                newStation = true;
+            }
         }
+        return newStation;
 
     }
-    public void deleteStation(List<Node> listNodes){
+    public Boolean deleteStation(List<Node> listNodes){
+        Boolean deletedStation = false;
         for (Node n: listNodes){
+            if(n.deleteStation()){
+                deletedStation = true;
+            }
             
-            n.deleteStation();
         }
+        return deletedStation;
     }
     
 
@@ -297,7 +304,7 @@ public class Simulation implements java.io.Serializable{
         
         newRoute.setNumber(number);
         newRoute.setMaxBus(max);
-        listRoutes.add(newRoute);
+        
         
         for (int i = 0; i< newRoute.route.size(); i++){
             newRoute.route.get(i).setRoute(1, newRoute);
@@ -305,7 +312,7 @@ public class Simulation implements java.io.Serializable{
                 getLine(newRoute.route.get(i), newRoute.route.get(i+1)).setRoute(1, newRoute);
             }
         }
-
+        listRoutes.add(newRoute);
         return listRoutes.get(listRoutes.size()-1);
     }
     
@@ -372,7 +379,7 @@ public class Simulation implements java.io.Serializable{
         Line oppositeLine = getLine(line.destination, line.origin);
         
         Node n = new Node(x,y);
-        n.listRoutes = line.associatedRoutes;
+        n.listRoutes.addAll(line.associatedRoutes);
         listNodes.add(n);
         Line lineOne = new Line(line.origin, n);
         Line lineTwo = new Line(n, line.destination);

@@ -217,6 +217,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         checkBoxStation = new javax.swing.JCheckBox();
         textStationName = new javax.swing.JFormattedTextField();
+        jButton3 = new javax.swing.JButton();
         jInternalFrame4 = new javax.swing.JInternalFrame();
         jScrollPane5 = new javax.swing.JScrollPane();
         listDirections = new javax.swing.JList();
@@ -1151,22 +1152,14 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         checkBoxStation.setText("Station");
         checkBoxStation.setToolTipText("Cocher pour transformer en station");
-        checkBoxStation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxStationActionPerformed(evt);
-            }
-        });
 
         textStationName.setText("-");
         textStationName.setToolTipText("Édition du nom d'une station (non-applicable aux noeuds)");
-        textStationName.addActionListener(new java.awt.event.ActionListener() {
+
+        jButton3.setText("Appliquer");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textStationNameActionPerformed(evt);
-            }
-        });
-        textStationName.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textStationNameKeyReleased(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -1177,22 +1170,26 @@ public class SimulatHeure extends javax.swing.JFrame {
             .addGroup(jInternalFrame3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textStationName)
                     .addGroup(jInternalFrame3Layout.createSequentialGroup()
-                        .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkBoxStation)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textStationName))
+                    .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                        .addComponent(checkBoxStation)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jInternalFrame3Layout.setVerticalGroup(
             jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame3Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jLabel1)
+                .addGap(1, 1, 1)
+                .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(textStationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textStationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addGap(1, 1, 1)
                 .addComponent(checkBoxStation)
                 .addContainerGap())
         );
@@ -1750,9 +1747,9 @@ public class SimulatHeure extends javax.swing.JFrame {
     public void createRouteNextState(){
         
         if (createRouteState == "select" ){
-            if (!selectedNode.isEmpty()){
-                if (selectedNode.get(0).isStation && Sim.newRoute.route.size()>1){
-
+            //if (!selectedNode.isEmpty()){
+                //if (selectedNode.get(0).isStation && Sim.newRoute.route.size()>1){
+                if (Sim.newRoute.route.size()>1){
                     createRouteState = "dialog";
                     listSourcesModel.removeAllElements();
                     listPossibleSourcesModel.removeAllElements();
@@ -1776,10 +1773,10 @@ public class SimulatHeure extends javax.swing.JFrame {
                 else{
                     createRouteState = "reset";
                 }
-            }
-            else{
-                createRouteState = "reset";
-            }
+            //}
+            //else{
+             //   createRouteState = "reset";
+            //}
 
         }
 
@@ -2070,12 +2067,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         checkBoxStation.setEnabled(true);
         checkBoxStation.setSelected(selectedNode.get(0).isStation);
         display.selectNode(selectedNode);
-        if (selectedNode.get(0).isStation){
+        //if (selectedNode.get(0).isStation){
             selectedObject = "Station";
-            Print.setText("Station selectionnée: "+selectedNode.get(0).getName());
+            Print.setText("Station selectionnée: "+selectedNode.get(0).getName()+ "  Nombre de routes:"+selectedNode.get(0).getNumberOfRoutes());
             textStationName.setText(selectedNode.get(0).getName());
 
-        }
+        //}
     }
     
     private void selectedLineRoutine(){ 
@@ -2487,12 +2484,13 @@ public class SimulatHeure extends javax.swing.JFrame {
             DefaultComboBoxModel startComboBoxModel = new DefaultComboBoxModel();
             for(Node n: Sim.listNodes){
 
-                if(n.isStation){
+                if(n.isStation && n.getNumberOfRoutes()>0){
                     startComboBoxModel.addElement(n.getName());
                 }
                 
             }
             startComboBox.setModel(startComboBoxModel);
+            
             Dialog_besoin_transport.setVisible(true);
             
         }
@@ -2512,10 +2510,11 @@ public class SimulatHeure extends javax.swing.JFrame {
            selectedNode.add(n);
            display.selectNode(selectedNode);
            DefaultComboBoxModel routesComboBoxModel = new DefaultComboBoxModel();
+            //System.out.println(n.listRoutes.size());
             for(Route r: n.listRoutes){
-                if (r.route.lastIndexOf(n) != r.getNumberOfNodes()-1 || (r.isLoop && r.getNumberOfNodes()>1)){
+                if (!(r.route.lastIndexOf(n) == r.getNumberOfNodes()-1 && !r.isLoop )){
                     routesComboBoxModel.addElement(r.getNumber());
-                }
+               }
             }
             routesComboBox.setModel(routesComboBoxModel);
             routesComboBox.setEnabled(true);
@@ -2554,6 +2553,24 @@ public class SimulatHeure extends javax.swing.JFrame {
             Node startStation = Sim.getNodeFromName(startStationName);
             int numberAdded = 0;
             for(Node n: r.route){
+                if (r.isLoop && n.isStation && n != startStation && n != Sim.newDirections.getStartPoint() && n != r.route.get(0)){
+                    endComboBoxModel.addElement(n.getName());
+                    numberAdded++;
+                }
+                else{
+                    if (startAdding && n.isStation){
+
+                            endComboBoxModel.addElement(n.getName());
+                            numberAdded++;
+
+                    }
+                    if (n.isStation && n == startStation){
+                        startAdding = true;
+
+                    }
+                }
+            }
+            /*for(Node n: r.route){
                 if (startAdding && n.isStation){
                   if (n != startStation && n != Sim.newDirections.getStartPoint()){
                         endComboBoxModel.addElement(n.getName());
@@ -2564,7 +2581,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     startAdding = true;
                     
                 }
-            }
+            }*/
             endComboBox.setModel(endComboBoxModel);
             if (numberAdded>0){
                 endComboBox.setEnabled(true);
@@ -2599,31 +2616,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
          listSubRoutesModel.removeAllElements();
     }//GEN-LAST:event_Dialog_besoin_transportWindowClosing
-
-    private void checkBoxStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxStationActionPerformed
-        // TODO add your handling code here:
-        if(!selectedNode.isEmpty()){
-            try {
-                 CTRLZ.push(convertToBytes());
-            } catch (IOException ex) {
-                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Boolean isStation = checkBoxStation.isSelected();
-            if (isStation){
-                Sim.addStation(selectedNode);
-                textStationName.setText(selectedNode.get(0).getName());
-                selectedObject = "Station";
-            }
-            else{
-                
-                Sim.deleteStation(selectedNode);
-                textStationName.setText("-");
-            }
-            display.repaint();
-
-        }
-
-    }//GEN-LAST:event_checkBoxStationActionPerformed
 
     private void checkLoopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLoopActionPerformed
         // TODO add your handling code here:
@@ -2800,31 +2792,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         display.selectNode(selectedNode);
     }//GEN-LAST:event_comboSourceActionPerformed
 
-    private void textStationNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textStationNameKeyReleased
-        // TODO add your handling code here:
-        
-          if (!evt.isActionKey()){
-
-                    if (selectedNode != null){
-                        try {
-                             CTRLZ.push(convertToBytes());
-                        } catch (IOException ex) {
-                            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-            if (selectedNode.get(0).isStation){
-
-                selectedNode.get(0).setName(textStationName.getText());
-                listDirectionsModel.removeAllElements();
-                for (Directions d: Sim.listDirections){
-                    listDirectionsModel.addElement(d.getStartPoint().getName()+" à "+d.getEndPoint().getName());
-                }
-                Print.setText("Station selectionnée: " + selectedNode.get(0).getName());
-            }
-        }
-        }
-
-    }//GEN-LAST:event_textStationNameKeyReleased
-
     private void moveToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveToggleButtonActionPerformed
         // TODO add your handling code here:
         mouseClickStatePersistance = true;
@@ -2966,10 +2933,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuUndoActionPerformed
 
-    private void textStationNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textStationNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textStationNameActionPerformed
-
     private void menuRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRedoActionPerformed
         try {
             // TODO add your handling code here:
@@ -3105,6 +3068,51 @@ public class SimulatHeure extends javax.swing.JFrame {
         addBackgroundDialog.setVisible(false);
     }//GEN-LAST:event_applyChangesButtonActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Boolean changes = false;
+       if (selectedNode.get(0).isStation){
+            if ( textStationName.getText() != selectedNode.get(0).getName() && Sim.getNodeFromName(textStationName.getText()) == null){
+
+                selectedNode.get(0).setName(textStationName.getText());
+                changes = true;
+                listDirectionsModel.removeAllElements();
+                for (Directions d: Sim.listDirections){
+                    listDirectionsModel.addElement(d.getStartPoint().getName()+" à "+d.getEndPoint().getName());
+                }
+                Print.setText("Station selectionnée: " + selectedNode.get(0).getName());
+            }
+            else{
+                Print.setText("Nom de station déjà utilisé");
+            }
+        }
+            Boolean isStation = checkBoxStation.isSelected();
+            if (isStation){
+                if (Sim.addStation(selectedNode)){
+                    textStationName.setText(selectedNode.get(0).getName());
+                    selectedObject = "Station";
+                    changes = true;
+                }
+            }
+            else{
+                
+                if (Sim.deleteStation(selectedNode)){
+                    textStationName.setText("-");
+                    changes = true;
+                }
+            }
+            
+             if (changes){
+                display.repaint();
+                try {
+                     CTRLZ.push(convertToBytes());
+                } catch (IOException ex) {
+                    Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     private void log(String st){
         System.out.print(st+"\n");
     }
@@ -3170,6 +3178,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JComboBox endComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JInternalFrame jInternalFrame3;

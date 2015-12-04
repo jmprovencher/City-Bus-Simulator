@@ -369,7 +369,9 @@ public class SimDisplay extends JPanel {
     
     public void selectNode(List<Node> listNodes){
         for(Node n: listNodes){
-            listSelectedNode.add(n);
+            if (!listSelectedNode.contains(n)){
+                listSelectedNode.add(n);
+            }
         }
         repaint();
     }
@@ -400,6 +402,9 @@ public class SimDisplay extends JPanel {
         Node currentNode;
         Node lastNode = null;
         for (Directions.SubRoute s: d.directions){
+            for (Node n: s.subRoute){
+                System.out.println(n.getName());
+            }
             int size  = s.size();
             Route r = s.getRoute();
             selectNode(s.subRoute);
