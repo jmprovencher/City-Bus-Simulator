@@ -15,10 +15,12 @@ import java.io.*;
 public class BackgroundImage implements Serializable{
     
     private transient Image bgImage;
+    private transient Image originalImage;
     public boolean enabled;
     public boolean gridEnabled;
     private int scaleFactor;
     private boolean requireRescaling;
+    private int resizeQuality;
     
     // constructor
     public BackgroundImage(){
@@ -26,6 +28,7 @@ public class BackgroundImage implements Serializable{
         gridEnabled = true;
         scaleFactor = 1;
         requireRescaling = false;
+        resizeQuality = Image.SCALE_SMOOTH;
     }
     
     //get/set image
@@ -35,6 +38,13 @@ public class BackgroundImage implements Serializable{
     }
     public void setImage(Image img){
         bgImage = img;
+    }
+    public Image getOriginalImage(){
+        if(originalImage == null){return null;}
+        return originalImage;
+    }
+    public void setOriginalImage(Image img){
+        originalImage = img;
     }
     
     public int getScaleFactor(){
@@ -51,4 +61,16 @@ public class BackgroundImage implements Serializable{
     public boolean getRequireRescaling(){
         return requireRescaling;
     }
+    
+    public void setResizeQuality(int newVal){
+        if (newVal == 1 || newVal == 2
+            || newVal == 4 || newVal == 8
+            || newVal == 16){
+            resizeQuality = newVal;
+        }
+    }
+    public int getResizeQuality(){
+        return resizeQuality;
+    }
+    
 }

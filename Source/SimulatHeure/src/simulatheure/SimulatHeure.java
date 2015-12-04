@@ -726,6 +726,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         bgImageTitleLabel.setForeground(new java.awt.Color(180, 180, 180));
         bgImageTitleLabel.setText("Pas d'image selectionnée");
 
+        scaleAdjustSlider.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                scaleAdjustSliderMouseReleased(evt);
+            }
+        });
+
         scaleAdjustLabel.setText("Réglage de l'échelle:");
 
         cancelBgButton.setText("Annuler");
@@ -2991,14 +2997,9 @@ public class SimulatHeure extends javax.swing.JFrame {
     
     private void backgroundSelectorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backgroundSelectorMenuItemActionPerformed
         log("backgroundSelectorMenuItemActionPerformed()");
-        //if(!addBackgroundDialog.isVisible()){
-            log("   savedImage: "+savedBgImage.getImage());
-            log("   tempImage: "+temporaryBgImage.getImage());
-            log("   deepcloning...");
+        if(!addBackgroundDialog.isVisible()){
             temporaryBgImage = (BackgroundImage)deepClone(savedBgImage);
-            temporaryBgImage.setImage(savedBgImage.getImage());
-            log("   savedImage: "+savedBgImage.getImage());
-            log("   tempImage: "+temporaryBgImage.getImage());
+            temporaryBgImage.setOriginalImage(savedBgImage.getOriginalImage());
             if(temporaryBgImage.enabled){
                 bgEnabledToggle.setSelected(true);
                 bgDisabledToggle.setSelected(false);
@@ -3008,7 +3009,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 bgDisabledToggle.setSelected(true);
                 disableBackgroundImageSelection();
             }
-        //}
+        }
         addBackgroundDialog.setVisible(true);
     }//GEN-LAST:event_backgroundSelectorMenuItemActionPerformed
 
@@ -3039,8 +3040,10 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
             bgImageTitleLabel.setText(file.getName());
             Image img = ImageIO.read(file);
-            temporaryBgImage.setImage(img);
+            temporaryBgImage.setOriginalImage(img);
             temporaryBgImage.enabled = true;
+            temporaryBgImage.setRequireRescaling(true);
+            temporaryBgImage.setScaleFactor(scaleAdjustSlider.getValue());
             display.setBackgroundImage(temporaryBgImage);
       }
         catch(NullPointerException e){
@@ -3056,6 +3059,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void cancelBgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBgButtonActionPerformed
         log("cancelBgButtonActionPerformed()");
+        savedBgImage.setRequireRescaling(true);
         display.setBackgroundImage(savedBgImage);
         addBackgroundDialog.setVisible(false);
     }//GEN-LAST:event_cancelBgButtonActionPerformed
@@ -3073,7 +3077,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         log("bgEnabledToggleActionPerformed()");
         enableBackgroundImageSelection();
         temporaryBgImage.enabled = true;
-        log("   Image: "+temporaryBgImage.getImage());
+        temporaryBgImage.setRequireRescaling(true);
         display.setBackgroundImage(temporaryBgImage);
     }//GEN-LAST:event_bgEnabledToggleActionPerformed
 
@@ -3095,15 +3099,21 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void applyChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyChangesButtonActionPerformed
         log("applyChangesButtonActionPerformed()");
-        log("   savedImage: "+savedBgImage.getImage());
-        log("   tempImage: "+temporaryBgImage.getImage());
-        log("   deepcloning...");
         savedBgImage = (BackgroundImage)deepClone(temporaryBgImage);
-        savedBgImage.setImage(temporaryBgImage.getImage());
-        log("   savedImage: "+savedBgImage.getImage());
-        log("   tempImage: "+temporaryBgImage.getImage());
+        savedBgImage.setOriginalImage(temporaryBgImage.getOriginalImage());
         addBackgroundDialog.setVisible(false);
     }//GEN-LAST:event_applyChangesButtonActionPerformed
+
+    private void scaleAdjustSliderMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scaleAdjustSliderMouseReleased
+        log("scaleAdjustSliderMouseReleased()");
+        int val = scaleAdjustSlider.getValue();
+        if(val == 0){val=1;}
+        temporaryBgImage.setScaleFactor(val);
+        //temporaryBgImage.setResizeQuality(Image.SCALE_FAST);
+        temporaryBgImage.setRequireRescaling(true);
+        display.setBackgroundImage(temporaryBgImage);
+        log("   scaler: "+val);
+    }//GEN-LAST:event_scaleAdjustSliderMouseReleased
 
     private void log(String st){
         System.out.print(st+"\n");
