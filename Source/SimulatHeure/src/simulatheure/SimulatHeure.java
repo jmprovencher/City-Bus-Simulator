@@ -514,12 +514,13 @@ public class SimulatHeure extends javax.swing.JFrame {
         jMenuItem12.setText("jMenuItem12");
 
         Dialog_besoin_transport.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        Dialog_besoin_transport.setTitle("Édition de besoin en transport");
         Dialog_besoin_transport.setAlwaysOnTop(true);
         Dialog_besoin_transport.setMinimumSize(new java.awt.Dimension(440, 350));
         Dialog_besoin_transport.setModal(true);
         Dialog_besoin_transport.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         Dialog_besoin_transport.setResizable(false);
-        Dialog_besoin_transport.setSize(new java.awt.Dimension(440, 400));
+        Dialog_besoin_transport.setSize(new java.awt.Dimension(440, 450));
         Dialog_besoin_transport.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 Dialog_besoin_transportWindowClosing(evt);
@@ -625,7 +626,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(addSubRouteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(okDirections, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 10, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Dialog_besoin_transportLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(Dialog_besoin_transportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,7 +687,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                                     .addComponent(addSubRouteButton)
                                     .addComponent(okDirections)))
                             .addComponent(spinTypeMaxPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jInternalFrame5.setVisible(true);
@@ -703,6 +704,11 @@ public class SimulatHeure extends javax.swing.JFrame {
         );
 
         menu1.setLabel("File");
+        menu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu1ActionPerformed(evt);
+            }
+        });
         menuBar1.add(menu1);
 
         menu2.setLabel("Edit");
@@ -968,8 +974,10 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel8.setText("Vitesse");
         jLabel8.setToolTipText("Regle la vitesse de simulation (glisser completement a gauche pour pauser)");
 
+        sim_time.setEditable(false);
         sim_time.setText("0");
         sim_time.setToolTipText("Temps depuis le début de la simulation");
+        sim_time.setFocusable(false);
         sim_time.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sim_timeActionPerformed(evt);
@@ -1563,7 +1571,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(editionToolbox, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, Short.MAX_VALUE)
                             .addComponent(jInternalFrame4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -2052,7 +2060,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void displayTime(){
-        sim_time.setText(""+Sim.freq*Sim.count/1000);
+        sim_time.setText(""+(int) (Sim.freq*Sim.count/1000));
     }
     
     private boolean cursorIsOnObject(int x, int y){
@@ -3124,6 +3132,10 @@ public class SimulatHeure extends javax.swing.JFrame {
                 }
              }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void menu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu1ActionPerformed
 
 
     private void log(String st){
