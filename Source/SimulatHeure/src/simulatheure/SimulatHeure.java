@@ -3001,11 +3001,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         {
             File file = null;
             JFileChooser fc = new JFileChooser();
-            fc.addChoosableFileFilter(new FileNameExtensionFilter("image file (png)","png"));
-            fc.addChoosableFileFilter(new FileNameExtensionFilter("image file (jpeg)","jpeg"));
-            fc.addChoosableFileFilter(new FileNameExtensionFilter("image file (jpg)","jpg"));
-            fc.addChoosableFileFilter(new FileNameExtensionFilter("image file (gif)","gif"));
-            fc.addChoosableFileFilter(new FileNameExtensionFilter("image file (bnp)","bnp"));
+            fc.addChoosableFileFilter(new FileNameExtensionFilter("Image File (png,jpeg,jpg,gif)","png","jpeg", "jpg", "gif"));
             fc.removeChoosableFileFilter(fc.getAcceptAllFileFilter());
             int returnVal = fc.showOpenDialog(SimulatHeure.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
