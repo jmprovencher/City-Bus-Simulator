@@ -46,7 +46,7 @@ public class Simulation implements java.io.Serializable{
                         Bus newBus = r.addBus(s);
                         passengerIn(newBus);
                     }
-                    s.timeNextStart += (int) triangular(minimumTime, maximumTime, typicalTime);
+                    s.timeNextStart += (int) Algorithm.triangular(minimumTime, maximumTime, typicalTime);
                 }
             }
         }
@@ -54,7 +54,7 @@ public class Simulation implements java.io.Serializable{
         for (Directions d: listDirections){
             if ((int)(d.getTimeNextStart()*(1000/(freq))) == count){
                 d.addPassenger((double)count*(double)freq/(double)1000);
-                d.setTimeNextStart(triangular(d.minFreq, d.maxFreq, d.typeFreq));
+                d.setTimeNextStart(Algorithm.triangular(d.minFreq, d.maxFreq, d.typeFreq));
             }
         }
         
@@ -477,7 +477,7 @@ public class Simulation implements java.io.Serializable{
     
     public void setLinesSpeed(){
         for (Line l: listLines){
-            l.setSpeed(triangular(l.minSpeed, l.maxSpeed, l.typeSpeed));
+            l.setSpeed(Algorithm.triangular(l.minSpeed, l.maxSpeed, l.typeSpeed));
         }
     }
     
@@ -495,15 +495,7 @@ public class Simulation implements java.io.Serializable{
         }
         return null;
     }
-    
-   double triangular(double a,double b,double c) {
-        double U = Math.random();
-        double F = (c - a) / (b - a);
-        if (U <= F)
-           return a + Math.sqrt(U * (b - a) * (c - a));
-        else
-           return b - Math.sqrt((1 - U) * (b - a) * (b - c));
-    }
+
     public Directions newDirections;
     public Route newRoute;
     public List<Route> listRoutes;
