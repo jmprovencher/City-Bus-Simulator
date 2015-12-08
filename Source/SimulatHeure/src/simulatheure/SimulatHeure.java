@@ -83,7 +83,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         display.Sim = Sim;
         createRouteState = "idle";
         mouseClickState = "selection";
-        simStats = "";
+        simStats = "Aucune statistique présente";
         mouseClickStatePersistance = true;
         pressedX = 0;
         pressedY = 0;
@@ -190,6 +190,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         bgActiveSelector = new javax.swing.ButtonGroup();
         jDialogStats = new javax.swing.JDialog();
         textWindow = new javax.swing.JScrollPane();
+        jStatsArea = new javax.swing.JTextArea();
         copyButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -840,6 +841,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         );
 
         jDialogStats.setTitle("Statistiques des profils passagers");
+        jDialogStats.setBounds(new java.awt.Rectangle(400, 338, 400, 338));
+        jDialogStats.setResizable(false);
+
+        jStatsArea.setColumns(20);
+        jStatsArea.setRows(5);
+        textWindow.setViewportView(jStatsArea);
 
         copyButton.setText("Copy");
         copyButton.addActionListener(new java.awt.event.ActionListener() {
@@ -861,25 +868,27 @@ public class SimulatHeure extends javax.swing.JFrame {
             jDialogStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogStatsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textWindow)
-                .addContainerGap())
-            .addGroup(jDialogStatsLayout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(copyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(closeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                .addGap(77, 77, 77))
+                .addGroup(jDialogStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogStatsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(copyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addComponent(closeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                        .addContainerGap(60, Short.MAX_VALUE))
+                    .addGroup(jDialogStatsLayout.createSequentialGroup()
+                        .addComponent(textWindow)
+                        .addContainerGap())))
         );
         jDialogStatsLayout.setVerticalGroup(
             jDialogStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogStatsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(textWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(18, 30, Short.MAX_VALUE)
                 .addGroup(jDialogStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(copyButton)
                     .addComponent(closeButton))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1327,7 +1336,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame4Layout.setVerticalGroup(
             jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame4Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonBesoins)
@@ -3218,6 +3227,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_Bouton_arreterActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jStatsArea.setText(simStats);
         jDialogStats.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -3337,6 +3347,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JTextArea jStatsArea;
     private javax.swing.JList listDirections;
     private javax.swing.JList listRoutes;
     private javax.swing.JList listSources;
