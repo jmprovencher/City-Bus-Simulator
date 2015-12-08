@@ -846,6 +846,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jStatsArea.setColumns(20);
         jStatsArea.setRows(5);
+        jStatsArea.setFocusable(false);
         textWindow.setViewportView(jStatsArea);
 
         copyButton.setText("Copy");
