@@ -1769,12 +1769,13 @@ public class SimulatHeure extends javax.swing.JFrame {
                     createRouteState = "dialog";
                     listSourcesModel.removeAllElements();
                     listPossibleSourcesModel.removeAllElements();
-                    for (Node n: Sim.newRoute.route)
-                    if (n.isStation ){
-                        if (n != Sim.newRoute.getNodeFromIndex(Sim.newRoute.getNumberOfNodes()-1)){
-                            listPossibleSourcesModel.addElement(n.getName());
-                        }
+                    for (Node n: Sim.newRoute.route){
+                        if (n.isStation ){
+                            if (n != Sim.newRoute.getNodeFromIndex(Sim.newRoute.getNumberOfNodes()-1)){
+                                listPossibleSourcesModel.addElement(n.getName());
+                            }
 
+                        }
                     }
                     Sim.newRoute.updateIfLoop();
                     if (Sim.newRoute.canLoop){
@@ -2210,6 +2211,11 @@ public class SimulatHeure extends javax.swing.JFrame {
                 if (n.isStation && selectedRoute.getNumberOfNodes() != selectedRoute.route.lastIndexOf(n)+1){
                     listPossibleSourcesModel.addElement(n.getName());
                 }
+            }
+            selectedRoute.updateIfLoop();
+            if (selectedRoute.canLoop){
+                 listPossibleSourcesModel.addElement(selectedRoute.route.get(0).getName());
+                  checkLoop.setEnabled(true);
             }
             spin_num.setValue(selectedRoute.getNumber());
             maxBus.setValue(selectedRoute.getMaxBus());

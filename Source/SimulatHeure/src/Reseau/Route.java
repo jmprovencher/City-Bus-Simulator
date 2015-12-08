@@ -59,7 +59,7 @@ public class Route implements java.io.Serializable{
     }
     
     public Boolean updateIfLoop(){
-                 if (route.get(0) == route.get(route.size()-1)){
+        if (route.get(0) == route.get(route.size()-1)){
             canLoop = true;
             return true;
         }

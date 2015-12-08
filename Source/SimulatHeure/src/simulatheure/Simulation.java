@@ -42,6 +42,7 @@ public class Simulation implements java.io.Serializable{
                 double minimumTime = s.minFrequency;
                 double maximumTime = s.maxFrequency;
                 if ((int)(s.timeNextStart*(1000/(freq))) == count && !r.loopDone){
+                    
                     if (r.busAvalaible()){
                         Bus newBus = r.addBus(s);
                         passengerIn(newBus);
@@ -87,7 +88,7 @@ public class Simulation implements java.io.Serializable{
                     average += time;
                 }
                 average = (double)average /(double) d.listPassengersDone.size();
-                System.out.println("Trajet" + d.getStartPoint() + " - " + d.getEndPoint() + "Min: "+min+" Max: "+max+ " Average: "+average);
+                System.out.println("Trajet " + d.getStartPoint().getName() + " - " + d.getEndPoint().getName() + " Min: "+min+" Max: "+max+ " Average: "+average);
             }
         }
         
@@ -140,12 +141,16 @@ public class Simulation implements java.io.Serializable{
         // Bus has reached its destination woohoo
         if (b.getLastNodeIndex()+1 == b.getRoute().getNumberOfNodes() ){
                 if (b.getRoute().isLoop){
-                    b.getRoute().loopDone = true;
+                    
                     b.reset();
                 }
             else {
                  return false;
             }
+        }
+        
+        if (b.nodesPastCount == b.getRoute().getNumberOfNodes()){
+            b.getRoute().loopDone = true;
         }
        
 

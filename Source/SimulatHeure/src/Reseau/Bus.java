@@ -13,6 +13,7 @@ import java.util.*;
 public class Bus extends LocationData implements java.io.Serializable{
     public Bus(int numeroArg, Route startRoute, int maxCapacity, Route.Source sourceInit){
      
+        nodesPastCount = 1;
         number = numeroArg;
         route = startRoute;
         actualNode = sourceInit.originNode;
@@ -49,6 +50,7 @@ public class Bus extends LocationData implements java.io.Serializable{
         setPositionX(n.getPositionX());
         setPositionY(n.getPositionY());
         lastNodeIndex++;
+        nodesPastCount++;
 
         updateTimeNextNode();
         updateSpeed();
@@ -167,6 +169,7 @@ public class Bus extends LocationData implements java.io.Serializable{
      }
     
     private Route.Source source;
+    public int nodesPastCount;
     private double speed; 
     private int number;
     private double positionX;
