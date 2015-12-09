@@ -19,7 +19,7 @@ public class SimTimer {
         sim= sim_arg;
         topFrame = s;
         display = d;
-        recentStats = "";
+        recentStats = new StatHolder();
         time = 0;
         freq = 0;
         running = false;
@@ -108,6 +108,6 @@ public class SimTimer {
     private int time;
     private int freq;
     public Boolean running;
-    public String recentStats;
+    public StatHolder recentStats;
     
 }

@@ -3215,6 +3215,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_simulation_speedStateChanged
 
     private void Bouton_simulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_simulerActionPerformed
+        simTimer.recentStats.clear();
         SimulateButtonAction();
     }//GEN-LAST:event_Bouton_simulerActionPerformed
 
@@ -3229,15 +3230,24 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_Bouton_arreterActionPerformed
 
     private void genereStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereStatsActionPerformed
-        if(simTimer.recentStats.length() == 0){
+        if(simTimer.recentStats.tagList.isEmpty()){
             jStatsArea.setText(defaultMessage);
         }
         else{
-            jStatsArea.setText(simTimer.recentStats);
+            jStatsArea.setText(formatStats(simTimer.recentStats));
         }
         jDialogStats.setVisible(true);
     }//GEN-LAST:event_genereStatsActionPerformed
 
+    private String formatStats(StatHolder stats){
+        String formattedStats = "";
+        for(int i = 0; i < stats.tagList.size(); i++){
+            formattedStats = formattedStats.concat(stats.tagList.get(i) +
+                "\nMin: "+stats.minList.get(i)+ "\nMax: " +stats.maxList.get(i)+
+                "\nAverage: "+stats.avgList.get(i) +"\n\n");
+        }
+        return formattedStats;
+    }
 
     private void log(String st){
         System.out.print(st+"\n");

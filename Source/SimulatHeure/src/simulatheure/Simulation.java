@@ -62,14 +62,14 @@ public class Simulation implements java.io.Serializable{
         count++;
     }
     
-    public String stopSimulation(){
+    public StatHolder stopSimulation(){
         count = 0;
 
         double min = Double.MAX_VALUE;
         double max = 0;
         double average = 0;
         double time;
-        String stats = "";
+        StatHolder stats = new StatHolder();
         
         for (Directions d: listDirections){
             if (d.listPassengersDone.isEmpty()){
@@ -88,10 +88,12 @@ public class Simulation implements java.io.Serializable{
                     average += time;
                 }
                 average = (double)average /(double) d.listPassengersDone.size();
-                stats = stats.concat("Trajet " +
-                        d.getStartPoint().getName() +
-                        " - " + d.getEndPoint().getName() +
-                        "\nMin: "+min+ "\nMax: " +max+ "\nAverage: "+average +"\n\n");
+                stats.tagList.add("Trajet " + d.getStartPoint().getName() + " - "
+                    + d.getEndPoint().getName());
+                stats.maxList.add(max);
+                stats.minList.add(min);
+                stats.avgList.add(average);
+                stats.numList.add(d.listPassengersDone.size());
             }
         }
         
