@@ -19,6 +19,7 @@ public class SimTimer {
         sim= sim_arg;
         topFrame = s;
         display = d;
+        recentStats = "";
         time = 0;
         freq = 0;
         running = false;
@@ -91,7 +92,8 @@ public class SimTimer {
     
     public void stop(){
         simTimer.stop();
-        sim.stopSimulation();
+        recentStats = sim.stopSimulation();
+        System.out.println(recentStats);
         display.repaint();
         topFrame.displayTime();
         topFrame.selectOnly(false);
@@ -106,5 +108,6 @@ public class SimTimer {
     private int time;
     private int freq;
     public Boolean running;
+    public String recentStats;
     
 }

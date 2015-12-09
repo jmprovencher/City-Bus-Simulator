@@ -50,7 +50,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     public String selectedObject;
     public String createRouteState;
     public SimTimer simTimer;
-    public String simStats;
+    public String defaultMessage;
     
     private final int stackSize = 25;
     private final Stack<byte[]> CTRLZ = new SizedStack<>(stackSize);
@@ -83,7 +83,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         display.Sim = Sim;
         createRouteState = "idle";
         mouseClickState = "selection";
-        simStats = "Aucune statistique présente";
+        defaultMessage = "Aucune statistique présente";
         mouseClickStatePersistance = true;
         pressedX = 0;
         pressedY = 0;
@@ -218,7 +218,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         skipBox = new javax.swing.JCheckBox();
         spinNumberOfSimulations = new javax.swing.JSpinner();
-        jButton4 = new javax.swing.JButton();
+        genereStats = new javax.swing.JButton();
         buttonRecenter = new javax.swing.JButton();
         editionToolbox = new javax.swing.JInternalFrame();
         addNodeToggleButton = new javax.swing.JToggleButton();
@@ -1073,10 +1073,10 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         spinNumberOfSimulations.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
 
-        jButton4.setText("Générer stats");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        genereStats.setText("Générer stats");
+        genereStats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                genereStatsActionPerformed(evt);
             }
         });
 
@@ -1115,7 +1115,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         .addComponent(skipBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(spinNumberOfSimulations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(genereStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jInternalFrame2Layout.setVerticalGroup(
@@ -1150,7 +1150,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sim_time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(genereStats)
                 .addContainerGap())
         );
 
@@ -1337,7 +1337,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame4Layout.setVerticalGroup(
             jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame4Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonBesoins)
@@ -1769,6 +1769,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             mouseClickStatePersistance = !state;
             Bouton_simuler.setEnabled(!state);
             spinMinTime.setEnabled(!state);
+            genereStats.setEnabled(!state);
             spinTypeTime.setEnabled(!state);
             spinMaxTime.setEnabled(!state);
             buttonBesoins.setEnabled(!state);
@@ -3192,7 +3193,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_menu1ActionPerformed
 
     private void copyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyButtonActionPerformed
-        StringSelection stringSelection = new StringSelection(simStats);
+        StringSelection stringSelection = new StringSelection(jStatsArea.getText());
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
     }//GEN-LAST:event_copyButtonActionPerformed
 
@@ -3227,10 +3228,15 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Bouton_arreterActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jStatsArea.setText(simStats);
+    private void genereStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereStatsActionPerformed
+        if(simTimer.recentStats.length() == 0){
+            jStatsArea.setText(defaultMessage);
+        }
+        else{
+            jStatsArea.setText(simTimer.recentStats);
+        }
         jDialogStats.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_genereStatsActionPerformed
 
 
     private void log(String st){
@@ -3298,10 +3304,10 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.ButtonGroup editionButtonGroup;
     private javax.swing.JInternalFrame editionToolbox;
     private javax.swing.JComboBox endComboBox;
+    private javax.swing.JButton genereStats;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JDialog jDialogStats;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
