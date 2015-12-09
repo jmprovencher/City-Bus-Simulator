@@ -203,6 +203,30 @@ public class SimulatHeure extends javax.swing.JFrame {
         Bouton_circuit_add = new javax.swing.JButton();
         buttonEditRoute = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        buttonRecenter = new javax.swing.JButton();
+        editionToolbox = new javax.swing.JInternalFrame();
+        addNodeToggleButton = new javax.swing.JToggleButton();
+        addAreteToggleButton = new javax.swing.JToggleButton();
+        selectorToggleButton = new javax.swing.JToggleButton();
+        moveToggleButton = new javax.swing.JToggleButton();
+        jInternalFrame3 = new javax.swing.JInternalFrame();
+        jLabel1 = new javax.swing.JLabel();
+        checkBoxStation = new javax.swing.JCheckBox();
+        textStationName = new javax.swing.JFormattedTextField();
+        jButton3 = new javax.swing.JButton();
+        jInternalFrame4 = new javax.swing.JInternalFrame();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listDirections = new javax.swing.JList();
+        buttonBesoins = new javax.swing.JButton();
+        jInternalFrame6 = new javax.swing.JInternalFrame();
+        spinMinTime = new javax.swing.JSpinner();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        spinMaxTime = new javax.swing.JSpinner();
+        spinTypeTime = new javax.swing.JSpinner();
+        jLabel17 = new javax.swing.JLabel();
+        applyLine = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
         jInternalFrame2 = new javax.swing.JInternalFrame();
         Bouton_arreter = new javax.swing.JButton();
         Bouton_simuler = new javax.swing.JButton();
@@ -219,31 +243,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         skipBox = new javax.swing.JCheckBox();
         spinNumberOfSimulations = new javax.swing.JSpinner();
         genereStats = new javax.swing.JButton();
-        buttonRecenter = new javax.swing.JButton();
-        editionToolbox = new javax.swing.JInternalFrame();
-        addNodeToggleButton = new javax.swing.JToggleButton();
-        addAreteToggleButton = new javax.swing.JToggleButton();
-        selectorToggleButton = new javax.swing.JToggleButton();
-        moveToggleButton = new javax.swing.JToggleButton();
-        jInternalFrame3 = new javax.swing.JInternalFrame();
-        jLabel1 = new javax.swing.JLabel();
-        checkBoxStation = new javax.swing.JCheckBox();
-        textStationName = new javax.swing.JFormattedTextField();
-        jButton3 = new javax.swing.JButton();
-        jInternalFrame4 = new javax.swing.JInternalFrame();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        listDirections = new javax.swing.JList();
-        buttonBesoins = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jInternalFrame6 = new javax.swing.JInternalFrame();
-        spinMinTime = new javax.swing.JSpinner();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        spinMaxTime = new javax.swing.JSpinner();
-        spinTypeTime = new javax.swing.JSpinner();
-        jLabel17 = new javax.swing.JLabel();
-        applyLine = new javax.swing.JButton();
-        jLabel21 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
         menuCommandNouvDoc = new javax.swing.JMenuItem();
@@ -895,6 +894,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SimulatHeure");
         setBackground(new java.awt.Color(0, 0, 0));
+        setMinimumSize(new java.awt.Dimension(500, 900));
+        setPreferredSize(new java.awt.Dimension(1399, 800));
 
         Print.setEditable(false);
         Print.setBorder(null);
@@ -930,7 +931,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         display.setLayout(displayLayout);
         displayLayout.setHorizontalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 957, Short.MAX_VALUE)
+            .addGap(0, 924, Short.MAX_VALUE)
         );
         displayLayout.setVerticalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1003,6 +1004,263 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addComponent(Bouton_circuit_add)
                     .addComponent(buttonEditRoute))
                 .addGap(6, 6, 6))
+        );
+
+        buttonRecenter.setText("Recentrer");
+        buttonRecenter.setToolTipText("Rencentrer l'affichage");
+        buttonRecenter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRecenterActionPerformed(evt);
+            }
+        });
+
+        editionToolbox.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        editionToolbox.setTitle("Edition");
+        editionToolbox.setVisible(true);
+
+        editionButtonGroup.add(addNodeToggleButton);
+        addNodeToggleButton.setText("Noeud");
+        addNodeToggleButton.setToolTipText("Outil d'ajout de noeuds");
+        addNodeToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNodeToggleButtonActionPerformed(evt);
+            }
+        });
+
+        editionButtonGroup.add(addAreteToggleButton);
+        addAreteToggleButton.setText("Arête");
+        addAreteToggleButton.setToolTipText("Outil d'ajout de noeuds et d'arêtes");
+        addAreteToggleButton.setMaximumSize(new java.awt.Dimension(63, 23));
+        addAreteToggleButton.setMinimumSize(new java.awt.Dimension(63, 23));
+        addAreteToggleButton.setPreferredSize(new java.awt.Dimension(63, 23));
+        addAreteToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAreteToggleButtonActionPerformed(evt);
+            }
+        });
+
+        editionButtonGroup.add(selectorToggleButton);
+        selectorToggleButton.setText("Selection");
+        selectorToggleButton.setToolTipText("Outil de sélection d'elements");
+        selectorToggleButton.setMaximumSize(new java.awt.Dimension(63, 23));
+        selectorToggleButton.setMinimumSize(new java.awt.Dimension(63, 23));
+        selectorToggleButton.setPreferredSize(new java.awt.Dimension(63, 23));
+        selectorToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectorToggleButtonActionPerformed(evt);
+            }
+        });
+
+        editionButtonGroup.add(moveToggleButton);
+        moveToggleButton.setText("Déplacer");
+        moveToggleButton.setToolTipText("Outil de déplacement d'éléments");
+        moveToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moveToggleButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout editionToolboxLayout = new javax.swing.GroupLayout(editionToolbox.getContentPane());
+        editionToolbox.getContentPane().setLayout(editionToolboxLayout);
+        editionToolboxLayout.setHorizontalGroup(
+            editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editionToolboxLayout.createSequentialGroup()
+                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(selectorToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                    .addComponent(addAreteToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addNodeToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editionToolboxLayout.createSequentialGroup()
+                        .addComponent(moveToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        editionToolboxLayout.setVerticalGroup(
+            editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editionToolboxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectorToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addNodeToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addAreteToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(moveToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jInternalFrame3.setTitle("Noeud");
+        jInternalFrame3.setVisible(true);
+
+        jLabel1.setText("Nom");
+
+        checkBoxStation.setText("Station");
+        checkBoxStation.setToolTipText("Cocher pour transformer en station");
+
+        textStationName.setText("-");
+        textStationName.setToolTipText("Édition du nom d'une station (non-applicable aux noeuds)");
+
+        jButton3.setText("Appliquer");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jInternalFrame3Layout = new javax.swing.GroupLayout(jInternalFrame3.getContentPane());
+        jInternalFrame3.getContentPane().setLayout(jInternalFrame3Layout);
+        jInternalFrame3Layout.setHorizontalGroup(
+            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(textStationName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(checkBoxStation))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jInternalFrame3Layout.setVerticalGroup(
+            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textStationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxStation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jInternalFrame4.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        jInternalFrame4.setTitle("Besoin en transport");
+        jInternalFrame4.setMaximumSize(new java.awt.Dimension(189, 140));
+        jInternalFrame4.setMinimumSize(new java.awt.Dimension(189, 140));
+        jInternalFrame4.setVisible(true);
+
+        listDirections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listDirections.setToolTipText("Liste des besoins en transport");
+        listDirections.setMaximumSize(new java.awt.Dimension(100, 100));
+        listDirections.setMinimumSize(new java.awt.Dimension(100, 100));
+        listDirections.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listDirectionsMouseClicked(evt);
+            }
+        });
+        listDirections.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listDirectionsValueChanged(evt);
+            }
+        });
+        jScrollPane5.setViewportView(listDirections);
+
+        buttonBesoins.setText("Ajouter");
+        buttonBesoins.setToolTipText("Créer un besoin en transport");
+        buttonBesoins.setEnabled(false);
+        buttonBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBesoinsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jInternalFrame4Layout = new javax.swing.GroupLayout(jInternalFrame4.getContentPane());
+        jInternalFrame4.getContentPane().setLayout(jInternalFrame4Layout);
+        jInternalFrame4Layout.setHorizontalGroup(
+            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(buttonBesoins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jInternalFrame4Layout.setVerticalGroup(
+            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame4Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonBesoins)
+                .addGap(7, 7, 7))
+        );
+
+        jInternalFrame6.setTitle("Arête");
+        jInternalFrame6.setVisible(true);
+
+        spinMinTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
+        spinMinTime.setToolTipText("Vitesse minimale de transit");
+        spinMinTime.setMaximumSize(new java.awt.Dimension(47, 20));
+
+        jLabel15.setText("Min");
+        jLabel15.setToolTipText("Vitesse minimale de transit");
+
+        jLabel16.setText("Max");
+        jLabel16.setToolTipText("Vitesse maximale de transit");
+
+        spinMaxTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
+        spinMaxTime.setToolTipText("Vitesse maximale de transit");
+
+        spinTypeTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
+        spinTypeTime.setToolTipText("Vitesse typique de transit");
+
+        jLabel17.setText("Typical");
+        jLabel17.setToolTipText("Vitesse typique de transit");
+
+        applyLine.setText("Appliquer");
+        applyLine.setToolTipText("Appliquer les changements apportés");
+        applyLine.setEnabled(false);
+        applyLine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                applyLineActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("min");
+
+        javax.swing.GroupLayout jInternalFrame6Layout = new javax.swing.GroupLayout(jInternalFrame6.getContentPane());
+        jInternalFrame6.getContentPane().setLayout(jInternalFrame6Layout);
+        jInternalFrame6Layout.setHorizontalGroup(
+            jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame6Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(applyLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jInternalFrame6Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spinMaxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinMinTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinTypeTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel21)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jInternalFrame6Layout.setVerticalGroup(
+            jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame6Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spinMinTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spinMaxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spinTypeTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(applyLine)
+                .addContainerGap())
         );
 
         jInternalFrame2.setTitle("Simulation");
@@ -1086,36 +1344,35 @@ public class SimulatHeure extends javax.swing.JFrame {
             jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame2Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(timeJSpinnerStartSim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(31, 31, 31)
-                                .addComponent(timeJSpinnerStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Bouton_simuler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Bouton_arreter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jInternalFrame2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame2Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(timeJSpinnerStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jInternalFrame2Layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(sim_time, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(genereStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Bouton_arreter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Bouton_simuler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jInternalFrame2Layout.createSequentialGroup()
                         .addComponent(skipBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(spinNumberOfSimulations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(genereStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jInternalFrame2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame2Layout.createSequentialGroup()
+                        .addGap(0, 5, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(75, 75, 75)
+                        .addComponent(timeJSpinnerStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInternalFrame2Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(timeJSpinnerStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInternalFrame2Layout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(timeJSpinnerStartSim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInternalFrame2Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sim_time, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jInternalFrame2Layout.setVerticalGroup(
@@ -1125,300 +1382,32 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addComponent(Bouton_simuler)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Bouton_arreter)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(9, 9, 9)
+                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(skipBox, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spinNumberOfSimulations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(simulation_speed, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(timeJSpinnerStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(timeJSpinnerStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
+                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(timeJSpinnerStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(timeJSpinnerStartSim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
+                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
+                    .addComponent(timeJSpinnerStartSim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sim_time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(genereStats)
-                .addContainerGap())
-        );
-
-        buttonRecenter.setText("Recentrer");
-        buttonRecenter.setToolTipText("Rencentrer l'affichage");
-        buttonRecenter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRecenterActionPerformed(evt);
-            }
-        });
-
-        editionToolbox.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        editionToolbox.setTitle("Edition");
-        editionToolbox.setVisible(true);
-
-        editionButtonGroup.add(addNodeToggleButton);
-        addNodeToggleButton.setText("Noeud");
-        addNodeToggleButton.setToolTipText("Outil d'ajout de noeuds");
-        addNodeToggleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addNodeToggleButtonActionPerformed(evt);
-            }
-        });
-
-        editionButtonGroup.add(addAreteToggleButton);
-        addAreteToggleButton.setText("Arête");
-        addAreteToggleButton.setToolTipText("Outil d'ajout de noeuds et d'arêtes");
-        addAreteToggleButton.setMaximumSize(new java.awt.Dimension(63, 23));
-        addAreteToggleButton.setMinimumSize(new java.awt.Dimension(63, 23));
-        addAreteToggleButton.setPreferredSize(new java.awt.Dimension(63, 23));
-        addAreteToggleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addAreteToggleButtonActionPerformed(evt);
-            }
-        });
-
-        editionButtonGroup.add(selectorToggleButton);
-        selectorToggleButton.setText("Selection");
-        selectorToggleButton.setToolTipText("Outil de sélection d'elements");
-        selectorToggleButton.setMaximumSize(new java.awt.Dimension(63, 23));
-        selectorToggleButton.setMinimumSize(new java.awt.Dimension(63, 23));
-        selectorToggleButton.setPreferredSize(new java.awt.Dimension(63, 23));
-        selectorToggleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectorToggleButtonActionPerformed(evt);
-            }
-        });
-
-        editionButtonGroup.add(moveToggleButton);
-        moveToggleButton.setText("Déplacer");
-        moveToggleButton.setToolTipText("Outil de déplacement d'éléments");
-        moveToggleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                moveToggleButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout editionToolboxLayout = new javax.swing.GroupLayout(editionToolbox.getContentPane());
-        editionToolbox.getContentPane().setLayout(editionToolboxLayout);
-        editionToolboxLayout.setHorizontalGroup(
-            editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editionToolboxLayout.createSequentialGroup()
-                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(selectorToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                    .addComponent(addAreteToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(moveToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addNodeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        editionToolboxLayout.setVerticalGroup(
-            editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editionToolboxLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selectorToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addNodeToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addAreteToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(moveToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        jInternalFrame3.setTitle("Noeud");
-        jInternalFrame3.setVisible(true);
-
-        jLabel1.setText("Nom");
-
-        checkBoxStation.setText("Station");
-        checkBoxStation.setToolTipText("Cocher pour transformer en station");
-
-        textStationName.setText("-");
-        textStationName.setToolTipText("Édition du nom d'une station (non-applicable aux noeuds)");
-
-        jButton3.setText("Appliquer");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jInternalFrame3Layout = new javax.swing.GroupLayout(jInternalFrame3.getContentPane());
-        jInternalFrame3.getContentPane().setLayout(jInternalFrame3Layout);
-        jInternalFrame3Layout.setHorizontalGroup(
-            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jInternalFrame3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textStationName))
-                    .addGroup(jInternalFrame3Layout.createSequentialGroup()
-                        .addComponent(checkBoxStation)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jInternalFrame3Layout.setVerticalGroup(
-            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame3Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(textStationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addGap(1, 1, 1)
-                .addComponent(checkBoxStation)
-                .addGap(30, 30, 30))
-        );
-
-        jInternalFrame4.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        jInternalFrame4.setTitle("Besoin en transport");
-        jInternalFrame4.setMaximumSize(new java.awt.Dimension(189, 140));
-        jInternalFrame4.setMinimumSize(new java.awt.Dimension(189, 140));
-        jInternalFrame4.setVisible(true);
-
-        listDirections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listDirections.setToolTipText("Liste des besoins en transport");
-        listDirections.setMaximumSize(new java.awt.Dimension(100, 100));
-        listDirections.setMinimumSize(new java.awt.Dimension(100, 100));
-        listDirections.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listDirectionsMouseClicked(evt);
-            }
-        });
-        listDirections.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listDirectionsValueChanged(evt);
-            }
-        });
-        jScrollPane5.setViewportView(listDirections);
-
-        buttonBesoins.setText("Ajouter");
-        buttonBesoins.setToolTipText("Créer un besoin en transport");
-        buttonBesoins.setEnabled(false);
-        buttonBesoins.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBesoinsActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Editer");
-        jButton2.setToolTipText("Modifier le besoin en transport sélectionné");
-        jButton2.setEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jInternalFrame4Layout = new javax.swing.GroupLayout(jInternalFrame4.getContentPane());
-        jInternalFrame4.getContentPane().setLayout(jInternalFrame4Layout);
-        jInternalFrame4Layout.setHorizontalGroup(
-            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(jInternalFrame4Layout.createSequentialGroup()
-                .addComponent(buttonBesoins, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jInternalFrame4Layout.setVerticalGroup(
-            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame4Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonBesoins)
-                    .addComponent(jButton2))
-                .addContainerGap())
-        );
-
-        jInternalFrame6.setTitle("Arête");
-        jInternalFrame6.setVisible(true);
-
-        spinMinTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
-        spinMinTime.setToolTipText("Vitesse minimale de transit");
-        spinMinTime.setMaximumSize(new java.awt.Dimension(47, 20));
-
-        jLabel15.setText("Min");
-        jLabel15.setToolTipText("Vitesse minimale de transit");
-
-        jLabel16.setText("Max");
-        jLabel16.setToolTipText("Vitesse maximale de transit");
-
-        spinMaxTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
-        spinMaxTime.setToolTipText("Vitesse maximale de transit");
-
-        spinTypeTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
-        spinTypeTime.setToolTipText("Vitesse typique de transit");
-
-        jLabel17.setText("Typical");
-        jLabel17.setToolTipText("Vitesse typique de transit");
-
-        applyLine.setText("Appliquer");
-        applyLine.setToolTipText("Appliquer les changements apportés");
-        applyLine.setEnabled(false);
-        applyLine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyLineActionPerformed(evt);
-            }
-        });
-
-        jLabel21.setText("min");
-
-        javax.swing.GroupLayout jInternalFrame6Layout = new javax.swing.GroupLayout(jInternalFrame6.getContentPane());
-        jInternalFrame6.getContentPane().setLayout(jInternalFrame6Layout);
-        jInternalFrame6Layout.setHorizontalGroup(
-            jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(applyLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jInternalFrame6Layout.createSequentialGroup()
-                        .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spinMaxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinMinTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinTypeTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel21)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jInternalFrame6Layout.setVerticalGroup(
-            jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame6Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinMinTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinMaxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinTypeTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(38, 38, 38)
-                .addComponent(applyLine)
                 .addContainerGap())
         );
 
@@ -1644,19 +1633,19 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, Short.MAX_VALUE)
-                                    .addComponent(jInternalFrame4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jInternalFrame2)
+                                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGap(2, 2, 2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jInternalFrame6, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jInternalFrame2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jInternalFrame3)))
+                                    .addComponent(jInternalFrame4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jInternalFrame3, javax.swing.GroupLayout.Alignment.LEADING)))
                             .addComponent(editionToolbox))
-                        .addGap(6, 6, 6))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonRecenter)
                         .addGap(9, 9, 9)
@@ -1673,15 +1662,15 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addComponent(display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jInternalFrame1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jInternalFrame2))
+                            .addComponent(jInternalFrame4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jInternalFrame1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jInternalFrame6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jInternalFrame3))
-                            .addComponent(jInternalFrame4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jInternalFrame2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editionToolbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -2829,10 +2818,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         listDirectionsMouseClicked(null);
     }//GEN-LAST:event_listDirectionsValueChanged
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void applyLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyLineActionPerformed
         // TODO add your handling code here:
         
@@ -3316,7 +3301,6 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JComboBox endComboBox;
     private javax.swing.JButton genereStats;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JDialog jDialogStats;
     private javax.swing.JInternalFrame jInternalFrame1;
