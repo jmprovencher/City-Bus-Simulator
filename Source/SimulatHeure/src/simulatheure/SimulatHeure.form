@@ -2039,7 +2039,7 @@
         <Component class="javax.swing.JSpinner" name="spinMinTime">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-              <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
+              <SpinnerModel initial="5" maximum="100" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Vitesse minimale de transit"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -2065,7 +2065,7 @@
         <Component class="javax.swing.JSpinner" name="spinMaxTime">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-              <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
+              <SpinnerModel initial="5" maximum="100" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Vitesse maximale de transit"/>
           </Properties>
@@ -2073,7 +2073,7 @@
         <Component class="javax.swing.JSpinner" name="spinTypeTime">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-              <SpinnerModel initial="20" maximum="100" minimum="5" numberType="java.lang.Integer" stepSize="1" type="number"/>
+              <SpinnerModel initial="5" maximum="100" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Vitesse typique de transit"/>
           </Properties>

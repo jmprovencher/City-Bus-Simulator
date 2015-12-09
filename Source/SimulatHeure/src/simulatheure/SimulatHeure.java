@@ -1348,7 +1348,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame6.setTitle("Arête");
         jInternalFrame6.setVisible(true);
 
-        spinMinTime.setModel(new javax.swing.SpinnerNumberModel(20, 5, 100, 1));
+        spinMinTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
         spinMinTime.setToolTipText("Vitesse minimale de transit");
         spinMinTime.setMaximumSize(new java.awt.Dimension(47, 20));
 
@@ -1358,10 +1358,10 @@ public class SimulatHeure extends javax.swing.JFrame {
         jLabel16.setText("Max");
         jLabel16.setToolTipText("Vitesse maximale de transit");
 
-        spinMaxTime.setModel(new javax.swing.SpinnerNumberModel(20, 5, 100, 1));
+        spinMaxTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
         spinMaxTime.setToolTipText("Vitesse maximale de transit");
 
-        spinTypeTime.setModel(new javax.swing.SpinnerNumberModel(20, 5, 100, 1));
+        spinTypeTime.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
         spinTypeTime.setToolTipText("Vitesse typique de transit");
 
         jLabel17.setText("Typical");
@@ -2164,12 +2164,12 @@ public class SimulatHeure extends javax.swing.JFrame {
         checkBoxStation.setEnabled(true);
         checkBoxStation.setSelected(selectedNode.get(0).isStation);
         display.selectNode(selectedNode);
-        //if (selectedNode.get(0).isStation){
+        if (selectedNode.get(0).isStation){
             selectedObject = "Station";
             Print.setText("Station selectionnée: "+selectedNode.get(0).getName()+ "  Nombre de routes:"+selectedNode.get(0).getNumberOfRoutes());
             textStationName.setText(selectedNode.get(0).getName());
 
-        //}
+        }
     }
     
     private void selectedLineRoutine(){ 
@@ -2179,8 +2179,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         display.selectLine(selectedLine);
         applyLine.setEnabled(true);
         Line L = selectedLine.get(0);
-        spinMinTime.setValue(L.distance/L.minSpeed);
-        spinMaxTime.setValue(L.distance/L.maxSpeed);
+        spinMinTime.setValue(L.distance/L.maxSpeed);
+        spinMaxTime.setValue(L.distance/L.minSpeed);
         spinTypeTime.setValue(L.distance/L.typeSpeed);
         
     }
