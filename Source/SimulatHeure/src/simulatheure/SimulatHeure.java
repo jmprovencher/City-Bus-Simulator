@@ -1180,7 +1180,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame4Layout.setVerticalGroup(
             jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame4Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonBesoins)
                 .addGap(7, 7, 7))
@@ -1331,7 +1331,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         spinNumberOfSimulations.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
 
-        genereStats.setText("Générer stats");
+        genereStats.setText("Analyser résultats");
         genereStats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 genereStatsActionPerformed(evt);
@@ -1484,7 +1484,6 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         menuCommandDeplacerNoeud.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
         menuCommandDeplacerNoeud.setText("Déplacer Noeud/Station");
-        menuCommandDeplacerNoeud.setEnabled(false);
         menuCommandDeplacerNoeud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuCommandDeplacerNoeudActionPerformed(evt);
@@ -1638,7 +1637,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jInternalFrame2)
-                                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE))
                                 .addGap(2, 2, 2)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jInternalFrame6, javax.swing.GroupLayout.Alignment.LEADING)
@@ -2439,6 +2438,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void menuCommandDeplacerNoeudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandDeplacerNoeudActionPerformed
         mouseClickState = "deplacerNoeud";
+        moveToggleButton.setSelected(true);
         Print.setText("Cliquez pour déplacer l'object selectioné");
     }//GEN-LAST:event_menuCommandDeplacerNoeudActionPerformed
 
@@ -2964,6 +2964,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void menuCommandAnalResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandAnalResultsActionPerformed
         // TODO add your handling code here:
+        genereStatsActionPerformed(evt);
     }//GEN-LAST:event_menuCommandAnalResultsActionPerformed
 
     private void menuCommandStopperSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandStopperSimActionPerformed
@@ -3228,8 +3229,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         String formattedStats = "";
         for(int i = 0; i < stats.tagList.size(); i++){
             formattedStats = formattedStats.concat(stats.tagList.get(i) +
-                "\nMin: "+stats.minList.get(i)+ "\nMax: " +stats.maxList.get(i)+
-                "\nAverage: "+stats.avgList.get(i) +"\n\n");
+                "\nMin: "+stats.minList.get(i).intValue()+ " minutes\nMax: " +stats.maxList.get(i).intValue()+
+                " minutes\nAverage: "+stats.avgList.get(i).intValue() +" minutes\n\n");
         }
         return formattedStats;
     }

@@ -28,3 +28,15 @@ Le diagramme présenté dans la figure \ref*{f:state_Diag} montre le fonctionnemen
 \end{figure}
 
 Lors du démarrage de la simulation, les heures de départ et de fin sont sélectionnées. Si celles-ci sont égales, un message d'erreur est affiché, sinon la simulation débute. Le timer est démarré avec un durée (t) et une fréquences (freq) afin de déterminer la longueur d'un tick. À chaque "tick", les positions de chaque bus et la durée de leur trajet sont actualisés. Dans chaque station, les bus apparaîssent à chaque station selon la fréquence de chacune. Par la suite, pour chaque trajet, le nombre de passagers est modifié. Si le temps actuel est égal au temps de fin, ou si le bouton stop est appuyé, la simulation arrête. Sinon, le temps est incrémenté, l'affichage remis à jour et l'exécution continue.
+
+\section{Démonstration de la distribution triangulaire}
+
+Afin de démontrer la validité de la méthode triangular() de la classe Algorithm, le code de la fonction fut traduit dans le logiciel Mathlab afin de générer des histogrammes de distributions. La fonction fut testée avec différents paramètres en entrée, mais la figure suivante fut générée à partir des paramètres suivants (a,b,c): (0, 1, 0.5). Il est à noter que le graphique fut générer à partir d'un million d'échantillon afin d'obtenir le triangle le plus net possible.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{fig/triangular.jpg}
+	\centering
+	\label{f:triangular}
+\end{figure}
+
+La figure montre clairement une distribution triangulaire centrée à 0.5 et avec une pente linéaire de 0 à 0.5 et de 0.5 à 1.
