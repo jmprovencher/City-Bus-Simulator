@@ -607,9 +607,9 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         jLabel14.setText("Fréquence minimum");
 
-        spinTypeMaxPassenger.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
+        spinTypeMaxPassenger.setModel(new javax.swing.SpinnerNumberModel(5, 0, 999, 1));
 
-        spinTypeMinPassenger.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
+        spinTypeMinPassenger.setModel(new javax.swing.SpinnerNumberModel(0, 0, 999, 1));
 
         jLabel25.setText("Fréquence maximum");
 
@@ -1180,7 +1180,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame4Layout.setVerticalGroup(
             jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame4Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonBesoins)
                 .addGap(7, 7, 7))

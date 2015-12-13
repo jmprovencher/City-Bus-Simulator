@@ -53,7 +53,7 @@ public class Simulation implements java.io.Serializable{
         }
         
         for (Directions d: listDirections){
-            if ((int)(d.getTimeNextStart()*(1000/(freq))) == count){
+            while ((int)(d.getTimeNextStart()*(1000/(freq))) == count){
                 d.addPassenger((double)count*(double)freq/(double)1000);
                 d.setTimeNextStart(Algorithm.triangular(d.minFreq, d.maxFreq, d.typeFreq));
             }

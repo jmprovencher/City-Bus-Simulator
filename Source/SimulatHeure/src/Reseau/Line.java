@@ -23,8 +23,8 @@ public class Line implements java.io.Serializable{
         y2 = destination.getPositionY();        
         line = new Line2D.Double(x1,y1,x2,y2);
         updateDistance();
-        maxSpeed = distance/5;
-        minSpeed = distance/5;
+        maxSpeed = distance/3;
+        minSpeed = distance/10;
         typeSpeed = distance/5;
         associatedRoutes =new ArrayList<Route>();
         offsetLine();

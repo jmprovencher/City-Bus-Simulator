@@ -16,8 +16,8 @@ public class Directions implements java.io.Serializable{
         directions = new ArrayList<SubRoute>();
         startPoint = null;
         endPoint = null;
-        minFreq = 1;
-        maxFreq = 1;
+        minFreq = 0;
+        maxFreq = 5;
         typeFreq = 1;
         timeFirstStart = 0;
         timeNextStart = timeFirstStart;
