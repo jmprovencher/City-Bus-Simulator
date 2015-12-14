@@ -73,6 +73,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private int pressedY;
     private BackgroundImage savedBgImage;
     private BackgroundImage temporaryBgImage;
+    private File lastSaveLocation;
     
     public SimulatHeure()  {
 
@@ -111,6 +112,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         quadraArrowsCursor = new Cursor(13); // crosshair arrows
         savedBgImage = new BackgroundImage();
         temporaryBgImage = new BackgroundImage();
+        lastSaveLocation = null;
     }
 
     /**
@@ -245,7 +247,6 @@ public class SimulatHeure extends javax.swing.JFrame {
         moveToggleButton = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
-        menuCommandNouvDoc = new javax.swing.JMenuItem();
         menuCommandOuvrir = new javax.swing.JMenuItem();
         menuCommandEnregistrer = new javax.swing.JMenuItem();
         menuCommandEnregSous = new javax.swing.JMenuItem();
@@ -993,7 +994,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addGap(6, 6, 6)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bouton_circuit_add)
@@ -1427,11 +1428,6 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         menuFolderFichier.setText("Fichier");
 
-        menuCommandNouvDoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK));
-        menuCommandNouvDoc.setText("Nouveau document");
-        menuCommandNouvDoc.setEnabled(false);
-        menuFolderFichier.add(menuCommandNouvDoc);
-
         menuCommandOuvrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         menuCommandOuvrir.setText("Charger");
         menuCommandOuvrir.addActionListener(new java.awt.event.ActionListener() {
@@ -1452,7 +1448,11 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         menuCommandEnregSous.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuCommandEnregSous.setText("Enregistrer sous");
-        menuCommandEnregSous.setEnabled(false);
+        menuCommandEnregSous.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCommandEnregSousActionPerformed(evt);
+            }
+        });
         menuFolderFichier.add(menuCommandEnregSous);
 
         jMenuBar1.add(menuFolderFichier);
@@ -2409,6 +2409,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         mouseClickState = "ajoutNoeud";
         mouseClickStatePersistance = false;
         Print.setText("Clickez pour ajouter un noeud");
+        addNodeToggleButton.setSelected(true);
     }//GEN-LAST:event_menuCommandAjouterNoeudActionPerformed
 
     private void menuCommandDeplacerNoeudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandDeplacerNoeudActionPerformed
@@ -2421,6 +2422,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         mouseClickState = "ajoutArete";
         mouseClickStatePersistance = false;
         Print.setText("Selectionnez/créez le noeud de départ");
+        addAreteToggleButton.setSelected(true);
     }//GEN-LAST:event_menuCommandAjouterAreteActionPerformed
 
     private void menuCommandSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandSupprimerActionPerformed
@@ -2838,10 +2840,22 @@ public class SimulatHeure extends javax.swing.JFrame {
         mouseClickState = "deplacerNoeud";
     }//GEN-LAST:event_moveToggleButtonActionPerformed
 
-    private void menuCommandEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandEnregistrerActionPerformed
-        // TODO add your handling code here:
-    try
+    private void saveDocumentToLocation(File oFile){
+      // location: path to .ser file
+      try {
+        FileOutputStream fileOut = new FileOutputStream(oFile);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(Sim);
+        out.close();
+        fileOut.close();
+      }catch(Exception i)
       {
+          i.printStackTrace();
+          return;
+      }    
+    }
+    
+    private File saveFileLocationDialog(){
         JFileChooser fc = new JFileChooser();
         fc.addChoosableFileFilter(new FileNameExtensionFilter("Serialized Simulation File","ser"));
         fc.removeChoosableFileFilter(fc.getAcceptAllFileFilter());
@@ -2850,22 +2864,24 @@ public class SimulatHeure extends javax.swing.JFrame {
         if (fc.showSaveDialog(SimulatHeure.this) == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
                String filename = file.toString();
-            if (!filename .endsWith(".ser"))
-                 filename += ".ser";
-                 file = new File(filename);
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(Sim);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in "+filename);
-       }
-         
-      }catch(Exception i)
-      {
-          i.printStackTrace();
-          return;
-      }
+            if (!filename.endsWith(".ser")){
+                filename += ".ser";
+            }
+            file = new File(filename);
+            return file;
+        }
+        return null;
+    }
+  
+    private void menuCommandEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandEnregistrerActionPerformed
+        if(lastSaveLocation != null){
+            saveDocumentToLocation(lastSaveLocation);
+        } else {
+            File oFile = saveFileLocationDialog();
+            saveDocumentToLocation(oFile);
+            lastSaveLocation = oFile;
+        }
+        Print.setText("Fichier "+lastSaveLocation.getName()+" sauvegardé");
     }//GEN-LAST:event_menuCommandEnregistrerActionPerformed
 
     // method used to deep-copy object which implement "Serializable"
@@ -2944,7 +2960,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             if (selectedNode.size() + selectedLine.size() >1 ){
                 selectedObject = "multiples";
             }
-           
+            selectorToggleButton.setSelected(true);
         }        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -2962,8 +2978,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCommandLancerSimActionPerformed
 
     private void menuCommandAnalResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandAnalResultsActionPerformed
-        // TODO add your handling code here:
-        genereStatsActionPerformed(evt);
+        SimStatsGeneration();
     }//GEN-LAST:event_menuCommandAnalResultsActionPerformed
 
     private void menuCommandStopperSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandStopperSimActionPerformed
@@ -3214,7 +3229,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Bouton_arreterActionPerformed
 
-    private void genereStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereStatsActionPerformed
+    private void SimStatsGeneration(){
         if(simTimer.recentStats.tagList.isEmpty()){
             jStatsArea.setText(defaultMessage);
         }
@@ -3222,7 +3237,18 @@ public class SimulatHeure extends javax.swing.JFrame {
             jStatsArea.setText(formatStats(simTimer.recentStats));
         }
         jDialogStats.setVisible(true);
+    }
+    
+    private void genereStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereStatsActionPerformed
+        SimStatsGeneration();
     }//GEN-LAST:event_genereStatsActionPerformed
+
+    private void menuCommandEnregSousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandEnregSousActionPerformed
+        File oFile = saveFileLocationDialog();
+        saveDocumentToLocation(oFile);
+        lastSaveLocation = oFile;
+        Print.setText("Fichier "+lastSaveLocation.getName()+" sauvegardé");
+    }//GEN-LAST:event_menuCommandEnregSousActionPerformed
 
     private String formatStats(StatHolder stats){
         String formattedStats = "";
@@ -3366,7 +3392,6 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCommandEnregistrer;
     private javax.swing.JMenuItem menuCommandLancerSim;
     private javax.swing.JMenuItem menuCommandModCircuit;
-    private javax.swing.JMenuItem menuCommandNouvDoc;
     private javax.swing.JMenuItem menuCommandOuvrir;
     private javax.swing.JMenuItem menuCommandStopperSim;
     private javax.swing.JMenuItem menuCommandSupprimer;
