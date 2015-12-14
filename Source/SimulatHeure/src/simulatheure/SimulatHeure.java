@@ -2891,7 +2891,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         fileOut.close();
       }catch(Exception i)
       {
-          i.printStackTrace();
+          //i.printStackTrace();
           return;
       }    
     }
@@ -2917,12 +2917,16 @@ public class SimulatHeure extends javax.swing.JFrame {
     private void menuCommandEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandEnregistrerActionPerformed
         if(lastSaveLocation != null){
             saveDocumentToLocation(lastSaveLocation);
+            Print.setText("Fichier "+lastSaveLocation.getName()+" sauvegardé");
         } else {
             File oFile = saveFileLocationDialog();
-            saveDocumentToLocation(oFile);
-            lastSaveLocation = oFile;
+            if (oFile != null){
+                saveDocumentToLocation(oFile);
+                lastSaveLocation = oFile;
+                 Print.setText("Fichier "+lastSaveLocation.getName()+" sauvegardé");
+            }
         }
-        Print.setText("Fichier "+lastSaveLocation.getName()+" sauvegardé");
+       
     }//GEN-LAST:event_menuCommandEnregistrerActionPerformed
 
     // method used to deep-copy object which implement "Serializable"
@@ -2938,7 +2942,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             return ois.readObject();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -2971,8 +2975,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
         catch(Exception i)
         {
-           i.printStackTrace();
-           return;
+           //i.printStackTrace();
         }
 
     }//GEN-LAST:event_menuCommandOuvrirActionPerformed
@@ -3282,9 +3285,11 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void menuCommandEnregSousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandEnregSousActionPerformed
         File oFile = saveFileLocationDialog();
-        saveDocumentToLocation(oFile);
-        lastSaveLocation = oFile;
-        Print.setText("Fichier "+lastSaveLocation.getName()+" sauvegardé");
+        if(oFile != null){
+            saveDocumentToLocation(oFile);
+            lastSaveLocation = oFile;
+            Print.setText("Fichier "+lastSaveLocation.getName()+" sauvegardé");
+        }
     }//GEN-LAST:event_menuCommandEnregSousActionPerformed
 
     private void darkElementsMenuCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkElementsMenuCheckboxActionPerformed
