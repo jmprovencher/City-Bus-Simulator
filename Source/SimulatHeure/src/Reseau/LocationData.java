@@ -21,4 +21,5 @@ public abstract class LocationData {
     private double positionX;
     private double positionY;
 
+
 }

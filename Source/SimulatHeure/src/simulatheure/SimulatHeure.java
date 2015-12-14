@@ -67,13 +67,14 @@ public class SimulatHeure extends javax.swing.JFrame {
     private Cursor quadraArrowsCursor;
     private String mouseClickState;
     private Boolean mouseClickStatePersistance;
-    private Boolean dragMove;
-    private Boolean dragSelect;
+    private Boolean dragViewMove;
+    private Boolean dragSelectBox;
     private int pressedX;
     private int pressedY;
     private BackgroundImage savedBgImage;
     private BackgroundImage temporaryBgImage;
     private File lastSaveLocation;
+    private boolean dragElemMove;
     
     public SimulatHeure()  {
 
@@ -101,8 +102,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         listDirections.setModel(listDirectionsModel);
         Dialog_circuit.pack();
         createLineState = 0;
-        dragMove = false;
-        dragSelect = false;
+        dragViewMove = false;
+        dragSelectBox = false;
         timeJSpinnerStart.setNewTime(5, 0);
         timeJSpinnerStartSim.setNewTime(5, 0);
         timeJSpinnerStop.setNewTime(1, 0);
@@ -1699,6 +1700,14 @@ public class SimulatHeure extends javax.swing.JFrame {
             return  bos.toByteArray();
         } 
     }
+    
+    private void pushStateCTRLZ(){
+        try {
+            CTRLZ.push(convertToBytes());
+        } catch (IOException ex) {
+            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void convertFromBytes(Stack<byte[]> stack) throws IOException, ClassNotFoundException {
         if (!stack.isEmpty()){
@@ -1882,11 +1891,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             
         case  "select":
         {
-            try {
-                CTRLZ.push(convertToBytes());
-            } catch (IOException ex) {
-                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            pushStateCTRLZ();
         }
            selectOnly(true);
 
@@ -1939,12 +1944,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void createNode(int x, int y){
-          try{
-       CTRLZ.push(convertToBytes());
-        }     
-         catch (IOException ex) {
-            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        pushStateCTRLZ();
         Line aSelect;
            
         aSelect = null;
@@ -1973,11 +1973,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         switch (createLineState){
             case 0:
         {
-            try {
-                CTRLZ.push(convertToBytes());
-            } catch (IOException ex) {
-                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            pushStateCTRLZ();
         }
                 if(selectedNode.isEmpty()){
                     Line l = Sim.getLineFromPosition(x,y);
@@ -2046,11 +2042,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     public void delete(){
-        try {
-            CTRLZ.push(convertToBytes());
-        } catch (IOException ex) {
-            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        pushStateCTRLZ();
            
            if (selectedObject == "Noeud" || selectedObject == "Station" ) {
                 Sim.deleteNode(selectedNode);
@@ -2174,11 +2166,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     }
     
     private void moveNodeRoutine(){
-        try {
-            CTRLZ.push(convertToBytes());
-        } catch (IOException ex) {
-            Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        pushStateCTRLZ();
         if (!selectedNode.isEmpty())
             {
                 for (Node n: selectedNode){
@@ -2270,6 +2258,8 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
     }
     
+    
+    
     private void displayMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayMousePressed
          //coordonnées du clic
         
@@ -2281,7 +2271,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         
         // RIGHT CLICK
         if (SwingUtilities.isRightMouseButton(evt)){
-            dragMove = true;
+            dragViewMove = true;
 
             if (createLineState == 1){
                 createLineState = 0;
@@ -2292,16 +2282,18 @@ public class SimulatHeure extends javax.swing.JFrame {
         else if (SwingUtilities.isLeftMouseButton(evt)){
             /* -------------- Selection d'un Noeud ------------- */
             if (createRouteState == "idle" && mouseClickState == "selection"){
-                 dragSelect = true;
+                 dragSelectBox = true;
             }
             int size = display.nodeSize;//   
             int size_s = display.stationSize; //taille d'une station
             int size_b = display.imgBusSelectedSize;
 
             if (mouseClickState.matches("selection|ajoutArete|ajoutNoeud")){
-                selectedNode.clear();
-                selectedLine.clear();
-                display.clearSelection();
+                if (Sim.getNodeFromPosition(pressedX,pressedY, size, size_s)==null){
+                    selectedNode.clear();
+                    selectedLine.clear();
+                    display.clearSelection();
+                }
                 display.selectionRectangle.setRect(pressedX, pressedY, 0, 0);
                 if (simTimer.running){
                     selectedBus = Sim.getBusFromPosition(pressedX, pressedY, display.imgBusSize);
@@ -2316,6 +2308,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     Node n = Sim.getNodeFromPosition(pressedX,pressedY, size, size_s);
                     if (n != null){
                         selectedNode.add(n);
+                        dragElemMove = true;
                     }
 
                     if (!selectedNode.isEmpty()){
@@ -2327,6 +2320,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                         Line l = Sim.getLineFromPosition(pressedX, pressedY);
                         if(l !=null){
                           selectedLine.add(l);
+                          dragElemMove = true;
                         }
                         if (!selectedLine.isEmpty()){
                              selectedLineRoutine();
@@ -2373,7 +2367,16 @@ public class SimulatHeure extends javax.swing.JFrame {
         }
 
         if (cursorIsOnObject(x, y)){
-            setCursor(handCursor);
+            int size = display.nodeSize;//   
+            int size_s = display.stationSize;
+            Node n = Sim.getNodeFromPosition(x,y, size, size_s);
+            if (n != null){
+                if (selectedNode.contains(n)){
+                    setCursor(quadraArrowsCursor);
+                } else {
+                    setCursor(handCursor);
+                }
+            }
         } else{
             setCursor(defaultCursor);
         }
@@ -2440,7 +2443,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         int x =  display.getGridPositionX(evt.getX());
         int y =  display.getGridPositionY(evt.getY());
         
-        if (dragSelect){
+        if (dragSelectBox && !dragElemMove){
             if (x < pressedX){
                 if (y < pressedY){
                     display.selectionRectangle.setRect(x, y, pressedX-x, pressedY-y);
@@ -2459,27 +2462,49 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
             display.repaint();
         }
-         if (dragMove){
-             int moveX =  pressedX - x;
-             int moveY =  pressedY -  y;
+        int moveX =  pressedX - x;
+        int moveY =  pressedY -  y;
+        if (dragViewMove){
              display.setCenterPosition(moveX, moveY);
+        } else if (dragElemMove){
+            for (Node n : selectedNode){
+                double eleMoveX =  n.getInitialPositionX() - moveX;
+                double elemMoveY =  n.getInitialPositionY() -  moveY;
+                n.setPositionX(eleMoveX);
+                n.setPositionY(elemMoveY);
+                Sim.updateLines(n);
+            }
+            display.repaint();
+            /*for (Line a : selectedLine){
+                
+            }*/
         }
     }//GEN-LAST:event_displayMouseDragged
 
     private void displayMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayMouseReleased
         // TODO add your handling code here:
-       
-        
+      
         if (SwingUtilities.isRightMouseButton(evt)){
-            dragMove = false;
+            dragViewMove = false;
             display.createLineTemp.setLine(0, 0, 0, 0);
             repaint();
         }
         if (SwingUtilities.isLeftMouseButton(evt)){
-            if (dragSelect){
+            if (dragSelectBox){
                 selectRectangle();
             }
-            dragSelect = false;
+            dragSelectBox = false;
+            if (dragElemMove){
+                
+                for (Node n : selectedNode){
+                    double x =  n.getPositionX();
+                    double y =  n.getPositionY();
+                    n.setInitialPositionX(x);
+                    n.setInitialPositionY(y);
+                }
+                pushStateCTRLZ();
+                dragElemMove = false;
+            }
             
             //fenetre_sim1.selectionRectangle.setRect(0, 0, 0, 0);
             repaint();
@@ -2519,11 +2544,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if (Sim.getRouteQuantity()>0){
-            try {
-                 CTRLZ.push(convertToBytes());
-            } catch (IOException ex) {
-                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            pushStateCTRLZ();
             Sim.newDirections = new Directions();
             startComboBox.setEnabled(true);
             DefaultComboBoxModel startComboBoxModel = new DefaultComboBoxModel();
@@ -2802,7 +2823,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 spinMinTime.commitEdit();
                 spinMaxTime.commitEdit();
                 spinTypeTime.commitEdit();
-                 CTRLZ.push(convertToBytes());
+                pushStateCTRLZ();
             }
             catch(Exception e){
 
@@ -3180,11 +3201,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             
              if (changes){
                 display.repaint();
-                try {
-                     CTRLZ.push(convertToBytes());
-                } catch (IOException ex) {
-                    Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                pushStateCTRLZ();
              }
     }//GEN-LAST:event_jButton3ActionPerformed
 

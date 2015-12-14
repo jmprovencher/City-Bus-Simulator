@@ -14,6 +14,8 @@ public class Node extends  LocationData implements java.io.Serializable{
     public Node(int argX, int argY){
         positionX = argX;
         positionY = argY;
+        initialPositionX = argX;
+        initialPositionY = argY;
         isStation = false;
         listLines = new ArrayList<Line>();
         listRoutes = new ArrayList<Route>();
@@ -36,6 +38,22 @@ public class Node extends  LocationData implements java.io.Serializable{
         return positionY;
     }
     
+    public double getInitialPositionX(){
+        return initialPositionX;
+    }
+    
+    public double getInitialPositionY(){
+        return initialPositionY;
+    }
+    
+    public void setInitialPositionX(double x){
+        initialPositionX = x;
+    }
+    
+    public void setInitialPositionY(double y){
+        initialPositionY = y;
+    }
+    
     @Override
     public void setPositionX(double x){
         positionX = x;
@@ -48,6 +66,8 @@ public class Node extends  LocationData implements java.io.Serializable{
     
     private double positionX;
     private double positionY;
+    private double initialPositionX;
+    private double initialPositionY;
     public Boolean isStation;
     
     // *****
