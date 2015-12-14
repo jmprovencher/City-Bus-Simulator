@@ -2305,7 +2305,8 @@ public class SimulatHeure extends javax.swing.JFrame {
             int size_b = display.imgBusSelectedSize;
 
             if (mouseClickState.matches("selection|ajoutArete|ajoutNoeud|ajoutDoubleArete")){
-                if (Sim.getNodeFromPosition(pressedX,pressedY, size, size_s)==null
+                if (Sim.getNodeFromPosition(pressedX,pressedY, size, size_s)==null 
+                        && Sim.getLineFromPosition(pressedX,pressedY)==null
                         || mouseClickState.matches("ajoutArete|ajoutDoubleArete")
                         || !createRouteState.matches("idle")){
                     selectedNode.clear();
