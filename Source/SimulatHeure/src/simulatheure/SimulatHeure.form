@@ -1059,6 +1059,7 @@
                   <KeyStroke key="Alt+D"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="D&#xe9;placer Noeud/Station"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCommandDeplacerNoeudActionPerformed"/>
@@ -1376,7 +1377,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jScrollPane3" pref="146" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" pref="158" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Bouton_circuit_add" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1950,7 +1951,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="moveToggleButton" max="32767" attributes="0"/>
+                      <Component id="doubleAreteToggleButton" max="32767" attributes="0"/>
                       <Component id="addNodeToggleButton" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -1968,7 +1969,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="addAreteToggleButton" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
-                      <Component id="moveToggleButton" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="doubleAreteToggleButton" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -2039,19 +2040,19 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectorToggleButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="moveToggleButton">
+        <Component class="javax.swing.JToggleButton" name="doubleAreteToggleButton">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="editionButtonGroup"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="D&#xe9;placer"/>
-            <Property name="toolTipText" type="java.lang.String" value="Outil de d&#xe9;placement d&apos;&#xe9;l&#xe9;ments"/>
+            <Property name="text" type="java.lang.String" value="Ar&#xea;te bi-directionnelle"/>
+            <Property name="toolTipText" type="java.lang.String" value="Cr&#xe9;ation d&apos;une ar&#xea;te bi-directionnelle"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="requestFocusEnabled" type="boolean" value="false"/>
             <Property name="rolloverEnabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moveToggleButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doubleAreteToggleButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

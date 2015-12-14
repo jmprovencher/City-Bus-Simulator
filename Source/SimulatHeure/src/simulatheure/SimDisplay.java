@@ -69,6 +69,7 @@ public class SimDisplay extends JPanel {
         listSelectedLine = new ArrayList<>();
         listSelectedBus = new ArrayList<>();
         bgImage = new BackgroundImage();
+        elementsColor = Color.white;
     }
     
    
@@ -206,7 +207,7 @@ public class SimDisplay extends JPanel {
                g.setColor(Color.red);
            }
            drawArrow(g, (int)l.line.getX1(), (int)l.line.getY1(), (int)l.line.getX2(),(int)l.line.getY2());
-           g.setColor(Color.white);
+           g.setColor(elementsColor);
            
        }
        for (int i = 0; i < Sim.getRouteQuantity(); i++){
@@ -446,6 +447,14 @@ public class SimDisplay extends JPanel {
         return Sim.freq*Sim.count;
     }
     
+    public void setElementsColor(Color c){
+        elementsColor = c;
+    }
+    
+    public Color getElementsColor(){
+        return elementsColor;
+    }
+    
 
     
     /*
@@ -481,6 +490,7 @@ public class SimDisplay extends JPanel {
      private Color lightGray;
      private Color lightLightGray;
      private Color lightLightLightGray;
+     private Color elementsColor;
      private boolean gridEnabled;
      private int gridWidth;
      private int gridHeight;

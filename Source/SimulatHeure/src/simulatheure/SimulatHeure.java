@@ -245,7 +245,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         addNodeToggleButton = new javax.swing.JToggleButton();
         addAreteToggleButton = new javax.swing.JToggleButton();
         selectorToggleButton = new javax.swing.JToggleButton();
-        moveToggleButton = new javax.swing.JToggleButton();
+        doubleAreteToggleButton = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFolderFichier = new javax.swing.JMenu();
         menuCommandOuvrir = new javax.swing.JMenuItem();
@@ -995,7 +995,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addGap(6, 6, 6)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bouton_circuit_add)
@@ -1386,15 +1386,15 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
 
-        editionButtonGroup.add(moveToggleButton);
-        moveToggleButton.setText("Déplacer");
-        moveToggleButton.setToolTipText("Outil de déplacement d'éléments");
-        moveToggleButton.setFocusable(false);
-        moveToggleButton.setRequestFocusEnabled(false);
-        moveToggleButton.setRolloverEnabled(false);
-        moveToggleButton.addActionListener(new java.awt.event.ActionListener() {
+        editionButtonGroup.add(doubleAreteToggleButton);
+        doubleAreteToggleButton.setText("Arête bi-directionnelle");
+        doubleAreteToggleButton.setToolTipText("Création d'une arête bi-directionnelle");
+        doubleAreteToggleButton.setFocusable(false);
+        doubleAreteToggleButton.setRequestFocusEnabled(false);
+        doubleAreteToggleButton.setRolloverEnabled(false);
+        doubleAreteToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                moveToggleButtonActionPerformed(evt);
+                doubleAreteToggleButtonActionPerformed(evt);
             }
         });
 
@@ -1409,7 +1409,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                     .addComponent(addAreteToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(moveToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(doubleAreteToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(addNodeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1423,7 +1423,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editionToolboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addAreteToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(moveToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(doubleAreteToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1498,6 +1498,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
         menuCommandDeplacerNoeud.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
         menuCommandDeplacerNoeud.setText("Déplacer Noeud/Station");
+        menuCommandDeplacerNoeud.setEnabled(false);
         menuCommandDeplacerNoeud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuCommandDeplacerNoeudActionPerformed(evt);
@@ -1750,7 +1751,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             spinMaxTime.setEnabled(!state);
             buttonBesoins.setEnabled(!state);
             selectorToggleButton.setEnabled(!state);
-            moveToggleButton.setEnabled(!state);
+            doubleAreteToggleButton.setEnabled(!state);
             menuCommandAjouterArete.setEnabled(!state);
             menuCommandAjouterCircuit.setEnabled(!state);
             menuCommandModCircuit.setEnabled(!state);
@@ -2019,6 +2020,9 @@ public class SimulatHeure extends javax.swing.JFrame {
                     }
                 }
                 selectedLine.add(Sim.addLine(noeud1, noeud2));
+                if (mouseClickState == "ajoutDoubleArete"){
+                    selectedLine.add(Sim.addLine(noeud2, noeud1));
+                }
                 if (selectedLine.isEmpty()){
                     Print.setText("Veuillez sélectionner un noeud différent du premier.");
                     createLineState = 0;
@@ -2288,8 +2292,10 @@ public class SimulatHeure extends javax.swing.JFrame {
             int size_s = display.stationSize; //taille d'une station
             int size_b = display.imgBusSelectedSize;
 
-            if (mouseClickState.matches("selection|ajoutArete|ajoutNoeud")){
-                if (Sim.getNodeFromPosition(pressedX,pressedY, size, size_s)==null){
+            if (mouseClickState.matches("selection|ajoutArete|ajoutNoeud|ajoutDoubleArete")){
+                if (Sim.getNodeFromPosition(pressedX,pressedY, size, size_s)==null
+                        || mouseClickState.matches("ajoutArete|ajoutDoubleArete")
+                        || !createRouteState.matches("idle")){
                     selectedNode.clear();
                     selectedLine.clear();
                     display.clearSelection();
@@ -2340,7 +2346,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                moveNodeRoutine();
             }
             /* -------------- Creation arete ------------- */
-            if (mouseClickState == "ajoutArete"){
+            if (mouseClickState.matches("ajoutArete|ajoutDoubleArete")){
                 createLine(pressedX, pressedY);
             }
             /* -------------- Creation noeud ------------- */
@@ -2417,7 +2423,7 @@ public class SimulatHeure extends javax.swing.JFrame {
 
     private void menuCommandDeplacerNoeudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCommandDeplacerNoeudActionPerformed
         mouseClickState = "deplacerNoeud";
-        moveToggleButton.setSelected(true);
+        doubleAreteToggleButton.setSelected(true);
         Print.setText("Cliquez pour déplacer l'object selectioné");
     }//GEN-LAST:event_menuCommandDeplacerNoeudActionPerformed
 
@@ -2466,7 +2472,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         int moveY =  pressedY -  y;
         if (dragViewMove){
              display.setCenterPosition(moveX, moveY);
-        } else if (dragElemMove){
+        } else if (dragElemMove && mouseClickState=="selection"){
             for (Node n : selectedNode){
                 double eleMoveX =  n.getInitialPositionX() - moveX;
                 double elemMoveY =  n.getInitialPositionY() -  moveY;
@@ -2854,12 +2860,13 @@ public class SimulatHeure extends javax.swing.JFrame {
         display.selectNode(selectedNode);
     }//GEN-LAST:event_comboSourceActionPerformed
 
-    private void moveToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveToggleButtonActionPerformed
+    private void doubleAreteToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doubleAreteToggleButtonActionPerformed
         // TODO add your handling code here:
         mouseClickStatePersistance = true;
-        Print.setText("Déplacer la sélection");
-        mouseClickState = "deplacerNoeud";
-    }//GEN-LAST:event_moveToggleButtonActionPerformed
+        doubleAreteToggleButton.setSelected(true);
+        Print.setText("Choisisez l'emplacement de départ");
+        mouseClickState = "ajoutDoubleArete";
+    }//GEN-LAST:event_doubleAreteToggleButtonActionPerformed
 
     private void saveDocumentToLocation(File oFile){
       // location: path to .ser file
@@ -3339,6 +3346,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private simulatheure.SimDisplay display;
     private javax.swing.JCheckBoxMenuItem displayGridSelectMenu;
     private javax.swing.JLabel displayLabelCoordonnees;
+    private javax.swing.JToggleButton doubleAreteToggleButton;
     private javax.swing.ButtonGroup editionButtonGroup;
     private javax.swing.JInternalFrame editionToolbox;
     private javax.swing.JComboBox endComboBox;
@@ -3419,7 +3427,6 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JMenu menuFolderSimulation;
     private javax.swing.JMenuItem menuRedo;
     private javax.swing.JMenuItem menuUndo;
-    private javax.swing.JToggleButton moveToggleButton;
     private javax.swing.JButton okDirections;
     private javax.swing.JButton ok_dialog_circuit;
     private javax.swing.JButton openBgImageFileButton;
