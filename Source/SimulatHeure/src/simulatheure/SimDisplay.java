@@ -100,7 +100,7 @@ public class SimDisplay extends JPanel {
         for (int i = -gridWidth/2; i <=gridWidth/2; i = i+scale){
            g.drawLine(i, -gridHeight/2, i,gridHeight/2 );
        }
-        g.setColor(Color.white);            
+        g.setColor(elementsColor);            
     }
     
     public void toggleGrid(boolean val){
@@ -168,7 +168,7 @@ public class SimDisplay extends JPanel {
         //white background
         g.setColor(Color.gray);
         g.fillRect(0-gridWidth/2, 0-gridHeight/2, gridWidth, gridHeight);
-        g.setColor(Color.white);
+        g.setColor(elementsColor);
         
         //background image
         if(bgImage.enabled && bgImage.getImage() != null){
@@ -230,9 +230,9 @@ public class SimDisplay extends JPanel {
                 else if (numberOFPassenger >= 20){
                      g.drawImage(imgbusThree, (int)b.getPositionX() - imgBusSize/2, (int)b.getPositionY()- imgBusSize/2, null);
                 }
-                g.setColor(Color.WHITE);
+                g.setColor(elementsColor);
                 g.drawString(""+b.listPassenger.size(), (int)b.getPositionX(), (int)b.getPositionY()-40);
-                g.setColor(Color.WHITE);
+                g.setColor(elementsColor);
                 g.drawString(""+b.getRoute().getNumber(), (int)b.getPositionX()-5, (int)b.getPositionY()-5);
             }
        }
@@ -249,7 +249,7 @@ public class SimDisplay extends JPanel {
                 else{
                     g.fillOval((int)n.getPositionX()-nodeSize/2, (int)n.getPositionY()-nodeSize/2, nodeSize, nodeSize);
                 }
-                g.setColor(Color.white);
+                g.setColor(elementsColor);
            }
            else if(!n.isStation){
                
@@ -275,7 +275,7 @@ public class SimDisplay extends JPanel {
        // ligne pendant la création d'une arrete
        BasicStroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0);
        if (createLineTemp != null){
-            g.setColor(Color.white);
+            g.setColor(elementsColor);
 
                 g2.setStroke(dashed);
 
@@ -289,10 +289,7 @@ public class SimDisplay extends JPanel {
        // Scale indicator
        g2.setStroke(new BasicStroke());
        g2.setTransform(old);
-       g2.setColor(Color.WHITE);
-       if (bgImage.enabled){
-           g2.setColor(Color.BLACK);
-       }
+       g2.setColor(elementsColor);
        int scaleIndicatorLeft =  getGridPositionX((int)w-110);
        int scaleIndicatorRight = getGridPositionX((int)w-10);
        int size = scaleIndicatorRight - scaleIndicatorLeft;

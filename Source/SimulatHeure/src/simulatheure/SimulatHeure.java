@@ -7,6 +7,7 @@ package simulatheure;
 
 import Reseau.*;
 import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
+import java.awt.Color;
 import javax.swing.*;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -269,6 +270,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         menuFolderAffichage = new javax.swing.JMenu();
         backgroundSelectorMenuItem = new javax.swing.JMenuItem();
         displayGridSelectMenu = new javax.swing.JCheckBoxMenuItem();
+        darkElementsMenuCheckbox = new javax.swing.JCheckBoxMenuItem();
 
         Dialog_circuit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         Dialog_circuit.setAlwaysOnTop(true);
@@ -995,7 +997,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addGap(6, 6, 6)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bouton_circuit_add)
@@ -1597,6 +1599,16 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
         });
         menuFolderAffichage.add(displayGridSelectMenu);
+
+        darkElementsMenuCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK));
+        darkElementsMenuCheckbox.setText("Éléments foncés");
+        darkElementsMenuCheckbox.setToolTipText("Affiche les éléments du réseau d'une couleur foncée");
+        darkElementsMenuCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                darkElementsMenuCheckboxActionPerformed(evt);
+            }
+        });
+        menuFolderAffichage.add(darkElementsMenuCheckbox);
 
         jMenuBar1.add(menuFolderAffichage);
 
@@ -3274,6 +3286,15 @@ public class SimulatHeure extends javax.swing.JFrame {
         Print.setText("Fichier "+lastSaveLocation.getName()+" sauvegardé");
     }//GEN-LAST:event_menuCommandEnregSousActionPerformed
 
+    private void darkElementsMenuCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkElementsMenuCheckboxActionPerformed
+        if (darkElementsMenuCheckbox.isSelected()){
+            display.setElementsColor(Color.BLACK);
+        } else {
+            display.setElementsColor(Color.WHITE);
+        }
+        display.repaint();
+    }//GEN-LAST:event_darkElementsMenuCheckboxActionPerformed
+
     private String formatStats(StatHolder stats){
         String formattedStats = "";
         for(int i = 0; i < stats.tagList.size(); i++){
@@ -3343,6 +3364,7 @@ public class SimulatHeure extends javax.swing.JFrame {
     private javax.swing.JButton closeButton;
     private javax.swing.JComboBox comboSource;
     private javax.swing.JButton copyButton;
+    private javax.swing.JCheckBoxMenuItem darkElementsMenuCheckbox;
     private simulatheure.SimDisplay display;
     private javax.swing.JCheckBoxMenuItem displayGridSelectMenu;
     private javax.swing.JLabel displayLabelCoordonnees;
