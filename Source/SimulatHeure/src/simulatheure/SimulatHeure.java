@@ -997,7 +997,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
                 .addGap(6, 6, 6)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bouton_circuit_add)
@@ -1663,10 +1663,9 @@ public class SimulatHeure extends javax.swing.JFrame {
                                 .addComponent(jInternalFrame6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jInternalFrame3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1812,6 +1811,7 @@ public class SimulatHeure extends javax.swing.JFrame {
             }
            
         }
+        System.out.println(selectedNode.size());
     }
     
     public void clearSelection(){
@@ -2324,8 +2324,14 @@ public class SimulatHeure extends javax.swing.JFrame {
 
                 else{
                     //va chercher la station correspondant au clic
+
                     Node n = Sim.getNodeFromPosition(pressedX,pressedY, size, size_s);
                     if (n != null){
+                        if (createRouteState == "idle"){
+                            if (!selectedNode.contains(n) && createRouteState == "idle" ){
+                            clearSelection();
+                            }
+                        }
                         selectedNode.add(n);
                         dragElemMove = true;
                     }
@@ -2338,6 +2344,9 @@ public class SimulatHeure extends javax.swing.JFrame {
                     else{
                         Line l = Sim.getLineFromPosition(pressedX, pressedY);
                         if(l !=null){
+                            if (createRouteState == "idle"){
+                            clearSelection();
+                            }
                           selectedLine.add(l);
                           dragElemMove = true;
                         }
@@ -2485,7 +2494,7 @@ public class SimulatHeure extends javax.swing.JFrame {
         int moveY =  pressedY -  y;
         if (dragViewMove){
              display.setCenterPosition(moveX, moveY);
-        } else if (dragElemMove && mouseClickState=="selection"){
+        } else if (dragElemMove && mouseClickState=="selection" && createRouteState == "idle" && !simTimer.running){
             for (Node n : selectedNode){
                 double eleMoveX =  n.getInitialPositionX() - moveX;
                 double elemMoveY =  n.getInitialPositionY() -  moveY;
@@ -2513,7 +2522,7 @@ public class SimulatHeure extends javax.swing.JFrame {
                 selectRectangle();
             }
             dragSelectBox = false;
-            if (dragElemMove){
+            if (dragElemMove && (createRouteState == "idle") && !simTimer.running){
                 
                 for (Node n : selectedNode){
                     double x =  n.getPositionX();
