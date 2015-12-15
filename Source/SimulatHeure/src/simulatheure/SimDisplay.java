@@ -49,7 +49,7 @@ public class SimDisplay extends JPanel {
             imgbusOne = ImageIO.read(getClass().getResource("/images/bus2_1.png"));
             imgbusTwo = ImageIO.read(getClass().getResource("/images/bus2_2.png"));
             imgbusThree = ImageIO.read(getClass().getResource("/images/bus2_3.png"));
-            imgBusSelected = ImageIO.read(getClass().getResource("/images/bus2Selected.png"));
+            imgBusSelected = ImageIO.read(getClass().getResource("/images/bus2selected.png"));
         }
         catch (IOException e){}
                 

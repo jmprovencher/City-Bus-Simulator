@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.1)  14 DEC 2015 00:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.9)  14 DEC 2015 23:16
 entering extended mode
 **"Rapport de developpement.tex"
 ("Rapport de developpement.tex"
@@ -658,8 +658,8 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 38.
  [999
 
-{C:/Users/Sam/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./pdf/UL_P.pd
-f>]
+{C:/Users/rem54/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./pdf/UL_P.
+pdf>]
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmss.fd") [0
 
 ]
@@ -758,16 +758,21 @@ File: fig/domainModel.pdf Graphic file (type pdf)
 Package pdftex.def Info: fig/domainModel.pdf used on input line 10.
 (pdftex.def)             Requested size: 422.57771pt x 298.61488pt.
 ) (tex/Jim/classDiagram.tex
-<fig/classDiagram.jpg, id=389, 1789.68625pt x 1525.7pt>
+<fig/classDiagram.jpg, id=389, 2079.77pt x 1561.835pt>
 File: fig/classDiagram.jpg Graphic file (type jpg)
 
 <use fig/classDiagram.jpg>
 Package pdftex.def Info: fig/classDiagram.jpg used on input line 4.
-(pdftex.def)             Requested size: 465.30745pt x 396.67265pt.
- [11
+(pdftex.def)             Requested size: 540.72746pt x 406.06752pt.
 
- <./fig/domainModel.pdf, page is rotated 90 degrees>]) (tex/logique.tex [12 <./
-fig/classDiagram.jpg>]
+Overfull \hbox (68.69623pt too wide) in paragraph at lines 4--5
+ [][] 
+ []
+
+[11
+
+ <./fig/domainModel.pdf, page is rotated 90 degrees>]) (tex/logique.tex
+[12 <./fig/classDiagram.jpg>]
 <fig/packageDiagram.jpg, id=404, 341.275pt x 588.1975pt>
 File: fig/packageDiagram.jpg Graphic file (type jpg)
 
@@ -862,12 +867,12 @@ File: fig/activityDiagram.jpg Graphic file (type jpg)
 Package pdftex.def Info: fig/activityDiagram.jpg used on input line 26.
 (pdftex.def)             Requested size: 399.49152pt x 391.46155pt.
  [24 <./fig/StateDiagram.jpg>] [25 <./fig/activityDiagram.jpg>] <fig/triangular
-.jpg, id=494, 673.51625pt x 475.7775pt>
+.jpg, id=494, 751.80875pt x 499.8675pt>
 File: fig/triangular.jpg Graphic file (type jpg)
 
 <use fig/triangular.jpg>
 Package pdftex.def Info: fig/triangular.jpg used on input line 39.
-(pdftex.def)             Requested size: 336.7573pt x 237.88815pt.
+(pdftex.def)             Requested size: 375.90344pt x 249.93314pt.
 ) (tex/Charlo/Conclusion.tex [26 <./fig/triangular.jpg>]
 Chapitre 4.
 ) (tex/Jim/glossaire.tex [27
@@ -894,7 +899,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 51.
  ) 
 Here is how much of TeX's memory you used:
  9850 strings out of 493673
- 151278 string characters out of 3141537
+ 151278 string characters out of 3141531
  244193 words of memory out of 3000000
  12817 multiletter control sequences out of 15000+200000
  52618 words of font info for 38 fonts, out of 3000000 for 9000
@@ -907,7 +912,7 @@ MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9
 /public/lm/lmri12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/
 lmro12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb>
 
-Output written on "Rapport de developpement.pdf" (32 pages, 2101581 bytes).
+Output written on "Rapport de developpement.pdf" (32 pages, 2447670 bytes).
 PDF statistics:
  565 PDF objects out of 1000 (max. 8388607)
  153 named destinations out of 1000 (max. 500000)

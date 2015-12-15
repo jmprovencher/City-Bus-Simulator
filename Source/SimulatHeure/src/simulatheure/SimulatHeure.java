@@ -3321,19 +3321,15 @@ public class SimulatHeure extends javax.swing.JFrame {
     public static void main(String args[]) {
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-
-                try {
-                    UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
-                } catch (ParseException | UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-
-                new SimulatHeure().setVisible(true);
-           
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
+            } catch (ParseException | UnsupportedLookAndFeelException ex) {
+                Logger.getLogger(SimulatHeure.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            
+            new SimulatHeure().setVisible(true);
         });
     }
     
